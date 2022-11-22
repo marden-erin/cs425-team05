@@ -1,5 +1,6 @@
 # cs425-team05
 
-  Erin Marden <br /> 
-  Andrei Iorgulescu <br />
+
+  Erin E Marden <br /> 
+  Andrei N Iorgulescu <br />
   Jodi A Hieronymus
