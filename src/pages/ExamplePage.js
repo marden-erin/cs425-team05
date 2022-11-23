@@ -1,10 +1,13 @@
+// TODO: Delete this file when actual pages are added
+import { H1 } from "../components";
+
 function ExamplePage() {
   return (
     <div className="ExamplePage">
       <header className="ExamplePage-header">
-        <p>
+        <H1>
           Hello Brainy-ators!!
-        </p>
+        </H1>
         <a
           className="ExamplePage-link"
           href="https://reactjs.org"
