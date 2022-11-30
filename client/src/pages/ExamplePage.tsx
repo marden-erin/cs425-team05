@@ -2,14 +2,12 @@
 import React from 'react';
 
 import { H1, P } from '../components';
+import PageWrapper from '../components/complex-components/PageWrapper'; // *TODO: Fix so it imports from components
 
 function ExamplePage() {
   return (
-    <div className="ExamplePage">
+    <PageWrapper pageTitle="OuterWhorld" backgroundColor='#555555' titleColor='#999999'>
       <header className="ExamplePage-header">
-        <H1>
-          Hello Brainyators!
-        </H1>
         <P>
           Congrats!! If you can see this in your browser, then you got the project running!
         </P>
@@ -22,7 +20,7 @@ function ExamplePage() {
           Learn React
         </a>
       </header>
-    </div>
+    </PageWrapper>
   );
 }
 
