@@ -1,54 +1,65 @@
 import React, { Children, ReactNode } from 'react';
-import styled, { createGlobalStyle, css } from 'styled-components';
+import styled, { createGlobalStyle, css, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
 import { COLORS } from '../../constants';
-import { H1 } from '../simple-components';
+import { H1, NavBar } from '../../components';
 
 type WrapperProps = {
-    /**
-     * The name of the page
-     */
-    pageTitle?: string
     /**
      * Any props that come in the component (Actual page content)
      */
     children?: ReactNode
     /**
+     * The name of the page
+     */
+    pageTitle?: string
+    /**
      * The color of the site's background
      */
-     backgroundColor?: string
-     /**
-      * The color of the h1 text
-      */
-     titleColor?: string
+    backgroundColor?: string
+    /**
+     * The color of the h1 text
+     */
+    titleColor?: string
+    /**
+     * Other css
+     */
+    $css?: ThemedCssFunction<DefaultTheme>
 };
 
-const GlobalStyle = createGlobalStyle<{backgroundColor?: string}>`
+// *TODO: Remove font-family once fonts are added
+const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
     html {
         background: ${props => props.backgroundColor ? props.backgroundColor : COLORS.BLUE_DARK};
+        font-family: sans-serif;
     }
 `;
 
-const Wrapper = styled.div<{backgroundColor?: string}>`
-    
-    
+const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
+
 `;
 
-const PageTitle = styled(H1)<{fontColor?: string}>`
+const PageTitle = styled(H1)<{ fontColor?: string }>`
+    text-align: center;
     color: ${props => props.fontColor ? props.fontColor : COLORS.WHITE};
 `;
 
+// *TODO: Make page title change with pageTitle
 const PageWrapper = ({
-    pageTitle,
     children,
+    pageTitle,
     backgroundColor,
-    titleColor
+    titleColor,
+    $css
     }: WrapperProps) => {
     return(
         <>
             <GlobalStyle backgroundColor={backgroundColor} />
-            <Wrapper>
-                {pageTitle && (<PageTitle fontColor={titleColor} >{pageTitle}</PageTitle>)}
+            <Wrapper $css={$css}>
+            <header className="header">
+                <NavBar />
+                {pageTitle && (<PageTitle fontColor={titleColor}>{pageTitle}</PageTitle>)}
+            </header>
                 {children}
             </Wrapper>
         </>
