@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
-const FONTS_MAIN = css`
+const main = css`
     font-family: Optima, Verdana, Arial, Times;
 `;
 
-const FONTS_SECONDARY = css `
+const secondary = css `
     font-family: Baskerville, Optima,  Arial, Times;
 `;
 
-export {FONTS_MAIN, FONTS_SECONDARY}
+export {main, secondary}
