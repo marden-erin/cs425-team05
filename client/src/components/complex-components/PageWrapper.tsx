@@ -1,5 +1,5 @@
-import React, { Children, ReactNode } from 'react';
-import styled, { createGlobalStyle, css, DefaultTheme, ThemedCssFunction } from 'styled-components';
+import React, { ReactNode } from 'react';
+import styled, { createGlobalStyle, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
 import { COLORS } from '../../constants';
 import { H1, NavBar } from '../../components';
