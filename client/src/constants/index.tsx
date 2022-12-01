@@ -1,2 +1,2 @@
 export { COLORS } from "./Colors";
-export { main, secondary } from "./Fonts";
+export { FONTS_MAIN, FONTS_SECONDARY } from "./Fonts";
