@@ -30,7 +30,7 @@ type WrapperProps = {
 // *TODO: Remove font-family once fonts are added
 const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
     html {
-        background: ${props => props.backgroundColor ? props.backgroundColor : COLORS.BLUE_DARK};
+        background: ${props => props.backgroundColor ? props.backgroundColor : COLORS.BLURPLE};
         font-family: sans-serif;
     }
 `;

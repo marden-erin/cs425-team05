@@ -6,7 +6,7 @@ import { COLORS } from '../../constants';
 
 // This styling isn't final; just for testing and to demonstrate how we can use styled-components.
 const TextCss = css`
-    color: ${COLORS.BLUE_DARK};
+    color: ${COLORS.BLURPLE};
 `;
 
 const H1 = styled.h1`
