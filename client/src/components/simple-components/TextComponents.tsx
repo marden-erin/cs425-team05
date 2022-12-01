@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '../../constants';
-import { main, secondary } from '../../constants';
+import { FONTS_MAIN, FONTS_SECONDARY } from '../../constants';
 
 
 // This styling isn't final; just for testing and to demonstrate how we can use styled-components.
@@ -15,14 +15,14 @@ const TextCss = css`
 
 const H1 = styled.h1`
     ${TextCss}
-    ${main};
+    ${FONTS_MAIN};
 
     font-size: 10rem;
 `;
 
 const P = styled.p`
     ${TextCss}
-    ${secondary};
+    ${FONTS_SECONDARY};
     font-size: 1.6rem;
 `;
 
