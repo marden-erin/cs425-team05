@@ -28,8 +28,11 @@ Node version: `v18.12.1`
 
 ## To Run Server:
 1 - open terminal , run `cd server`
+
 2 - Run `npm i`
+
 3 - Run `npm run dev`
+
 4 - Terminal should say `Server running on port <Number>`
 
 ## It's recommended you have both UI and Server up and Running at the same time!  
