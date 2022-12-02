@@ -23,7 +23,7 @@ const getBook =  asyncHandler(async (req : Request ,res : Response) => {
         let filteredTenBooks: Book[] = [];
     
         firstTenBooks.forEach((element: { [x: string]: any }) => {
-           filteredTenBooks.push(
+            filteredTenBooks.push(
             {
                 title : element.volumeInfo.title,
                 authors : element.volumeInfo.authors,
