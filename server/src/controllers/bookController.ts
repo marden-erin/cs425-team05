@@ -1,13 +1,14 @@
 import {Request, Response} from 'express'
 import asyncHandler from 'express-async-handler'
 import fetch from 'node-fetch'
+import { HTTPStatus } from '../utils/Enums'
 import type { Book } from '../utils/Types'
 
 
 const getBook =  asyncHandler(async (req : Request ,res : Response) => {
     if (!req.params.bookTitle)
     {
-        res.status(400)
+        res.status(HTTPStatus.BAD)
         throw new Error('Missing book title')
     }
     
@@ -33,14 +34,12 @@ const getBook =  asyncHandler(async (req : Request ,res : Response) => {
            )
     
         });
-
-        console.log(formattedBookData)
     
-        res.status(200).json(filteredTenBooks)
+        res.status(HTTPStatus.OK).json(filteredTenBooks)
         return;
     }
 
-    res.status(400)
+    res.status(HTTPStatus.BAD)
     throw new Error('Retrieving book info failed')
 })
 
