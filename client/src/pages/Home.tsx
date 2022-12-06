@@ -13,7 +13,7 @@ const TEMP_DIV = styled.div`
   background-color: ${COLORS.WHITE};
 `;
 
-// *TODO: Remove pageTitle when logo is added
+// *TODO: Remove header when logo is added
 function Home() {
   return (
     <PageWrapper pageTitle="OuterWhorld" header="OuterWhorld">
