@@ -2,6 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '../../../constants';
+import { SearchBar } from '../SearchBar';
+
 import { SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
 
 const LinkStyle = css`
@@ -25,7 +27,7 @@ const LinkStyle = css`
 
 const NavWrapper = styled.div`
     height: 6rem;
-    padding: 0rem 5rem;
+    padding: 0rem 6rem 0rem 3rem;
     background-color: ${COLORS.BLUE_MID};
 
     display: flex;
@@ -49,10 +51,8 @@ const NavLink = styled.a`
     ${LinkStyle}
 `;
 
-const _TEMP_SearchBar = styled.div`
+const SearchBarWrapper = styled.div`
     width: 55rem;
-    height: 4.5rem;
-    background-color: ${COLORS.PURPLE_MID};
 `;
 
 const DropDownWrapper = styled.div`
@@ -118,7 +118,9 @@ export const NavBar = () => (
             <DropDownLink linkLabel='Cluster ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
             <DropDownLink linkLabel='Books ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
         </LinkWrapper>
-        <_TEMP_SearchBar />
+        <SearchBarWrapper>
+            <SearchBar />
+        </SearchBarWrapper>
     </NavWrapper>
 );
 

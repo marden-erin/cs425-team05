@@ -6,4 +6,8 @@ export const COLORS = {
     PURPLE_DARK: '#21033f', // Hover styling for PURPLE_MID
     WHITE: '#F5F5F5',
     BLACK: '#060606',
+};
+
+export const GRADIENTS = {
+    PURPLE: 'linear-gradient(180deg, rgba(96, 35, 157, 0.9) 0%, rgba(67, 35, 157, 0.9) 100%)'
 }

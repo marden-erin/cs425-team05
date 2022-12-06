@@ -1,8 +1,9 @@
 import React, { Children, ReactNode } from 'react';
 import styled, { createGlobalStyle, css, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
-import { COLORS } from '../../../constants';
-import { H1, NavBar } from '../../../components';
+import { COLORS, FONTS_SECONDARY } from '../../../constants';
+import { H1 } from '../../simple-components';
+import { NavBar } from '../NavBar';
 
 type WrapperProps = {
     /**
@@ -10,9 +11,13 @@ type WrapperProps = {
      */
     children?: ReactNode
     /**
-     * The name of the page
+     * The name of the page to be shown on the browser tab
      */
-    pageTitle?: string
+    pageTitle: string
+    /**
+     * The optional text to be shown in the H1
+     */
+    header?: string
     /**
      * The color of the site's background
      */
@@ -27,27 +32,29 @@ type WrapperProps = {
     $css?: ThemedCssFunction<DefaultTheme>
 };
 
-// *TODO: Remove font-family once fonts are added
+// Adding FONTS_SECONDARY as fallback in case we didn't set a font
 const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
     html {
         background: ${props => props.backgroundColor ? props.backgroundColor : COLORS.BLURPLE};
-        font-family: sans-serif;
+        ${FONTS_SECONDARY}
     }
 `;
 
+// TODO: Allow custom css to be passed in
 const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
 
 `;
 
-const PageTitle = styled(H1)<{ fontColor?: string }>`
+const Header = styled(H1)<{ fontColor?: string }>`
     text-align: center;
     color: ${props => props.fontColor ? props.fontColor : COLORS.WHITE};
 `;
 
 // *TODO: Make page title change with pageTitle
-const PageWrapper = ({
+export const PageWrapper = ({
     children,
     pageTitle,
+    header,
     backgroundColor,
     titleColor,
     $css
@@ -58,9 +65,11 @@ const PageWrapper = ({
             <Wrapper $css={$css}>
             <header className="header">
                 <NavBar />
-                {pageTitle && (<PageTitle fontColor={titleColor}>{pageTitle}</PageTitle>)}
+                {header && (<Header fontColor={titleColor}>{header}</Header>)}
             </header>
+            <body>
                 {children}
+            </body>
             </Wrapper>
         </>
     );

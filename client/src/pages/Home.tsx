@@ -2,11 +2,13 @@
 import React from 'react';
 
 import PageWrapper from '../components/complex-components/PageWrapper/PageWrapper'; // *TODO: Fix so it imports from components
+import { P } from '../components';
 
 // *TODO: Remove pageTitle when logo is added
 function Home() {
   return (
-    <PageWrapper pageTitle="OuterWhorld">
+    <PageWrapper pageTitle="OuterWhorld" header="OuterWhorld">
+      <P>Content goes here!</P>
     </PageWrapper>
   );
 }
