@@ -1,8 +1,8 @@
 import React, { Children, ReactNode } from 'react';
 import styled, { createGlobalStyle, css, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
-import { COLORS } from '../../constants';
-import { H1, NavBar } from '../../components';
+import { COLORS } from '../../../constants';
+import { H1, NavBar } from '../../../components';
 
 type WrapperProps = {
     /**
@@ -57,7 +57,7 @@ const PageWrapper = ({
             <GlobalStyle backgroundColor={backgroundColor} />
             <Wrapper $css={$css}>
             <header className="header">
-                
+                <NavBar />
                 {pageTitle && (<PageTitle fontColor={titleColor}>{pageTitle}</PageTitle>)}
             </header>
                 {children}

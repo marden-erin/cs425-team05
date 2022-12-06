@@ -1,10 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { COLORS } from '../../constants';
-
-// *TODO: Replace with links to pages
-const SnailImage = 'https://www.mindbounce.com/p/uploads/2020/05/ae6c6c09.jpg?height=200p&trim=2,2,2,2';
+import { COLORS } from '../../../constants';
+import { SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
 
 const LinkStyle = css`
     height: 6rem;
@@ -70,25 +68,55 @@ const DropDownContentWrapper = styled.div`
     z-index: 1;
 `;
 
-const DropDownLink = ({}) => (
+type DropDownItems = {
+    /**
+     * The clickable text shown on the link
+     */
+    linkLabel: string;
+    /**
+     * The url to link to
+     */
+    linkURL: string;
+}[];
+
+type DropDownProps = {
+    /**
+     * The clickable text shown on the link on the NavBar
+     */
+    linkLabel: string;
+    /**
+     * The url the link on the NavBar should go to
+     */
+    linkURL: string;
+    /**
+     * An array of elements to be rendered under the dropdown
+     */
+    dropDownItems: DropDownItems;
+};
+
+const DropDownLink = ({
+    linkLabel,
+    linkURL,
+    dropDownItems
+    }: DropDownProps) => (
     <DropDownWrapper>
-        <NavLink>Profile ↓</NavLink>
+        <NavLink href={linkURL}>{linkLabel}</NavLink>
         <DropDownContentWrapper className="dropdown-content">
-            <NavLink href={SnailImage}>Profile ↓</NavLink>
-            <NavLink href={SnailImage}>Cluster ↓</NavLink>
-            <NavLink href={SnailImage}>Books ↓</NavLink>
+            {dropDownItems.map(({linkLabel, linkURL}, index) => {
+                return(<NavLink className="dropdown-link" href={linkURL}>{linkLabel}</NavLink>);
+            })}
         </DropDownContentWrapper>
     </DropDownWrapper>
 );
 
-export const NavBar = ({}) => (
+export const NavBar = () => (
     <NavWrapper>
         <_TEMP_Logo />
         <LinkWrapper>
-            <NavLink href={SnailImage}>About</NavLink>
-            <DropDownLink />
-            <NavLink href={SnailImage}>Cluster ↓</NavLink>
-            <NavLink href={SnailImage}>Books ↓</NavLink>
+            <NavLink href={SnailImageURL}>About</NavLink>
+            <DropDownLink linkLabel='Profile ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
+            <DropDownLink linkLabel='Cluster ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
+            <DropDownLink linkLabel='Books ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
         </LinkWrapper>
         <_TEMP_SearchBar />
     </NavWrapper>
