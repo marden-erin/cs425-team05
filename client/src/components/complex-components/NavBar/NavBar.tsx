@@ -5,16 +5,17 @@ import { COLORS } from '../../../constants';
 import { SearchBar } from '../SearchBar';
 
 import { SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
+import Logo from '../../../imgs/logo.png';
 
 const LinkStyle = css`
-    height: 6rem;
+    height: 5rem;
     padding: 0rem 3rem;
     border: none;
     background-color: ${COLORS.BLUE_MID};
     transition: background-color 0.75s ease-out;
     cursor: pointer;
     text-decoration: none;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: ${COLORS.WHITE};
 
     display: flex;
@@ -26,8 +27,8 @@ const LinkStyle = css`
 `;
 
 const NavWrapper = styled.div`
-    height: 6rem;
-    padding: 0rem 6rem 0rem 3rem;
+    height: 5rem;
+    padding: 0.5rem 6rem 0.5rem 3rem;
     background-color: ${COLORS.BLUE_MID};
 
     display: flex;
@@ -40,11 +41,9 @@ const LinkWrapper = styled.div`
     gap: 2rem;
 `;
 
-// *TODO: Swap out with real logo
-const _TEMP_Logo = styled.div`
+const LogoLinkWrapper = styled.a`
     width: 20rem;
-    height: 6rem;
-    background-color: ${COLORS.PURPLE_MID};
+    height: 5rem;
 `;
 
 const NavLink = styled.a`
@@ -111,7 +110,9 @@ const DropDownLink = ({
 
 export const NavBar = () => (
     <NavWrapper>
-        <_TEMP_Logo />
+        <LogoLinkWrapper href="/">
+            <img src={Logo} alt="" role="presentation" width="150px" />
+        </LogoLinkWrapper>
         <LinkWrapper>
             <NavLink href={SnailImageURL}>About</NavLink>
             <DropDownLink linkLabel='Profile ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />

@@ -33,7 +33,7 @@ const HalfRoundedCss = css`
 `;
 
 const SmallCss = css`
-    font-size: 2rem;
+    font-size: 1.6rem;
     padding: 0.7rem 0.8rem;
 `;
 
