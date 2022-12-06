@@ -59,7 +59,7 @@ const _TEMP_SearchBar = styled.div`
     background-color: ${COLORS.PURPLE_MID};
 `;
 
-type DropDownItem = {
+type DropDownItems = {
     /**
      * The clickable text shown on the link
      */
@@ -68,13 +68,21 @@ type DropDownItem = {
      * The url to link to
      */
     linkURL: string;
-};
+}[];
 
 type DropDownProps = {
     /**
+     * The clickable text shown on the link on the NavBar
+     */
+    linkLabel: string;
+    /**
+     * The url the link on the NavBar should go to
+     */
+    linkURL: string;
+    /**
      * An array of elements to be rendered under the dropdown
      */
-    dropDownItems: Array<DropDownItem>;
+    dropDownItems: DropDownItems;
 };
 
 const DropDownWrapper = styled.div`
@@ -102,7 +110,8 @@ const SampleItems = [
     {
         linkLabel: 'Option 1',
         linkURL: SnailImage
-    },{
+    },
+    {
         linkLabel: 'Option 2',
         linkURL: SnailImage
     },
@@ -117,7 +126,7 @@ const DropDownLink = ({
     linkLabel,
     linkURL,
     dropDownItems
-    }: DropDownItem & DropDownProps) => (
+    }: DropDownProps) => (
     <DropDownWrapper>
         <NavLink href={linkURL}>{linkLabel}</NavLink>
         <DropDownContentWrapper className="dropdown-content">

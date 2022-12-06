@@ -57,7 +57,7 @@ const PageWrapper = ({
             <GlobalStyle backgroundColor={backgroundColor} />
             <Wrapper $css={$css}>
             <header className="header">
-                <NavBar />
+                
                 {pageTitle && (<PageTitle fontColor={titleColor}>{pageTitle}</PageTitle>)}
             </header>
                 {children}
