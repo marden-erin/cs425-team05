@@ -1,9 +1,10 @@
 import React, { Children, ReactNode } from 'react';
 import styled, { createGlobalStyle, css, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
-import { COLORS, FONTS_SECONDARY } from '../../../constants';
 import { H1 } from '../../simple-components';
 import { NavBar } from '../NavBar';
+import { COLORS, FONTS_SECONDARY } from '../../../constants';
+import PlanetImg from '../../../imgs/planet.png';
 
 type WrapperProps = {
     /**
@@ -44,6 +45,9 @@ const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
 const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
 
 `;
+
+// TODO: Add image, wrapper to html
+const BackgroundWrapper = styled.div``;
 
 const Header = styled(H1)<{ fontColor?: string }>`
     text-align: center;
