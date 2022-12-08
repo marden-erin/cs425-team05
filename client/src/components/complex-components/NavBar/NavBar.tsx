@@ -9,6 +9,7 @@ import { SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
 
 const LinkStyle = css`
+    width: 7.5rem;
     height: 5rem;
     padding: 0rem 3rem;
     border: none;
@@ -21,6 +22,7 @@ const LinkStyle = css`
 
     display: flex;
     align-items: center;
+    justify-content: center;
 
     :hover {
         background-color: ${COLORS.BLUE_DARK};
