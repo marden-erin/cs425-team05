@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { FiChevronDown } from "react-icons/fi";
 
 import { COLORS } from '../../../constants';
 import { SearchBar } from '../SearchBar';
@@ -48,6 +49,8 @@ const LogoLinkWrapper = styled.a`
 
 const NavLink = styled.a`
     ${LinkStyle}
+    display: flex;
+    gap: 4px;
 `;
 
 const SearchBarWrapper = styled.div`
@@ -97,16 +100,21 @@ const DropDownLink = ({
     linkLabel,
     linkURL,
     dropDownItems
-    }: DropDownProps) => (
-    <DropDownWrapper>
-        <NavLink href={linkURL}>{linkLabel}</NavLink>
-        <DropDownContentWrapper className="dropdown-content">
-            {dropDownItems.map(({linkLabel, linkURL}, index) => {
-                return(<NavLink className="dropdown-link" href={linkURL}>{linkLabel}</NavLink>);
-            })}
-        </DropDownContentWrapper>
-    </DropDownWrapper>
-);
+    }: DropDownProps) => {
+        return(
+            <DropDownWrapper>
+                <NavLink href={linkURL}>
+                    {linkLabel}
+                    <FiChevronDown role="presentation" size="2rem" />
+                </NavLink>
+                <DropDownContentWrapper className="dropdown-content">
+                    {dropDownItems.map(({linkLabel, linkURL}, index) => {
+                        return(<NavLink className="dropdown-link" href={linkURL}>{linkLabel}</NavLink>);
+                    })}
+                </DropDownContentWrapper>
+            </DropDownWrapper>
+        );
+    };
 
 export const NavBar = () => (
     <NavWrapper>
@@ -115,9 +123,9 @@ export const NavBar = () => (
         </LogoLinkWrapper>
         <LinkWrapper>
             <NavLink href={SnailImageURL}>About</NavLink>
-            <DropDownLink linkLabel='Profile ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
-            <DropDownLink linkLabel='Cluster ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
-            <DropDownLink linkLabel='Books ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
+            <DropDownLink linkLabel='Profile' linkURL={SnailImageURL} dropDownItems={SampleItems} />
+            <DropDownLink linkLabel='Cluster' linkURL={SnailImageURL} dropDownItems={SampleItems} />
+            <DropDownLink linkLabel='Books' linkURL={SnailImageURL} dropDownItems={SampleItems} />
         </LinkWrapper>
         <SearchBarWrapper>
             <SearchBar />
