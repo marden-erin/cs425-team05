@@ -46,8 +46,12 @@ const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
 
 `;
 
-// TODO: Add image, wrapper to html
-const BackgroundWrapper = styled.div``;
+const BackgroundWrapper = styled.div`
+    background-image: url(${PlanetImg});
+    background-size: 75%;
+    background-position: right center;
+    background-repeat: no-repeat;
+`;
 
 const Header = styled(H1)<{ fontColor?: string }>`
     text-align: center;
@@ -67,6 +71,7 @@ export const PageWrapper = ({
         <>
             <GlobalStyle backgroundColor={backgroundColor} />
             <Wrapper $css={$css}>
+                <BackgroundWrapper>
             <header className="header">
                 <NavBar />
                 {header && (<Header fontColor={titleColor}>{header}</Header>)}
@@ -74,6 +79,7 @@ export const PageWrapper = ({
             <body>
                 {children}
             </body>
+                </BackgroundWrapper>
             </Wrapper>
         </>
     );

@@ -18,7 +18,7 @@ function Home() {
   return (
     <PageWrapper pageTitle="OuterWhorld">
       <h1>
-          <img src={Logo} alt="OuterWhorld" width="700" />
+          <img src={Logo} alt="OuterWhorld" width="550" />
       </h1>
       <TEMP_DIV>
         <P>Content goes here!</P>
