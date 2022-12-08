@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
 
 const FONTS_MAIN = css`
     font-family: Optima, Verdana, Arial, Times;

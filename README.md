@@ -13,6 +13,8 @@
 ### Jodi A Hieronymus
 - Project setup, front-end package installation, repository organization
 
+- Created page wrapper, homepage
+
 Node version: `v18.12.1`
 
 ## To Run UI:

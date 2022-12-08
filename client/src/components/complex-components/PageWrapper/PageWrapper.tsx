@@ -1,5 +1,5 @@
-import React, { Children, ReactNode } from 'react';
-import styled, { createGlobalStyle, css, DefaultTheme, ThemedCssFunction } from 'styled-components';
+import { ReactNode } from 'react';
+import styled, { createGlobalStyle, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
 import { H1 } from '../../simple-components';
 import { NavBar } from '../NavBar';

@@ -1,13 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 
-import { COLORS, FONTS_MAIN, FONTS_SECONDARY} from '../../constants';
+import { COLORS} from '../../constants';
 
-// NOTE: Inputs stretch to fill width of container.
+// NOTE: ThinInputs stretch to fill width of container.
 
-// POST PROTOTYPE TODO: Split up like Button
-const Input = styled.input`
+const InputCss = css`
     width: auto;
     flex-grow: 1;
 
@@ -21,4 +18,9 @@ const Input = styled.input`
     }
 `;
 
-export { Input };
+// TODO: Thick Inputs will have padding
+const ThinInput = styled.input`
+    ${InputCss}
+`;
+
+export { ThinInput };

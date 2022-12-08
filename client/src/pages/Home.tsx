@@ -1,9 +1,7 @@
-// TODO: Delete this file when actual pages are added
 import React from 'react';
 import styled from 'styled-components';
 
-import PageWrapper from '../components/complex-components/PageWrapper/PageWrapper'; // *TODO: Fix so it imports from components
-import { P } from '../components';
+import { P, PageWrapper } from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 
