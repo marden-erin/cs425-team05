@@ -1,26 +1,84 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { P, PageWrapper } from '../components';
+import { H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
+import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
 
-const TEMP_DIV = styled.div`
-  width: 600px;
-  height: 600px;
+const ColumnFlexCss = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
+const FlexBoxWrapper = styled.div`
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-right: 50px;
+`;
+
+const RightContentWrapper = styled.div`
+  ${ColumnFlexCss}
+  gap: 10px;
+
+  > .subtitle {
+    width: 475px;
+  }
+`;
+
+const LoginContainer = styled.div`
+  ${ColumnFlexCss}
+  justify-content: center;
+  width: 450px;
+  height: 225px;
+  background-color: ${COLORS.PURPLE_LIGHT};
+  border-radius: 25px;
+  gap: 20px;
+  margin-top: 25px;
+`;
+
+const LoginPromptH2 = styled(H2)`
+  color: ${COLORS.BLACK};
+  font-weight: 300;
+  font-style: italic;
+`;
+
+// POST-PROTOTYPE TODO: Replace with Google login API
+const _TEMP_LoginButton = styled.div`
+  width: 250px;
+  height: 100px;
+  text-align: center;
   background-color: ${COLORS.WHITE};
+
+  > p {
+    margin-top: 6px;
+  }
 `;
 
 function Home() {
   return (
     <PageWrapper pageTitle="OuterWhorld">
-      <h1>
-          <img src={Logo} alt="OuterWhorld" width="550" />
-      </h1>
-      <TEMP_DIV>
-        <P>Content goes here!</P>
-      </TEMP_DIV>
+      <FlexBoxWrapper>
+        <img src={YellowDefaultSnail} alt="A happy yellow snail" width="400" />
+        <RightContentWrapper>
+          <h1>
+              <img src={Logo} alt="OuterWhorld" width="400" />
+          </h1>
+          <SubTitle className="subtitle" >Adopt and feed an astronaut snail by reading books you love!</SubTitle>
+          <LoginContainer>
+            <LoginPromptH2>Let's get Reading!</LoginPromptH2>
+            <_TEMP_LoginButton>
+              <P>TEMPORARY</P>
+              <P>Login with Google</P>
+              <P>Appearance of this button will be determined by API</P>
+            </_TEMP_LoginButton>
+          </LoginContainer>
+        </RightContentWrapper>
+      </FlexBoxWrapper>
     </PageWrapper>
   );
 }
