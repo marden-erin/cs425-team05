@@ -15,12 +15,12 @@ const getBook =  asyncHandler(async (req : Request, res : Response) => {
 
     const bookTitle = req.query.bookTitle;
 
-    const query = `select * from books where bookTitle='${bookTitle}';`;
+    const query = `select * from books where bookTitle like '%${bookTitle}%';`;
     const [books] : any[] = await db.promise().query(query);
 
-    if (books.length > 0)
+    // If we have more than 5 versions of the book stored, then return those books from DB.
+    if (books.length > 5)
     {
-        console.log("IN");
         res.status(HTTPStatus.OK).json(books);
     }
     else
@@ -34,24 +34,47 @@ const getBook =  asyncHandler(async (req : Request, res : Response) => {
     
             const filteredTenBooks: Book[] = [];
         
-            firstTenBooks.forEach((element: { [x: string]: any }) => {
+            for (const element of firstTenBooks) {
+                const title = element.volumeInfo.title;
+                const authors = element.volumeInfo.authors;
+                const pageCount = element.volumeInfo.pageCount;
                 const description = element.volumeInfo.description;
-                const edited = description.replace(/[']/g, "");
+                const cover = element.volumeInfo.imageLinks;
 
-                const query = `insert ignore into books(book_id, bookTitle, author, pageCount, description, bookCover) values(DEFAULT, '${element.volumeInfo.title}', '${element.volumeInfo.authors[0]}', '${element.volumeInfo.pageCount}', '${edited}', '${element.volumeInfo.imageLinks.thumbnail}');`;
-                db.query(query);
-
-                filteredTenBooks.push(
+                if (title && authors && pageCount && description && cover)
                 {
-                    title : element.volumeInfo.title,
-                    authors : element.volumeInfo.authors,
-                    pageCount: element.volumeInfo.pageCount,
-                    description: element.volumeInfo.description,
-                    covers: element.volumeInfo.imageLinks
-                }
-               )
-            });
+                    const editedDescription = description.replace(/"/g, "''");
+                    const editedTitle = title.replace(/"/g, "''");
+
+                    try {
+                        let query = `insert ignore into books(book_id, bookTitle, pageCount, description, bookCover) values(DEFAULT, "${editedTitle}", "${pageCount}", "${editedDescription}", "${cover.thumbnail}");`;
+                        db.query(query);
         
+                        query = `select book_id from books where bookTitle="${editedTitle}";`
+                        const [row] : any[] = await db.promise().query(query);
+                        const book_id = row[0].book_id;
+                        
+                        authors.forEach((author: string) => {
+                            query = `insert ignore into book_author(book_id, author) values(${book_id}, '${author}');`
+                            db.query(query);
+                        })
+        
+                        filteredTenBooks.push(
+                        {
+                            title : element.volumeInfo.title,
+                            authors : element.volumeInfo.authors,
+                            pageCount: element.volumeInfo.pageCount,
+                            description: element.volumeInfo.description,
+                            cover: element.volumeInfo.imageLinks.thumbnail
+                        }
+                       )
+                    } catch (err: any) {
+                        res.status(HTTPStatus.BAD).json(err.sqlMessage);
+                        throw new Error(err);
+                    }
+
+                }
+            }
             res.status(HTTPStatus.OK).json(filteredTenBooks);
         }
         else

@@ -3,8 +3,5 @@ export type Book = {
     authors : string[],
     pageCount: number,
     description: string,
-    covers: {
-        smallThumbnail: string,
-        thumbnail: string
-    }
+    cover: string
 }
