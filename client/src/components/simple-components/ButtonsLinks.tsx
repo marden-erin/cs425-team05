@@ -32,6 +32,11 @@ const HalfRoundedCss = css`
     border-radius: 0px 5px 5px 0px;
 `;
 
+const RoundedCss = css`
+    border-radius: 5px 5px 5px 5px;
+`
+
+
 const SmallCss = css`
     font-size: 2rem;
     padding: 0.7rem 0.8rem;
@@ -46,4 +51,13 @@ const SmallHalfRoundedButton = styled.button<{ color?: ColorType }>`
     ${props => ColorCss(props.color)}
 `;
 
-export { SmallHalfRoundedButton };
+const SmallRoundedButton = styled.button<{ color?: ColorType }>`
+    ${ButtonCss}
+    ${RoundedCss}
+    ${SmallCss}
+
+    ${props => ColorCss(props.color)}
+`;
+
+
+export { SmallHalfRoundedButton, SmallRoundedButton };
