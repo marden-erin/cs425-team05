@@ -9,7 +9,6 @@ const ButtonCss = css`
     transition: background-color 0.75s ease-out;
 `;
 
-
 const ColorCss = ( color: ColorType ) => {
     switch(color){
         case 'green':
@@ -32,9 +31,6 @@ const ColorCss = ( color: ColorType ) => {
 const HalfRoundedCss = css`
     border-radius: 0px 5px 5px 0px;
 `;
-const RoundedCss = css`
-    border-radius: 5px 5px 5px 5px;
-`
 
 const SmallCss = css`
     font-size: 2rem;
@@ -49,14 +45,5 @@ const SmallHalfRoundedButton = styled.button<{ color?: ColorType }>`
 
     ${props => ColorCss(props.color)}
 `;
-const SmallRoundedButton = styled.button<{ color?: ColorType }>`
-    ${ButtonCss}
-    ${RoundedCss}
-    ${SmallCss}
 
-    ${props => ColorCss(props.color)}
-`;
-
-
-
-export { SmallHalfRoundedButton, SmallRoundedButton };
+export { SmallHalfRoundedButton };
