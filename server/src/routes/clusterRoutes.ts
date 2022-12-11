@@ -10,9 +10,9 @@ const clusterRouter = express.Router();
 
 clusterRouter.get("/", getCluster);
 
-clusterRouter.put("/", addCluster);
+clusterRouter.put("/", updateCluster);
 
-clusterRouter.post("/", updateCluster);
+clusterRouter.post("/", addCluster);
 
 clusterRouter.delete("/", deleteCluster);
 

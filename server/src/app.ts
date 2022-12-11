@@ -1,6 +1,7 @@
 import express from "express";
 import bookRouter from "./routes/bookRoutes";
 import clusterRouter from "./routes/clusterRoutes";
+import bodyParser from 'body-parser'
 
 const app = express();
 

@@ -44,7 +44,10 @@ const getCluster = asyncHandler(async (req: Request, res: Response) => {
 const addCluster = asyncHandler(async (req: Request, res: Response) => {
 	const { clusterName, userName, visibility } = req.body;
 
-	if (clusterName && userName && visibility) {
+	if (
+		(clusterName && userName && visibility) ||
+		(clusterName && userName && (visibility === false))
+	) {
 		const filteredClusterName = clusterName.replace(/"/g, "''");
 		const filteredUserName = userName.replace(/"/g, "''");
 
