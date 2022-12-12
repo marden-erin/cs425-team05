@@ -4,13 +4,12 @@ import { FiChevronDown } from "react-icons/fi";
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
-import { SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
+import { PrototypePages, SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
 
 const LinkStyle = css`
-    width: 7.5rem;
+    width: 15rem;
     height: 5rem;
-    padding: 0rem 3rem;
     border: none;
     background-color: ${COLORS.BLUE_MID};
     transition: background-color 0.75s ease-out;
@@ -117,6 +116,7 @@ const DropDownLink = ({
         );
     };
 
+// POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
 export const NavBar = () => (
     <NavWrapper>
         <LogoLinkWrapper href="/">
@@ -124,7 +124,7 @@ export const NavBar = () => (
         </LogoLinkWrapper>
         <LinkWrapper>
             <NavLink href={SnailImageURL}>About</NavLink>
-            <DropDownLink linkLabel='Profile' linkURL={SnailImageURL} dropDownItems={SampleItems} />
+            <DropDownLink linkLabel='Prototype' linkURL={SnailImageURL} dropDownItems={PrototypePages} />
             <DropDownLink linkLabel='Cluster' linkURL={SnailImageURL} dropDownItems={SampleItems} />
             <DropDownLink linkLabel='Books' linkURL={SnailImageURL} dropDownItems={SampleItems} />
         </LinkWrapper>
