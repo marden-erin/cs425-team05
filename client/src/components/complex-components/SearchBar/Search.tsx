@@ -4,9 +4,11 @@ import styled from 'styled-components';
 import PageWrapper from '../PageWrapper/PageWrapper'; // *TODO: Fix so it imports from components
 import { P } from '../..';
 import { COLORS } from '../../../constants';
-import Book from '../../simple-components/Book';
+import BookData from '../../simple-components/Book';
 import { SearchBar } from '.';
 import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
+import { Book } from '../../../../../server/src/utils/Types';
+import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 
 
 const SearchBarWrapper = styled.div`
@@ -15,25 +17,7 @@ const SearchBarWrapper = styled.div`
     width: 55rem;
 
 `;
-type BookData = {
-    title: string,
-    authors: string[],
-    description: string,
-    pageCount: number,
-    covers: {
-      smallThumbnail: string,
-      thumbnail: string
-    }, 
-    epub: {
-      isAvailable: boolean,
-      accTokenLink ?: string
-    },
-    pdf: {
-      isAvailable: boolean,
-      accTokenLink ?: string
-    }
-
-}
+// 
 
 
 const TEMP_DIV = styled.div`
@@ -44,16 +28,14 @@ const TEMP_DIV = styled.div`
 `;
 
 const Search = () => {
-    const [bookInfo, setBookInfo] = useState({} as BookData)
+    const [bookInfo, setBookInfo] = useState({} as Book)
     const [input, setInput] = useState("")
   
   
     // just an example of how to use the API. If you don't include the bookTitle param you will be given an error
-    const loadData = async(e: React.FormEvent<HTMLFormElement>) => {
+    const loadData = async(e: any) => {
       e.preventDefault()
-      const res = await fetch(`/api/book/${input}`);
-      const data = await res.json();
-  
+      const data = await OWServiceProvider.getBookInfo(input)
       setBookInfo(data[0])
     }
 
@@ -72,7 +54,7 @@ const Search = () => {
           </SearchBarWrapper>
         </form>
         <div>
-          <Book {...bookInfo}></Book>
+          <BookData {...bookInfo}></BookData>
         </div>
         </>
      // </PageWrapper>

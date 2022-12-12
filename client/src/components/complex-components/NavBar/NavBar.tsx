@@ -3,8 +3,7 @@ import styled, { css } from 'styled-components';
 import { FiChevronDown } from "react-icons/fi";
 
 import { COLORS } from '../../../constants';
-import { SearchBar } from '../SearchBar';
-
+import Search from '../SearchBar/Search';
 import { SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
 
@@ -130,7 +129,7 @@ export const NavBar = () => (
             <DropDownLink linkLabel='Books' linkURL={SnailImageURL} dropDownItems={SampleItems} />
         </LinkWrapper>
         <SearchBarWrapper>
-            <SearchBar />
+            <Search />
         </SearchBarWrapper>
     </NavWrapper>
 );

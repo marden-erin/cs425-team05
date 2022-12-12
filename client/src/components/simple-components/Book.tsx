@@ -1,3 +1,5 @@
+import { Book } from "../../../../server/src/utils/Types";
+
 const cardStyles = {
     container: {
       height: 100,
@@ -13,36 +15,36 @@ const cardStyles = {
     },
   };
 
-type BookData = {
-    title: string,
-    authors: string[],
-    description: string,
-    pageCount: number,
-    covers: {
-      smallThumbnail: string,
-      thumbnail: string
-    }, 
-    epub: {
-isAvailable: boolean,
-      accTokenLink ?: string
-    },
-    pdf: {
-      isAvailable: boolean,
-      accTokenLink ?: string
-    }
+// type BookData = {
+//     title: string,
+//     authors: string[],
+//     description: string,
+//     pageCount: number,
+//     covers: {
+//       smallThumbnail: string,
+//       thumbnail: string
+//     }, 
+//     epub: {
+// isAvailable: boolean,
+//       accTokenLink ?: string
+//     },
+//     pdf: {
+//       isAvailable: boolean,
+//       accTokenLink ?: string
+//     }
 
-}
+// }
 
-function Book( book : BookData) {
-    const {title, authors, description, pageCount, covers} = book
+function BookData( book : Book) {
+    const {title, authors, description, pageCount, cover} = book
 
     console.log(title)
     console.log(authors)
     console.log(description)
     console.log(pageCount)
-    console.log(covers)
+    console.log(cover)
 
-      const shouldDisplay = title && authors && description && pageCount && covers 
+      const shouldDisplay = title && authors && description && pageCount && cover
 
       // const isArray = Array.isArray(authors)
   return (
@@ -56,9 +58,9 @@ function Book( book : BookData) {
                   return <p> {item}</p>
               })}
         </div>
-        <div>
-            <img src={covers.thumbnail} alt={title + " cover"}/>
-        </div>
+        {/* <div>
+            <img src={cover.thumbnail} alt={title + " cover"}/>
+        </div> */}
         <div>
           <p>{pageCount} pages</p>
           <p> {description}</p>
@@ -69,4 +71,4 @@ function Book( book : BookData) {
 
   )
 }
-export default Book
+export default BookData

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import PageWrapper from '../components/complex-components/PageWrapper/PageWrapper'; // *TODO: Fix so it imports from components
 import { COLORS, FONTS_SECONDARY } from '../constants';
-import {SmallHalfRoundedButton, SmallRoundedButton, Input } from "../components/simple-components"
+import {SmallHalfRoundedButton, SmallRoundedButton,ThinInput } from "../components/simple-components"
 
 const HEADER= styled.div`
   text-align: center;
@@ -75,7 +75,7 @@ function CreateCluster(){
                     </NAME>
                     <InputBarWrapper>
                     
-                    <Input placeholder="Enter Cluster Name" />
+                    <ThinInput placeholder="Enter Cluster Name" />
                     <SmallHalfRoundedButton>Continue</SmallHalfRoundedButton>
 
                     </InputBarWrapper>
