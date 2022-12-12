@@ -20,6 +20,7 @@ const SearchBarWrapper = styled.div`
 // 
 
 
+
 const TEMP_DIV = styled.div`
   width: 600px;
   height: 600px;

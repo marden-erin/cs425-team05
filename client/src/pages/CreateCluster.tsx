@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 import PageWrapper from '../components/complex-components/PageWrapper/PageWrapper'; // *TODO: Fix so it imports from components
 import { COLORS, FONTS_SECONDARY } from '../constants';
 import {SmallHalfRoundedButton, SmallRoundedButton,ThinInput } from "../components/simple-components"
+import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const HEADER= styled.div`
   text-align: center;
@@ -18,7 +19,7 @@ width: 503px;
 height: 234px;
 left: 468px;
 top: 300px;
-background: rgba(202, 200, 231, 0.8);
+background-color: ${COLORS.PURPLE_LIGHT};
 border-radius: 22px;
 `;
 
@@ -55,12 +56,37 @@ const SmallBoxWords = styled.div`
     color: ${COLORS.WHITE};
     text-align: center;
 `;
+const OutPut = styled.div`
+    font-size: 2rem;
+    font-weight: 200;
+    color: ${COLORS.WHITE};
+    padding: 10px
+`
 
 function CreateCluster(){
+    const userName = "andrei"
+    const [input, setInput] = useState("")
+    const visibility = false
+    const [outPut, setOutput] = useState("")
+
+  
+  
+    // just an example of how to use the API. If you don't include the bookTitle param you will be given an error
+    const loadData = async(e: any) => {
+      e.preventDefault()
+      const create = await OWServiceProvider.createCluster(input, userName, visibility)
+      console.log(create)
+      setOutput(create)
+    }
+
+
     return(
         <PageWrapper pageTitle="createCluster" header="Create Your Cluster">
             <HEADER>
                 Your Cluster will contain the books you would like to save for later.
+                </HEADER>
+
+                <form onSubmit={loadData}>
                 <BOX>
                     <SmallButtonWrapper>
                     <SmallRoundedButton>
@@ -74,15 +100,14 @@ function CreateCluster(){
                        Name:
                     </NAME>
                     <InputBarWrapper>
-                    
-                    <ThinInput placeholder="Enter Cluster Name" />
+                    <ThinInput placeholder="Enter Cluster Name" value={input} 
+                    onChange={(e) => setInput(e.target.value)}></ThinInput>
                     <SmallHalfRoundedButton>Continue</SmallHalfRoundedButton>
-
                     </InputBarWrapper>
-                </BOX>
+                <OutPut>{outPut}</OutPut></BOX></form>
+              
 
-            </HEADER>
-        </PageWrapper>
+\        </PageWrapper>
     );
 }
 

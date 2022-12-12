@@ -15,26 +15,6 @@ const cardStyles = {
     },
   };
 
-// type BookData = {
-//     title: string,
-//     authors: string[],
-//     description: string,
-//     pageCount: number,
-//     covers: {
-//       smallThumbnail: string,
-//       thumbnail: string
-//     }, 
-//     epub: {
-// isAvailable: boolean,
-//       accTokenLink ?: string
-//     },
-//     pdf: {
-//       isAvailable: boolean,
-//       accTokenLink ?: string
-//     }
-
-// }
-
 function BookData( book : Book) {
     const {title, authors, description, pageCount, cover} = book
 
