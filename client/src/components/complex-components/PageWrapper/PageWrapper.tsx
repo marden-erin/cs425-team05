@@ -1,9 +1,10 @@
-import React, { Children, ReactNode } from 'react';
-import styled, { createGlobalStyle, css, DefaultTheme, ThemedCssFunction } from 'styled-components';
+import { ReactNode } from 'react';
+import styled, { createGlobalStyle, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
-import { COLORS, FONTS_SECONDARY } from '../../../constants';
 import { H1 } from '../../simple-components';
 import { NavBar } from '../NavBar';
+import { COLORS, FONTS_SECONDARY } from '../../../constants';
+import PlanetImg from '../../../imgs/planet.png';
 
 type WrapperProps = {
     /**
@@ -42,7 +43,10 @@ const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
 
 // TODO: Allow custom css to be passed in
 const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
-
+    background-image: url(${PlanetImg});
+    background-size: 75%;
+    background-position: right center;
+    background-repeat: no-repeat;
 `;
 
 const Header = styled(H1)<{ fontColor?: string }>`
