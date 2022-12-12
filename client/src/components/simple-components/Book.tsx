@@ -57,7 +57,7 @@ function Book( book : BookData) {
               })}
         </div>
         <div>
-            <img src={covers.thumbnail} />
+            <img src={covers.thumbnail} alt={title + " cover"}/>
         </div>
         <div>
           <p>{pageCount} pages</p>

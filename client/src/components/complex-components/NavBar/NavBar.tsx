@@ -1,24 +1,28 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { FiChevronDown } from "react-icons/fi";
 
 import { COLORS } from '../../../constants';
 import { SearchBar } from '../SearchBar';
 
 import { SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
+import Logo from '../../../imgs/logo.png';
 
 const LinkStyle = css`
-    height: 6rem;
+    width: 7.5rem;
+    height: 5rem;
     padding: 0rem 3rem;
     border: none;
     background-color: ${COLORS.BLUE_MID};
     transition: background-color 0.75s ease-out;
     cursor: pointer;
     text-decoration: none;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: ${COLORS.WHITE};
 
     display: flex;
     align-items: center;
+    justify-content: center;
 
     :hover {
         background-color: ${COLORS.BLUE_DARK};
@@ -26,8 +30,8 @@ const LinkStyle = css`
 `;
 
 const NavWrapper = styled.div`
-    height: 6rem;
-    padding: 0rem 6rem 0rem 3rem;
+    height: 5rem;
+    padding: 0.5rem 6rem 0.5rem 3rem;
     background-color: ${COLORS.BLUE_MID};
 
     display: flex;
@@ -40,15 +44,15 @@ const LinkWrapper = styled.div`
     gap: 2rem;
 `;
 
-// *TODO: Swap out with real logo
-const _TEMP_Logo = styled.div`
+const LogoLinkWrapper = styled.a`
     width: 20rem;
-    height: 6rem;
-    background-color: ${COLORS.PURPLE_MID};
+    height: 5rem;
 `;
 
 const NavLink = styled.a`
     ${LinkStyle}
+    display: flex;
+    gap: 4px;
 `;
 
 const SearchBarWrapper = styled.div`
@@ -98,25 +102,32 @@ const DropDownLink = ({
     linkLabel,
     linkURL,
     dropDownItems
-    }: DropDownProps) => (
-    <DropDownWrapper>
-        <NavLink href={linkURL}>{linkLabel}</NavLink>
-        <DropDownContentWrapper className="dropdown-content">
-            {dropDownItems.map(({linkLabel, linkURL}, index) => {
-                return(<NavLink className="dropdown-link" href={linkURL}>{linkLabel}</NavLink>);
-            })}
-        </DropDownContentWrapper>
-    </DropDownWrapper>
-);
+    }: DropDownProps) => {
+        return(
+            <DropDownWrapper>
+                <NavLink href={linkURL}>
+                    {linkLabel}
+                    <FiChevronDown role="presentation" size="2rem" />
+                </NavLink>
+                <DropDownContentWrapper className="dropdown-content">
+                    {dropDownItems.map(({linkLabel, linkURL}, index) => {
+                        return(<NavLink className="dropdown-link" href={linkURL}>{linkLabel}</NavLink>);
+                    })}
+                </DropDownContentWrapper>
+            </DropDownWrapper>
+        );
+    };
 
 export const NavBar = () => (
     <NavWrapper>
-        <_TEMP_Logo />
+        <LogoLinkWrapper href="/">
+            <img src={Logo} alt="" role="presentation" width="150px" />
+        </LogoLinkWrapper>
         <LinkWrapper>
             <NavLink href={SnailImageURL}>About</NavLink>
-            <DropDownLink linkLabel='Profile ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
-            <DropDownLink linkLabel='Cluster ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
-            <DropDownLink linkLabel='Books ↓' linkURL={SnailImageURL} dropDownItems={SampleItems} />
+            <DropDownLink linkLabel='Profile' linkURL={SnailImageURL} dropDownItems={SampleItems} />
+            <DropDownLink linkLabel='Cluster' linkURL={SnailImageURL} dropDownItems={SampleItems} />
+            <DropDownLink linkLabel='Books' linkURL={SnailImageURL} dropDownItems={SampleItems} />
         </LinkWrapper>
         <SearchBarWrapper>
             <SearchBar />
