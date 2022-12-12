@@ -12,6 +12,7 @@ const ColumnFlexCss = css`
   align-items: center;
 `;
 
+// POST-PROTOTYPE TODO: Add pause button for animation (A11Y)
 const FlexBoxWrapper = styled.div`
   height: 85vh;
   display: flex;
@@ -19,6 +20,19 @@ const FlexBoxWrapper = styled.div`
   justify-content: center;
   gap: 100px;
   margin-right: 50px;
+
+  .snail {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); }   
+  }
 `;
 
 const RightContentWrapper = styled.div`
@@ -63,7 +77,7 @@ function Home() {
   return (
     <PageWrapper pageTitle="OuterWhorld">
       <FlexBoxWrapper>
-        <img src={YellowDefaultSnail} alt="A happy yellow snail" width="400" />
+        <img src={YellowDefaultSnail} alt="A happy yellow snail" width="400" className="snail" />
         <RightContentWrapper>
           <h1>
               <img src={Logo} alt="OuterWhorld" width="400" />
