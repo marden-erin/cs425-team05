@@ -1,8 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 
-import { COLORS, GRADIENTS, FONTS_MAIN, FONTS_SECONDARY } from '../../constants';
+import { COLORS, GRADIENTS } from '../../constants';
 import { ColorType } from '../../types';
 
 const ButtonCss = css`
@@ -38,7 +36,7 @@ const RoundedCss = css`
 
 
 const SmallCss = css`
-    font-size: 2rem;
+    font-size: 1.6rem;
     padding: 0.7rem 0.8rem;
 `;
 
