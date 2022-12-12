@@ -34,7 +34,7 @@ function SearchResults() {
   return (
     <PageWrapper pageTitle="SearchvResults" header="Search Results">
       <Box_Wrapper>
-        <Options></Options>
+        <Options>TEST COMMIT</Options>
         <Selected></Selected>
       </Box_Wrapper>
     </PageWrapper>
