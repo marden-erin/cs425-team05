@@ -15,3 +15,10 @@ export const SampleItems = [
         linkURL: SnailImageURL
     }
 ];
+
+export const PrototypePages = [
+    {
+        linkLabel: 'Create Cluster',
+        linkURL: '/create-cluster',
+    },
+];

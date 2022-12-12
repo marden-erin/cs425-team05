@@ -13,7 +13,7 @@
 ### Jodi A Hieronymus
 - Project setup, front-end package installation, repository organization
 
-- Created page wrapper, homepage
+- Created PageWrapper, NavBar, homepage, router
 
 Node version: `v18.12.1`
 
