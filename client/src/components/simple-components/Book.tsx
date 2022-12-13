@@ -1,7 +1,10 @@
 import { Book } from "../../../../server/src/utils/Types";
+import React, {useState} from "react";
 import styled, { css } from 'styled-components';
 import { COLORS } from "../../constants";
-import { SubTitle, P } from "./TextComponents";
+import {  P } from "./TextComponents";
+import { SmallRoundedButton } from "./ButtonsLinks";
+import OWServiceProvider from "../../OuterWhorldServiceProvider";
 
 const ColumnFlexCss = css`
   display: flex;
@@ -9,14 +12,6 @@ const ColumnFlexCss = css`
   align-items: center;
 `;
 
-// const RightContentWrapper = styled.div`
-//   ${ColumnFlexCss}
-//   gap: 10px;
-
-//   > .subtitle {
-//     width: 475px;
-//   }
-// `;
 const Results = styled.div`
   ${ColumnFlexCss}
   justify-content: center;
@@ -52,6 +47,20 @@ const Author = styled.div`
     color: ${COLORS.BLUE_DARK};
     text-align: center;
 `
+const ButtonWrapper = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: center;
+height: 100px;
+align-items: center;
+gap: 100px;
+`
+const OutPut = styled.div`
+    font-size: 2rem;
+    font-weight: 200;
+    color: ${COLORS.WHITE};
+    padding: 10px
+`
 
 function BookData( book : Book) {
     const {title, authors, description, pageCount, cover} = book
@@ -61,38 +70,35 @@ function BookData( book : Book) {
     console.log(description)
     console.log(pageCount)
     console.log(cover)
+    const shouldDisplay = title && authors && description && pageCount && cover
 
-      const shouldDisplay = title && authors && description && pageCount && cover
+    const [add, setAdd] = useState("")
+
+    const loadData = async(e: any) => {
+      e.preventDefault() 
+      const response = await OWServiceProvider.addBookToCluster("test", "andrei", book);
+      console.log(response);
+      setAdd(response)
+    }
+
+   
 
       // const isArray = Array.isArray(authors)
   return (
-    <>
-     <div>{shouldDisplay &&
+    <>        
+      <div>{shouldDisplay &&
             <Results> <Title>{title}</Title>{authors.map((item: string) => { return <Author> {item}</Author> })} <br></br><img src={cover} alt={title + " cover"}/>
             <PageCount>{pageCount} Pages</PageCount><br></br>
-            <P>{description}</P>
+            <P>{description}</P> 
+            <br></br>
+            <ButtonWrapper>
+            <SmallRoundedButton onClick = {loadData}>Add to Cluster</SmallRoundedButton>
+            <SmallRoundedButton>Add Review</SmallRoundedButton></ButtonWrapper>
+            <OutPut>{add}</OutPut>
             </Results>}</div>
-    </>
+    </> 
 
-  )
+      )
 }
 export default BookData
 
-// {shouldDisplay && 
-//   <div style = {cardStyles.container}>
-//   <div style={cardStyles.bold}>
-//       <p>{title}</p>
-//       <br></br>
-//         {authors.map((item: string) => {
-//             return <p> {item}</p>
-//         })}
-//   </div>
-//   {/* <div>
-//       <img src={cover.thumbnail} alt={title + " cover"}/>
-//   </div> */}
-//   <div>
-//     <p>{pageCount} pages</p>
-//     <p> {description}</p>
-//   </div>
-// </div>
-// }

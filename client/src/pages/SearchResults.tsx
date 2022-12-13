@@ -5,13 +5,7 @@ import { H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 
 
-// const Options = styled.div`
-//   width: 600px;
-//   height: 600px;
-//   background-color: ${COLORS.PURPLE_LIGHT};
-//   border-radius: 10px 10px 10px 10px
 
-// `;
 const ColumnFlexCss = css`
   display: flex;
   flex-direction: column;
@@ -35,28 +29,53 @@ const Box_Wrapper = styled.div`
   justify-content: center;
 `;
 
-const ResultsPrompt = styled(H2)`
-  color: ${COLORS.BLACK};
-  font-weight: 300;
-  font-style: italic;
+const Results = styled.div`
+  ${ColumnFlexCss}
+  justify-content: center;
+  width: 600px;
+  height: 600px;
+  background-color: ${COLORS.PURPLE_LIGHT};
+  border-radius: 25px;
+
+  position: absolute;
+  right: 420px;
+  top: 185px;
+  padding: 10px
+
 `;
-const Temp_Results = styled.div`
-  width: 250px;
-  height: 100px;
-  text-align: center;
-  background-color: ${COLORS.WHITE};
+
+const Title = styled.div`
+    font-size: 4rem;
+    font-weight: 200;
+    color: ${COLORS.BLUE_DARK};
+    text-align: center;
 `;
+
+
+const PageCount = styled.div`
+    font-size: 1.25rem;
+    font-weight: 50;
+    color: ${COLORS.BLUE_DARK};
+    text-align: center;
+`
+const Author = styled.div`
+    font-size: 2rem;
+    font-weight: 100;
+    color: ${COLORS.BLUE_DARK};
+    text-align: center;
+`
 
 
 // *TODO: Remove header when logo is added
 function SearchResults() {
+
+
   
+
   return (
     <PageWrapper pageTitle="Search Results" header="Search Results">
       <Box_Wrapper>
-        {/* <Selected><ResultsPrompt>Here are your results!</ResultsPrompt>
-        <Temp_Results/>
-        </Selected> */}
+     
       </Box_Wrapper>
     </PageWrapper>
   );
