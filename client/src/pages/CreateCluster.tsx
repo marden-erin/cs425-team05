@@ -1,19 +1,20 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import PageWrapper from '../components/complex-components/PageWrapper/PageWrapper'; // *TODO: Fix so it imports from components
+import { PageWrapper, SubTitle } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
 import {SmallHalfRoundedButton, SmallRoundedButton,ThinInput } from "../components/simple-components"
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const HEADER= styled.div`
   text-align: center;
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 200;
   color: ${COLORS.WHITE};
   `;
-
+  
 const BOX= styled.div`
+
 position: absolute;
 width: 503px;
 height: 234px;
@@ -82,12 +83,10 @@ function CreateCluster(){
 
     return(
         <PageWrapper pageTitle="createCluster" header="Create Your Cluster">
-            <HEADER>
-                Your Cluster will contain the books you would like to save for later.
-                </HEADER>
-
+<HEADER>Your cluster will contain books you want to save for later.</HEADER>
                 <form onSubmit={loadData}>
                 <BOX>
+
                     <SmallButtonWrapper>
                     <SmallRoundedButton>
                         <SmallBoxWords>Public</SmallBoxWords>

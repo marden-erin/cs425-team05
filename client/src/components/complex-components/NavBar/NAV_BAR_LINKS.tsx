@@ -21,4 +21,8 @@ export const PrototypePages = [
         linkLabel: 'Create Cluster',
         linkURL: '/create-cluster',
     },
+    {
+        linkLabel: 'Search Results',
+        linkURL: '/search-results',
+    },
 ];

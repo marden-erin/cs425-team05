@@ -1,15 +1,11 @@
 import React, { useState} from 'react';
 import styled from 'styled-components';
 
-import PageWrapper from '../PageWrapper/PageWrapper'; // *TODO: Fix so it imports from components
-import { P } from '../..';
 import { COLORS } from '../../../constants';
 import BookData from '../../simple-components/Book';
-import { SearchBar } from '.';
 import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
 import { Book } from '../../../../../server/src/utils/Types';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
-
 
 const SearchBarWrapper = styled.div`
     display: flex;
