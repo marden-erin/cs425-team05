@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config()
 
+//TODO: Put user and host in envj
 export default mysql.createConnection({
 	host: "testdb.chrd81qajl2u.us-west-2.rds.amazonaws.com",
     port: 3306,
