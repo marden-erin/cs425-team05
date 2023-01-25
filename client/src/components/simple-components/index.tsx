@@ -1,3 +1,4 @@
+export * from './AccessibleComponents';
 export * from './Book';
 export * from './ButtonsLinks';
 export * from './Inputs';

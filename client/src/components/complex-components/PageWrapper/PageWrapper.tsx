@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Helmet } from 'react-helmet';
 import styled, { createGlobalStyle, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
-import { H1 } from '../../simple-components';
+import { H1, SemiHiddenLink } from '../../simple-components';
 import { NavBar } from '../NavBar';
 import { COLORS, FONTS_SECONDARY } from '../../../constants';
 import PlanetImg from '../../../imgs/planet.png';
@@ -71,13 +71,12 @@ export const PageWrapper = ({
             </Helmet>
             <GlobalStyle backgroundColor={backgroundColor} />
             <Wrapper $css={$css}>
-            <header className="header">
+                <SemiHiddenLink href="#main">Skip to Content</SemiHiddenLink>
                 <NavBar />
                 {header && (<Header fontColor={titleColor}>{header}</Header>)}
-            </header>
-            <body>
-                {children}
-            </body>
+                <div id="main">
+                    {children}
+                </div>
             </Wrapper>
         </>
     );
