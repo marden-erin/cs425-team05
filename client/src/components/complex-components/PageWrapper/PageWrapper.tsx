@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Helmet } from 'react-helmet';
 import styled, { createGlobalStyle, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
 import { H1 } from '../../simple-components';
@@ -65,6 +66,9 @@ export const PageWrapper = ({
     }: WrapperProps) => {
     return(
         <>
+            <Helmet>
+                <title>{pageTitle}</title>
+            </Helmet>
             <GlobalStyle backgroundColor={backgroundColor} />
             <Wrapper $css={$css}>
             <header className="header">
