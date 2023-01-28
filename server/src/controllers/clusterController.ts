@@ -85,6 +85,7 @@ const addCluster = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const updateCluster = asyncHandler(async (req: Request, res: Response) => {
+	// 3 cases: Updating Visibility, Adding Book, Removing Book
 	const { clusterName, userName, bookTitle, pageCount, description } = req.body;
 
 	if (clusterName && userName && bookTitle) {
@@ -163,7 +164,8 @@ const deleteCluster = asyncHandler(async (req: Request, res: Response) => {
 
 const findBookInfo = async (bookId: number): Promise<Book> => {
 	let query = `select Book_Author.author from Books inner join Book_Author on Books.book_id = Book_Author.book_id where Books.book_id = "${bookId}"`;
-	const [authors]: any[] = await db.promise().query(query);
+	let [authors]: any[] = await db.promise().query(query);
+	authors = authors.map((ids: { [x: string]: any }) => ids["author"]);
 
 	query = `select * from Books where book_id="${bookId}"`;
 	const [book]: any[] = await db.promise().query(query);
