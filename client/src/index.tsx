@@ -1,17 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import './index.css';
-import ExamplePage from './pages/ExamplePage';
+
+// After home, alphabetical order
+import Home from './pages/Home';
+import About from './pages/About';
+import CreateCluster from './pages/CreateCluster';
+import SearchResults from './pages/SearchResults';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <ExamplePage />
-  </React.StrictMode>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/create-cluster" element={<CreateCluster />} />
+      <Route path="/search-results" element={<SearchResults />} />
+    </Routes>
+  </BrowserRouter>
 );
-
-// If you want to start measuring performance in your ExamplePage, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
