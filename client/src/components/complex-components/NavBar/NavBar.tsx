@@ -123,7 +123,7 @@ export const NavBar = () => (
             <img src={Logo} alt="" role="presentation" width="150px" />
         </LogoLinkWrapper>
         <LinkWrapper>
-            <NavLink href={SnailImageURL}>About</NavLink>
+            <NavLink href='/about'>About</NavLink>
             <DropDownLink linkLabel='Prototype' linkURL={SnailImageURL} dropDownItems={PrototypePages} />
             <DropDownLink linkLabel='Cluster' linkURL={SnailImageURL} dropDownItems={SampleItems} />
             <DropDownLink linkLabel='Books' linkURL={SnailImageURL} dropDownItems={SampleItems} />
