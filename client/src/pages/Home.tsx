@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { H2, P, PageWrapper, SubTitle } from '../components';
+import { H2, P, PageWrapper, AnimationPauseButton, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
@@ -33,6 +33,12 @@ const FlexBoxWrapper = styled.div`
     50%  { transform: translate(0, 15px); }
     100%   { transform: translate(0, -0px); }   
   }
+`;
+
+const LeftContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column-reverse; // Swaps visual order - Keyboard users will tab onto pause button immediately and can quickly turn off motion.
+  align-items: end;
 `;
 
 const RightContentWrapper = styled.div`
@@ -77,7 +83,10 @@ function Home() {
   return (
     <PageWrapper pageTitle="OuterWhorld">
       <FlexBoxWrapper>
-        <img src={YellowDefaultSnail} alt="A happy yellow snail" width="400" className="snail" />
+        <LeftContentWrapper>
+          <AnimationPauseButton />
+          <img src={YellowDefaultSnail} alt="A happy yellow snail" width="400" className="snail animated" />
+        </LeftContentWrapper>
         <RightContentWrapper>
           <h1>
               <img src={Logo} alt="OuterWhorld" width="400" />
