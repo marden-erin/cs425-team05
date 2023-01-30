@@ -29,9 +29,15 @@ const FlexBoxWrapper = styled.div`
   }
 
   @keyframes floating {
-    0% { transform: translate(0,  0px); }
-    50%  { transform: translate(0, 15px); }
-    100%   { transform: translate(0, -0px); }   
+    0% {
+      transform: translate(0, 0px);
+    }
+    50% {
+      transform: translate(0, 15px);
+    }
+    100% {
+      transform: translate(0, -0px);
+    }
   }
 `;
 
@@ -77,12 +83,19 @@ function Home() {
   return (
     <PageWrapper pageTitle="OuterWhorld">
       <FlexBoxWrapper>
-        <img src={YellowDefaultSnail} alt="A happy yellow snail" width="400" className="snail" />
+        <img
+          src={YellowDefaultSnail}
+          alt="A happy yellow snail"
+          width="400"
+          className="snail"
+        />
         <RightContentWrapper>
           <h1>
-              <img src={Logo} alt="OuterWhorld" width="400" />
+            <img src={Logo} alt="OuterWhorld" width="400" />
           </h1>
-          <SubTitle className="subtitle" >Adopt and feed an astronaut snail by reading books you love!</SubTitle>
+          <SubTitle className="subtitle">
+            Adopt and feed an astronaut snail by reading books you love!
+          </SubTitle>
           <LoginContainer>
             <LoginPromptH2>Let's get Reading!</LoginPromptH2>
             <_TEMP_LoginButton>
