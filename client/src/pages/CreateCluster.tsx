@@ -1,9 +1,13 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { PageWrapper, SubTitle, H2 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
-import {SmallHalfRoundedButton, SmallRoundedButton,ThinInput } from "../components/simple-components"
+import {
+  SmallHalfRoundedButton,
+  SmallRoundedButton,
+  ThinInput,
+} from '../components/simple-components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const Description= styled(SubTitle)`
@@ -24,12 +28,12 @@ border-radius: 22px;
 `;
 
 const SmallButtonWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 100px;
-    align-items: center;
-    gap: 175px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100px;
+  align-items: center;
+  gap: 175px;
 `;
 
 const Name = styled.div`
@@ -43,16 +47,16 @@ padding-top: 30px;
 `;
 
 const InputBarWrapper = styled.div`
-    display: flex;
-    gap: 5px;
-    padding: 2px 30px 30px;
+  display: flex;
+  gap: 5px;
+  padding: 2px 30px 30px;
 `;
 
 const SmallBoxWords = styled.div`
-    font-size: 4rem;
-    font-weight: 200;
-    color: ${COLORS.WHITE};
-    text-align: center;
+  font-size: 4rem;
+  font-weight: 200;
+  color: ${COLORS.WHITE};
+  text-align: center;
 `;
 
 const OutPut = styled(H2)`
@@ -62,13 +66,7 @@ const OutPut = styled(H2)`
     padding: 10px
 `
 
-const FlexBoxWrapper = styled.div`
-  height: 85vh;
-  align-items: center;
-  justify-content: center;
-  gap: 100px;
-  margin-right: 50px;
-  `
+
 
 function CreateCluster(){
     const userName = "andrei"
@@ -86,7 +84,6 @@ function CreateCluster(){
 
     return(
         <PageWrapper pageTitle="createCluster" header="Create Your Cluster">
-            <FlexBoxWrapper>
                 <Description>Your cluster will contain books you want to save for later.</Description>
                 <form onSubmit={loadData}>
                 <Box>
@@ -108,8 +105,7 @@ function CreateCluster(){
                     <SmallHalfRoundedButton>Continue</SmallHalfRoundedButton>
                     </InputBarWrapper>
                 <OutPut>{outPut}</OutPut></Box></form>
-              
-            </FlexBoxWrapper>
+                \{' '}
         </PageWrapper>
     );
 }

@@ -3,8 +3,6 @@ import styled ,  {css}from 'styled-components';
 import { H1, H2, P, PageWrapper, SubTitle, Author, PageCount, BookTitle } from '../components';
 import { COLORS } from '../constants';
 
-
-
 const ColumnFlexCss = css`
   display: flex;
   flex-direction: column;
@@ -37,8 +35,7 @@ const Results = styled.div`
   position: absolute;
   right: 420px;
   top: 185px;
-  padding: 10px
-
+  padding: 10px;
 `;
 
 
@@ -47,11 +44,7 @@ const Results = styled.div`
 function SearchResults() {
   return (
     <PageWrapper pageTitle="Search Results" header="Search Results">
-      <FlexBoxWrapper>
-      <Box_Wrapper>
-     
-      </Box_Wrapper>
-      </FlexBoxWrapper>
+      <Box_Wrapper></Box_Wrapper>
     </PageWrapper>
   );
 }
