@@ -1,7 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { H2, P, PageWrapper, AnimationPauseButton, SubTitle } from '../components';
+import {
+  H2,
+  P,
+  PageWrapper,
+  AnimationPauseButton,
+  SubTitle,
+} from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
@@ -12,7 +18,6 @@ const ColumnFlexCss = css`
   align-items: center;
 `;
 
-// POST-PROTOTYPE TODO: Add pause button for animation (A11Y)
 const FlexBoxWrapper = styled.div`
   height: 85vh;
   display: flex;
@@ -91,7 +96,12 @@ function Home() {
       <FlexBoxWrapper>
         <LeftContentWrapper>
           <AnimationPauseButton />
-          <img src={YellowDefaultSnail} alt="A happy yellow snail" width="400" className="snail animated" />
+          <img
+            src={YellowDefaultSnail}
+            alt="A happy yellow snail"
+            width="400"
+            className="snail animated"
+          />
         </LeftContentWrapper>
         <RightContentWrapper>
           <h1>

@@ -96,25 +96,25 @@ type DropDownProps = {
   dropDownItems: DropDownItems;
 };
 
-const DropDownLink = ({
-    linkLabel,
-    linkURL,
-    dropDownItems
-    }: DropDownProps) => {
-        return(
-            <DropDownWrapper>
-                <NavLink href={linkURL}>
-                    {linkLabel}
-                    <FiChevronDown role="presentation" size="2rem" />
-                </NavLink>
-                <DropDownContentWrapper className="dropdown-content">
-                    {dropDownItems.map(({linkLabel, linkURL}, index) => {
-                        return(<NavLink className="dropdown-link" href={linkURL} key={index}>{linkLabel}</NavLink>);
-                    })}
-                </DropDownContentWrapper>
-            </DropDownWrapper>
-        );
-    };
+const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
+  return (
+    <DropDownWrapper>
+      <NavLink href={linkURL}>
+        {linkLabel}
+        <FiChevronDown role="presentation" size="2rem" />
+      </NavLink>
+      <DropDownContentWrapper className="dropdown-content">
+        {dropDownItems.map(({ linkLabel, linkURL }, index) => {
+          return (
+            <NavLink className="dropdown-link" href={linkURL} key={index}>
+              {linkLabel}
+            </NavLink>
+          );
+        })}
+      </DropDownContentWrapper>
+    </DropDownWrapper>
+  );
+};
 
 // POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
 export const NavBar = () => (

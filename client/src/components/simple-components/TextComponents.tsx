@@ -14,12 +14,12 @@ const H1 = styled.h1`
 `;
 
 const SubTitle = styled.span`
-    ${FONTS_MAIN}
-    font-weight: 200;
-    font-size: 2rem;
-    text-align: center;
-    letter-spacing: 0.02em;
-    color: ${COLORS.WHITE};
+  ${FONTS_MAIN}
+  font-weight: 200;
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: ${COLORS.WHITE};
 `;
 
 const H2 = styled.h2`
