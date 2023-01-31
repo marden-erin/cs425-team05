@@ -1,11 +1,8 @@
 import { ReactNode } from 'react';
-import styled, {
-  createGlobalStyle,
-  DefaultTheme,
-  ThemedCssFunction,
-} from 'styled-components';
+import { Helmet } from 'react-helmet';
+import styled, { createGlobalStyle, DefaultTheme, ThemedCssFunction } from 'styled-components';
 
-import { H1 } from '../../simple-components';
+import { H1, SemiHiddenLink } from '../../simple-components';
 import { NavBar } from '../NavBar';
 import { COLORS, FONTS_SECONDARY } from '../../../constants';
 import PlanetImg from '../../../imgs/planet.png';
@@ -61,25 +58,29 @@ const Header = styled(H1)<{ fontColor?: string }>`
 
 // *TODO: Make page title change with pageTitle
 export const PageWrapper = ({
-  children,
-  pageTitle,
-  header,
-  backgroundColor,
-  titleColor,
-  $css,
-}: WrapperProps) => {
-  return (
-    <>
-      <GlobalStyle backgroundColor={backgroundColor} />
-      <Wrapper $css={$css}>
-        <header className="header">
-          <NavBar />
-          {header && <Header fontColor={titleColor}>{header}</Header>}
-        </header>
-        <body>{children}</body>
-      </Wrapper>
-    </>
-  );
+    children,
+    pageTitle,
+    header,
+    backgroundColor,
+    titleColor,
+    $css
+    }: WrapperProps) => {
+    return(
+        <>
+            <Helmet>
+                <title>{pageTitle}</title>
+            </Helmet>
+            <GlobalStyle backgroundColor={backgroundColor} />
+            <Wrapper $css={$css}>
+                <SemiHiddenLink href="#main">Skip to Content</SemiHiddenLink>
+                <NavBar />
+                {header && (<Header fontColor={titleColor}>{header}</Header>)}
+                <div id="main">
+                    {children}
+                </div>
+            </Wrapper>
+        </>
+    );
 };
 
 export default PageWrapper;

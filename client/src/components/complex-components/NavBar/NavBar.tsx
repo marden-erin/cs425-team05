@@ -27,7 +27,7 @@ const LinkStyle = css`
   }
 `;
 
-const NavWrapper = styled.div`
+const NavWrapper = styled.nav`
   height: 5rem;
   padding: 0.5rem 6rem 0.5rem 3rem;
   background-color: ${COLORS.BLUE_MID};
@@ -96,25 +96,25 @@ type DropDownProps = {
   dropDownItems: DropDownItems;
 };
 
-const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
-  return (
-    <DropDownWrapper>
-      <NavLink href={linkURL}>
-        {linkLabel}
-        <FiChevronDown role="presentation" size="2rem" />
-      </NavLink>
-      <DropDownContentWrapper className="dropdown-content">
-        {dropDownItems.map(({ linkLabel, linkURL }, index) => {
-          return (
-            <NavLink className="dropdown-link" href={linkURL}>
-              {linkLabel}
-            </NavLink>
-          );
-        })}
-      </DropDownContentWrapper>
-    </DropDownWrapper>
-  );
-};
+const DropDownLink = ({
+    linkLabel,
+    linkURL,
+    dropDownItems
+    }: DropDownProps) => {
+        return(
+            <DropDownWrapper>
+                <NavLink href={linkURL}>
+                    {linkLabel}
+                    <FiChevronDown role="presentation" size="2rem" />
+                </NavLink>
+                <DropDownContentWrapper className="dropdown-content">
+                    {dropDownItems.map(({linkLabel, linkURL}, index) => {
+                        return(<NavLink className="dropdown-link" href={linkURL} key={index}>{linkLabel}</NavLink>);
+                    })}
+                </DropDownContentWrapper>
+            </DropDownWrapper>
+        );
+    };
 
 // POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
 export const NavBar = () => (
