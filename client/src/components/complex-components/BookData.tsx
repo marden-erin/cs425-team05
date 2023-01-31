@@ -2,8 +2,8 @@ import { Book } from "../../../../server/src/utils/Types";
 import React, {useState} from "react";
 import styled, { css } from 'styled-components';
 import { COLORS } from "../../constants";
-import {  P } from "./TextComponents";
-import { SmallRoundedButton } from "./ButtonsLinks";
+import {H1, H2, P, Author, PageCount, BookTitle } from "../simple-components/TextComponents";
+import { SmallRoundedButton } from "../simple-components/ButtonsLinks";
 import OWServiceProvider from "../../OuterWhorldServiceProvider";
 
 const ColumnFlexCss = css`
@@ -12,6 +12,7 @@ const ColumnFlexCss = css`
   align-items: center;
 `;
 
+// Erin ToDO:: change this div to something else
 const Results = styled.div`
   ${ColumnFlexCss}
   justify-content: center;
@@ -21,32 +22,13 @@ const Results = styled.div`
   border-radius: 25px;
 
   position: absolute;
-  right: 420px;
+  right: 485px;
   top: 185px;
   padding: 10px
 
 `;
 
-const Title = styled.div`
-    font-size: 4rem;
-    font-weight: 200;
-    color: ${COLORS.BLUE_DARK};
-    text-align: center;
-`;
 
-
-const PageCount = styled.div`
-    font-size: 1.25rem;
-    font-weight: 50;
-    color: ${COLORS.BLUE_DARK};
-    text-align: center;
-`
-const Author = styled.div`
-    font-size: 2rem;
-    font-weight: 100;
-    color: ${COLORS.BLUE_DARK};
-    text-align: center;
-`
 const ButtonWrapper = styled.div`
 display: flex;
 flex-direction: row;
@@ -55,6 +37,8 @@ height: 100px;
 align-items: center;
 gap: 100px;
 `
+// Erin ToDO:: change this div to something else
+
 const OutPut = styled.div`
     font-size: 2rem;
     font-weight: 200;
@@ -81,13 +65,10 @@ function BookData( book : Book) {
       setAdd(response)
     }
 
-   
-
-      // const isArray = Array.isArray(authors)
-  return (
+    return (
     <>        
       <div>{shouldDisplay &&
-            <Results> <Title>{title}</Title>{authors.map((item: string) => { return <Author> {item}</Author> })} <br></br><img src={cover} alt={title + " cover"}/>
+            <Results> <BookTitle>{title}</BookTitle>{authors.map((item: string) => { return <Author> {item}</Author> })} <br></br><img src={cover} alt={title + " cover"}/>
             <PageCount>{pageCount} Pages</PageCount><br></br>
             <P>{description}</P> 
             <br></br>

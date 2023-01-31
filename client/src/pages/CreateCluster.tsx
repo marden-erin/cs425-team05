@@ -1,20 +1,19 @@
 import React, {useState} from 'react';
 import styled, { css } from 'styled-components';
 
-import { PageWrapper, SubTitle } from '../components';
+import { PageWrapper, SubTitle, H2 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
 import {SmallHalfRoundedButton, SmallRoundedButton,ThinInput } from "../components/simple-components"
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
-const HEADER= styled.div`
+const Description= styled(SubTitle)`
   text-align: center;
   font-size: 3.5rem;
   font-weight: 200;
   color: ${COLORS.WHITE};
   `;
   
-const BOX= styled.div`
-
+const Box= styled.div`
 position: absolute;
 width: 503px;
 height: 234px;
@@ -33,7 +32,7 @@ const SmallButtonWrapper = styled.div`
     gap: 175px;
 `;
 
-const NAME = styled.div`
+const Name = styled.div`
 font: ${FONTS_SECONDARY};
 font-weight: 500;
 font-size: 3rem;
@@ -47,8 +46,6 @@ const InputBarWrapper = styled.div`
     display: flex;
     gap: 5px;
     padding: 2px 30px 30px;
-    
-
 `;
 
 const SmallBoxWords = styled.div`
@@ -57,12 +54,21 @@ const SmallBoxWords = styled.div`
     color: ${COLORS.WHITE};
     text-align: center;
 `;
-const OutPut = styled.div`
+
+const OutPut = styled(H2)`
     font-size: 2rem;
     font-weight: 200;
     color: ${COLORS.WHITE};
     padding: 10px
 `
+
+const FlexBoxWrapper = styled.div`
+  height: 85vh;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-right: 50px;
+  `
 
 function CreateCluster(){
     const userName = "andrei"
@@ -70,9 +76,6 @@ function CreateCluster(){
     const visibility = false
     const [outPut, setOutput] = useState("")
 
-  
-  
-    // just an example of how to use the API. If you don't include the bookTitle param you will be given an error
     const loadData = async(e: any) => {
       e.preventDefault()
       const create = await OWServiceProvider.createCluster(input, userName, visibility)
@@ -83,9 +86,10 @@ function CreateCluster(){
 
     return(
         <PageWrapper pageTitle="createCluster" header="Create Your Cluster">
-<HEADER>Your cluster will contain books you want to save for later.</HEADER>
+            <FlexBoxWrapper>
+                <Description>Your cluster will contain books you want to save for later.</Description>
                 <form onSubmit={loadData}>
-                <BOX>
+                <Box>
 
                     <SmallButtonWrapper>
                     <SmallRoundedButton>
@@ -95,18 +99,18 @@ function CreateCluster(){
                         <SmallBoxWords>Private</SmallBoxWords>
                     </SmallRoundedButton>
                     </SmallButtonWrapper>
-                    <NAME>
+                    <Name>
                        Name:
-                    </NAME>
+                    </Name>
                     <InputBarWrapper>
                     <ThinInput placeholder="Enter Cluster Name" value={input} 
                     onChange={(e) => setInput(e.target.value)}></ThinInput>
                     <SmallHalfRoundedButton>Continue</SmallHalfRoundedButton>
                     </InputBarWrapper>
-                <OutPut>{outPut}</OutPut></BOX></form>
+                <OutPut>{outPut}</OutPut></Box></form>
               
-
-\        </PageWrapper>
+            </FlexBoxWrapper>
+        </PageWrapper>
     );
 }
 

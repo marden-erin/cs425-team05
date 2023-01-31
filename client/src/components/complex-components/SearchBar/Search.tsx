@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import styled from 'styled-components';
 
 import { COLORS } from '../../../constants';
-import BookData from '../../simple-components/Book';
+import BookData from '../BookData';
 import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
 import { Book } from '../../../../../server/src/utils/Types';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
@@ -13,23 +13,14 @@ const SearchBarWrapper = styled.div`
     width: 55rem;
 
 `;
-// 
 
-
-
-const TEMP_DIV = styled.div`
-  width: 600px;
-  height: 600px;
-
-  background-color: ${COLORS.WHITE};
-`;
 
 const Search = () => {
     const [bookInfo, setBookInfo] = useState({} as Book)
     const [input, setInput] = useState("")
   
   
-    // just an example of how to use the API. If you don't include the bookTitle param you will be given an error
+    // If you don't include the bookTitle param you will be given an error
     const loadData = async(e: any) => {
       e.preventDefault()
       const data = await OWServiceProvider.getBookInfo(input)
@@ -37,7 +28,6 @@ const Search = () => {
     }
 
     return (
-      //<PageWrapper pageTitle="Search Results" header="Search Results">
        <>
         <form onSubmit={loadData}>
         <SearchBarWrapper>
@@ -54,7 +44,6 @@ const Search = () => {
           <BookData {...bookInfo}></BookData>
         </div>
         </>
-     // </PageWrapper>
     );
   }
   
