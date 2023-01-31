@@ -60,7 +60,6 @@ const Header = styled(H1)<{ fontColor?: string }>`
   color: ${(props) => (props.fontColor ? props.fontColor : COLORS.WHITE)};
 `;
 
-// *TODO: Make page title change with pageTitle
 export const PageWrapper = ({
   children,
   pageTitle,

@@ -1,4 +1,3 @@
-// TODO: Delete this file when actual pages are added
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { SmallBookCard, PageWrapper } from '../components';
