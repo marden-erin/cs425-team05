@@ -1,3 +1,5 @@
+//Erin TODO: Format and show all clusters made
+
 import React, {useState} from 'react';
 import ReactDOM from "react-dom";
 import styled, { css } from 'styled-components';
