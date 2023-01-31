@@ -19,6 +19,7 @@ const getBook = asyncHandler(async (req: Request, res: Response) => {
 
 	// If we have more than 5 versions of the book stored, then return those books from DB.
 	if (books.length > 5) {
+		console.log("IN");
 		res.status(HTTPStatus.OK).json(books);
 	} else {
 		const bookData = await fetch(

@@ -11,10 +11,10 @@ const clusterRouter = express.Router();
 //gets every book from cluster
 clusterRouter.get("/", getCluster);
 
-//creates cluster
+//modifies cluster
 clusterRouter.put("/", updateCluster);
 
-//updates cluster name
+//adds cluster
 clusterRouter.post("/", addCluster);
 
 //deletes cluster and its contents
