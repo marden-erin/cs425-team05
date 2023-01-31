@@ -15,6 +15,10 @@
 
 - Created PageWrapper, NavBar, homepage, router
 
+- Created skip to content button, button to pause all animated content on a page
+
+- Installed Prettier
+
 Node version: `v18.12.1`
 
 ## To Run UI:

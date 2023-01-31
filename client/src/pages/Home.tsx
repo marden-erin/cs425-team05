@@ -1,7 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { H2, P, PageWrapper, AnimationPauseButton, SubTitle } from '../components';
+import {
+  H2,
+  P,
+  PageWrapper,
+  AnimationPauseButton,
+  SubTitle,
+} from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
@@ -12,7 +18,6 @@ const ColumnFlexCss = css`
   align-items: center;
 `;
 
-// POST-PROTOTYPE TODO: Add pause button for animation (A11Y)
 const FlexBoxWrapper = styled.div`
   height: 85vh;
   display: flex;
@@ -29,9 +34,15 @@ const FlexBoxWrapper = styled.div`
   }
 
   @keyframes floating {
-    0% { transform: translate(0,  0px); }
-    50%  { transform: translate(0, 15px); }
-    100%   { transform: translate(0, -0px); }   
+    0% {
+      transform: translate(0, 0px);
+    }
+    50% {
+      transform: translate(0, 15px);
+    }
+    100% {
+      transform: translate(0, -0px);
+    }
   }
 `;
 
@@ -85,13 +96,20 @@ function Home() {
       <FlexBoxWrapper>
         <LeftContentWrapper>
           <AnimationPauseButton />
-          <img src={YellowDefaultSnail} alt="A happy yellow snail" width="400" className="snail animated" />
+          <img
+            src={YellowDefaultSnail}
+            alt="A happy yellow snail"
+            width="400"
+            className="snail animated"
+          />
         </LeftContentWrapper>
         <RightContentWrapper>
           <h1>
-              <img src={Logo} alt="OuterWhorld" width="400" />
+            <img src={Logo} alt="OuterWhorld" width="400" />
           </h1>
-          <SubTitle className="subtitle" >Adopt and feed an astronaut snail by reading books you love!</SubTitle>
+          <SubTitle className="subtitle">
+            Adopt and feed an astronaut snail by reading books you love!
+          </SubTitle>
           <LoginContainer>
             <LoginPromptH2>Let's get Reading!</LoginPromptH2>
             <_TEMP_LoginButton>
