@@ -4,7 +4,7 @@ import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../../constants';
 
 // This styling isn't final; just for testing and to demonstrate how we can use styled-components.
 const TextCss = css`
-  color: ${COLORS.BLURPLE};
+  color: ${COLORS.PURPLE_DARK};
 `;
 
 const H1 = styled.h1`

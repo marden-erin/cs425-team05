@@ -1,0 +1,1 @@
+export { SmallBookCard } from './SmallBookCard';

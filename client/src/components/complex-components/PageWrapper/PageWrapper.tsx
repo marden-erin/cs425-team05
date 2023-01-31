@@ -41,7 +41,7 @@ type WrapperProps = {
 const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
     html {
         background: ${(props) =>
-          props.backgroundColor ? props.backgroundColor : COLORS.BLURPLE};
+          props.backgroundColor ? props.backgroundColor : COLORS.PURPLE_DARK};
         ${FONTS_SECONDARY}
     }
 `;
