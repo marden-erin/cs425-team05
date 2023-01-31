@@ -13,7 +13,7 @@ const H1 = styled.h1`
     font-size: 10rem;
 `;
 
-const SubTitle = styled.text`
+const SubTitle = styled.span`
   ${FONTS_MAIN}
   font-weight: 200;
   font-size: 2rem;
