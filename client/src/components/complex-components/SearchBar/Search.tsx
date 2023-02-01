@@ -21,7 +21,7 @@ const TEMP_DIV = styled.div`
   background-color: ${COLORS.WHITE};
 `;
 
-const Search = () => {
+export const Search = () => {
     const [bookInfo, setBookInfo] = useState({} as Book)
     const [input, setInput] = useState("")
   

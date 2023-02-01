@@ -15,6 +15,15 @@ const OutPut = styled.div`
     color: ${COLORS.WHITE};
     padding: 10px
 `
+const FlexBoxWrapper = styled.div`
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-right: 50px;
+
+`;
 
 function ViewClusters(){
         const [info, setInfo] = useState({} as Book)
@@ -33,9 +42,9 @@ function ViewClusters(){
            
     
         <PageWrapper pageTitle='View Clusters' header='View Clusters'>
-            <SmallRoundedButton onClick={loadData}>Temp Button</SmallRoundedButton>
+            <FlexBoxWrapper><SmallRoundedButton onClick={loadData}>Temp Button</SmallRoundedButton>
             <ClusterBooks {...info}></ClusterBooks>
-        </PageWrapper></div>
+        </FlexBoxWrapper></PageWrapper></div>
     )
 }
 export default ViewClusters;

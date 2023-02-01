@@ -65,6 +65,15 @@ const OutPut = styled(H2)`
     color: ${COLORS.WHITE};
     padding: 10px
 `
+const FlexBoxWrapper = styled.div`
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-right: 50px;
+
+`;
 
 
 
@@ -84,6 +93,7 @@ function CreateCluster(){
 
     return(
         <PageWrapper pageTitle="createCluster" header="Create Your Cluster">
+                <FlexBoxWrapper>
                 <Description>Your cluster will contain books you want to save for later.</Description>
                 <form onSubmit={loadData}>
                 <Box>
@@ -105,7 +115,7 @@ function CreateCluster(){
                     <SmallHalfRoundedButton>Continue</SmallHalfRoundedButton>
                     </InputBarWrapper>
                 <OutPut>{outPut}</OutPut></Box></form>
-                \{' '}
+                </FlexBoxWrapper>
         </PageWrapper>
     );
 }
