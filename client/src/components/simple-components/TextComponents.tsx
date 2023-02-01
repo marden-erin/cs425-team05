@@ -35,26 +35,26 @@ const P = styled.p`
 `;
 
 const Author = styled.span`
-${FONTS_SECONDARY}
+  ${FONTS_SECONDARY}
 
-    font-size: 2rem;
-    font-weight: 100;
-    color: ${COLORS.BLUE_DARK};
-    text-align: center;
-` 
+  font-size: 2rem;
+  font-weight: 100;
+  color: ${COLORS.BLUE_DARK};
+  text-align: center;
+`;
 const PageCount = styled.span`
-${FONTS_SECONDARY}
-font-size: 1.25rem;
-font-weight: 50;
-color: ${COLORS.BLUE_DARK};
-text-align: center;
-`
+  ${FONTS_SECONDARY}
+  font-size: 1.25rem;
+  font-weight: 50;
+  color: ${COLORS.BLUE_DARK};
+  text-align: center;
+`;
 const BookTitle = styled.span`
-    ${FONTS_MAIN}
-    font-size: 4rem;
-    font-weight: 200;
-    color: ${COLORS.BLUE_DARK};
-    text-align: center;
+  ${FONTS_MAIN}
+  font-size: 4rem;
+  font-weight: 200;
+  color: ${COLORS.BLUE_DARK};
+  text-align: center;
 `;
 
 export { H1, H2, P, SubTitle, Author, PageCount, BookTitle };

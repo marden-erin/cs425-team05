@@ -1,6 +1,15 @@
 import React from 'react';
-import styled ,  {css}from 'styled-components';
-import { H1, H2, P, PageWrapper, SubTitle, Author, PageCount, BookTitle } from '../components';
+import styled, { css } from 'styled-components';
+import {
+  H1,
+  H2,
+  P,
+  PageWrapper,
+  SubTitle,
+  Author,
+  PageCount,
+  BookTitle,
+} from '../components';
 import { COLORS } from '../constants';
 
 const ColumnFlexCss = css`
@@ -16,7 +25,6 @@ const FlexBoxWrapper = styled.div`
   justify-content: center;
   gap: 100px;
   margin-right: 50px;
-
 `;
 
 const Box_Wrapper = styled.div`
@@ -40,13 +48,12 @@ const Results = styled.div`
   padding: 10px;
 `;
 
-
-
-
 function SearchResults() {
   return (
     <PageWrapper pageTitle="Search Results" header="Search Results">
-      <FlexBoxWrapper><Box_Wrapper></Box_Wrapper></FlexBoxWrapper>
+      <FlexBoxWrapper>
+        <Box_Wrapper></Box_Wrapper>
+      </FlexBoxWrapper>
     </PageWrapper>
   );
 }
