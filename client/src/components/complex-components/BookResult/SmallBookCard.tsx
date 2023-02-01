@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../../../constants';
 
 type SmallBookCardType = {
@@ -15,9 +15,13 @@ type SmallBookCardType = {
    * Image of book cover
    */
   bookCover: any;
+  /**
+   * Whether this card is the currently selected one
+   */
+  selected?: boolean;
 };
 
-const ResultWrapper = styled.div`
+const ResultWrapper = styled.div<{selected?: boolean}>`
   width: 45.5rem;
   height: 13rem;
   background-color: ${COLORS.WHITE};
@@ -27,6 +31,11 @@ const ResultWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 22px;
+
+  ${(props) => props.selected && css`
+    background-color: ${COLORS.PURPLE_LIGHT};
+    border: 4px solid ${COLORS.PURPLE_MID};
+  `}
 `;
 
 const CoverWrapper = styled.div`
@@ -67,9 +76,10 @@ export const SmallBookCard = ({
   bookTitle,
   authorName,
   bookCover,
+  selected
 }: SmallBookCardType) => {
   return (
-    <ResultWrapper>
+    <ResultWrapper selected={selected}>
       <CoverWrapper></CoverWrapper>
       <TextWrapper>
         <TitleH2>{bookTitle}</TitleH2>
