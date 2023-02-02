@@ -23,7 +23,7 @@ type SmallBookCardType = {
 
 const ResultWrapper = styled.div<{selected?: boolean}>`
   width: 45.5rem;
-  height: 13rem;
+  height: 10rem;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
   padding: 8px 13px;
@@ -39,8 +39,8 @@ const ResultWrapper = styled.div<{selected?: boolean}>`
 `;
 
 const CoverWrapper = styled.div`
-  width: 8rem;
-  height: 12rem;
+  width: 6.5rem;
+  height: 9rem;
   background-color: ${COLORS.PURPLE_DARK};
   border: 3px solid ${COLORS.PURPLE_MID};
 `;
@@ -48,7 +48,7 @@ const CoverWrapper = styled.div`
 const TextWrapper = styled.div`
   // Setting maxes to handle overflow
   max-width: 32rem;
-  max-height: 13rem;
+  max-height: 10rem;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -59,16 +59,16 @@ const TitleH2 = styled.h2`
   ${FONTS_SECONDARY};
   font-style: italic;
   font-weight: 600;
-  font-size: 2rem;
-  line-height: 2.4rem;
+  font-size: 1.6rem;
+  line-height: 2rem;
   color: ${COLORS.PURPLE_DARK};
 `;
 
 const AuthorH3 = styled.h3`
   ${FONTS_MAIN};
   font-weight: 200;
-  font-size: 1.6rem;
-  line-height: 1.9rem;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
   color: ${COLORS.BLACK};
 `;
 
