@@ -1,12 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import {
-  H1,
-  H2,
-  P,
-  PageWrapper,
-  SubTitle,
-} from '../components';
+import { H1, H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import erinPic from '../imgs/erinPic.png';
@@ -18,12 +12,10 @@ const Box_Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  margin-top: 1900px;
   gap: 15px;
 `;
 
 const FlexBoxWrapper = styled.div`
-  height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,11 +25,12 @@ const FlexBoxWrapper = styled.div`
 
 const ProjectBox = styled.div`
   width: 999px;
-  height: 850px;
+  height: 500px;
   background-color: ${COLORS.PURPLE_LIGHT};
   border-radius: 22px;
   margin-top: 30px;
-  margin: 5px;
+  margin: 10px;
+  padding: 45px;
   text-align: center;
 `;
 
@@ -47,7 +40,8 @@ const Box = styled.div`
   background-color: ${COLORS.PURPLE_LIGHT};
   border-radius: 22px;
   margin-top: 30px;
-  margin: 5px;
+  margin: 10px;
+  padding: 15px;
   text-align: center;
 `;
 
@@ -72,6 +66,7 @@ const SmallHeading = styled(SubTitle)`
 
 const BoxText = styled(P)`
   padding: 10px;
+  margin: 10px;
   color: ${COLORS.BLURPLE};
   text-align: center;
   font-size: 2rem;
@@ -79,6 +74,7 @@ const BoxText = styled(P)`
 
 const ParagraphText = styled(P)`
   padding: 20px;
+  margin: 10px;
   color: ${COLORS.BLURPLE};
   text-align: left;
   font-size: 2rem;
@@ -96,7 +92,8 @@ const Img = styled.img`
   align-items: center;
   width: 290px;
   height: 325px;
-  border-radius: 8px;
+  padding: 15px;
+  border-radius: 30px;
 `;
 
 function About() {
@@ -115,54 +112,26 @@ function About() {
           </WordContainer>
           <ProjectBox>
             <h1>
-              <br />
-              <br /> <img src={Logo} alt="OuterWhorld" width="400" />
+              <img src={Logo} alt="OuterWhorld" width="400" />
             </h1>
             <BoxText>
-              <br /> Computer Science and Engineering - University of Nevada,
-              Reno
+              Computer Science and Engineering - University of Nevada, Reno
             </BoxText>
             <BoxText>
-              <br />
               Team 5: Erin E. Marden, Andrei N. Iorgulescu, Jodi A. Hieronymus
             </BoxText>
-            <BoxText>
-              <br />
-              Instructed by David Feil-Seifer, Devrin Lee
-            </BoxText>
-            <BoxText>
-              <br />
-              Advised by Erin Keith
-            </BoxText>
+            <BoxText>Instructed by David Feil-Seifer, Devrin Lee</BoxText>
+            <BoxText>Advised by Erin Keith</BoxText>
             <ParagraphText>
-              <br />
-              <br />
-              OuterWhorld is going to be an interactive web-based application
-              that will target readers of all levels, and will have a large
-              focus on user accessibility and visual aesthetics. OuterWhorld
-              will provide users with an interactive and enjoyable reading
-              experience by providing features such as: being able to create
-              custom reading goals, having a virtual pet snail accompany the
-              user and motivate them throughout their reading, a book
-              recommendation system, and the ability to store a collection of
-              books in one place called a cluster. They will then have an option
-              to share their clusters with friends. OuterWhorld’s theme will be
-              a mixture of space and snails, which will provide the user with a
-              fun, friendly, and visually appealing experience. OuterWhorld’s
-              user interface will be built using Typescript and React. We will
-              be creating styled components with custom CSS built from the
-              ground up. Outerwhorld’s business logic will be built using
-              Node/Express, and data will be stored in a database. OuterWhorld
-              will use an existing API to retrieve book data which includes its
-              title, author, page length, and reviews. Since the previous
-              project, we have placed more focus and thought on OuterWhorld’s
-              design, and have begun ironing out the high and low level design
-              aspects of the application. We also have continued creating UI
-              snapshots in addition to diagrams describing how OuterWhorld’s UI
-              will interact with the backend to retrieve and display data for
-              the user. Finally, we decided on a color scheme and theme for our
-              UI that will be standardized throughout all of OuterWhorld’s
-              components to maintain consistency and quality.
+              OuterWhorld is a web-based book tracking application that allows
+              users to find books and set reading goals based on books from a
+              database. Our project is worthwhile because it provides
+              entertainment to users and encourages users to experience the
+              benefits of reading. In the OuterWhorld prototype, a user can
+              create clusters. Additionally, they can search for books using our
+              API and add the books to their cluster. OuterWhorld gets the user
+              excited for reading by greeting them with a colorful, fun UI that
+              is easy to navigate.
             </ParagraphText>
           </ProjectBox>
           <WordContainer>
@@ -174,11 +143,9 @@ function About() {
 
           <Box>
             {' '}
-            <H2>
-              <br /> Erin E. Marden
-            </H2>
+            <H2>Erin E. Marden</H2>
             <AboutUs>
-              <Img src={erinPic} />
+              <Img src={erinPic} alt="Photo of Erin" />
               <ParagraphText>
                 Erin Marden is a senior undergraduate at UNR expecting to
                 graduate in May 2023. She has prior experience in graphic
@@ -190,11 +157,9 @@ function About() {
             </AboutUs>
           </Box>
           <Box>
-            <H2>
-              <br /> Andrei N. Iorgulescu
-            </H2>
+            <H2>Andrei N. Iorgulescu</H2>
             <AboutUs>
-              <Img src={andreiPic} />
+              <Img src={andreiPic} alt="Photo of Andrei" />
               <ParagraphText>
                 Andrei Iorgulescu is a senior undergraduate student at UNR
                 expected to graduate in Spring of 2023. He has professional
@@ -206,11 +171,9 @@ function About() {
             </AboutUs>
           </Box>
           <Box>
-            <H2>
-              <br /> Jodi A. Hieronymus
-            </H2>
+            <H2>Jodi A. Hieronymus</H2>
             <AboutUs>
-              <Img src={jodiPic} />
+              <Img src={jodiPic} alt="Photo of Jodi" />
               <ParagraphText>
                 Jodi Hieronymus is a senior undergraduate student at UNR
                 expected to graduate in Spring, 2023. She has prior experience
