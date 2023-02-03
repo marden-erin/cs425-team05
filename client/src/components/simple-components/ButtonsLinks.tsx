@@ -29,7 +29,7 @@ const HalfRoundedCss = css`
 `;
 
 const RoundedCss = css`
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 5px;
 `;
 
 const SmallCss = css`

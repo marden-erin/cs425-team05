@@ -1,7 +1,15 @@
-// TODO: Delete this file when actual pages are added
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { H2, P, PageWrapper, SubTitle } from '../components';
+import {
+  H1,
+  H2,
+  P,
+  PageWrapper,
+  SubTitle,
+  Author,
+  PageCount,
+  BookTitle,
+} from '../components';
 import { COLORS } from '../constants';
 
 const ColumnFlexCss = css`
@@ -10,15 +18,14 @@ const ColumnFlexCss = css`
   align-items: center;
 `;
 
-// const Selected = styled.div`
-// ${ColumnFlexCss}
-
-//   width: 600px;
-//   height: 600px;
-//   background-color: ${COLORS.PURPLE_LIGHT};
-//   border-radius: 10px 10px 10px 10px
-
-// `;
+const FlexBoxWrapper = styled.div`
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-right: 50px;
+`;
 
 const Box_Wrapper = styled.div`
   display: flex;
@@ -41,31 +48,12 @@ const Results = styled.div`
   padding: 10px;
 `;
 
-const Title = styled.div`
-  font-size: 4rem;
-  font-weight: 200;
-  color: ${COLORS.BLUE_DARK};
-  text-align: center;
-`;
-
-const PageCount = styled.div`
-  font-size: 1.25rem;
-  font-weight: 50;
-  color: ${COLORS.BLUE_DARK};
-  text-align: center;
-`;
-const Author = styled.div`
-  font-size: 2rem;
-  font-weight: 100;
-  color: ${COLORS.BLUE_DARK};
-  text-align: center;
-`;
-
-// *TODO: Remove header when logo is added
 function SearchResults() {
   return (
     <PageWrapper pageTitle="Search Results" header="Search Results">
-      <Box_Wrapper></Box_Wrapper>
+      <FlexBoxWrapper>
+        <Box_Wrapper></Box_Wrapper>
+      </FlexBoxWrapper>
     </PageWrapper>
   );
 }

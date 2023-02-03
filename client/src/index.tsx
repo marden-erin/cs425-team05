@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import CreateCluster from './pages/CreateCluster';
 import SearchResults from './pages/SearchResults';
+import ViewClusters from './pages/ViewClusters';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -20,6 +21,7 @@ root.render(
       <Route path="/about" element={<About />} />
       <Route path="/create-cluster" element={<CreateCluster />} />
       <Route path="/search-results" element={<SearchResults />} />
+      <Route path="/view-clusters" element={<ViewClusters />} />
     </Routes>
   </BrowserRouter>
 );
