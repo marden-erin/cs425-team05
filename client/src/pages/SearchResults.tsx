@@ -1,10 +1,8 @@
 // TODO: Delete this file when actual pages are added
 import React from 'react';
-import styled ,  {css}from 'styled-components';
+import styled, { css } from 'styled-components';
 import { H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
-
-
 
 const ColumnFlexCss = css`
   display: flex;
@@ -40,43 +38,34 @@ const Results = styled.div`
   position: absolute;
   right: 420px;
   top: 185px;
-  padding: 10px
-
+  padding: 10px;
 `;
 
 const Title = styled.div`
-    font-size: 4rem;
-    font-weight: 200;
-    color: ${COLORS.BLUE_DARK};
-    text-align: center;
+  font-size: 4rem;
+  font-weight: 200;
+  color: ${COLORS.BLUE_DARK};
+  text-align: center;
 `;
 
-
 const PageCount = styled.div`
-    font-size: 1.25rem;
-    font-weight: 50;
-    color: ${COLORS.BLUE_DARK};
-    text-align: center;
-`
+  font-size: 1.25rem;
+  font-weight: 50;
+  color: ${COLORS.BLUE_DARK};
+  text-align: center;
+`;
 const Author = styled.div`
-    font-size: 2rem;
-    font-weight: 100;
-    color: ${COLORS.BLUE_DARK};
-    text-align: center;
-`
-
+  font-size: 2rem;
+  font-weight: 100;
+  color: ${COLORS.BLUE_DARK};
+  text-align: center;
+`;
 
 // *TODO: Remove header when logo is added
 function SearchResults() {
-
-
-  
-
   return (
     <PageWrapper pageTitle="Search Results" header="Search Results">
-      <Box_Wrapper>
-     
-      </Box_Wrapper>
+      <Box_Wrapper></Box_Wrapper>
     </PageWrapper>
   );
 }
