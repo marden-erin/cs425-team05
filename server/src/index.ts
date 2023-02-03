@@ -1,9 +1,11 @@
-import express from 'express'
-import * as dotenv from 'dotenv'
+import app from "./app";
+import * as dotenv from "dotenv";
+import colors from "colors";
+
 dotenv.config();
 
-const port: any = process.env.PORT || 5000;
+const port: string | number = process.env.PORT || 5000;
 
-const app = express();
-
-app.listen(port, (): void => console.log(`Server running on port ${port}`));
+app.listen(port, (): void =>
+	console.log(colors.yellow(`Server running on port ${port}`))
+);
