@@ -35,6 +35,7 @@ const NavWrapper = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 999999;
 `;
 
 const LinkWrapper = styled.div`

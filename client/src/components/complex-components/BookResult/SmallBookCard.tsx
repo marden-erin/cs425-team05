@@ -21,7 +21,7 @@ type SmallBookCardType = {
   selected?: boolean;
 };
 
-const ResultWrapper = styled.div<{selected?: boolean}>`
+const ResultWrapper = styled.div<{ selected?: boolean }>`
   width: 45.5rem;
   height: 10rem;
   background-color: ${COLORS.WHITE};
@@ -32,15 +32,17 @@ const ResultWrapper = styled.div<{selected?: boolean}>`
   align-items: center;
   gap: 22px;
 
-  ${(props) => props.selected && css`
-    background-color: ${COLORS.PURPLE_LIGHT};
-    border: 4px solid ${COLORS.PURPLE_MID};
-  `}
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: ${COLORS.PURPLE_LIGHT};
+      border: 4px solid ${COLORS.PURPLE_MID};
+    `}
 `;
 
 const CoverWrapper = styled.div`
-  width: 6.5rem;
-  height: 9rem;
+  width: 60px;
+  height: 90px;
   background-color: ${COLORS.PURPLE_DARK};
   border: 3px solid ${COLORS.PURPLE_MID};
 `;
@@ -76,7 +78,7 @@ export const SmallBookCard = ({
   bookTitle,
   authorName,
   bookCover,
-  selected
+  selected,
 }: SmallBookCardType) => {
   return (
     <ResultWrapper selected={selected}>

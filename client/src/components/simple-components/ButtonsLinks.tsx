@@ -37,7 +37,12 @@ const SmallCss = css`
   padding: 0.7rem 0.8rem;
 `;
 
-// POST PROTOTYPE TODO: Split up size
+const LargeCss = css`
+  font-size: 2rem;
+  padding: 1.4rem 2rem;
+`;
+
+// TODO: Parameterize sizes, roundness
 const SmallHalfRoundedButton = styled.button<{ color?: ColorType }>`
   ${ButtonCss}
   ${HalfRoundedCss}
@@ -54,4 +59,12 @@ const SmallRoundedButton = styled.button<{ color?: ColorType }>`
     ${(props) => ColorCss(props.color)}
 `;
 
-export { SmallHalfRoundedButton, SmallRoundedButton };
+const LargeRoundedButton = styled.button<{ color?: ColorType }>`
+  ${ButtonCss}
+  ${RoundedCss}
+    ${LargeCss}
+
+    ${(props) => ColorCss(props.color)}
+`;
+
+export { LargeRoundedButton, SmallHalfRoundedButton, SmallRoundedButton };

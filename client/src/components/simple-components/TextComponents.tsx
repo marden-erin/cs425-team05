@@ -28,10 +28,28 @@ const H2 = styled.h2`
     font-size: 2.4rem;
 `;
 
-const P = styled.p`
+const P = styled.p<{ centered?: boolean }>`
   ${TextCss}
   ${FONTS_SECONDARY}
     font-size: 1.6rem;
+  b {
+    font-size: 1.6rem;
+    color: ${COLORS.BLUE_MID};
+  }
+
+  ${(props) =>
+    props.centered &&
+    css`
+      text-align: center;
+    `}
 `;
 
-export { H1, H2, P, SubTitle };
+const Label = styled.label`
+  font-family: ${FONTS_MAIN};
+  color: ${COLORS.PURPLE_MID};
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  margin-inline-end: 3px;
+`;
+
+export { H1, H2, Label, P, SubTitle };
