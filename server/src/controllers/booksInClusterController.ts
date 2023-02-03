@@ -113,7 +113,51 @@ const updateBookInCluster = asyncHandler(
 
 const deleteBookFromCluster = asyncHandler(
 	async (req: Request, res: Response) => {
-		//delete book from Cluster_Book table
+		const { clusterName, userName, bookTitle, pageCount, bookCover } = req.body;
+
+		if (clusterName && userName && bookTitle) {
+			const filteredClusterName = clusterName.replace(/"/g, "''");
+			const filteredUserName = userName.replace(/"/g, "''");
+			const filteredBookTitle = bookTitle.replace(/"/g, "''");
+			const filteredBookCover = bookCover.replace(/"/g, "''");
+
+			try {
+				let query = `select * from Users where userName="${filteredUserName}";`;
+				const [user]: any[] = await db.promise().query(query);
+				const { user_id } = user[0];
+
+				query = `select * from Books where bookTitle="${filteredBookTitle}" and pageCount="${pageCount}" and bookCover="${filteredBookCover}";`;
+				const [book]: any[] = await db.promise().query(query);
+				const { book_id } = book[0];
+
+				query = `select * from Clusters where clusterName="${filteredClusterName}" and user_id="${user_id}";`;
+				const [cluster]: any[] = await db.promise().query(query);
+				const { cluster_id } = cluster[0];
+
+				query = `select * from Cluster_Book where cluster_id="${cluster_id}" and book_id= "${book_id}"`;
+				const [bookFoundInCluster]: any[] = await db.promise().query(query);
+
+				if (bookFoundInCluster.length > 0) {
+					query = `delete from Cluster_Book where cluster_id="${cluster_id}" and user_id="${user_id}" and book_id=${book_id}`;
+					await db.promise().query(query);
+
+					res
+						.status(HTTPStatus.OK)
+						.json("Successfully deleted book from cluster");
+				} else {
+					const errMsg = `Error. Book "${bookTitle}" is not found in cluster`;
+					res.status(HTTPStatus.BAD).json(errMsg);
+					throw new Error(errMsg);
+				}
+			} catch (err: any) {
+				res.status(HTTPStatus.BAD).json(err.sqlMessage);
+				throw new Error(err);
+			}
+		} else {
+			const errMsg = "Error. Missing one or more params";
+			res.status(HTTPStatus.BAD).json(errMsg);
+			throw new Error(errMsg);
+		}
 	}
 );
 
