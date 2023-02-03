@@ -67,7 +67,7 @@ const SmallHeading = styled(SubTitle)`
 const BoxText = styled(P)`
   padding: 10px;
   margin: 10px;
-  color: ${COLORS.BLURPLE};
+  color: ${COLORS.PURPLE_MID};
   text-align: center;
   font-size: 2rem;
 `;
@@ -75,7 +75,7 @@ const BoxText = styled(P)`
 const ParagraphText = styled(P)`
   padding: 20px;
   margin: 10px;
-  color: ${COLORS.BLURPLE};
+  color: ${COLORS.PURPLE_MID};
   text-align: left;
   font-size: 2rem;
 `;
