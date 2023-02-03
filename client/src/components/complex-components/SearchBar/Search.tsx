@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { COLORS } from '../../../constants';
-import BookData from '../../simple-components/Book';
+import BookData from '../BookData';
 import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
 import { Book } from '../../../../../server/src/utils/Types';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
@@ -21,7 +21,7 @@ const TEMP_DIV = styled.div`
   background-color: ${COLORS.WHITE};
 `;
 
-const Search = () => {
+export const Search = () => {
   const [bookInfo, setBookInfo] = useState({} as Book);
   const [input, setInput] = useState('');
 
