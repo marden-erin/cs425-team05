@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../../../constants';
 import { LargeRoundedButton, Pill, P } from '../../simple-components';
 import { StarRating } from '../Reviews';

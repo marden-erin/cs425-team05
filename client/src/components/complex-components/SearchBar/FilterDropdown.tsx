@@ -1,6 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import { COLORS, FONTS_MAIN } from '../../../constants';
+import styled from 'styled-components';
+import { COLORS } from '../../../constants';
 import { HR, Label } from '../../simple-components';
 
 const Wrapper = styled.div`
@@ -34,7 +34,7 @@ const Select = styled.select`
   }
 `;
 
-export const FilterDropdown = ({}) => {
+export const FilterDropdown = () => {
   return (
     <Wrapper>
       <DropdownWrapper>

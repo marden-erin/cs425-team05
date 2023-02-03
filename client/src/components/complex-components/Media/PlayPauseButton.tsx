@@ -7,7 +7,7 @@ import {
 } from '../../simple-components';
 
 // onClick referenced from here: https://stackoverflow.com/questions/74067196/how-play-pause-all-animation-css-with-components-react-js
-const AnimationPauseButton = ({}) => {
+const AnimationPauseButton = () => {
   const [isPaused, setIsPaused] = useState(false);
   return (
     <SmallRoundedButton

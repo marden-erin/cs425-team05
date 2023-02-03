@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
-import { FONTS_SECONDARY, COLORS } from '../../../constants';
+import { COLORS } from '../../../constants';
 import { Label, VisuallyHiddenSpan } from '../../simple-components';
 
 type StarRatingType = {

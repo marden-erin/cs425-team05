@@ -1,15 +1,46 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import {
   FilterDropdown,
   LargeBookCard,
   SmallBookCard,
   PageWrapper,
 } from '../components';
-import { COLORS, FONTS_MAIN } from '../constants';
+import { COLORS, FONTS_MAIN, ScrollBarStyle } from '../constants';
 
 // TODO: DELETE THIS - Just used to show how a map function works
 const TEMPBOOKEXAMPLES = [
+  {
+    title: 'The Memoirs of a Slug with a Shell: An Extended Discussion',
+    author: 'Barack Obama',
+    cover: '',
+  },
+  {
+    title: 'Wow! Cool snail!',
+    author: 'Tony Hawk',
+    cover: '',
+  },
+  {
+    title: 'The Time A Snail Killed My Cousin',
+    author: 'Murder Snail',
+    cover: '',
+  },
+  {
+    title: 'The Memoirs of a Slug with a Shell: An Extended Discussion',
+    author: 'Barack Obama',
+    cover: '',
+    selected: true,
+  },
+  {
+    title: 'Wow! Cool snail!',
+    author: 'Tony Hawk',
+    cover: '',
+  },
+  {
+    title: 'The Time A Snail Killed My Cousin',
+    author: 'Murder Snail',
+    cover: '',
+  },
   {
     title: 'The Memoirs of a Slug with a Shell: An Extended Discussion',
     author: 'Barack Obama',
@@ -40,7 +71,7 @@ const GridWrapper = styled.div`
 
 const ResultsCard = styled.div`
   width: 50rem;
-  height: 80vh;
+  height: 60rem;
   padding: 20px 15px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
@@ -49,6 +80,23 @@ const ResultsCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const ScrollableDiv = styled.div`
+  height: 52.5rem;
+  width: 50rem;
+  background-color: ${COLORS.PURPLE_LIGHT};
+
+  // Makes the div scrollable
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  .small-book-card {
+    margin-inline-start: 5px;
+    margin-block-start: 10px;
+  }
+
+  ${ScrollBarStyle}
 `;
 
 const H1 = styled.h1`
@@ -67,17 +115,21 @@ function SearchResults() {
         <ResultsCard>
           <H1>Search Results</H1>
           <FilterDropdown />
-          {TEMPBOOKEXAMPLES.map(({ title, author, cover, selected }, index) => {
-            return (
-              <SmallBookCard
-                bookTitle={title}
-                authorName={author}
-                bookCover={cover}
-                selected={selected}
-                key={index}
-              />
-            );
-          })}
+          <ScrollableDiv>
+            {TEMPBOOKEXAMPLES.map(
+              ({ title, author, cover, selected }, index) => {
+                return (
+                  <SmallBookCard
+                    bookTitle={title}
+                    authorName={author}
+                    bookCover={cover}
+                    selected={selected}
+                    key={index}
+                  />
+                );
+              }
+            )}
+          </ScrollableDiv>
         </ResultsCard>
         <LargeBookCard
           bookTitle="This is the Title of a Book I could Write"

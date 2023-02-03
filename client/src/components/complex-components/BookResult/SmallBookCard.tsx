@@ -22,7 +22,7 @@ type SmallBookCardType = {
 };
 
 const ResultWrapper = styled.div<{ selected?: boolean }>`
-  width: 45.5rem;
+  width: 44rem;
   height: 10rem;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
@@ -49,7 +49,7 @@ const CoverWrapper = styled.div`
 
 const TextWrapper = styled.div`
   // Setting maxes to handle overflow
-  max-width: 32rem;
+  max-width: 30rem;
   max-height: 10rem;
   display: flex;
   flex-direction: column;
@@ -81,7 +81,7 @@ export const SmallBookCard = ({
   selected,
 }: SmallBookCardType) => {
   return (
-    <ResultWrapper selected={selected}>
+    <ResultWrapper selected={selected} className="small-book-card">
       <CoverWrapper></CoverWrapper>
       <TextWrapper>
         <TitleH2>{bookTitle}</TitleH2>
