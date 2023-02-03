@@ -1,2 +1,2 @@
 export { FilterDropdown } from './FilterDropdown';
-export { SearchBar } from './SearchBar';
+export { Search } from './Search';
