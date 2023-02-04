@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { FaPause, FaPlay } from 'react-icons/fa';
 
-import { SmallRoundedButton } from '../../simple-components';
+import {
+  SmallRoundedButton,
+  VisuallyHiddenSpan,
+} from '../../simple-components';
 
 // onClick referenced from here: https://stackoverflow.com/questions/74067196/how-play-pause-all-animation-css-with-components-react-js
-const AnimationPauseButton = ({}) => {
+const AnimationPauseButton = () => {
   const [isPaused, setIsPaused] = useState(false);
   return (
     <SmallRoundedButton
@@ -23,6 +26,9 @@ const AnimationPauseButton = ({}) => {
       }}
     >
       {isPaused ? <FaPause /> : <FaPlay />}
+      <VisuallyHiddenSpan>
+        {isPaused ? 'Play Animations' : 'Pause Animations'}
+      </VisuallyHiddenSpan>
     </SmallRoundedButton>
   );
 };

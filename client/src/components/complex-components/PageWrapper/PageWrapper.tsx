@@ -42,7 +42,7 @@ type WrapperProps = {
 const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
     html {
         background: ${(props) =>
-          props.backgroundColor ? props.backgroundColor : COLORS.BLURPLE};
+          props.backgroundColor ? props.backgroundColor : COLORS.PURPLE_DARK};
         ${FONTS_SECONDARY}
     }
 `;
@@ -60,7 +60,6 @@ const Header = styled(H1)<{ fontColor?: string }>`
   color: ${(props) => (props.fontColor ? props.fontColor : COLORS.WHITE)};
 `;
 
-// *TODO: Make page title change with pageTitle
 export const PageWrapper = ({
   children,
   pageTitle,

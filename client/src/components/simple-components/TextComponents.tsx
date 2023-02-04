@@ -4,7 +4,7 @@ import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../../constants';
 
 // This styling isn't final; just for testing and to demonstrate how we can use styled-components.
 const TextCss = css`
-  color: ${COLORS.BLURPLE};
+  color: ${COLORS.PURPLE_DARK};
 `;
 
 const H1 = styled.h1`
@@ -28,10 +28,28 @@ const H2 = styled.h2`
     font-size: 2.4rem;
 `;
 
-const P = styled.p`
+const P = styled.p<{ centered?: boolean }>`
   ${TextCss}
   ${FONTS_SECONDARY}
     font-size: 1.6rem;
+  b {
+    font-size: 1.6rem;
+    color: ${COLORS.BLUE_MID};
+  }
+
+  ${(props) =>
+    props.centered &&
+    css`
+      text-align: center;
+    `}
+`;
+
+const Label = styled.label`
+  font-family: ${FONTS_MAIN};
+  color: ${COLORS.PURPLE_MID};
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  margin-inline-end: 3px;
 `;
 
 const Author = styled.span`
@@ -57,4 +75,4 @@ const BookTitle = styled.span`
   text-align: center;
 `;
 
-export { H1, H2, P, SubTitle, Author, PageCount, BookTitle };
+export { H1, H2, P, SubTitle, Author, PageCount, BookTitle, Label };
