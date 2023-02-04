@@ -8,12 +8,16 @@ import {
 
 const clusterRouter = express.Router();
 
+//gets every book from cluster
 clusterRouter.get("/", getCluster);
 
+//modifies cluster
 clusterRouter.put("/", updateCluster);
 
+//adds cluster
 clusterRouter.post("/", addCluster);
 
+//deletes cluster and its contents
 clusterRouter.delete("/", deleteCluster);
 
 export default clusterRouter;
