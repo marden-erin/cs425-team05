@@ -137,7 +137,7 @@ function About() {
           <WordContainer>
             <SmallHeading>
               <br />
-              Meet The Creators
+              Meet The Brainy-ators
             </SmallHeading>
           </WordContainer>
 
@@ -173,7 +173,7 @@ function About() {
           <Box>
             <H2>Jodi A. Hieronymus</H2>
             <AboutUs>
-              <Img src={jodiPic} alt="Photo of Jodi" />
+              <Img src={jodiPic} alt="Photo of Jodi and Oster the bird" />
               <ParagraphText>
                 Jodi Hieronymus is a senior undergraduate student at UNR
                 expected to graduate in Spring, 2023. She has prior experience

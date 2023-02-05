@@ -1,62 +1,70 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-
-import { PageWrapper, SubTitle, H2 } from '../components';
-import { COLORS, FONTS_SECONDARY } from '../constants';
+import styled from 'styled-components';
+import Switch from 'react-switch';
+import { H1, H2, P, PageWrapper, SubTitle } from '../components';
+import { COLORS } from '../constants';
 import {
   SmallHalfRoundedButton,
-  SmallRoundedButton,
+  LargeRoundedButton,
   ThinInput,
 } from '../components/simple-components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
-const Description = styled(SubTitle)`
-  text-align: center;
-  font-size: 3.5rem;
-  font-weight: 200;
-  color: ${COLORS.WHITE};
+const FlexBoxWrapper = styled.div`
+  height: 85vh;
+  padding: 3vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+`;
+const ClusterBoxWrapper = styled.div`
+  display: flex;
+  gap: 15px;
 `;
 
-const Box = styled.div`
-  position: absolute;
-  width: 503px;
-  height: 234px;
-  left: 468px;
-  top: 300px;
+const HeadingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const PageTitle = styled(H1)`
+  color: ${COLORS.WHITE};
+  justify-content: center;
+  text-align: center;
+`;
+const SmallHeading = styled(SubTitle)`
+  font-size: 5rem;
+`;
+
+const ClusterBox = styled.div`
+  width: 600px;
+  height: 300px;
   background-color: ${COLORS.PURPLE_LIGHT};
   border-radius: 22px;
+  margin-bottom: 250px;
+`;
+const InputBarWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  padding: 10px 30px 30px;
 `;
 
-const SmallButtonWrapper = styled.div`
+const SmallBoxWords = styled(H2)`
+  font-size: 4rem;
+  font-weight: 200;
+  color: ${COLORS.WHITE};
+  text-align: center;
+`;
+const LargeButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   height: 100px;
   align-items: center;
-  gap: 175px;
-`;
-
-const Name = styled.div`
-  font: ${FONTS_SECONDARY};
-  font-weight: 500;
-  font-size: 3rem;
-  text-align: left;
-  color: ${COLORS.PURPLE_DARK};
-  padding-left: 30px;
-  padding-top: 30px;
-`;
-
-const InputBarWrapper = styled.div`
-  display: flex;
-  gap: 5px;
-  padding: 2px 30px 30px;
-`;
-
-const SmallBoxWords = styled.div`
-  font-size: 4rem;
-  font-weight: 200;
-  color: ${COLORS.WHITE};
-  text-align: center;
+  gap: 200px;
+  margin-top: 15px;
 `;
 
 const OutPut = styled(H2)`
@@ -65,19 +73,19 @@ const OutPut = styled(H2)`
   color: ${COLORS.WHITE};
   padding: 10px;
 `;
-const FlexBoxWrapper = styled.div`
-  height: 85vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 100px;
-  margin-right: 50px;
+
+const Name = styled(H2)`
+  font-size: 4rem;
+  text-align: left;
+  color: ${COLORS.PURPLE_DARK};
+  margin-left: 30px;
+  margin-top: 30px;
 `;
 
 function CreateCluster() {
   const userName = 'andrei';
   const [input, setInput] = useState('');
-  const visibility = false;
+  const [visibility, setVisibilty] = useState(false);
   const [outPut, setOutput] = useState('');
 
   const loadData = async (e: any) => {
@@ -92,36 +100,49 @@ function CreateCluster() {
   };
 
   return (
-    <PageWrapper pageTitle="createCluster" header="Create Your Cluster">
+    <PageWrapper pageTitle="Create Cluster">
       <FlexBoxWrapper>
-        <Description>
-          Your cluster will contain books you want to save for later.
-        </Description>
-        <form onSubmit={loadData}>
-          <Box>
-            <SmallButtonWrapper>
-              <SmallRoundedButton>
-                <SmallBoxWords>Public</SmallBoxWords>
-              </SmallRoundedButton>
-              <SmallRoundedButton>
-                <SmallBoxWords>Private</SmallBoxWords>
-              </SmallRoundedButton>
-            </SmallButtonWrapper>
-            <Name>Name:</Name>
-            <InputBarWrapper>
-              <ThinInput
-                placeholder="Enter Cluster Name"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              ></ThinInput>
-              <SmallHalfRoundedButton>Continue</SmallHalfRoundedButton>
-            </InputBarWrapper>
+        <HeadingWrapper>
+          <PageTitle>Create Your Cluster</PageTitle>
+          <SmallHeading>
+            Your cluster will contain books you want to save for later.
+          </SmallHeading>
+        </HeadingWrapper>
+        <ClusterBoxWrapper>
+          <ClusterBox>
+            <form onSubmit={loadData}>
+              <LargeButtonWrapper>
+                <LargeRoundedButton
+                  type="button"
+                  onClick={() => setVisibilty(true)}
+                >
+                  <SmallBoxWords>Public</SmallBoxWords>
+                </LargeRoundedButton>
+
+                <LargeRoundedButton
+                  type="button"
+                  onClick={() => setVisibilty(false)}
+                >
+                  <SmallBoxWords>Private</SmallBoxWords>
+                </LargeRoundedButton>
+              </LargeButtonWrapper>
+              <Name>Name:</Name>
+              <InputBarWrapper>
+                <ThinInput
+                  placeholder="Enter Cluster Name"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                ></ThinInput>
+                <SmallHalfRoundedButton type="submit">
+                  Continue
+                </SmallHalfRoundedButton>
+              </InputBarWrapper>
+            </form>{' '}
             <OutPut>{outPut}</OutPut>
-          </Box>
-        </form>
+          </ClusterBox>
+        </ClusterBoxWrapper>
       </FlexBoxWrapper>
     </PageWrapper>
   );
 }
-
 export default CreateCluster;
