@@ -122,6 +122,7 @@ function About() {
             </BoxText>
             <BoxText>Instructed by David Feil-Seifer, Devrin Lee</BoxText>
             <BoxText>Advised by Erin Keith</BoxText>
+            
             <ParagraphText>
               OuterWhorld is a web-based book tracking application that allows
               users to find books and set reading goals based on books from a
@@ -133,6 +134,8 @@ function About() {
               excited for reading by greeting them with a colorful, fun UI that
               is easy to navigate.
             </ParagraphText>
+
+            
           </ProjectBox>
           <WordContainer>
             <SmallHeading>

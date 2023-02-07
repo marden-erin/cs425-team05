@@ -5,7 +5,7 @@ class OuterWhorldServiceProvider {
   async getBookInfo(bookTitle: string): Promise<Book[]> {
     const res = await fetch(`/api/book?bookTitle=${bookTitle}`);
     const data = await res.json();
-
+    console.log(data)
     return data;
   }
 

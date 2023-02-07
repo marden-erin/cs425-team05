@@ -25,7 +25,6 @@ const getBook = asyncHandler(async (req: Request, res: Response) => {
 			`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}&key=${process.env.BOOK_API_KEY}`
 		);
 		const formattedBookData = await bookData.json();
-
 		if (formattedBookData.items) {
 			const firstTenBooks =
 				formattedBookData.items.length >= 10

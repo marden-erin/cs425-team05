@@ -1,10 +1,9 @@
+
 import { Book } from '../../../../server/src/utils/Types';
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { COLORS } from '../../constants';
+import { COLORS, FONTS_MAIN, ScrollBarStyle  } from '../../constants';
 import {
-  H1,
-  H2,
   P,
   Author,
   PageCount,
@@ -12,6 +11,8 @@ import {
 } from '../simple-components/TextComponents';
 import { SmallRoundedButton } from '../simple-components/ButtonsLinks';
 import OWServiceProvider from '../../OuterWhorldServiceProvider';
+import { LargeBookCard, SmallBookCard } from './BookResult';
+import { FilterDropdown } from './SearchBar';
 
 const ColumnFlexCss = css`
   display: flex;
@@ -51,9 +52,52 @@ const OutPut = styled.div`
   padding: 10px;
 `;
 
+const ResultsCard = styled.div`
+  width: 50rem;
+  height: 60rem;
+  padding: 20px 15px;
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
+  box-shadow: 10px 10px 10px #220d50;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ScrollableDiv = styled.div`
+  height: 52.5rem;
+  width: 50rem;
+  background-color: ${COLORS.PURPLE_LIGHT};
+  // Makes the div scrollable
+  overflow-y: scroll;
+  overflow-x: hidden;
+  .small-book-card {
+    margin-inline-start: 5px;
+    margin-block-start: 10px;
+  }
+  ${ScrollBarStyle}
+`;
+
+const H1 = styled.h1`
+  font-family: ${FONTS_MAIN};
+  font-style: italic;
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 2.9rem;
+  margin-bottom: 4px;
+`;
+const GridWrapper = styled.div`
+  height: 85vh;
+  padding: 3vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+`;
+
 function BookData(book: Book) {
   const { title, authors, description, pageCount, cover } = book;
-
   console.log(title);
   console.log(authors);
   console.log(description);
@@ -73,11 +117,42 @@ function BookData(book: Book) {
     console.log(response);
     setAdd(response);
   };
+  
 
   return (
     <>
       <div>
-        {shouldDisplay && (
+        <GridWrapper>
+         <ResultsCard> 
+          <H1>Search Results</H1>
+           <FilterDropdown />
+          <ScrollableDiv>
+            
+                  <SmallBookCard
+                    bookTitle={title}
+                    authorName={authors}
+                    bookCover={<img src={cover} alt ={title + " book cover"} />}
+
+                    // selected={selected}
+                    // key={index}
+                  />
+            
+          </ScrollableDiv>
+        </ResultsCard> 
+      
+        <LargeBookCard
+         bookTitle={title}
+         authorName={authors}
+         bookCover={<img src={cover} alt ={title + " book cover"} />}
+         genres={[
+           'Horror',
+           'Mystery',
+           'Historical Fiction',
+           "Children's Literature",
+         ]} 
+        description = {description}
+        />
+        {/* {shouldDisplay && (
           <Results>
             {' '}
             <BookTitle>{title}</BookTitle>
@@ -98,8 +173,8 @@ function BookData(book: Book) {
             </ButtonWrapper>
             <OutPut>{add}</OutPut>
           </Results>
-        )}
-      </div>
+        )} */}
+      </GridWrapper></div>
     </>
   );
 }

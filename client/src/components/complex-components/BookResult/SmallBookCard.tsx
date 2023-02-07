@@ -10,7 +10,7 @@ type SmallBookCardType = {
   /**
    * Author of the book
    */
-  authorName: string;
+  authorName: string[];
   /**
    * Image of book cover
    */
@@ -40,6 +40,8 @@ const ResultWrapper = styled.div<{ selected?: boolean }>`
     `}
 `;
 
+
+//TODO: have cover wrapper adjust to image size
 const CoverWrapper = styled.div`
   width: 60px;
   height: 90px;
@@ -82,7 +84,7 @@ export const SmallBookCard = ({
 }: SmallBookCardType) => {
   return (
     <ResultWrapper selected={selected} className="small-book-card">
-      <CoverWrapper></CoverWrapper>
+      <CoverWrapper>{bookCover}</CoverWrapper>
       <TextWrapper>
         <TitleH2>{bookTitle}</TitleH2>
         <AuthorH3>{authorName}</AuthorH3>

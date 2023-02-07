@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
+
 import styled from 'styled-components';
 import {
   FilterDropdown,
@@ -7,6 +9,9 @@ import {
   PageWrapper,
 } from '../components';
 import { COLORS, FONTS_MAIN, ScrollBarStyle } from '../constants';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { Book } from '../../../server/src/utils/Types';
+import BookData from '../components/complex-components/BookData';
 
 // TODO: DELETE THIS - Just used to show how a map function works
 const TEMPBOOKEXAMPLES = [
@@ -76,7 +81,6 @@ const ResultsCard = styled.div`
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
   border-radius: 15px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,16 +90,13 @@ const ScrollableDiv = styled.div`
   height: 52.5rem;
   width: 50rem;
   background-color: ${COLORS.PURPLE_LIGHT};
-
   // Makes the div scrollable
   overflow-y: scroll;
   overflow-x: hidden;
-
   .small-book-card {
     margin-inline-start: 5px;
     margin-block-start: 10px;
   }
-
   ${ScrollBarStyle}
 `;
 
@@ -109,12 +110,36 @@ const H1 = styled.h1`
 `;
 
 function SearchResults() {
+  const [bookInfo, setBookInfo] = useState({} as Book);
+
+  const location = useLocation();
+
+  //userInput is what the user typed into search bar
+  var userInput = location.state.input;
+  console.log(userInput);
+
+  
+ useEffect (() => {
+
+  const loadData = async ( e: any) => {
+    // e.preventDefault();
+    const data = await OWServiceProvider.getBookInfo(userInput);
+    setBookInfo(data[0]);
+    console.log(data);
+  }
+  loadData(userInput);
+
+   },[])
+
+ 
+
+
   return (
     <PageWrapper pageTitle="Search Results">
       <GridWrapper>
-        <ResultsCard>
+        {/* <ResultsCard> 
           <H1>Search Results</H1>
-          <FilterDropdown />
+           <FilterDropdown />
           <ScrollableDiv>
             {TEMPBOOKEXAMPLES.map(
               ({ title, author, cover, selected }, index) => {
@@ -130,8 +155,8 @@ function SearchResults() {
               }
             )}
           </ScrollableDiv>
-        </ResultsCard>
-        <LargeBookCard
+        </ResultsCard> 
+         <LargeBookCard
           bookTitle="This is the Title of a Book I could Write"
           authorName="Joe Jonas"
           bookCover=""
@@ -140,8 +165,10 @@ function SearchResults() {
             'Mystery',
             'Historical Fiction',
             "Children's Literature",
-          ]}
-        />
+          ]} 
+        /> */}
+
+        <BookData {...bookInfo}></BookData>
       </GridWrapper>
     </PageWrapper>
   );

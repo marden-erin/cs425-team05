@@ -12,7 +12,7 @@ type LargeBookCardType = {
   /**
    * Author of the book
    */
-  authorName: string;
+  authorName: string[];
   /**
    * Image of book cover
    */
@@ -21,6 +21,8 @@ type LargeBookCardType = {
    * The book's genres
    */
   genres?: string[];
+
+  description: string;
 };
 
 const CardWrapper = styled.div`
@@ -113,11 +115,12 @@ export const LargeBookCard = ({
   authorName,
   bookCover,
   genres,
+  description
 }: LargeBookCardType) => {
   return (
     <CardWrapper>
       <TopWrapper>
-        <CoverWrapper></CoverWrapper>
+        <CoverWrapper>{bookCover}</CoverWrapper>
         <InfoWrapper>
           <TitleH2>{bookTitle}</TitleH2>
           <AuthorH3>by {authorName}</AuthorH3>
@@ -132,11 +135,12 @@ export const LargeBookCard = ({
         </InfoWrapper>
       </TopWrapper>
       <BotWrapper>
-        <GoalH3>No Goal Set!</GoalH3>
+        {description}
+        {/* <GoalH3>No Goal Set!</GoalH3>
         <P centered>
           Join <b>Erin Keith</b> and 3 other friends by setting a reading goal
         </P>
-        <LargeRoundedButton>Set Goal</LargeRoundedButton>
+        <LargeRoundedButton>Set Goal</LargeRoundedButton> */}
       </BotWrapper>
     </CardWrapper>
   );
