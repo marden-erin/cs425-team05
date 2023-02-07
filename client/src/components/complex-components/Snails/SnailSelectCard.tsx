@@ -13,12 +13,17 @@ type SnailSelectCardTypes = {
      */
     color: string;
     /**
-     * If selected
+     * Name of the radio group
      */
-    selected?: boolean;
+    name: string;
 }
 
-const CardWrapper = styled.div<{$selected?: boolean}>`
+const CardWrapper = styled.div`
+width: 30rem;
+height: 32.5rem;
+`;
+
+const CardStyler = styled.div`
   width: 30rem;
   height: 32.5rem;
   padding: 30px 15px;
@@ -35,6 +40,7 @@ const CardWrapper = styled.div<{$selected?: boolean}>`
 
   :hover {
     background-color: ${COLORS.PURPLE_MID};
+    cursor: pointer;
     h2 {
         color: ${COLORS.WHITE};
     }
@@ -42,9 +48,34 @@ const CardWrapper = styled.div<{$selected?: boolean}>`
         filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
     }
   }
+}
+`;
 
-  ${(props) => props.$selected && css `
-    background-color: ${COLORS.PURPLE_MID};
+const Input = styled.input`
+    position: absolute;
+    height: 42rem;
+    width: 32rem;
+    margin-left: 0.5rem;
+    z-index: 10;
+    opacity: 0;
+    :hover {
+        cursor: pointer;
+    }
+
+    :hover + .card {
+            background-color: ${COLORS.PURPLE_MID};
+            cursor: pointer;
+            h2 {
+                color: ${COLORS.WHITE};
+            }
+            img {
+                filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
+            }
+
+    }
+
+    :checked + .card {
+        background-color: ${COLORS.PURPLE_MID};
     border: 5px solid ${COLORS.PURPLE_LIGHT};
     h2 {
         color: ${COLORS.WHITE};
@@ -52,7 +83,7 @@ const CardWrapper = styled.div<{$selected?: boolean}>`
     img {
         filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
     }
-  `}
+    }
 `;
 
 function GetSnailImg(capitalizedColor: string) {
@@ -67,13 +98,16 @@ function GetSnailImg(capitalizedColor: string) {
     }
 }
 
-export const SnailSelectCard = ({color, selected}: SnailSelectCardTypes) => {
+export const SnailSelectCard = ({color, name}: SnailSelectCardTypes) => {
     const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1).toLowerCase(); // Proper capitalization for header
 
     return(
-        <CardWrapper $selected={selected}>
+        <CardWrapper>
+            <Input type="radio" name={name} value={color} />
+        <CardStyler className="card">
             <H2>{capitalizedColor}</H2>
             <img src={GetSnailImg(capitalizedColor)} width="275"/>
+        </CardStyler>
         </CardWrapper>
     );
 }

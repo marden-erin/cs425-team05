@@ -22,9 +22,9 @@ function SnailSelection() {
         <PageWrapper pageTitle="Select A Snail">
             <FlexBoxWrapper>
                 <Radio>
-                    <SnailSelectCard color='blue'/>
-                    <SnailSelectCard color='pink' selected/>
-                    <SnailSelectCard color='yellow'/>
+                    <SnailSelectCard color='blue' name="snail-color"/>
+                    <SnailSelectCard color='pink' name="snail-color"/>
+                    <SnailSelectCard color='yellow' name="snail-color"/>
                 </Radio>
             </FlexBoxWrapper>
         </PageWrapper>
