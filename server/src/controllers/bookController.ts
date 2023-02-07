@@ -17,9 +17,26 @@ const getBook = asyncHandler(async (req: Request, res: Response) => {
 	const query = `select * from Books where bookTitle like '%${bookTitle}%';`;
 	const [books]: any[] = await db.promise().query(query);
 
+	const returnedBooks: Book[] = [];
+
 	// If we have more than 5 versions of the book stored, then return those books from DB.
 	if (books.length > 5) {
-		res.status(HTTPStatus.OK).json(books);
+		for (const element of books) {
+			const { book_id, bookTitle, pageCount, description, bookCover } = element;
+			const query = `select Book_Author.author from Books inner join Book_Author on Books.book_id = Book_Author.book_id where Books.book_id = "${book_id}"`;
+			let [authors]: any[] = await db.promise().query(query);
+			authors = authors.map((ids: { [x: string]: any }) => ids["author"]);
+
+			returnedBooks.push({
+				title: bookTitle,
+				authors: authors,
+				pageCount: pageCount,
+				description: description,
+				cover: bookCover,
+			});
+		}
+
+		res.status(HTTPStatus.OK).json(returnedBooks);
 	} else {
 		const bookData = await fetch(
 			`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}&key=${process.env.BOOK_API_KEY}`
@@ -30,8 +47,6 @@ const getBook = asyncHandler(async (req: Request, res: Response) => {
 				formattedBookData.items.length >= 10
 					? formattedBookData.items.slice(0, 10)
 					: formattedBookData.items.slice(0, formattedBookData.items.length);
-
-			const filteredTenBooks: Book[] = [];
 
 			for (const element of firstTenBooks) {
 				const title = element.volumeInfo.title;
@@ -48,7 +63,7 @@ const getBook = asyncHandler(async (req: Request, res: Response) => {
 						let query = `insert ignore into Books(book_id, bookTitle, pageCount, description, bookCover) values(DEFAULT, "${editedTitle}", "${pageCount}", "${editedDescription}", "${cover.thumbnail}");`;
 						db.query(query);
 
-						query = `select book_id from Books where bookTitle="${editedTitle}";`;
+						query = `select book_id from Books where bookTitle="${editedTitle}" and pageCount="${pageCount}" and description="${editedDescription}" and bookCover="${cover.thumbnail}";`;
 						const [row]: any[] = await db.promise().query(query);
 						const book_id = row[0].book_id;
 
@@ -57,7 +72,7 @@ const getBook = asyncHandler(async (req: Request, res: Response) => {
 							db.query(query);
 						});
 
-						filteredTenBooks.push({
+						returnedBooks.push({
 							title: element.volumeInfo.title,
 							authors: element.volumeInfo.authors,
 							pageCount: element.volumeInfo.pageCount,
@@ -70,7 +85,7 @@ const getBook = asyncHandler(async (req: Request, res: Response) => {
 					}
 				}
 			}
-			res.status(HTTPStatus.OK).json(filteredTenBooks);
+			res.status(HTTPStatus.OK).json(returnedBooks);
 		} else {
 			const errMsg = "Retrieving book info failed";
 			res.status(HTTPStatus.BAD).json(errMsg);

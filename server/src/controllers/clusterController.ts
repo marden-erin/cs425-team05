@@ -41,6 +41,31 @@ const getCluster = asyncHandler(async (req: Request, res: Response) => {
 	}
 });
 
+const getAllClusters = asyncHandler(async (req: Request, res: Response) => {
+	const { userName } = req.params;
+
+	if (userName) {
+		const filteredUserName = (userName as string).replace(/"/g, "''");
+		try {
+			let query = `select * from Users where userName="${filteredUserName}";`;
+			const [user]: any[] = await db.promise().query(query);
+			const { user_id } = user[0];
+
+			query = `select * from Clusters where user_id="${user_id}"`;
+			const [clusters]: any[] = await db.promise().query(query);
+
+			res.status(HTTPStatus.OK).json(clusters);
+		} catch (err: any) {
+			res.status(HTTPStatus.BAD).json(err.sqlMessage);
+			throw new Error(err);
+		}
+	} else {
+		const errMsg = "Error. Missing username";
+		res.status(HTTPStatus.BAD).json(errMsg);
+		throw new Error(errMsg);
+	}
+});
+
 const addCluster = asyncHandler(async (req: Request, res: Response) => {
 	const { clusterName, userName, visibility } = req.body;
 	console.log(clusterName, userName, visibility);
@@ -198,4 +223,4 @@ const findBookInfo = async (bookId: number): Promise<Book> => {
 	};
 };
 
-export { getCluster, addCluster, updateCluster, deleteCluster };
+export { getCluster, addCluster, updateCluster, deleteCluster, getAllClusters };
