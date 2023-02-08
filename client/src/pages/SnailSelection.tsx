@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import ReactModal from 'react-modal';
 import { LargeRoundedButton, PageWrapper, SnailSelectCard } from '../components';
 
 const FlexBoxWrapper = styled.div`
@@ -28,6 +29,7 @@ function SnailSelection() {
                     <SnailSelectCard color='yellow' name="snail-color"/>
                 </Radio>
                 <LargeRoundedButton>Continue</LargeRoundedButton>
+                <ReactModal isOpen className='modal-body'>Testing</ReactModal>
             </FlexBoxWrapper>
         </PageWrapper>
     );
