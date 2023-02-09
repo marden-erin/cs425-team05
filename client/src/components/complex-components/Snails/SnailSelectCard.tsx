@@ -89,7 +89,7 @@ export const SnailSelectCard = ({color, name}: SnailSelectCardTypes) => {
 
     return(
         <CardWrapper>
-            <Input type="radio" name={name} value={color} />
+            <Input type="radio" name={`${name}-radio`} value={color} />
         <CardStyler className="card">
             <H2>{capitalizedColor}</H2>
             <img src={GetSnailImg(capitalizedColor)} width="275"/>
