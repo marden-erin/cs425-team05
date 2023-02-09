@@ -3,9 +3,7 @@ import styled, { css } from 'styled-components';
 import { COLORS } from '../../../constants';
 import { H2 } from '../../simple-components';
 
-import BlueDefaultSnail from '../../../imgs/snails/blue-default.png';
-import PinkDefaultSnail from '../../../imgs/snails/pink-default.png';
-import YellowDefaultSnail from '../../../imgs/snails/yellow-default.png';
+import { GetSnailImg } from '../../../utils';
 
 type SnailSelectCardTypes = {
     /**
@@ -85,18 +83,6 @@ const Input = styled.input`
     }
     }
 `;
-
-function GetSnailImg(capitalizedColor: string) {
-    if(capitalizedColor === 'Blue') {
-        return BlueDefaultSnail;
-    }
-    if(capitalizedColor === 'Pink') {
-        return PinkDefaultSnail;
-    }
-    else { // Fallback
-        return YellowDefaultSnail;
-    }
-}
 
 export const SnailSelectCard = ({color, name}: SnailSelectCardTypes) => {
     const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1).toLowerCase(); // Proper capitalization for header

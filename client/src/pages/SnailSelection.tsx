@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled, { css } from 'styled-components';
 import ReactModal from 'react-modal';
 import { LargeRoundedButton, PageWrapper, SnailSelectCard } from '../components';
@@ -20,6 +20,7 @@ const Radio = styled.div`
 `;
 
 function SnailSelection() {
+    const [isModalOpen, toggleIsModalOpen] = useState(false);
     return (
         <PageWrapper pageTitle="Select A Snail" header="Select A Snail!">
             <FlexBoxWrapper>
@@ -28,8 +29,8 @@ function SnailSelection() {
                     <SnailSelectCard color='pink' name="snail-color"/>
                     <SnailSelectCard color='yellow' name="snail-color"/>
                 </Radio>
-                <LargeRoundedButton>Continue</LargeRoundedButton>
-                <ReactModal isOpen className='modal-body'>Testing</ReactModal>
+                <LargeRoundedButton onClick={() => {toggleIsModalOpen(true)}}>Continue</LargeRoundedButton>
+                <ReactModal isOpen={isModalOpen} className='modal-body' overlayClassName='modal-overlay'>Testing</ReactModal>
             </FlexBoxWrapper>
         </PageWrapper>
     );
