@@ -14,6 +14,14 @@ type SnailSelectCardTypes = {
      * Name of the radio group
      */
     name: string;
+    /**
+     * Result so far
+     */
+    result: string;
+    /**
+     * Changes result when this radio is clicked
+     */
+    changeResult: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const CardWrapper = styled.div`
@@ -84,12 +92,12 @@ const Input = styled.input`
     }
 `;
 
-export const SnailSelectCard = ({color, name}: SnailSelectCardTypes) => {
+export const SnailSelectCard = ({color, name, result, changeResult}: SnailSelectCardTypes) => {
     const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1).toLowerCase(); // Proper capitalization for header
 
     return(
         <CardWrapper>
-            <Input type="radio" name={`${name}-radio`} value={color} />
+            <Input type="radio" name={`${name}-radio`} value={color} checked={result === color} onChange={() => {changeResult(color)}}/>
         <CardStyler className="card">
             <H2>{capitalizedColor}</H2>
             <img src={GetSnailImg(capitalizedColor)} width="275"/>

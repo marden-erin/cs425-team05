@@ -27,40 +27,30 @@ const ModalContentWrapper = styled.div`
     gap: 4rem;
 `;
 
-function getRadioResult() {
-    var radioElement = [...document.getElementsByName('snail-color-radio')];
-      
-    for(let i = 0; i < radioElement.length; i++) {
-        if(radioElement[i].checked){
-            console.log(radioElement[i].value);
-        }
-    }
-}
-
 /**
  * TODOS:
  * - Close modal on escape press
- * - Check for choice before opening modal
+ * - Fix modal console error
  */
 function SnailSelection() {
     const [isModalOpen, toggleIsModalOpen] = useState(false);
-    const [snailColor, setSnailColor] = useState('none');
+    const [snailColor, setSnailColor] = useState('blue');
     return (
         <PageWrapper pageTitle="Select A Snail" header="Select A Snail!">
             <FlexBoxWrapper $isModalOpen={isModalOpen}>
                 <Radio>
-                    <SnailSelectCard color='blue' name="snail-color"/>
-                    <SnailSelectCard color='pink' name="snail-color"/>
-                    <SnailSelectCard color='yellow' name="snail-color"/>
+                    <SnailSelectCard color='blue' name="snail-color" result={snailColor} changeResult={setSnailColor}/>
+                    <SnailSelectCard color='pink' name="snail-color" result={snailColor} changeResult={setSnailColor}/>
+                    <SnailSelectCard color='yellow' name="snail-color" result={snailColor} changeResult={setSnailColor}/>
                 </Radio>
                 <LargeRoundedButton onClick={() => {
-                    console.log('Snail color:');
                     toggleIsModalOpen(true)
                     }}>Continue</LargeRoundedButton>
                 <ReactModal isOpen={isModalOpen} className='modal-body' overlayClassName='modal-overlay'>
                 <CloseButton handler={toggleIsModalOpen}/>
                     <ModalContentWrapper>
                         <img src={GetSnailImg('pink')} width="275"/>
+                        <h2>{snailColor}</h2>
                     </ModalContentWrapper>
                 </ReactModal>
             </FlexBoxWrapper>
