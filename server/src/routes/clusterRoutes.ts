@@ -4,12 +4,16 @@ import {
 	getCluster,
 	updateCluster,
 	deleteCluster,
+	getAllClusters,
 } from "../controllers/clusterController";
 
 const clusterRouter = express.Router();
 
-//gets every book from cluster
+//gets every book from individual cluster
 clusterRouter.get("/", getCluster);
+
+// gets all clusters from user
+clusterRouter.get("/:userName", getAllClusters);
 
 //modifies cluster
 clusterRouter.put("/", updateCluster);

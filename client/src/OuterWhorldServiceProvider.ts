@@ -9,13 +9,20 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
-  // Returns all the books in cluster
+  // Returns all the books in individual cluster
   async getClusterInformation(clusterName: string, userName: string) {
     const res = await fetch(
       `/api/clusters?clusterName=${clusterName}&userName=${userName}`
     );
     const data = await res.json();
 
+    return data;
+  }
+
+  async getAllClustersFromUser(userName: string) {
+    const res = await fetch(`/api/clusters/${userName}`);
+    const data = await res.json();
+    
     return data;
   }
 
@@ -30,8 +37,6 @@ class OuterWhorldServiceProvider {
       userName,
       visibility,
     };
-
-    console.log(JSON.stringify(input));
 
     const res = await fetch(`/api/clusters`, {
       method: 'POST',
