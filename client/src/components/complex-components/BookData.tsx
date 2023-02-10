@@ -104,15 +104,14 @@ function BookData(book: Book) {
   console.log(pageCount);
   console.log(cover);
   const shouldDisplay = title && authors && description && pageCount && cover;
-
+  console.log(props.allBooks[1])
   const [add, setAdd] = useState('');
-
   const loadData = async (e: any) => {
     e.preventDefault();
     const response = await OWServiceProvider.addBookToCluster(
       'test',
       'andrei',
-      book
+      props.book
     );
     console.log(response);
     setAdd(response);

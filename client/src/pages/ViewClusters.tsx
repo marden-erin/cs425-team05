@@ -1,11 +1,10 @@
 //Erin TODO: Format and show all clusters made
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
-import { COLORS } from '../constants';
-import { PageWrapper, SmallRoundedButton } from '../components';
-import ClusterBooks from '../components/simple-components/ClusterBooks';
+import { COLORS, FONTS_MAIN } from '../constants';
+import { PageWrapper, SmallRoundedButton, H1, Box, Box_Wrapper, BookTitle } from '../components';
 import { Book } from '../../../server/src/utils/Types';
 
 import OWServiceProvider from '../OuterWhorldServiceProvider';
@@ -17,35 +16,61 @@ const OutPut = styled.div`
 `;
 const FlexBoxWrapper = styled.div`
   height: 85vh;
+  padding: 3vh;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 100px;
-  margin-right: 50px;
+  align-items: center;
+  gap: 35px;
 `;
+const HeadingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const PageTitle = styled(H1)`
+  color: ${COLORS.WHITE};
+  justify-content: center;
+  text-align: center;
+`;
+const ClusterBox = styled(Box)`
+text-align: left;
+`
 
 function ViewClusters() {
-  const [info, setInfo] = useState({} as Book);
+  const [cluster, setCluster] = useState([{cluster_id:" ", clusterName: " ", user_id:"", visibility: ""}])
 
-  const loadData = async (e: any) => {
-    const clusterInfo = await OWServiceProvider.getClusterInformation(
-      'test',
+  useEffect (() => {
+  const loadData = async () => {
+  
+    const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
       'andrei'
     );
-    console.log(clusterInfo);
-    const data = await OWServiceProvider.getBookInfo(clusterInfo[0]);
-    setInfo(data[0]);
-    console.log(clusterInfo);
-  };
+    setCluster(clusterInfo);
+  }
+  loadData();
+
+},[]);
+
+  //creates new cluster array with the users cluster name displayed
+  const newArray = cluster.map((x, index) => 
+  <div key = {index}><ClusterBox><BookTitle>{x.clusterName}</BookTitle>
+  </ClusterBox></div>);
+
+
+
 
   return (
     <div>
-      <PageWrapper pageTitle="View Clusters" header="View Clusters">
+      <PageWrapper pageTitle="View Clusters">
         <FlexBoxWrapper>
-          <SmallRoundedButton onClick={loadData}>
-            Temp Button
-          </SmallRoundedButton>
-          <ClusterBooks {...info}></ClusterBooks>
+        <HeadingWrapper>
+          <PageTitle>View Your Clusters</PageTitle>
+        </HeadingWrapper>
+         
+          <Box_Wrapper>   
+            {newArray}
+          </Box_Wrapper>
         </FlexBoxWrapper>
       </PageWrapper>
     </div>

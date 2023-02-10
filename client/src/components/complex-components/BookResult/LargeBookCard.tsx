@@ -43,6 +43,8 @@ const CoverWrapper = styled.div`
   height: 200px;
   background-color: ${COLORS.PURPLE_DARK};
   border: 3px solid ${COLORS.PURPLE_MID};
+  max-width-inline: 100%;
+
 `;
 
 const TopWrapper = styled.div`
@@ -86,15 +88,22 @@ const AuthorH3 = styled.h3`
   font-weight: 200;
   font-size: 1.4rem;
   line-height: 1.6rem;
+  text-align: center;
   color: ${COLORS.BLACK};
 `;
+const DescriptionH3 = styled.h3`
+${FONTS_MAIN};
+font-weight: 200;
+font-size: 1.4rem;
+line-height: 1.6rem;
+color: ${COLORS.BLACK};
+`
 
 const BotWrapper = styled.div`
   width: 290px;
   height: 170px;
   padding: 30px;
   background-color: ${COLORS.PURPLE_LIGHT};
-
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
@@ -124,13 +133,6 @@ export const LargeBookCard = ({
         <InfoWrapper>
           <TitleH2>{bookTitle}</TitleH2>
           <AuthorH3>by {authorName}</AuthorH3>
-          {genres && (
-            <PillWrapper>
-              {genres.map((genre, index) => (
-                <Pill key={index}>{genre}</Pill>
-              ))}
-            </PillWrapper>
-          )}
           <StarRating rating={3} />
         </InfoWrapper>
       </TopWrapper>

@@ -47,6 +47,9 @@ const CoverWrapper = styled.div`
   height: 90px;
   background-color: ${COLORS.PURPLE_DARK};
   border: 3px solid ${COLORS.PURPLE_MID};
+  overflow-y: hidden;
+  max-width-inline: 100%;
+
 `;
 
 const TextWrapper = styled.div`
