@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import CreateCluster from './pages/CreateCluster';
 import SearchResults from './pages/SearchResults';
-import SnailSelection from './pages/SnailSelection';
+import SnailAdoption from './pages/SnailAdoption';
 import ViewClusters from './pages/ViewClusters';
 
 const root = ReactDOM.createRoot(
@@ -22,7 +22,7 @@ root.render(
       <Route path="/about" element={<About />} />
       <Route path="/create-cluster" element={<CreateCluster />} />
       <Route path="/search-results" element={<SearchResults />} />
-      <Route path="/snail-selection" element={<SnailSelection />} />
+      <Route path="/snail-selection" element={<SnailAdoption />} />
       <Route path="/view-clusters" element={<ViewClusters />} />
     </Routes>
   </BrowserRouter>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled, { css } from 'styled-components';
 import ReactModal from 'react-modal';
-import { CloseButton, LargeRoundedButton, PageWrapper, SnailSelectCard } from '../components';
+import { CloseButton, H2, LargeRoundedButton, PageWrapper, SnailSelectCard } from '../components';
 import { GetSnailImg } from '../utils';
 
 const FlexBoxWrapper = styled.div<{$isModalOpen: boolean}>`
@@ -24,6 +24,7 @@ const Radio = styled.div`
 
 const ModalContentWrapper = styled.div`
     display: flex;
+    padding: 20px;
     gap: 4rem;
 `;
 
@@ -32,11 +33,11 @@ const ModalContentWrapper = styled.div`
  * - Close modal on escape press
  * - Fix modal console error
  */
-function SnailSelection() {
+function SnailAdoption() {
     const [isModalOpen, toggleIsModalOpen] = useState(false);
     const [snailColor, setSnailColor] = useState('blue');
     return (
-        <PageWrapper pageTitle="Select A Snail" header="Select A Snail!">
+        <PageWrapper pageTitle="Adopt A Snail" header="Adopt A Snail!">
             <FlexBoxWrapper $isModalOpen={isModalOpen}>
                 <Radio>
                     <SnailSelectCard color='blue' name="snail-color" result={snailColor} changeResult={setSnailColor}/>
@@ -49,8 +50,8 @@ function SnailSelection() {
                 <ReactModal isOpen={isModalOpen} className='modal-body' overlayClassName='modal-overlay'>
                 <CloseButton handler={toggleIsModalOpen}/>
                     <ModalContentWrapper>
-                        <img src={GetSnailImg('pink')} width="275"/>
-                        <h2>{snailColor}</h2>
+                        <img src={GetSnailImg(snailColor)} width="275"/>
+                        <H2></H2>
                     </ModalContentWrapper>
                 </ReactModal>
             </FlexBoxWrapper>
@@ -58,4 +59,4 @@ function SnailSelection() {
     );
 }
 
-export default SnailSelection;
+export default SnailAdoption;
