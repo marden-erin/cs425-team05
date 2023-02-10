@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import * as React from 'react';
+import { Routes, Route, Outlet, Link } from 'react-router-dom';
 
 // After home, alphabetical order
 import Home from './pages/Home';
@@ -10,15 +10,15 @@ import ViewClusters from './pages/ViewClusters';
 
 export default function App() {
   return (
-      <Routes>
-          <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="create-cluster" element={<CreateCluster />} />
-          <Route path="search-results" element={<SearchResults />} />
-          <Route path="view-clusters" element={<ViewClusters />} />
-          </Route>
-      </Routes>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="create-cluster" element={<CreateCluster />} />
+        <Route path="search-results" element={<SearchResults />} />
+        <Route path="view-clusters" element={<ViewClusters />} />
+      </Route>
+    </Routes>
   );
 }
 
