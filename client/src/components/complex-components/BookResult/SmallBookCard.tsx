@@ -49,6 +49,8 @@ const CoverWrapper = styled.div`
   border: 3px solid ${COLORS.PURPLE_MID};
   overflow-y: hidden;
   max-width-inline: 100%;
+  object-fit: scale-down;
+
 
 `;
 

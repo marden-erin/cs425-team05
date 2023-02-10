@@ -3,12 +3,6 @@ import { Book } from '../../../../server/src/utils/Types';
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { COLORS, FONTS_MAIN, ScrollBarStyle  } from '../../constants';
-import {
-  P,
-  Author,
-  PageCount,
-  BookTitle,
-} from '../simple-components/TextComponents';
 import { SmallRoundedButton } from '../simple-components/ButtonsLinks';
 import OWServiceProvider from '../../OuterWhorldServiceProvider';
 import { LargeBookCard, SmallBookCard } from './BookResult';
@@ -96,8 +90,8 @@ const GridWrapper = styled.div`
   gap: 35px;
 `;
 
-function BookData(book: Book) {
-  const { title, authors, description, pageCount, cover } = book;
+function BookData(props:any) {
+  const { title, authors, description, pageCount, cover } = props.book;
   console.log(title);
   console.log(authors);
   console.log(description);
@@ -126,53 +120,28 @@ function BookData(book: Book) {
           <H1>Search Results</H1>
            <FilterDropdown />
           <ScrollableDiv>
-            
+          {props.allBooks.map(
+              ({ title, author, cover }:{title:any,author:any, cover:any }, index:any) => {
+                return (
                   <SmallBookCard
                     bookTitle={title}
-                    authorName={authors}
-                    bookCover={<img src={cover} alt ={title + " book cover"} />}
-
-                    // selected={selected}
-                    // key={index}
+                    authorName={author}
+                    bookCover={<img style = {{maxWidth: '100%'}} src={cover} alt ={title + " book cover"}/>}
+                    //selected={selected}
+                    key={index}
                   />
-            
+                );
+              }
+            )}
           </ScrollableDiv>
         </ResultsCard> 
       
         <LargeBookCard
          bookTitle={title}
          authorName={authors}
-         bookCover={<img src={cover} alt ={title + " book cover"} />}
-         genres={[
-           'Horror',
-           'Mystery',
-           'Historical Fiction',
-           "Children's Literature",
-         ]} 
+         bookCover={<img src={cover} style = {{maxWidth: '100%'}}alt ={title + " book cover"} />}
         description = {description}
         />
-        {/* {shouldDisplay && (
-          <Results>
-            {' '}
-            <BookTitle>{title}</BookTitle>
-            {authors.map((item: string) => {
-              return <Author> {item}</Author>;
-            })}{' '}
-            <br></br>
-            <img src={cover} alt={title + ' cover'} />
-            <PageCount>{pageCount} Pages</PageCount>
-            <br></br>
-            <P>{description}</P>
-            <br></br>
-            <ButtonWrapper>
-              <SmallRoundedButton onClick={loadData}>
-                Add to Cluster
-              </SmallRoundedButton>
-              <SmallRoundedButton>Add Review</SmallRoundedButton>
-            </ButtonWrapper>
-            <OutPut>{add}</OutPut>
-          </Results>
-        )} */}
       </GridWrapper></div>
     </>
   );

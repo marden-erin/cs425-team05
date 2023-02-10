@@ -20,7 +20,6 @@ type LargeBookCardType = {
   /**
    * The book's genres
    */
-  genres?: string[];
 
   description: string;
 };
@@ -123,7 +122,6 @@ export const LargeBookCard = ({
   bookTitle,
   authorName,
   bookCover,
-  genres,
   description
 }: LargeBookCardType) => {
   return (
