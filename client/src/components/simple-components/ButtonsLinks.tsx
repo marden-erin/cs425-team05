@@ -59,6 +59,14 @@ const SmallRoundedButton = styled.button<{ color?: ColorType }>`
     ${(props) => ColorCss(props.color)}
 `;
 
+const LargeHalfRoundedButton = styled.button<{ color?: ColorType }>`
+  ${ButtonCss}
+  ${HalfRoundedCss}
+${LargeCss}
+
+${(props) => ColorCss(props.color)}
+`;
+
 const LargeRoundedButton = styled.button<{ color?: ColorType }>`
   ${ButtonCss}
   ${RoundedCss}
@@ -67,4 +75,9 @@ const LargeRoundedButton = styled.button<{ color?: ColorType }>`
     ${(props) => ColorCss(props.color)}
 `;
 
-export { LargeRoundedButton, SmallHalfRoundedButton, SmallRoundedButton };
+export {
+  LargeRoundedButton,
+  SmallHalfRoundedButton,
+  SmallRoundedButton,
+  LargeHalfRoundedButton,
+};

@@ -4,7 +4,14 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import { COLORS, FONTS_MAIN } from '../constants';
-import { PageWrapper, SmallRoundedButton, H1, Box, Box_Wrapper, BookTitle } from '../components';
+import {
+  PageWrapper,
+  SmallRoundedButton,
+  H1,
+  Box,
+  Box_Wrapper,
+  BookTitle,
+} from '../components';
 import { Book } from '../../../server/src/utils/Types';
 
 import OWServiceProvider from '../OuterWhorldServiceProvider';
@@ -34,43 +41,42 @@ const PageTitle = styled(H1)`
   text-align: center;
 `;
 const ClusterBox = styled(Box)`
-text-align: left;
-`
+  text-align: left;
+`;
 
 function ViewClusters() {
-  const [cluster, setCluster] = useState([{cluster_id:" ", clusterName: " ", user_id:"", visibility: ""}])
+  const [cluster, setCluster] = useState([
+    { cluster_id: ' ', clusterName: ' ', user_id: '', visibility: '' },
+  ]);
 
-  useEffect (() => {
-  const loadData = async () => {
-  
-    const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
-      'andrei'
-    );
-    setCluster(clusterInfo);
-  }
-  loadData();
-
-},[]);
+  useEffect(() => {
+    const loadData = async () => {
+      const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
+        'andrei'
+      );
+      setCluster(clusterInfo);
+    };
+    loadData();
+  }, []);
 
   //creates new cluster array with the users cluster name displayed
-  const newArray = cluster.map((x, index) => 
-  <div key = {index}><ClusterBox><BookTitle>{x.clusterName}</BookTitle>
-  </ClusterBox></div>);
-
-
-
+  const newArray = cluster.map((x, index) => (
+    <div key={index}>
+      <ClusterBox>
+        <BookTitle>{x.clusterName}</BookTitle>
+      </ClusterBox>
+    </div>
+  ));
 
   return (
     <div>
       <PageWrapper pageTitle="View Clusters">
         <FlexBoxWrapper>
-        <HeadingWrapper>
-          <PageTitle>View Your Clusters</PageTitle>
-        </HeadingWrapper>
-         
-          <Box_Wrapper>   
-            {newArray}
-          </Box_Wrapper>
+          <HeadingWrapper>
+            <PageTitle>View Your Clusters</PageTitle>
+          </HeadingWrapper>
+
+          <Box_Wrapper>{newArray}</Box_Wrapper>
         </FlexBoxWrapper>
       </PageWrapper>
     </div>

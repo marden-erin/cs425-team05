@@ -1,13 +1,19 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { H1, H2, P, PageWrapper, SubTitle, Box, Box_Wrapper } from '../components';
+import {
+  H1,
+  H2,
+  P,
+  PageWrapper,
+  SubTitle,
+  Box,
+  Box_Wrapper,
+} from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import erinPic from '../imgs/erinPic.png';
 import andreiPic from '../imgs/andreiPic.png';
 import jodiPic from '../imgs/jodiPic.png';
-
-
 
 const FlexBoxWrapper = styled.div`
   display: flex;
@@ -99,7 +105,7 @@ function About() {
             </BoxText>
             <BoxText>Instructed by David Feil-Seifer, Devrin Lee</BoxText>
             <BoxText>Advised by Erin Keith</BoxText>
-            
+
             <ParagraphText>
               OuterWhorld is a web-based book tracking application that allows
               users to find books and set reading goals based on books from a
@@ -111,8 +117,6 @@ function About() {
               excited for reading by greeting them with a colorful, fun UI that
               is easy to navigate.
             </ParagraphText>
-
-            
           </ProjectBox>
           <WordContainer>
             <SmallHeading>

@@ -40,7 +40,6 @@ const ResultWrapper = styled.div<{ selected?: boolean }>`
     `}
 `;
 
-
 //TODO: have cover wrapper adjust to image size
 const CoverWrapper = styled.div`
   width: 60px;
@@ -50,8 +49,6 @@ const CoverWrapper = styled.div`
   overflow-y: hidden;
   max-width-inline: 100%;
   object-fit: scale-down;
-
-
 `;
 
 const TextWrapper = styled.div`

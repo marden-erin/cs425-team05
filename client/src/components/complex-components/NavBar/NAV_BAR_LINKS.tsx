@@ -28,6 +28,6 @@ export const PrototypePages = [
   },
   {
     linkLabel: 'View Clusters',
-    linkURL: '/view-clusters'
-  }
+    linkURL: '/view-clusters',
+  },
 ];

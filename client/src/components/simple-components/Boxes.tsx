@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
-import { COLORS } from '../../constants';
-
+import { COLORS, GRADIENTS } from '../../constants';
 
 const Box_Wrapper = styled.div`
   display: flex;
@@ -20,4 +19,4 @@ const Box = styled.div`
   text-align: center;
 `;
 
-export {Box_Wrapper, Box}
+export { Box_Wrapper, Box };

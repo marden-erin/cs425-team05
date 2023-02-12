@@ -19,6 +19,4 @@ const Pill = styled.span`
   border-radius: 15px;
 `;
 
-
-
 export { HR, Pill };

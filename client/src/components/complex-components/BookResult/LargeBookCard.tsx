@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../../../constants';
-import { LargeRoundedButton, Pill, P } from '../../simple-components';
+import {
+  COLORS,
+  FONTS_MAIN,
+  FONTS_SECONDARY,
+  ScrollBarStyle,
+} from '../../../constants';
+import { SmallRoundedButton, P } from '../../simple-components';
 import { StarRating } from '../Reviews';
+import SmallBookCard from './SmallBookCard';
 
 type LargeBookCardType = {
   /**
@@ -22,6 +28,8 @@ type LargeBookCardType = {
    */
 
   description: string;
+
+  tempFunction: any;
 };
 
 const CardWrapper = styled.div`
@@ -43,7 +51,6 @@ const CoverWrapper = styled.div`
   background-color: ${COLORS.PURPLE_DARK};
   border: 3px solid ${COLORS.PURPLE_MID};
   max-width-inline: 100%;
-
 `;
 
 const TopWrapper = styled.div`
@@ -62,13 +69,6 @@ const InfoWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-`;
-
-const PillWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5px;
 `;
 
 // Using special headers because the styling on this page doesn't match other pages
@@ -90,18 +90,31 @@ const AuthorH3 = styled.h3`
   text-align: center;
   color: ${COLORS.BLACK};
 `;
-const DescriptionH3 = styled.h3`
-${FONTS_MAIN};
-font-weight: 200;
-font-size: 1.4rem;
-line-height: 1.6rem;
-color: ${COLORS.BLACK};
-`
+const ButtonWrapper = styled.div`
+display: flex;
+flex-direction: row;
+flex-wrap: wrap
+justify-content: center;
+gap: 15px;
+width: 200px;
+`;
+const DropWrapper = styled.div`
+  margin-left: 15%;
+  display: flex;
+  justify-content: center;
+`;
+const AllButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15%;
+`;
 
 const BotWrapper = styled.div`
   width: 290px;
   height: 170px;
   padding: 30px;
+  margin-top: 5%;
   background-color: ${COLORS.PURPLE_LIGHT};
   display: flex;
   flex-flow: column wrap;
@@ -109,20 +122,20 @@ const BotWrapper = styled.div`
   align-items: center;
 `;
 
-const GoalH3 = styled.h3`
-  ${FONTS_SECONDARY};
-  font-weight: 400;
-  font-size: 2.2rem;
-  line-height: 2.4rem;
-  text-align: center;
-  color: ${COLORS.BLUE_MID};
+const TextWrapper = styled.div`
+  ${ScrollBarStyle};
+  width: 290px;
+  height: 170px;
+  padding-right: 5px;
+  overflow-y: scroll;
 `;
 
 export const LargeBookCard = ({
   bookTitle,
   authorName,
   bookCover,
-  description
+  description,
+  tempFunction,
 }: LargeBookCardType) => {
   return (
     <CardWrapper>
@@ -132,15 +145,21 @@ export const LargeBookCard = ({
           <TitleH2>{bookTitle}</TitleH2>
           <AuthorH3>by {authorName}</AuthorH3>
           <StarRating rating={3} />
+          <AllButtonWrapper>
+            <ButtonWrapper>
+              {/* TODO: link set goal page to button
+            TODO: create functionality for reviews */}
+              <SmallRoundedButton>Set Goal</SmallRoundedButton>
+              <SmallRoundedButton>Add Review</SmallRoundedButton>
+            </ButtonWrapper>
+            <DropWrapper> {tempFunction}</DropWrapper>
+          </AllButtonWrapper>
         </InfoWrapper>
       </TopWrapper>
       <BotWrapper>
-        {description}
-        {/* <GoalH3>No Goal Set!</GoalH3>
-        <P centered>
-          Join <b>Erin Keith</b> and 3 other friends by setting a reading goal
-        </P>
-        <LargeRoundedButton>Set Goal</LargeRoundedButton> */}
+        <TextWrapper>
+          <P> {description}</P>
+        </TextWrapper>
       </BotWrapper>
     </CardWrapper>
   );

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
-import {
-  PageWrapper,
-} from '../components';
+import { PageWrapper } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
-import BookData from '../components/complex-components/BookData';
+import BookData from '../components/complex-components/BookResult/BookData';
 
 const GridWrapper = styled.div`
   height: 85vh;
@@ -29,27 +27,29 @@ function SearchResults() {
   var userInput = location.state.input;
   console.log(userInput);
 
-  
- useEffect (() => {
+  useEffect(() => {
+    const loadData = async (e: any) => {
+      const data = await OWServiceProvider.getBookInfo(userInput);
+      setBookInfo(data[0]);
+      console.log('HERERER');
+      console.log(data);
+      const temp = data.map((x, index) => {
+        return {
+          key: index,
+          title: x.title,
+          author: x.authors,
+          cover: x.cover,
+        };
+      });
+      setAllBooks([...temp]);
+    };
+    loadData(userInput);
+  }, []);
 
-  const loadData = async ( e: any) => {
-    const data = await OWServiceProvider.getBookInfo(userInput);
-    setBookInfo(data[0]);
-    console.log(data);
-    const temp = data.map((x, index) =>{
-    return{key: index, title:x.title, author:x.authors, cover:x.cover}
-    });
-    setAllBooks([...temp])
-  }
-  loadData(userInput);
-
-   },[])
-
- 
-   let props = {
-    book:bookInfo,
-    allBooks:allBooks
-    }
+  let props = {
+    book: bookInfo,
+    allBooks: allBooks,
+  };
 
   return (
     <PageWrapper pageTitle="Search Results">
