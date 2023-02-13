@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import styled, { css } from 'styled-components';
 import ReactModal from 'react-modal';
-import { CloseButton, H2, LargeRoundedButton, PageWrapper, SnailSelectCard } from '../components';
+import { CloseButton, H2, Label, LargeRoundedButton, LargeRoundedLink, P, PageWrapper, SnailSelectCard, ThickInput } from '../components';
 import { GetSnailImg } from '../utils';
+import { COLORS } from '../constants';
 
 const FlexBoxWrapper = styled.div<{$isModalOpen: boolean}>`
     height: 80vh;
@@ -26,18 +27,37 @@ const ModalContentWrapper = styled.div`
     display: flex;
     padding: 20px;
     gap: 4rem;
+    align-items: center;
+    justify-content: center;
+`;
+
+const RightModalContentWrapper = styled.div`
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    h2 {
+        text-align: center;
+    }
+`;
+
+const InputWrapper = styled.div`
+    background-color: ${COLORS.PURPLE_LIGHT};
+    padding: 2rem 4rem 3rem;
 `;
 
 /**
  * TODOS:
  * - Close modal on escape press
- * - Fix modal console error
  */
 function SnailAdoption() {
     const [isModalOpen, toggleIsModalOpen] = useState(false);
     const [snailColor, setSnailColor] = useState('blue');
+    ReactModal.setAppElement('*');
+
     return (
-        <PageWrapper pageTitle="Adopt A Snail" header="Adopt A Snail!">
+        <PageWrapper pageTitle="Adopt A Snail" header="Adopt A Snail">
             <FlexBoxWrapper $isModalOpen={isModalOpen}>
                 <Radio>
                     <SnailSelectCard color='blue' name="snail-color" result={snailColor} changeResult={setSnailColor}/>
@@ -50,8 +70,16 @@ function SnailAdoption() {
                 <ReactModal isOpen={isModalOpen} className='modal-body' overlayClassName='modal-overlay'>
                 <CloseButton handler={toggleIsModalOpen}/>
                     <ModalContentWrapper>
-                        <img src={GetSnailImg(snailColor)} width="275"/>
-                        <H2></H2>
+                        <img src={GetSnailImg(snailColor)} width="250" height="250"/>
+                        <RightModalContentWrapper>
+                            <H2>Name Your Snail!</H2>
+                            <InputWrapper>
+                                <Label htmlFor='snail-name'>Name:</Label>
+                                <ThickInput name='snail-name'/>
+                            </InputWrapper>
+                            <P><b>Warning:</b> You're responsible for your snail's wellbeing. By continuing, you accept responsibility for this snail's life.</P>
+                            <LargeRoundedLink href="/">Adopt Snail</LargeRoundedLink>
+                        </RightModalContentWrapper>
                     </ModalContentWrapper>
                 </ReactModal>
             </FlexBoxWrapper>
