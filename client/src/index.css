@@ -5,9 +5,9 @@
 
 .modal-body {
   position: absolute;
-  
-  border: 4px solid #CAC8E7;
-  background: #EAE7EF;
+
+  border: 4px solid #cac8e7;
+  background: #eae7ef;
   overflow: auto;
   border-radius: 15px;
   outline: none;
@@ -15,11 +15,10 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-
-    }
+}
 
 .modal-overlay {
   position: fixed;
-    inset: 0px;
-    background-color: rgba(14, 5, 77, 0.6);
+  inset: 0px;
+  background-color: rgba(14, 5, 77, 0.6);
 }

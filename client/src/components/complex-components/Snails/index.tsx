@@ -1,1 +1,1 @@
-export {SnailSelectCard} from './SnailSelectCard';
+export { SnailSelectCard } from './SnailSelectCard';

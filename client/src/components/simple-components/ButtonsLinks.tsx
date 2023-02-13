@@ -76,7 +76,12 @@ const LargeRoundedLink = styled.a<{ color?: ColorType }>`
   text-align: center;
   text-decoration: none;
 
-    ${(props) => ColorCss(props.color)}
+  ${(props) => ColorCss(props.color)}
 `;
 
-export { LargeRoundedButton, LargeRoundedLink, SmallHalfRoundedButton, SmallRoundedButton };
+export {
+  LargeRoundedButton,
+  LargeRoundedLink,
+  SmallHalfRoundedButton,
+  SmallRoundedButton,
+};

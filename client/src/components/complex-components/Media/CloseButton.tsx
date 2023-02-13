@@ -12,23 +12,23 @@ type CloseButtonProps = {
    * The handler that toggles the element to close
    */
   handler: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 const StyledSmallButton = styled(SmallRoundedButton)`
   position: fixed;
   right: 10px;
   top: 10px;
-
 `;
 
-const CloseButton = ({handler}: CloseButtonProps) => {
+const CloseButton = ({ handler }: CloseButtonProps) => {
   return (
     <StyledSmallButton
-      onClick={() => {handler(false)}} >
-        <IoMdClose />
-      <VisuallyHiddenSpan>
-        Close
-      </VisuallyHiddenSpan>
+      onClick={() => {
+        handler(false);
+      }}
+    >
+      <IoMdClose />
+      <VisuallyHiddenSpan>Close</VisuallyHiddenSpan>
     </StyledSmallButton>
   );
 };
