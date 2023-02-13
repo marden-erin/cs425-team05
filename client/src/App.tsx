@@ -5,6 +5,7 @@ import { Routes, Route, Outlet, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import CreateCluster from './pages/CreateCluster';
+import CreateGoal from './pages/CreateGoal';
 import SearchResults from './pages/SearchResults';
 import ViewClusters from './pages/ViewClusters';
 
@@ -15,6 +16,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="create-cluster" element={<CreateCluster />} />
+        <Route path="create-goal" element={<CreateGoal />} />
         <Route path="search-results" element={<SearchResults />} />
         <Route path="view-clusters" element={<ViewClusters />} />
       </Route>
