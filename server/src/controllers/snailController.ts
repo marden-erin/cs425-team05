@@ -122,7 +122,7 @@ const deleteSnail = asyncHandler(async (req: Request, res: Response) => {
 
 			if (snail.length > 0) {
 				query = `delete from Snails where user_id="${user_id}"`;
-				const [res]: any[] = await db.promise().query(query);
+				await db.promise().query(query);
 
 				res.status(HTTPStatus.OK).json("Successfully deleted snail");
 			} else {
