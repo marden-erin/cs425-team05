@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import {
   LargeBookCard,
   LargeRoundedButton, // TODO: Swap to link once other PR merged
@@ -34,7 +36,7 @@ const GoalCard = styled.div`
 
 const SnailSection = styled.div`
     width: 100%;
-    height: 18rem;
+    height: 19rem;
     border-radius: 15px;
     padding: 5px;
     background-color: ${COLORS.PURPLE_LIGHT};
@@ -67,6 +69,7 @@ const H1 = styled.h1`
 
 function CreateGoal() {
     const snailName = "Snailosaurus"; // TODO: Get name from API
+    const [startDate, setStartDate] = useState(new Date());
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
@@ -83,6 +86,7 @@ function CreateGoal() {
         />
         <GoalCard>
           <H1>Create a Goal</H1>
+          <DatePicker selected={startDate} onChange={(newDate) => newDate && setStartDate(newDate)} />
           <SnailSection>
             <img
                 src={SnailImage}
