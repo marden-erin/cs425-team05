@@ -10,7 +10,7 @@ const TextCss = css`
 const H1 = styled.h1`
   ${TextCss}
   ${FONTS_MAIN}
-    font-size: 10rem;
+    font-size: 6rem;
 `;
 
 const SubTitle = styled.span`
