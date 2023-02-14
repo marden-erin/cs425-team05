@@ -22,7 +22,7 @@ class OuterWhorldServiceProvider {
   async getAllClustersFromUser(userName: string) {
     const res = await fetch(`/api/clusters/${userName}`);
     const data = await res.json();
-    
+
     return data;
   }
 

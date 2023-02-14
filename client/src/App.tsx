@@ -7,6 +7,7 @@ import About from './pages/About';
 import CreateCluster from './pages/CreateCluster';
 import CreateGoal from './pages/CreateGoal';
 import SearchResults from './pages/SearchResults';
+import SnailAdoption from './pages/SnailAdoption';
 import ViewClusters from './pages/ViewClusters';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="about" element={<About />} />
         <Route path="create-cluster" element={<CreateCluster />} />
         <Route path="create-goal" element={<CreateGoal />} />
+        <Route path="snail-adoption" element={<SnailAdoption />} />
         <Route path="search-results" element={<SearchResults />} />
         <Route path="view-clusters" element={<ViewClusters />} />
       </Route>
