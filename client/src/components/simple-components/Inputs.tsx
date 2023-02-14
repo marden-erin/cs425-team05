@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { COLORS } from '../../constants';
 
-// NOTE: ThinInputs stretch to fill width of container.
+// NOTE: Inputs stretch to fill width of container.
 
 const InputCss = css`
   width: auto;
@@ -18,9 +18,13 @@ const InputCss = css`
   }
 `;
 
-// TODO: Thick Inputs will have padding
 const ThinInput = styled.input`
-  ${InputCss}
+  ${InputCss};
 `;
 
-export { ThinInput };
+const ThickInput = styled.input`
+  ${InputCss};
+  padding: 1rem 1.2rem;
+`;
+
+export { ThickInput, ThinInput };
