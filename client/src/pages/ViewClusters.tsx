@@ -9,6 +9,7 @@ import {
   H1,
   Box,
   Box_Wrapper,
+  Label
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
@@ -49,7 +50,7 @@ ${FONTS_MAIN};
   text-align: center;
   color: ${COLORS.PURPLE_DARK};
 text-align:left;
-margin-top:-10px;
+margin-top:10px;
 `;
 const ScrollableDiv = styled.div`
   height: 27rem;
@@ -62,12 +63,18 @@ const ScrollableDiv = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  display: flex;
+
+  padding:15px;
+  background-color: ${COLORS.WHITE};
+  box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
+  border-radius:5px;
+  display: inline-flex;
+  min-width:100%;
+  min-height:100%;
   align-content:center;
-  justify-content:center
+  justify-content:center;
+  gap:25px;
   overflow-x:scroll;
- 
- 
 `;
 const Img = styled.div`
   width: 133.3px;
@@ -84,13 +91,20 @@ ${FONTS_SECONDARY};
   font-size: 1.6rem;
   line-height: 2rem;
   color: ${COLORS.PURPLE_DARK};
-    margin-left: 20px;
+    margin-left:-20px;
     overflow:hidden;
     white-space:normal;
     width:180px;
     text-align: center;
 
 `;
+const Options = styled.div`
+display:flex;
+flex-direction: row;
+margin-left:80rem;
+margin-top:-20px;
+gap: 30px;
+`
 
 
 function ViewClusters() {
@@ -130,6 +144,7 @@ function ViewClusters() {
       <Box_Wrapper>
       <ClusterBox>
       <ClusterName> {item.clusterName}</ClusterName>
+      <Options><Label>Delete</Label><Label>Update</Label></Options>
        <ScrollableDiv><ImgWrapper>{item.books.map((t:any, i:any) => {
         return(<div key={i}><Img><img src={t.cover} alt = {t.title +" book cover"}/></Img><Title>{t.title}</Title></div>)})}</ImgWrapper> </ScrollableDiv>
       </ClusterBox></Box_Wrapper>
