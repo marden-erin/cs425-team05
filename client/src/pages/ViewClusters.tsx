@@ -3,24 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
-import { COLORS, FONTS_MAIN } from '../constants';
+import { COLORS, FONTS_MAIN,FONTS_SECONDARY, ScrollBarStyle} from '../constants';
 import {
   PageWrapper,
-  SmallRoundedButton,
   H1,
   Box,
   Box_Wrapper,
-  BookTitle,
 } from '../components';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
 
-import OWServiceProvider from '../OuterWhorldServiceProvider';
-const OutPut = styled.div`
-  font-size: 2rem;
-  font-weight: 200;
-  color: ${COLORS.WHITE};
-  padding: 10px;
-`;
+
 const FlexBoxWrapper = styled.div`
   height: 85vh;
   padding: 3vh;
@@ -41,32 +34,107 @@ const PageTitle = styled(H1)`
   text-align: center;
 `;
 const ClusterBox = styled(Box)`
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  background-color: ${COLORS.PURPLE_LIGHT}
+  
 `;
+const ClusterName = styled.h2`
+${FONTS_MAIN};
+  font-weight: 600;
+  font-size: 3.3rem;
+  line-height: 2.5rem;
+  text-align: center;
+  color: ${COLORS.PURPLE_DARK};
+text-align:left;
+margin-top:-10px;
+`;
+const ScrollableDiv = styled.div`
+  height: 27rem;
+  width: 75rem;
+  padding: 5rem;
+  background-color: ${COLORS.PURPLE_LIGHT};
+  overflow-y: hidden;
+  overflow-x: scroll;
+  ${ScrollBarStyle}
+`;
+
+const ImgWrapper = styled.div`
+  display: flex;
+  align-content:center;
+  justify-content:center
+  overflow-x:scroll;
+ 
+ 
+`;
+const Img = styled.div`
+  width: 133.3px;
+  height: 200px;
+  background-color: ${COLORS.PURPLE_DARK};
+  border: 5px solid ${COLORS.PURPLE_MID};
+  max-width-inline: 100%;
+  object-fit:scale-down;
+`;
+const Title = styled.h2`
+${FONTS_SECONDARY};
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  color: ${COLORS.PURPLE_DARK};
+    margin-left: 20px;
+    overflow:hidden;
+    white-space:normal;
+    width:180px;
+    text-align: center;
+
+`;
+
 
 function ViewClusters() {
   const [cluster, setCluster] = useState([
     { cluster_id: ' ', clusterName: ' ', user_id: '', visibility: '' },
   ]);
+  const [clusterBooks, setClusterBooks] = useState<any>([])
+  let newArray:any;
 
   useEffect(() => {
     const loadData = async () => {
+      console.log("IN");
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         'andrei'
       );
+
       setCluster(clusterInfo);
+
+      const clusterArray: any[] =[];
+
+      // const clusterArray: Cluster[] = [{clusterName, Books},{},{}]
+      for(const temp of clusterInfo){
+         const info:Book = await OWServiceProvider.getClusterInformation(temp.clusterName, "andrei");
+         clusterArray.push({clusterName: temp.clusterName, 
+          books: info
+        })
+        setClusterBooks([...clusterArray])
+      }
+      
     };
     loadData();
   }, []);
-
-  //creates new cluster array with the users cluster name displayed
-  const newArray = cluster.map((x, index) => (
+  
+  const temp2 = clusterBooks.map((item:any, index:any) => {
+    return(
     <div key={index}>
+      <Box_Wrapper>
       <ClusterBox>
-        <BookTitle>{x.clusterName}</BookTitle>
-      </ClusterBox>
+      <ClusterName> {item.clusterName}</ClusterName>
+       <ScrollableDiv><ImgWrapper>{item.books.map((t:any, i:any) => {
+        return(<div key={i}><Img><img src={t.cover} alt = {t.title +" book cover"}/></Img><Title>{t.title}</Title></div>)})}</ImgWrapper> </ScrollableDiv>
+      </ClusterBox></Box_Wrapper>
     </div>
-  ));
+  )})
 
   return (
     <div>
@@ -74,9 +142,10 @@ function ViewClusters() {
         <FlexBoxWrapper>
           <HeadingWrapper>
             <PageTitle>View Your Clusters</PageTitle>
-          </HeadingWrapper>
-
-          <Box_Wrapper>{newArray}</Box_Wrapper>
+          
+          <div>
+          {temp2}
+          </div></HeadingWrapper>
         </FlexBoxWrapper>
       </PageWrapper>
     </div>

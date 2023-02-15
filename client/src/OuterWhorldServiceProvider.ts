@@ -16,7 +16,7 @@ class OuterWhorldServiceProvider {
       `/api/clusters?clusterName=${clusterName}&userName=${userName}`
     );
     const data = await res.json();
-
+      
     return data;
   }
 

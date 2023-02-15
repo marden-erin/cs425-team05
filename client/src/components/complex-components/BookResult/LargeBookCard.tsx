@@ -124,6 +124,8 @@ const BotWrapper = styled.div`
 
 const TextWrapper = styled.div`
   ${ScrollBarStyle};
+  background-color: ${COLORS.PURPLE_LIGHT};
+
   width: 290px;
   height: 170px;
   padding-right: 5px;

@@ -5,4 +5,3 @@ export * from './PageWrapper';
 export * from './SearchBar';
 export * from './Clusters';
 export * from './Snails';
-export * from './BookData';

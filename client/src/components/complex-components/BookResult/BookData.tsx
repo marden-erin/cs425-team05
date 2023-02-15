@@ -100,23 +100,15 @@ function BookData(props: any) {
   console.log(cover);
   const shouldDisplay = title && authors && description && pageCount && cover;
   console.log(props.allBooks[1]);
-  const [add, setAdd] = useState('');
 
-  const loadData = async (e: any) => {
-    e.preventDefault();
-    console.log('here');
-    const response = await OWServiceProvider.addBookToCluster(
-      'hello',
-      'andrei',
-      props.book
-    );
-    console.log(response);
-    setAdd(response);
-  };
+
   var selector: boolean;
 
   // TODO: finish handleclick function that is used to swap smallbookcard to LargeBookCard
-  const handleClick = () => {};
+  const handleClick = (e:any) => {
+    
+
+  };
 
   return (
     <>
@@ -141,6 +133,7 @@ function BookData(props: any) {
                     selector = false;
                   }
                   return (
+                    <button>
                     <SmallBookCard
                       bookTitle={title}
                       authorName={author}
@@ -153,7 +146,7 @@ function BookData(props: any) {
                       }
                       selected={selector}
                       key={index}
-                    />
+                    /></button>
                   );
                 }
               )}
