@@ -66,8 +66,10 @@ const InputWrapper = styled.div`
  * - Close modal on escape press
  */
 function SnailAdoption() {
-  const [isModalOpen, toggleIsModalOpen] = useState(false);
   const [snailColor, setSnailColor] = useState('blue');
+  const [snailName, setSnailName] = useState('');
+  const [isModalOpen, toggleIsModalOpen] = useState(false);
+  const [allowContinue, setAllowContinue] = useState(false); // Used to ensure user names snail before continuing
   ReactModal.setAppElement('*');
 
   return (
@@ -112,13 +114,17 @@ function SnailAdoption() {
               <H2>Name Your Snail!</H2>
               <InputWrapper>
                 <Label htmlFor="snail-name">Name:</Label>
-                <ThickInput name="snail-name" />
+                <ThickInput name="snail-name" value={snailName} onInput={(event) => {
+                  const element = event.currentTarget as HTMLInputElement;
+                  setSnailName(element.value);
+                  setAllowContinue(snailName !== '');
+                }}/>
               </InputWrapper>
               <P>
                 <b>Warning:</b> You're responsible for your snail's wellbeing.
                 By continuing, you accept responsibility for this snail's life.
               </P>
-              <LargeRoundedLink href="/" disabled>Adopt Snail</LargeRoundedLink>
+              <LargeRoundedLink href="/" disabled={!allowContinue}>Adopt Snail</LargeRoundedLink>
             </RightModalContentWrapper>
           </ModalContentWrapper>
         </ReactModal>
