@@ -9,7 +9,7 @@ import {
   P,
   PageWrapper,
 } from '../components';
-import { COLORS, FONTS_MAIN } from '../constants';
+import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../constants';
 import { NumberOfDaysUntilDate } from '../utils';
 import SnailImage from '../imgs/snails/yellow-default.png'; // TODO: Change to utility function once other PR merged
 
@@ -25,7 +25,6 @@ const GridWrapper = styled.div`
 
 const GoalCard = styled.div`
   width: 50rem;
-  height: 60rem;
   padding: 20px 15px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
@@ -34,6 +33,14 @@ const GoalCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const GoalInfoWrapper = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: center;
+  height: 8.5rem;
 `;
 
 const DeadlineWrapper = styled.div`
@@ -76,12 +83,31 @@ const SnailSectionRightWrapper = styled.div`
 `;
 
 const H1 = styled.h1`
-  font-family: ${FONTS_MAIN};
   font-style: italic;
   font-weight: 600;
   font-size: 2.4rem;
   line-height: 2.9rem;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+`;
+
+const NotesWrapper = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  padding: 20px;
+  label {
+    white-space: nowrap; // Prevents text wrapping
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  textarea {
+    ${FONTS_SECONDARY};
+    font-size: 1.6rem;
+    width: 27rem;
+    height: 15rem;
+    border: 2px solid ${COLORS.PURPLE_MID};
+    border-radius: 5px;
+    resize: none; // Prevents from resizing so notes aren't too long to save
+  }
 `;
 
 function CreateGoal() {
@@ -105,9 +131,10 @@ function CreateGoal() {
         />
         <GoalCard>
           <H1>Create a Goal</H1>
+          <GoalInfoWrapper>
           <DeadlineWrapper>
-            <Label htmlFor="deadline-datepicker">Goal Deadline:</Label>
-            <DatePicker
+            <Label htmlFor="deadline-datepicker">Goal Deadline</Label>
+            <DatePicker // TODO: Look into console error
               name="deadline-datepicker"
               className="datepicker"
               selected={startDate}
@@ -133,6 +160,11 @@ function CreateGoal() {
             On average, you will need to read <b>{numPages / numDays} pages</b>{' '}
             per day.
           </P>
+          </GoalInfoWrapper>
+          <NotesWrapper>
+          <Label htmlFor="goal-notes">Notes (Optional)</Label>
+          <textarea name="goal-notes" />
+          </NotesWrapper>
           <SnailSection>
             <img
               src={SnailImage}
