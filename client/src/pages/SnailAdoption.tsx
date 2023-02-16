@@ -118,7 +118,7 @@ function SnailAdoption() {
                 <b>Warning:</b> You're responsible for your snail's wellbeing.
                 By continuing, you accept responsibility for this snail's life.
               </P>
-              <LargeRoundedLink href="/">Adopt Snail</LargeRoundedLink>
+              <LargeRoundedLink href="/" disabled>Adopt Snail</LargeRoundedLink>
             </RightModalContentWrapper>
           </ModalContentWrapper>
         </ReactModal>
