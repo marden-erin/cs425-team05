@@ -45,7 +45,7 @@ const P = styled.p<{ centered?: boolean }>`
 `;
 
 const Label = styled.label`
-  font-family: ${FONTS_MAIN};
+  ${FONTS_MAIN};
   color: ${COLORS.PURPLE_MID};
   font-size: 1.6rem;
   letter-spacing: 0.02em;
