@@ -37,7 +37,7 @@ const SmallButtonWrapper = styled.div`
 `;
 
 const Name = styled.div`
-  font: ${FONTS_SECONDARY};
+  ${FONTS_SECONDARY};
   font-weight: 500;
   font-size: 3rem;
   text-align: left;
