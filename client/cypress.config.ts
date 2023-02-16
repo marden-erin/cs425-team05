@@ -1,4 +1,4 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
   e2e: {
@@ -6,11 +6,11 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       on('task', {
         log(message) {
-          console.log(message)
+          console.log(message);
 
-          return null
+          return null;
         },
-      })
+      });
     },
   },
-})
+});
