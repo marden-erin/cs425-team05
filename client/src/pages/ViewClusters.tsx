@@ -8,7 +8,6 @@ import {
   COLORS,
   FONTS_MAIN,
   FONTS_SECONDARY,
-  GRADIENTS,
   ScrollBarStyle,
 } from '../constants';
 import {

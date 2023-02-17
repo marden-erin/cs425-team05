@@ -2,49 +2,10 @@ import { Book } from '../../../../../server/src/utils/Types';
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { COLORS, FONTS_MAIN, ScrollBarStyle } from '../../../constants';
-import { SmallRoundedButton } from '../../simple-components/ButtonsLinks';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 import { LargeBookCard, SmallBookCard } from '.';
 import { FilterDropdown } from '../SearchBar';
 import { ClusterDropDown } from '../Clusters';
-
-const ColumnFlexCss = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-// Erin ToDO:: change this div to something else
-const Results = styled.div`
-  ${ColumnFlexCss}
-  justify-content: center;
-  width: 600px;
-  height: 600px;
-  background-color: ${COLORS.PURPLE_LIGHT};
-  border-radius: 25px;
-
-  position: absolute;
-  right: 485px;
-  top: 185px;
-  padding: 10px;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 100px;
-  align-items: center;
-  gap: 100px;
-`;
-// Erin ToDO:: change this div to something else
-
-const OutPut = styled.div`
-  font-size: 2rem;
-  font-weight: 200;
-  color: ${COLORS.WHITE};
-  padding: 10px;
-`;
 
 const ResultsCard = styled.div`
   width: 50rem;
@@ -90,9 +51,6 @@ const GridWrapper = styled.div`
   gap: 35px;
 `;
 
-const LargeBox = styled.div`
-  margin-left: -50px;
-`;
 
 function BookData(props: any) {
   const { title, authors, description, pageCount, cover } = props.book;
