@@ -5,7 +5,7 @@ const FONTS_MAIN = css`
 `;
 
 const FONTS_SECONDARY = css`
-  font-family: Baskerville, Optima, Arial, sans-serif;
+  font-family: Century Gothic, Optima, Arial, sans-serif;
 `;
 
 export { FONTS_MAIN, FONTS_SECONDARY };

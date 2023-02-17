@@ -46,23 +46,23 @@ const LargeCss = css`
 const SmallHalfRoundedButton = styled.button<{ color?: ColorType }>`
   ${ButtonCss}
   ${HalfRoundedCss}
-    ${SmallCss}
+  ${SmallCss}
 
-    ${(props) => ColorCss(props.color)}
+  ${(props) => ColorCss(props.color)}
 `;
 
 const SmallRoundedButton = styled.button<{ color?: ColorType }>`
   ${ButtonCss}
   ${RoundedCss}
-    ${SmallCss}
+  ${SmallCss}
 
-    ${(props) => ColorCss(props.color)}
+  ${(props) => ColorCss(props.color)}
 `;
 
 const LargeHalfRoundedButton = styled.button<{ color?: ColorType }>`
   ${ButtonCss}
   ${HalfRoundedCss}
-${LargeCss}
+  ${LargeCss}
 
 ${(props) => ColorCss(props.color)}
 `;
@@ -70,16 +70,16 @@ ${(props) => ColorCss(props.color)}
 const LargeRoundedButton = styled.button<{ color?: ColorType }>`
   ${ButtonCss}
   ${RoundedCss}
-    ${LargeCss}
+  ${LargeCss}
 
-    ${(props) => ColorCss(props.color)}
+  ${(props) => ColorCss(props.color)}
 `;
 
 // Looks like a button, but is a link
 const LargeRoundedLink = styled.a<{ color?: ColorType }>`
   ${ButtonCss}
   ${RoundedCss}
-    ${LargeCss}
+  ${LargeCss}
 
   text-align: center;
   text-decoration: none;
