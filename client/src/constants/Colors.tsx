@@ -6,6 +6,9 @@ export const COLORS = {
   PURPLE_MID: '#43239D',
   PURPLE_DARK: '#21033f',
   WHITE: '#F5F5F5',
+  GRAY_LIGHT: '#cccccc',
+  GRAY_MID: '#555555',
+  GRAY_DARK: '#999999',
   BLACK: '#060606',
 };
 

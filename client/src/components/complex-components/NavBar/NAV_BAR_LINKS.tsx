@@ -31,3 +31,10 @@ export const PrototypePages = [
     linkURL: '/view-clusters',
   },
 ];
+
+export const SnailPages = [
+  {
+    linkLabel: 'Adopt a Snail',
+    linkURL: '/snail-adoption',
+  },
+];
