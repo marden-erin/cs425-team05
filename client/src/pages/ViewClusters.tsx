@@ -3,19 +3,31 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
-import { COLORS, FONTS_MAIN,FONTS_SECONDARY, ScrollBarStyle} from '../constants';
+import ReactModal from 'react-modal';
+import {
+  COLORS,
+  FONTS_MAIN,
+  FONTS_SECONDARY,
+  GRADIENTS,
+  ScrollBarStyle,
+} from '../constants';
 import {
   PageWrapper,
   H1,
   Box,
   Box_Wrapper,
-  Label
+  Label,
+  CloseButton,
+  H2,
+  P,
+  ThickInput,
+  LargeRoundedButton,
+  SmallRoundedButton,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
 
-
-const FlexBoxWrapper = styled.div`
+const FlexBoxWrapper = styled.div<{ $isModalOpen: boolean }>`
   height: 85vh;
   padding: 3vh;
   display: flex;
@@ -23,6 +35,12 @@ const FlexBoxWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 35px;
+
+  ${(props) =>
+    props.$isModalOpen &&
+    css`
+      pointer-events: none;
+    `}
 `;
 const HeadingWrapper = styled.div`
   display: flex;
@@ -37,20 +55,20 @@ const PageTitle = styled(H1)`
 const ClusterBox = styled(Box)`
   display: flex;
   flex-direction: column;
-  justify-content:center;
-  align-items:center;
-  background-color: ${COLORS.PURPLE_LIGHT}
-  
+  justify-content: center;
+  align-items: center;
+  background-color: ${COLORS.PURPLE_LIGHT};
 `;
+
 const ClusterName = styled.h2`
-${FONTS_MAIN};
+  ${FONTS_MAIN};
   font-weight: 600;
   font-size: 3.3rem;
   line-height: 2.5rem;
   text-align: center;
   color: ${COLORS.PURPLE_DARK};
-text-align:left;
-margin-top:10px;
+  text-align: left;
+  margin-top: 10px;
 `;
 const ScrollableDiv = styled.div`
   height: 27rem;
@@ -63,18 +81,17 @@ const ScrollableDiv = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-
-  padding:15px;
+  padding: 15px;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
-  border-radius:5px;
+  border-radius: 5px;
   display: inline-flex;
-  min-width:100%;
-  min-height:100%;
-  align-content:center;
-  justify-content:center;
-  gap:25px;
-  overflow-x:scroll;
+  min-width: 100%;
+  min-height: 100%;
+  align-content: center;
+  justify-content: center;
+  gap: 25px;
+  overflow-x: scroll;
 `;
 const Img = styled.div`
   width: 133.3px;
@@ -82,85 +99,278 @@ const Img = styled.div`
   background-color: ${COLORS.PURPLE_DARK};
   border: 5px solid ${COLORS.PURPLE_MID};
   max-width-inline: 100%;
-  object-fit:scale-down;
+  object-fit: scale-down;
 `;
 const Title = styled.h2`
-${FONTS_SECONDARY};
+  ${FONTS_SECONDARY};
   font-style: italic;
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 2rem;
   color: ${COLORS.PURPLE_DARK};
-    margin-left:-20px;
-    overflow:hidden;
-    white-space:normal;
-    width:180px;
-    text-align: center;
-
+  margin-left: -20px;
+  overflow: hidden;
+  white-space: normal;
+  width: 180px;
+  text-align: center;
 `;
 const Options = styled.div`
-display:flex;
-flex-direction: row;
-margin-left:80rem;
-margin-top:-20px;
-gap: 30px;
-`
+  display: flex;
+  flex-direction: row;
+  margin-left: 80rem;
+  margin-top: -20px;
+  gap: 30px;
+`;
+const ModalContentWrapper = styled.div`
+  display: flex;
+  padding: 20px;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+`;
 
+const RightModalContentWrapper = styled.div`
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  h2 {
+    text-align: center;
+  }
+`;
+const InputWrapper = styled.div`
+  background-color: ${COLORS.PURPLE_LIGHT};
+  padding: 2rem 4rem 3rem;
+  align-items: center;
+`;
+
+const VisibilityButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  gap: 15px;
+`;
+const VisibilityWrapper = styled.div`
+  display: flex;
+  display: column;
+  justify-content: center;
+  margin-top: 30px;
+`;
+
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Input = styled.input`
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid ${COLORS.PURPLE_MID};
+  border-radius: 50%;
+  padding: 2px;
+  background-clip: content-box;
+  margin-bottom: -1px;
+  cursor: pointer;
+
+  :checked {
+    background-color: ${COLORS.PURPLE_MID};
+  }
+
+  :hover {
+    background-color: ${COLORS.PURPLE_MID};
+  }
+`;
 
 function ViewClusters() {
   const [cluster, setCluster] = useState([
     { cluster_id: ' ', clusterName: ' ', user_id: '', visibility: '' },
   ]);
-  const [clusterBooks, setClusterBooks] = useState<any>([])
-  let newArray:any;
+  const [clusterBooks, setClusterBooks] = useState<any>([]);
+  const [isModalOpen, toggleIsModalOpen] = useState(false);
+  const [visibility, setVisibilty] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [tempCluster, setTempCluster] = useState('');
+
+  ReactModal.setAppElement('*');
+
+  let newArray: any;
 
   useEffect(() => {
     const loadData = async () => {
-      console.log("IN");
+      console.log('IN');
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         'andrei'
       );
-
       setCluster(clusterInfo);
-
-      const clusterArray: any[] =[];
-
-      // const clusterArray: Cluster[] = [{clusterName, Books},{},{}]
-      for(const temp of clusterInfo){
-         const info:Book = await OWServiceProvider.getClusterInformation(temp.clusterName, "andrei");
-         clusterArray.push({clusterName: temp.clusterName, 
-          books: info
-        })
-        setClusterBooks([...clusterArray])
+      const clusterArray: any[] = [];
+      for (const temp of clusterInfo) {
+        const info: Book = await OWServiceProvider.getClusterInformation(
+          temp.clusterName,
+          'andrei'
+        );
+        clusterArray.push({ clusterName: temp.clusterName, books: info });
+        setClusterBooks([...clusterArray]);
       }
-      
     };
     loadData();
   }, []);
-  
-  const temp2 = clusterBooks.map((item:any, index:any) => {
-    return(
-    <div key={index}>
-      <Box_Wrapper>
-      <ClusterBox>
-      <ClusterName> {item.clusterName}</ClusterName>
-      <Options><Label>Delete</Label><Label>Update</Label></Options>
-       <ScrollableDiv><ImgWrapper>{item.books.map((t:any, i:any) => {
-        return(<div key={i}><Img><img src={t.cover} alt = {t.title +" book cover"}/></Img><Title>{t.title}</Title></div>)})}</ImgWrapper> </ScrollableDiv>
-      </ClusterBox></Box_Wrapper>
-    </div>
-  )})
+
+  const deleteCluster = async (e: any) => {
+    const temp = await OWServiceProvider.deleteCluster(e, 'andrei');
+    return temp;
+  };
+
+  const handleUpdate = async (e: any) => {
+    const update = await OWServiceProvider.updateClusterInformation(
+      e,
+      'andrei',
+      newName,
+      visibility
+    );
+    console.log(update);
+    const temp = { toggleIsModalOpen };
+  };
+
+  const temp2 = clusterBooks.map((item: any, index: any) => {
+    return (
+      <div key={index}>
+        <Box_Wrapper>
+          <ClusterBox>
+            <ClusterName> {item.clusterName}</ClusterName>
+            <Options>
+              <button
+                className="Delete Cluster"
+                onClick={() => {
+                  const confirmBox = window.confirm(
+                    'Do you really want to delete cluster ' +
+                      item.clusterName +
+                      '?'
+                  );
+                  if (confirmBox === true) {
+                    deleteCluster(item.clusterName);
+                    window.location.reload();
+                  }
+                }}
+              >
+                <Label>Delete</Label>
+              </button>
+
+              <button
+                onClick={() => {
+                  setTempCluster(item.clusterName);
+                  toggleIsModalOpen(true);
+                }}
+              >
+                {' '}
+                <Label>Edit</Label>
+              </button>
+
+              <ReactModal
+                isOpen={isModalOpen}
+                className="modal-body"
+                overlayClassName="modal-overlay2"
+              >
+                <CloseButton handler={toggleIsModalOpen} />
+                <ModalContentWrapper>
+                  <RightModalContentWrapper>
+                    <form
+                      onSubmit={() => {
+                        const confirmBox = window.confirm(
+                          'Do you really want to update cluster ' +
+                            tempCluster +
+                            '?'
+                        );
+                        if (confirmBox === true) {
+                          handleUpdate(tempCluster);
+                          window.location.reload();
+                        }
+                      }}
+                    >
+                      <H2>Edit Cluster</H2>
+                      <InputWrapper>
+                        <FormWrapper>
+                          <Label htmlFor="new-name">
+                            New Name For Your Cluster:
+                          </Label>
+                          <ThickInput
+                            name="cluster-name"
+                            placeholder="New cluster name...."
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                          />
+                        </FormWrapper>
+                        <VisibilityWrapper>
+                          <Label htmlFor="new-visibility">
+                            New Cluster Visibility
+                          </Label>
+                        </VisibilityWrapper>
+                        <VisibilityButtonWrapper>
+                          <P>
+                            <Input
+                              type="radio"
+                              value="true"
+                              name="visibility"
+                              onClick={() => setVisibilty(true)}
+                            />
+                            Public
+                          </P>
+                          <P>
+                            <Input
+                              type="radio"
+                              value="false"
+                              name="visibility"
+                              onClick={() => setVisibilty(false)}
+                            />
+                            Private
+                          </P>
+                        </VisibilityButtonWrapper>
+                        <FormWrapper>
+                          <SmallRoundedButton
+                            onSubmit={() => handleUpdate(item.clusterName)}
+                          >
+                            Submit
+                          </SmallRoundedButton>
+                        </FormWrapper>
+                      </InputWrapper>
+                    </form>
+                  </RightModalContentWrapper>
+                </ModalContentWrapper>
+              </ReactModal>
+            </Options>
+            <ScrollableDiv>
+              <ImgWrapper>
+                {item.books.map((t: any, i: any) => {
+                  return (
+                    <div key={i}>
+                      <Img>
+                        <img src={t.cover} alt={t.title + ' book cover'} />
+                      </Img>
+                      <Title>{t.title}</Title>
+                    </div>
+                  );
+                })}
+              </ImgWrapper>{' '}
+            </ScrollableDiv>
+          </ClusterBox>
+        </Box_Wrapper>
+      </div>
+    );
+  });
 
   return (
     <div>
       <PageWrapper pageTitle="View Clusters">
-        <FlexBoxWrapper>
+        <FlexBoxWrapper $isModalOpen={isModalOpen}>
           <HeadingWrapper>
             <PageTitle>View Your Clusters</PageTitle>
-          
-          <div>
-          {temp2}
-          </div></HeadingWrapper>
+
+            <div>{temp2}</div>
+          </HeadingWrapper>
         </FlexBoxWrapper>
       </PageWrapper>
     </div>

@@ -101,14 +101,10 @@ function BookData(props: any) {
   const shouldDisplay = title && authors && description && pageCount && cover;
   console.log(props.allBooks[1]);
 
-
   var selector: boolean;
 
   // TODO: finish handleclick function that is used to swap smallbookcard to LargeBookCard
-  const handleClick = (e:any) => {
-    
-
-  };
+  const handleClick = (e: any) => {};
 
   return (
     <>
@@ -134,19 +130,20 @@ function BookData(props: any) {
                   }
                   return (
                     <button>
-                    <SmallBookCard
-                      bookTitle={title}
-                      authorName={author}
-                      bookCover={
-                        <img
-                          style={{ maxWidth: '100%' }}
-                          src={cover}
-                          alt={title + ' book cover'}
-                        />
-                      }
-                      selected={selector}
-                      key={index}
-                    /></button>
+                      <SmallBookCard
+                        bookTitle={title}
+                        authorName={author}
+                        bookCover={
+                          <img
+                            style={{ maxWidth: '100%' }}
+                            src={cover}
+                            alt={title + ' book cover'}
+                          />
+                        }
+                        selected={selector}
+                        key={index}
+                      />
+                    </button>
                   );
                 }
               )}

@@ -37,7 +37,7 @@ function SearchResults() {
         return {
           key: index,
           title: x.title,
-          author:x.authors + " ",
+          author: x.authors + ' ',
           cover: x.cover,
         };
       });

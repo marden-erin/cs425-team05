@@ -75,6 +75,4 @@ const BookTitle = styled.span`
   text-align: center;
 `;
 
-
-
 export { H1, H2, P, SubTitle, Author, PageCount, BookTitle, Label };
