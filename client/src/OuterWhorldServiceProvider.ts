@@ -1,7 +1,10 @@
 import { Book } from '../../server/src/utils/Types';
 
 class OuterWhorldServiceProvider {
-  // Returns array of books
+  /*
+  @param bookTitle - title of book to be queried
+  @returns array of book objects containing bookTitle, authors, pageCount, description, and bookCover
+  */
   async getBookInfo(bookTitle: string): Promise<Book[]> {
     const res = await fetch(`/api/book?bookTitle=${bookTitle}`);
     const data = await res.json();
@@ -10,7 +13,11 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
-  // Returns all the books in individual cluster
+  /*
+  @param clusterName
+  @param userName
+  @returns array of book objects that belong to specified cluster and user
+  */
   async getClusterInformation(clusterName: string, userName: string) {
     const res = await fetch(
       `/api/clusters?clusterName=${clusterName}&userName=${userName}`
@@ -20,6 +27,10 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
+  /*
+  @param userName
+  @returns array of cluster objects containing clusterName and visibility
+  */
   async getAllClustersFromUser(userName: string) {
     const res = await fetch(`/api/clusters/${userName}`);
     const data = await res.json();
@@ -27,7 +38,12 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
-  // Returns success or failure
+  /*
+  @param clusterName
+  @param userName
+  @param visibility - 'false' means cluster is private, 'true' means cluster is public
+  @returns success or failure
+  */
   async createCluster(
     clusterName: string,
     userName: string,
@@ -52,6 +68,11 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
+  /*
+  @param clusterName
+  @param userName
+  @returns success or failure
+  */
   async deleteCluster(clusterName: string, userName: string) {
     const input = {
       clusterName,
@@ -105,6 +126,14 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
+  /*
+  @param clusterName
+  @param userName
+  @param title - book's title
+  @param pageNumbers - book's page numbers
+  @param bookCoverLink
+  @returns book object
+  */
   async getBookFromCluster(
     clusterName: string,
     userName: string,
@@ -120,7 +149,12 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
-  // Returns success or failure
+  /*
+  @param clusterName
+  @param userName
+  @param book - Book object
+  @returns success or failure
+  */
   async addBookToCluster(clusterName: string, userName: string, book: Book) {
     const { title, pageCount, cover } = book;
 
@@ -147,7 +181,12 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
-  // Returns success or failure
+  /*
+  @param clusterName
+  @param userName
+  @param book - Book object
+  @returns success or failure
+  */
   async deleteBookFromCluster(
     clusterName: string,
     userName: string,
@@ -164,6 +203,97 @@ class OuterWhorldServiceProvider {
     };
 
     const res = await fetch(`/api/booksInClusters`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param userName
+  @returns Snail object
+  */
+  async getSnailInfo(userName: string) {
+    const res = await fetch(`/api/snails/?userName=${userName}`);
+    const data = await res.json();
+    return data;
+  }
+
+  /*
+  @param userName
+  @param snailName - if keeping the same, pass in existing name
+  @param snailColor - if keeping the same, pass in existing color
+  @returns success or failure
+  */
+  async updateSnailInfo(
+    userName: string,
+    snailName: string,
+    snailColor: string
+  ) {
+    const input = {
+      userName,
+      snailName,
+      snailColor,
+    };
+
+    const res = await fetch(`/api/snails`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param userName
+  @param snailName
+  @param snailColor
+  @returns success or failure
+  */
+  async createSnail(userName: string, snailName: string, snailColor: string) {
+    const input = {
+      userName,
+      snailName,
+      snailColor,
+    };
+
+    const res = await fetch(`/api/snails`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param userName
+  @returns success or failure
+  */
+  async deleteSnail(userName: string) {
+    const input = {
+      userName,
+    };
+
+    const res = await fetch(`/api/snails`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
