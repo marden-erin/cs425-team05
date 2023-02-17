@@ -120,48 +120,46 @@ function CreateGoal() {
       <GridWrapper>
         <LargeBookCard
           bookTitle="This is the Title of a Book I could Write"
-          authorName={["Joe Jonas"]}
+          authorName={['Joe Jonas']}
           bookCover=""
-          description=''
-          tempFunction=''
-
-          
+          description=""
+          tempFunction=""
         />
         <GoalCard>
           <H1>Create a Goal</H1>
           <GoalInfoWrapper>
-          <DeadlineWrapper>
-            <Label htmlFor="deadline-datepicker">Goal Deadline</Label>
-            <DatePicker // TODO: Look into console error
-              name="deadline-datepicker"
-              className="datepicker"
-              selected={startDate}
-              onChange={(newDate) => {
-                if (newDate) {
+            <DeadlineWrapper>
+              <Label htmlFor="deadline-datepicker">Goal Deadline</Label>
+              <DatePicker // TODO: Look into console error
+                name="deadline-datepicker"
+                className="datepicker"
+                selected={startDate}
+                onChange={(newDate) => {
+                  if (newDate) {
                     const today = new Date();
-                    if (newDate < today) { // If the new date is in the past, it's invalid
-                        console.log("This date is in the past!");
+                    if (newDate < today) {
+                      // If the new date is in the past, it's invalid
+                      console.log('This date is in the past!');
+                    } else {
+                      setStartDate(newDate);
+                      setNumDays(NumberOfDaysUntilDate(newDate));
                     }
-                    else {
-                        setStartDate(newDate);
-                        setNumDays(NumberOfDaysUntilDate(newDate));
-                    }
-                }
-              }}
-            />
-          </DeadlineWrapper>
-          <P>
-            With this deadline, you will have <b>{numDays} days</b> to complete
-            your goal.
-          </P>
-          <P>
-            On average, you will need to read <b>{numPages / numDays} pages</b>{' '}
-            per day.
-          </P>
+                  }
+                }}
+              />
+            </DeadlineWrapper>
+            <P>
+              With this deadline, you will have <b>{numDays} days</b> to
+              complete your goal.
+            </P>
+            <P>
+              On average, you will need to read{' '}
+              <b>{numPages / numDays} pages</b> per day.
+            </P>
           </GoalInfoWrapper>
           <NotesWrapper>
-          <Label htmlFor="goal-notes">Notes (Optional)</Label>
-          <textarea name="goal-notes" />
+            <Label htmlFor="goal-notes">Notes (Optional)</Label>
+            <textarea name="goal-notes" />
           </NotesWrapper>
           <SnailSection>
             <img

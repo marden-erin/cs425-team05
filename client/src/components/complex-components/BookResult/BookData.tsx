@@ -1,5 +1,5 @@
 import { Book } from '../../../../../server/src/utils/Types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { COLORS, FONTS_MAIN, ScrollBarStyle } from '../../../constants';
 import { SmallRoundedButton } from '../../simple-components/ButtonsLinks';
@@ -90,22 +90,43 @@ const GridWrapper = styled.div`
   gap: 35px;
 `;
 
+const LargeBox = styled.div`
+  margin-left: -50px;
+`;
+
 function BookData(props: any) {
   const { title, authors, description, pageCount, cover } = props.book;
 
-  console.log(title);
-  console.log(authors);
-  console.log(description);
-  console.log(pageCount);
-  console.log(cover);
   const shouldDisplay = title && authors && description && pageCount && cover;
-  console.log(props.allBooks[1]);
+  const [t, setT] = useState('');
+  const [a, setA] = useState<any>();
+  const [d, setD] = useState('');
+  const [c, setC] = useState('');
+  const [dropBook, setDropBook] = useState({} as Book);
+  useEffect(() => {
+    setT(title);
+    setA(authors);
+    setD(description);
+    setC(cover);
+    setDropBook(props.book);
+  }, [title, authors, description, cover, props.book]);
 
   var selector: boolean;
 
-  // TODO: finish handleclick function that is used to swap smallbookcard to LargeBookCard
-  const handleClick = (e: any) => {};
-
+  const handleClick = (
+    title: string,
+    author: [],
+    pageCount: number,
+    cover: string,
+    description: string,
+    index: any
+  ) => {
+    setT(title);
+    setA(author);
+    setD(props.allBooks[index].description);
+    setC(cover);
+    setDropBook(props.allBooks[index]);
+  };
   return (
     <>
       <div>
@@ -120,30 +141,51 @@ function BookData(props: any) {
                     title,
                     author,
                     cover,
-                  }: { title: any; author: any; cover: any },
+                    pageCount,
+                    description,
+                  }: {
+                    title: string;
+                    author: [];
+                    pageCount: number;
+                    cover: string;
+                    description: string;
+                  },
                   index: any
                 ) => {
                   if (props.book.cover === cover) {
-                    selector = true;
-                  } else {
                     selector = false;
+                  } else {
+                    selector = true;
                   }
                   return (
-                    <button>
-                      <SmallBookCard
-                        bookTitle={title}
-                        authorName={author}
-                        bookCover={
-                          <img
-                            style={{ maxWidth: '100%' }}
-                            src={cover}
-                            alt={title + ' book cover'}
-                          />
+                    <>
+                      <button
+                        onClick={() =>
+                          handleClick(
+                            title,
+                            author,
+                            pageCount,
+                            cover,
+                            description,
+                            index
+                          )
                         }
-                        selected={selector}
-                        key={index}
-                      />
-                    </button>
+                      >
+                        <SmallBookCard
+                          bookTitle={title}
+                          authorName={author}
+                          bookCover={
+                            <img
+                              style={{ maxWidth: '100%' }}
+                              src={cover}
+                              alt={title + ' book cover'}
+                            />
+                          }
+                          selected={selector}
+                          key={index}
+                        />
+                      </button>
+                    </>
                   );
                 }
               )}
@@ -151,17 +193,17 @@ function BookData(props: any) {
           </ResultsCard>
 
           <LargeBookCard
-            bookTitle={title}
-            authorName={[authors]}
+            bookTitle={t}
+            authorName={[a]}
             bookCover={
               <img
-                src={cover}
+                src={c}
                 style={{ maxWidth: '100%' }}
-                alt={title + ' book cover'}
+                alt={t + ' book cover'}
               />
             }
-            description={description}
-            tempFunction={<ClusterDropDown>{props.book}</ClusterDropDown>}
+            description={d}
+            tempFunction={<ClusterDropDown>{dropBook}</ClusterDropDown>}
           />
         </GridWrapper>
       </div>

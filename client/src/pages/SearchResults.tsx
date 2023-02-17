@@ -39,6 +39,7 @@ function SearchResults() {
           title: x.title,
           author: x.authors + ' ',
           cover: x.cover,
+          description: x.description,
         };
       });
       setAllBooks([...temp]);

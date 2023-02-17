@@ -21,8 +21,8 @@ type SmallBookCardType = {
   selected?: boolean;
 };
 
-const ResultWrapper = styled.div<{ selected?: boolean }>`
-  width: 44rem;
+const ResultWrapper = styled.div`
+  width: 43rem;
   height: 10rem;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
@@ -32,12 +32,32 @@ const ResultWrapper = styled.div<{ selected?: boolean }>`
   align-items: center;
   gap: 22px;
 
-  ${(props) =>
-    props.selected &&
-    css`
-      background-color: ${COLORS.PURPLE_LIGHT};
-      border: 4px solid ${COLORS.PURPLE_MID};
-    `}
+  :hover {
+    background-color: ${COLORS.PURPLE_LIGHT};
+    border: 4px solid ${COLORS.PURPLE_MID};
+  }
+  cursor: pointer;
+`;
+
+const Input = styled.input`
+  position: absolute;
+  width: 20rem;
+  height: 10rem;
+  opacity: 0;
+
+  :hover {
+    cursor: pointer;
+  }
+
+  :hover + .book-card {
+    background-color: ${COLORS.PURPLE_LIGHT};
+    border: 4px solid ${COLORS.PURPLE_MID};
+  }
+
+  :checked + .book-card {
+    background-color: ${COLORS.PURPLE_LIGHT};
+    border: 4px solid ${COLORS.PURPLE_MID};
+  }
 `;
 
 //TODO: have cover wrapper adjust to image size
@@ -85,13 +105,23 @@ export const SmallBookCard = ({
   selected,
 }: SmallBookCardType) => {
   return (
-    <ResultWrapper selected={selected} className="small-book-card">
-      <CoverWrapper>{bookCover}</CoverWrapper>
-      <TextWrapper>
-        <TitleH2>{bookTitle}</TitleH2>
-        <AuthorH3>{authorName}</AuthorH3>
-      </TextWrapper>
-    </ResultWrapper>
+    <>
+      <Input
+        type="radio"
+        name="small-book-radio"
+        onChange={() => {
+          selected = true;
+        }}
+      />
+
+      <ResultWrapper className="book-card">
+        <CoverWrapper>{bookCover}</CoverWrapper>
+        <TextWrapper>
+          <TitleH2>{bookTitle}</TitleH2>
+          <AuthorH3>{authorName}</AuthorH3>
+        </TextWrapper>
+      </ResultWrapper>
+    </>
   );
 };
 

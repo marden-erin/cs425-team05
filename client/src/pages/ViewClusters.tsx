@@ -21,13 +21,16 @@ import {
   H2,
   P,
   ThickInput,
-  LargeRoundedButton,
   SmallRoundedButton,
+  LargeBookCard,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
 
-const FlexBoxWrapper = styled.div<{ $isModalOpen: boolean }>`
+const FlexBoxWrapper = styled.div<{
+  $isModalOpen: boolean;
+  $isModalOpen2: boolean;
+}>`
   height: 85vh;
   padding: 3vh;
   display: flex;
@@ -38,6 +41,12 @@ const FlexBoxWrapper = styled.div<{ $isModalOpen: boolean }>`
 
   ${(props) =>
     props.$isModalOpen &&
+    css`
+      pointer-events: none;
+    `}
+
+  ${(props) =>
+    props.$isModalOpen2 &&
     css`
       pointer-events: none;
     `}
@@ -128,6 +137,15 @@ const ModalContentWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
+const ModalContentWrapper2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+  background: ${COLORS.PURPLE_LIGHT};
+`;
 
 const RightModalContentWrapper = styled.div`
   width: 30rem;
@@ -186,12 +204,30 @@ const Input = styled.input`
   }
 `;
 
+const ImgButton = styled.button`
+  background: ${COLORS.PURPLE_MID};
+`;
+
+const DeleteWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: -30px;
+`;
+
 function ViewClusters() {
   const [cluster, setCluster] = useState([
     { cluster_id: ' ', clusterName: ' ', user_id: '', visibility: '' },
   ]);
   const [clusterBooks, setClusterBooks] = useState<any>([]);
   const [isModalOpen, toggleIsModalOpen] = useState(false);
+  const [isModalOpen2, toggleIsModalOpen2] = useState(false);
+  const [modalBooks, setModalBooks] = useState('');
+  const [modalAuthors, setModalAuthors] = useState('');
+  const [modalDes, setModalDes] = useState('');
+  const [modalCover, setModalCover] = useState('');
+  const [modalPage, setModalPage] = useState<number>(0);
+  let [cardBooks, setCardBooks] = useState({} as Book);
+
   const [visibility, setVisibilty] = useState(false);
   const [newName, setNewName] = useState('');
   const [tempCluster, setTempCluster] = useState('');
@@ -236,12 +272,32 @@ function ViewClusters() {
     const temp = { toggleIsModalOpen };
   };
 
+  const handleDeleteBook = async (e: any) => {
+    console.log('HERE');
+    const deleteBook = await OWServiceProvider.deleteBookFromCluster(
+      tempCluster,
+      'andrei',
+      e
+    );
+    console.log(deleteBook);
+  };
+  const bookCard = (a: string, b: [], c: number, d: string, e: string) => {
+    const bookTemp: Book = {
+      title: a,
+      authors: b,
+      pageCount: c,
+      description: d,
+      cover: e,
+    };
+    setCardBooks(bookTemp);
+  };
   const temp2 = clusterBooks.map((item: any, index: any) => {
     return (
       <div key={index}>
         <Box_Wrapper>
           <ClusterBox>
             <ClusterName> {item.clusterName}</ClusterName>
+
             <Options>
               <button
                 className="Delete Cluster"
@@ -347,10 +403,74 @@ function ViewClusters() {
                 {item.books.map((t: any, i: any) => {
                   return (
                     <div key={i}>
-                      <Img>
-                        <img src={t.cover} alt={t.title + ' book cover'} />
-                      </Img>
+                      <ImgButton
+                        onClick={() => {
+                          setTempCluster(item.clusterName);
+                          setModalBooks(t.title);
+                          setModalAuthors(t.authors);
+                          setModalDes(t.description);
+                          setModalCover(t.cover);
+                          setModalPage(t.pageCount);
+                          bookCard(
+                            t.title,
+                            t.authors,
+                            t.pageCount,
+                            t.description,
+                            t.cover
+                          );
+                          toggleIsModalOpen2(true);
+                        }}
+                      >
+                        <Img>
+                          <img
+                            src={t.cover}
+                            style={{ maxWidth: '100%' }}
+                            alt={t.title + ' book cover'}
+                          />
+                        </Img>
+                      </ImgButton>
                       <Title>{t.title}</Title>
+                      <ReactModal
+                        isOpen={isModalOpen2}
+                        className="modal-body"
+                        overlayClassName="modal-overlay2"
+                      >
+                        <CloseButton handler={toggleIsModalOpen2} />
+                        <ModalContentWrapper2>
+                          <LargeBookCard
+                            bookTitle={modalBooks}
+                            authorName={[modalAuthors]}
+                            bookCover={
+                              <img
+                                src={modalCover}
+                                style={{ maxWidth: '100%' }}
+                                alt={modalBooks + ' cover'}
+                              />
+                            }
+                            description={modalDes}
+                            tempFunction={
+                              <DeleteWrapper>
+                                <SmallRoundedButton
+                                  onClick={() => {
+                                    const confirmBox = window.confirm(
+                                      'Do you really want to delete ' +
+                                        modalBooks +
+                                        ' from this cluster?'
+                                    );
+                                    if (confirmBox === true) {
+                                      console.log(cardBooks);
+                                      handleDeleteBook(cardBooks);
+                                      window.location.reload();
+                                    }
+                                  }}
+                                >
+                                  {'Delete Book From Cluster'}
+                                </SmallRoundedButton>
+                              </DeleteWrapper>
+                            }
+                          />
+                        </ModalContentWrapper2>
+                      </ReactModal>
                     </div>
                   );
                 })}
@@ -365,7 +485,7 @@ function ViewClusters() {
   return (
     <div>
       <PageWrapper pageTitle="View Clusters">
-        <FlexBoxWrapper $isModalOpen={isModalOpen}>
+        <FlexBoxWrapper $isModalOpen={isModalOpen} $isModalOpen2={isModalOpen2}>
           <HeadingWrapper>
             <PageTitle>View Your Clusters</PageTitle>
 
