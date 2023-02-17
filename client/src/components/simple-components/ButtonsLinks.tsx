@@ -54,7 +54,10 @@ const DisabledCss = css`
 `;
 
 // TODO: Parameterize sizes, roundness
-const SmallHalfRoundedButton = styled.button<{ color?: ColorType, disabled?: boolean }>`
+const SmallHalfRoundedButton = styled.button<{
+  color?: ColorType;
+  disabled?: boolean;
+}>`
   ${ButtonCss}
   ${HalfRoundedCss}
     ${SmallCss}
@@ -64,7 +67,10 @@ const SmallHalfRoundedButton = styled.button<{ color?: ColorType, disabled?: boo
   ${(props) => props.disabled && DisabledCss}
 `;
 
-const SmallRoundedButton = styled.button<{ color?: ColorType, disabled?: boolean }>`
+const SmallRoundedButton = styled.button<{
+  color?: ColorType;
+  disabled?: boolean;
+}>`
   ${ButtonCss}
   ${RoundedCss}
     ${SmallCss}
@@ -74,7 +80,10 @@ const SmallRoundedButton = styled.button<{ color?: ColorType, disabled?: boolean
   ${(props) => props.disabled && DisabledCss}
 `;
 
-const LargeRoundedButton = styled.button<{ color?: ColorType, disabled?: boolean }>`
+const LargeRoundedButton = styled.button<{
+  color?: ColorType;
+  disabled?: boolean;
+}>`
   ${ButtonCss}
   ${RoundedCss}
     ${LargeCss}
@@ -85,7 +94,7 @@ const LargeRoundedButton = styled.button<{ color?: ColorType, disabled?: boolean
 `;
 
 // Looks like a button, but is a link
-const LargeRoundedLink = styled.a<{ color?: ColorType, disabled?: boolean }>`
+const LargeRoundedLink = styled.a<{ color?: ColorType; disabled?: boolean }>`
   ${ButtonCss}
   ${RoundedCss}
     ${LargeCss}

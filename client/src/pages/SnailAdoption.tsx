@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import ReactModal from 'react-modal';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
 import {
   CloseButton,
   H2,
   Label,
   LargeRoundedButton,
-  LargeRoundedLink,
   P,
   PageWrapper,
   SnailSelectCard,
@@ -66,11 +67,24 @@ const InputWrapper = styled.div`
  * - Close modal on escape press
  */
 function SnailAdoption() {
+  const userName = 'andrei'; // TODO: Get user's username when login implemented
   const [snailColor, setSnailColor] = useState('blue');
   const [snailName, setSnailName] = useState('');
   const [isModalOpen, toggleIsModalOpen] = useState(false);
   const [allowContinue, setAllowContinue] = useState(false); // Used to ensure user names snail before continuing
+  const navigate = useNavigate(); // Used to redirect after snail is adopted
   ReactModal.setAppElement('*');
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const create = await OWServiceProvider.createSnail(
+      userName,
+      snailName,
+      snailColor
+    );
+    console.log(create);
+    navigate('/');
+  };
 
   return (
     <PageWrapper pageTitle="Adopt A Snail" header="Adopt A Snail">
@@ -114,17 +128,26 @@ function SnailAdoption() {
               <H2>Name Your Snail!</H2>
               <InputWrapper>
                 <Label htmlFor="snail-name">Name:</Label>
-                <ThickInput name="snail-name" value={snailName} onInput={(event) => {
-                  const element = event.currentTarget as HTMLInputElement;
-                  setSnailName(element.value);
-                  setAllowContinue(snailName !== '');
-                }}/>
+                <ThickInput
+                  name="snail-name"
+                  value={snailName}
+                  onInput={(event) => {
+                    const element = event.currentTarget as HTMLInputElement;
+                    setSnailName(element.value);
+                    setAllowContinue(snailName !== '');
+                  }}
+                />
               </InputWrapper>
               <P>
                 <b>Warning:</b> You're responsible for your snail's wellbeing.
                 By continuing, you accept responsibility for this snail's life.
               </P>
-              <LargeRoundedLink href="/" disabled={!allowContinue}>Adopt Snail</LargeRoundedLink>
+              <LargeRoundedButton
+                disabled={!allowContinue}
+                onClick={handleSubmit}
+              >
+                Adopt Snail
+              </LargeRoundedButton>
             </RightModalContentWrapper>
           </ModalContentWrapper>
         </ReactModal>
