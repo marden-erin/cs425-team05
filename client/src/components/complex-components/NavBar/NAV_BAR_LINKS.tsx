@@ -27,3 +27,10 @@ export const PrototypePages = [
     linkURL: '/search-results',
   },
 ];
+
+export const SnailPages = [
+  {
+    linkLabel: 'Adopt a Snail',
+    linkURL: '/snail-adoption',
+  },
+];

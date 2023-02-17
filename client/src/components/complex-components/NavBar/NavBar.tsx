@@ -4,7 +4,12 @@ import { FiChevronDown } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
-import { PrototypePages, SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
+import {
+  PrototypePages,
+  SampleItems,
+  SnailImageURL,
+  SnailPages,
+} from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
 
 const LinkStyle = css`
@@ -48,8 +53,13 @@ const LogoLinkWrapper = styled.a`
   height: 5rem;
 `;
 
-const NavLink = styled.a`
+const NavLink = styled.a<{ noLink?: boolean }>`
   ${LinkStyle}
+  ${(props) =>
+    props.noLink &&
+    css`
+      pointer-events: none;
+    `}
   display: flex;
   gap: 4px;
 `;
@@ -90,7 +100,7 @@ type DropDownProps = {
   /**
    * The url the link on the NavBar should go to
    */
-  linkURL: string;
+  linkURL?: string;
   /**
    * An array of elements to be rendered under the dropdown
    */
@@ -100,7 +110,7 @@ type DropDownProps = {
 const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
   return (
     <DropDownWrapper>
-      <NavLink href={linkURL}>
+      <NavLink noLink>
         {linkLabel}
         <FiChevronDown role="presentation" size="2rem" />
       </NavLink>
@@ -125,21 +135,9 @@ export const NavBar = () => (
     </LogoLinkWrapper>
     <LinkWrapper>
       <NavLink href="/about">About</NavLink>
-      <DropDownLink
-        linkLabel="Prototype"
-        linkURL={SnailImageURL}
-        dropDownItems={PrototypePages}
-      />
-      <DropDownLink
-        linkLabel="Cluster"
-        linkURL={SnailImageURL}
-        dropDownItems={SampleItems}
-      />
-      <DropDownLink
-        linkLabel="Books"
-        linkURL={SnailImageURL}
-        dropDownItems={SampleItems}
-      />
+      <DropDownLink linkLabel="Prototype" dropDownItems={PrototypePages} />
+      <DropDownLink linkLabel="Cluster" dropDownItems={SampleItems} />
+      <DropDownLink linkLabel="Snails" dropDownItems={SnailPages} />
     </LinkWrapper>
     <SearchBarWrapper>
       <Search />
