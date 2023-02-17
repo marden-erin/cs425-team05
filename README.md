@@ -21,7 +21,7 @@
 
 Node version: `v18.12.1`
 
-## To Run UI:
+## To Run Client:
 1 - open terminal, run `cd client`
 
 2 - Run `npm i`
@@ -42,3 +42,11 @@ Node version: `v18.12.1`
 4 - Terminal should say `Server running on port <Number>`
 
 ## It's recommended you have both UI and Server up and Running at the same time!  
+
+## TESTING
+
+### Client
+
+The client uses Cypress for e2e testing. First run the client and server. Then run:
+
+`npx cypress open`
