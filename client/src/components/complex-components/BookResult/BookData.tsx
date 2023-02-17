@@ -51,7 +51,6 @@ const GridWrapper = styled.div`
   gap: 35px;
 `;
 
-
 function BookData(props: any) {
   const { title, authors, description, pageCount, cover } = props.book;
 

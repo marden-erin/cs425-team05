@@ -5,7 +5,6 @@ import { H1, H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import {
   SmallHalfRoundedButton,
-  LargeRoundedButton,
   ThinInput,
 } from '../components/simple-components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
@@ -51,12 +50,6 @@ const InputBarWrapper = styled.div`
   padding: 10px 30px 30px;
 `;
 
-const SmallBoxWords = styled(H2)`
-  font-size: 4rem;
-  font-weight: 200;
-  color: ${COLORS.WHITE};
-  text-align: center;
-`;
 const LargeButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -64,22 +57,64 @@ const LargeButtonWrapper = styled.div`
   height: 100px;
   align-items: center;
   gap: 200px;
-  margin-top: 15px;
 `;
 
 const OutPut = styled(H2)`
   font-size: 2rem;
   font-weight: 200;
   color: ${COLORS.WHITE};
-  padding: 10px;
+  padding: 20px;
+  text-align: center;
 `;
 
 const Name = styled(H2)`
-  font-size: 4rem;
+  font-size: 3rem;
   text-align: left;
   color: ${COLORS.PURPLE_DARK};
   margin-left: 30px;
-  margin-top: 30px;
+  margin-top: 20px;
+`;
+const VisWords = styled(H2)`
+  font-size: 3rem;
+  text-align: center;
+  color: ${COLORS.PURPLE_DARK};
+  margin-top: 20px;
+`;
+const Visibility = styled(H2)`
+  font-size: 2.5rem;
+  text-align: left;
+  color: ${COLORS.PURPLE_DARK};
+  margin-left: 30px;
+  margin-bottom: 20px;
+`;
+
+const VisibilityButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  gap: 40px;
+`;
+
+const Input = styled.input`
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 4px solid ${COLORS.PURPLE_MID};
+  border-radius: 50%;
+  padding: 2px;
+  background-clip: content-box;
+  margin-bottom: -1px;
+  cursor: pointer;
+
+  :checked {
+    background-color: ${COLORS.PURPLE_MID};
+  }
+
+  :hover {
+    background-color: ${COLORS.PURPLE_MID};
+  }
 `;
 
 function CreateCluster() {
@@ -111,20 +146,28 @@ function CreateCluster() {
         <ClusterBoxWrapper>
           <ClusterBox>
             <form onSubmit={loadData}>
+              <VisWords>Choose the visiblity for your cluster:</VisWords>
               <LargeButtonWrapper>
-                <LargeRoundedButton
-                  type="button"
-                  onClick={() => setVisibilty(true)}
-                >
-                  <SmallBoxWords>Public</SmallBoxWords>
-                </LargeRoundedButton>
-
-                <LargeRoundedButton
-                  type="button"
-                  onClick={() => setVisibilty(false)}
-                >
-                  <SmallBoxWords>Private</SmallBoxWords>
-                </LargeRoundedButton>
+                <VisibilityButtonWrapper>
+                  <Visibility>
+                    <Input
+                      type="radio"
+                      value="true"
+                      name="visibility"
+                      onClick={() => setVisibilty(true)}
+                    />
+                    Public
+                  </Visibility>
+                  <Visibility>
+                    <Input
+                      type="radio"
+                      value="false"
+                      name="visibility"
+                      onClick={() => setVisibilty(false)}
+                    />
+                    Private
+                  </Visibility>
+                </VisibilityButtonWrapper>
               </LargeButtonWrapper>
               <Name>Name:</Name>
               <InputBarWrapper>

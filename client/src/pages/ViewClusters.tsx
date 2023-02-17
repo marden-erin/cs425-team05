@@ -71,7 +71,7 @@ const ClusterBox = styled(Box)`
 const ClusterName = styled.h2`
   ${FONTS_MAIN};
   font-weight: 600;
-  font-size: 3.3rem;
+  font-size: 4rem;
   line-height: 2.5rem;
   text-align: center;
   color: ${COLORS.PURPLE_DARK};
@@ -212,6 +212,12 @@ const DeleteWrapper = styled.div`
   justify-content: center;
   margin-left: -30px;
 `;
+const SmallBoxWords = styled(H2)`
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: ${COLORS.WHITE};
+  text-align: center;
+`;
 
 function ViewClusters() {
   const [cluster, setCluster] = useState([
@@ -298,7 +304,7 @@ function ViewClusters() {
             <ClusterName> {item.clusterName}</ClusterName>
 
             <Options>
-              <button
+              <SmallRoundedButton
                 className="Delete Cluster"
                 onClick={() => {
                   const confirmBox = window.confirm(
@@ -312,18 +318,18 @@ function ViewClusters() {
                   }
                 }}
               >
-                <Label>Delete</Label>
-              </button>
+                <SmallBoxWords>Delete</SmallBoxWords>
+              </SmallRoundedButton>
 
-              <button
+              <SmallRoundedButton
                 onClick={() => {
                   setTempCluster(item.clusterName);
                   toggleIsModalOpen(true);
                 }}
               >
                 {' '}
-                <Label>Edit</Label>
-              </button>
+                <SmallBoxWords>Edit</SmallBoxWords>
+              </SmallRoundedButton>
 
               <ReactModal
                 isOpen={isModalOpen}
