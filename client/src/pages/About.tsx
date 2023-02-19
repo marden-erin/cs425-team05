@@ -1,19 +1,19 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { H1, H2, P, PageWrapper, SubTitle } from '../components';
+import {
+  H1,
+  H2,
+  P,
+  PageWrapper,
+  SubTitle,
+  Box,
+  Box_Wrapper,
+} from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import erinPic from '../imgs/erinPic.png';
 import andreiPic from '../imgs/andreiPic.png';
 import jodiPic from '../imgs/jodiPic.png';
-
-const Box_Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  gap: 15px;
-`;
 
 const FlexBoxWrapper = styled.div`
   display: flex;
@@ -23,26 +23,9 @@ const FlexBoxWrapper = styled.div`
   margin-right: 50px;
 `;
 
-const ProjectBox = styled.div`
-  width: 999px;
+const ProjectBox = styled(Box)`
   height: 500px;
-  background-color: ${COLORS.PURPLE_LIGHT};
-  border-radius: 22px;
   margin-top: 30px;
-  margin: 10px;
-  padding: 45px;
-  text-align: center;
-`;
-
-const Box = styled.div`
-  width: 999px;
-  height: 400px;
-  background-color: ${COLORS.PURPLE_LIGHT};
-  border-radius: 22px;
-  margin-top: 30px;
-  margin: 10px;
-  padding: 15px;
-  text-align: center;
 `;
 
 const WordContainer = styled.div`
@@ -122,6 +105,7 @@ function About() {
             </BoxText>
             <BoxText>Instructed by David Feil-Seifer, Devrin Lee</BoxText>
             <BoxText>Advised by Erin Keith</BoxText>
+
             <ParagraphText>
               OuterWhorld is a web-based book tracking application that allows
               users to find books and set reading goals based on books from a
@@ -137,7 +121,7 @@ function About() {
           <WordContainer>
             <SmallHeading>
               <br />
-              Meet The Creators
+              Meet The Brainy-ators
             </SmallHeading>
           </WordContainer>
 
@@ -173,7 +157,7 @@ function About() {
           <Box>
             <H2>Jodi A. Hieronymus</H2>
             <AboutUs>
-              <Img src={jodiPic} alt="Photo of Jodi" />
+              <Img src={jodiPic} alt="Photo of Jodi and Oster the bird" />
               <ParagraphText>
                 Jodi Hieronymus is a senior undergraduate student at UNR
                 expected to graduate in Spring, 2023. She has prior experience

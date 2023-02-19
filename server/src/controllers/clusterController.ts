@@ -68,7 +68,7 @@ const getAllClusters = asyncHandler(async (req: Request, res: Response) => {
 
 const addCluster = asyncHandler(async (req: Request, res: Response) => {
 	const { clusterName, userName, visibility } = req.body;
-
+	console.log(clusterName, userName, visibility);
 	if (
 		(clusterName && userName && visibility) ||
 		(clusterName && userName && visibility === false)
@@ -107,6 +107,7 @@ const addCluster = asyncHandler(async (req: Request, res: Response) => {
 		res.status(HTTPStatus.BAD).json(errMsg);
 		throw new Error(errMsg);
 	}
+
 });
 
 const updateCluster = asyncHandler(async (req: Request, res: Response) => {

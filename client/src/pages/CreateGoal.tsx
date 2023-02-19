@@ -120,14 +120,10 @@ function CreateGoal() {
       <GridWrapper>
         <LargeBookCard
           bookTitle="This is the Title of a Book I could Write"
-          authorName="Joe Jonas"
+          authorName={['Joe Jonas']}
           bookCover=""
-          genres={[
-            'Horror',
-            'Mystery',
-            'Historical Fiction',
-            "Children's Literature",
-          ]}
+          description=""
+          tempFunction=""
         />
         <GoalCard>
           <H1>Create a Goal</H1>

@@ -60,7 +60,7 @@ const SmallHalfRoundedButton = styled.button<{
 }>`
   ${ButtonCss}
   ${HalfRoundedCss}
-    ${SmallCss}
+  ${SmallCss}
 
     ${(props) => ColorCss(props.color)}
 
@@ -73,7 +73,7 @@ const SmallRoundedButton = styled.button<{
 }>`
   ${ButtonCss}
   ${RoundedCss}
-    ${SmallCss}
+  ${SmallCss}
 
     ${(props) => ColorCss(props.color)}
 
@@ -86,7 +86,7 @@ const LargeRoundedButton = styled.button<{
 }>`
   ${ButtonCss}
   ${RoundedCss}
-    ${LargeCss}
+  ${LargeCss}
 
     ${(props) => ColorCss(props.color)}
 
@@ -97,7 +97,7 @@ const LargeRoundedButton = styled.button<{
 const LargeRoundedLink = styled.a<{ color?: ColorType; disabled?: boolean }>`
   ${ButtonCss}
   ${RoundedCss}
-    ${LargeCss}
+  ${LargeCss}
 
   text-align: center;
   text-decoration: none;
