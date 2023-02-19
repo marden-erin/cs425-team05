@@ -10,7 +10,7 @@ import {
 const goalRouter = express.Router();
 
 //gets individual goal
-goalRouter.get("/:id", getGoal);
+goalRouter.get("/:username/:id", getGoal);
 
 // gets all goals from user
 goalRouter.get("/:userName", getAllGoals);
