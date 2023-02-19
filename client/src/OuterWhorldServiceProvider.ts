@@ -305,6 +305,104 @@ class OuterWhorldServiceProvider {
 
     return data;
   }
+
+  /*
+  @param userName
+  @param goalID
+  @returns goal object with goal_id: number, notes:string, foundBook: Book
+  */
+  async getGoal(userName: string, goalID: number) {
+    const res = await fetch(`/api/goals/${userName}/${goalID}`);
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param userName
+  @returns array of goal objects with goal_id: number, notes:string, foundBook: Book
+  */
+  async getAllGoals(userName: string) {
+    const res = await fetch(`/api/goals/${userName}`);
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param book
+  @param userName
+  @param notes - optional with default value being empty string
+  @returns success or failure
+  */
+  async createGoal(book: Book, userName: string, notes: string = '') {
+    const input = {
+      book,
+      userName,
+      notes,
+    };
+
+    const res = await fetch(`/api/goals`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+  /*
+  @param goalID
+  @param notes
+  @returns success or failure
+  */
+  async updateGoal(goalID: number, notes: string) {
+    const input = {
+      goalID,
+      notes,
+    };
+
+    const res = await fetch(`/api/goals`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param goalID
+  @returns success or failure
+  */
+  async deleteGoal(goalID: number) {
+    const input = {
+      goalID,
+    };
+
+    const res = await fetch(`/api/goals`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
 }
 
 const OWServiceProvider = new OuterWhorldServiceProvider();
