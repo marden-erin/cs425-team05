@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import Switch from 'react-switch';
-import { H1, H2, P, PageWrapper, SubTitle } from '../components';
+import { H1, H2, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import {
   SmallHalfRoundedButton,

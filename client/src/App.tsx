@@ -8,6 +8,7 @@ import CreateCluster from './pages/CreateCluster';
 import CreateGoal from './pages/CreateGoal';
 import SearchResults from './pages/SearchResults';
 import SnailAdoption from './pages/SnailAdoption';
+import ViewGoals from './pages/ViewGoals';
 import ViewClusters from './pages/ViewClusters';
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="snail-adoption" element={<SnailAdoption />} />
         <Route path="search-results" element={<SearchResults />} />
         <Route path="view-clusters" element={<ViewClusters />} />
+        <Route path="view-goals" element={<ViewGoals />} />
       </Route>
     </Routes>
   );
