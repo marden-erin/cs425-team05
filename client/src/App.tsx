@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Routes, Route, Outlet, Link } from 'react-router-dom';
 
 // After home, alphabetical order
+import Login from './pages/Login';
 import Home from './pages/Home';
 import About from './pages/About';
 import CreateCluster from './pages/CreateCluster';
@@ -14,7 +15,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
+        <Route index element={<Login />} />
+        <Route path="home" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="create-cluster" element={<CreateCluster />} />
         <Route path="create-goal" element={<CreateGoal />} />
