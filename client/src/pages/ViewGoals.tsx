@@ -65,7 +65,8 @@ function ViewGoals() {
       const snailInfo = await OWServiceProvider.getSnailInfo('andrei');
       console.log(snailInfo)
       setSnailName(snailInfo.name)
-      setSnailImage(GetSnailImg(snailInfo.color))
+      // setSnailHealth(snailInfo.health); // TODO
+      setSnailImage(GetSnailImg(snailInfo.color, snailHealth))
       //TODO: Set snail health
     }
     loadData();
