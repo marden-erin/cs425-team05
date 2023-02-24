@@ -11,6 +11,8 @@ import {
   SnailPages,
 } from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
+import { useSignOut } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
 
 const LinkStyle = css`
   width: 15rem;
@@ -128,21 +130,32 @@ const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
 };
 
 // POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
-export const NavBar = () => (
-  <NavWrapper>
-    <LogoLinkWrapper href="/">
-      <img src={Logo} alt="" role="presentation" width="150px" />
-    </LogoLinkWrapper>
-    <LinkWrapper>
-      <NavLink href="/about">About</NavLink>
-      <DropDownLink linkLabel="Prototype" dropDownItems={PrototypePages} />
-      <DropDownLink linkLabel="Cluster" dropDownItems={SampleItems} />
-      <DropDownLink linkLabel="Snails" dropDownItems={SnailPages} />
-    </LinkWrapper>
-    <SearchBarWrapper>
-      <Search />
-    </SearchBarWrapper>
-  </NavWrapper>
-);
+export const NavBar = () => {
+  const signOut = useSignOut();
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    signOut();
+    navigate('/');
+  };
+
+  return (
+    <NavWrapper>
+      <LogoLinkWrapper href="/">
+        <img src={Logo} alt="" role="presentation" width="150px" />
+      </LogoLinkWrapper>
+      <LinkWrapper>
+        <NavLink href="/about">About</NavLink>
+        <DropDownLink linkLabel="Prototype" dropDownItems={PrototypePages} />
+        <DropDownLink linkLabel="Cluster" dropDownItems={SampleItems} />
+        <DropDownLink linkLabel="Snails" dropDownItems={SnailPages} />
+      </LinkWrapper>
+      <SearchBarWrapper>
+        <Search />
+      </SearchBarWrapper>
+      <NavLink onClick={handleSignOut}>Sign Out</NavLink>
+    </NavWrapper>
+  );
+};
 
 export default NavBar;

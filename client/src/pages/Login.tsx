@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   LoginPageWrapper,
@@ -10,6 +12,8 @@ import {
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { useSignIn } from 'react-auth-kit';
 
 const ColumnFlexCss = css`
   display: flex;
@@ -89,6 +93,36 @@ const FlexBoxWrapper = styled.div`
 `;
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const signIn = useSignIn();
+  const navigate = useNavigate();
+
+  const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    const res = await OWServiceProvider.authenticateUser(email, password);
+
+    if (res.status === 200) {
+      console.log(res.data.token)
+      console.log(res.data.username)
+      signIn({
+        token: res.data.token,
+        expiresIn: 1440,
+        tokenType: 'Bearer',
+        authState: res.data.username,
+      });
+
+      navigate('/home');
+    }
+  };
+
   return (
     <LoginPageWrapper pageTitle="Login">
       <div style={LogoStyle}>
@@ -112,9 +146,21 @@ function Login() {
         <RightContentWrapper>
           <LoginContainer>
             <LoginPromptH2>Let's Get Reading!</LoginPromptH2>
-            <LoginInput type="text" placeholder="email"></LoginInput>
-            <LoginInput type="password" placeholder="password"></LoginInput>
-            <LargeRoundedButton>Login</LargeRoundedButton>
+            <LoginInput
+              type="text"
+              value={email}
+              onChange={updateEmail}
+              placeholder="email"
+            ></LoginInput>
+            <LoginInput
+              type="password"
+              value={password}
+              onChange={updatePassword}
+              placeholder="password"
+            ></LoginInput>
+            <LargeRoundedButton onClick={handleSubmit}>
+              Login
+            </LargeRoundedButton>
           </LoginContainer>
         </RightContentWrapper>
       </FlexBoxWrapper>

@@ -10,19 +10,69 @@ import CreateGoal from './pages/CreateGoal';
 import SearchResults from './pages/SearchResults';
 import SnailAdoption from './pages/SnailAdoption';
 import ViewClusters from './pages/ViewClusters';
+import { RequireAuth } from 'react-auth-kit';
 
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Login />} />
-        <Route path="home" element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="create-cluster" element={<CreateCluster />} />
-        <Route path="create-goal" element={<CreateGoal />} />
-        <Route path="snail-adoption" element={<SnailAdoption />} />
-        <Route path="search-results" element={<SearchResults />} />
-        <Route path="view-clusters" element={<ViewClusters />} />
+        <Route
+          path="home"
+          element={
+            <RequireAuth loginPath="/">
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="about"
+          element={
+            <RequireAuth loginPath="/">
+              <About />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="create-cluster"
+          element={
+            <RequireAuth loginPath="/">
+              <CreateCluster />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="create-goal"
+          element={
+            <RequireAuth loginPath="/">
+              <CreateGoal />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="snail-adoption"
+          element={
+            <RequireAuth loginPath="/">
+              <SnailAdoption />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="search-results"
+          element={
+            <RequireAuth loginPath="/">
+              <SearchResults />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="view-clusters"
+          element={
+            <RequireAuth loginPath="/">
+              <ViewClusters />
+            </RequireAuth>
+          }
+        />
       </Route>
     </Routes>
   );

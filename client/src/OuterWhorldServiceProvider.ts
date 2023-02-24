@@ -404,6 +404,60 @@ class OuterWhorldServiceProvider {
 
     return data;
   }
+
+    /*
+  @param username
+  @param email
+  @param password
+  @returns success or failure
+  */
+  async registerUser(username: string, email: string, password: string) {
+    const input = {
+      name:  username,
+      email,
+      password
+    };
+
+    const res = await fetch(`/api/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+    /*
+  @param email
+  @param password
+  @returns token if authentication is successful
+  */
+  async authenticateUser(email: string, password: string) {
+    const input = {
+      email,
+      password
+    };
+
+    const res = await fetch(`/api/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+    
+    const payload = {status: res.status, data};
+
+    return payload;
+  }
 }
 
 const OWServiceProvider = new OuterWhorldServiceProvider();
