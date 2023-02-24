@@ -95,7 +95,7 @@ class OuterWhorldServiceProvider {
 
   /* 
 @param clusterName - the current name for the cluster
-@param userName - user the cluster belongs to (currently only 'andrei')
+@param userName - user the cluster belongs to
 @param newClusterName - the 'new' name for the cluster (if the name is unchanged then clusterName = newClusterName)
 @param visibility - the 'new' visibility for the cluster (if visibility is unchanged then the same visibilty value is passed in)
 */

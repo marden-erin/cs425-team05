@@ -116,7 +116,7 @@ function Login() {
         token: res.data.token,
         expiresIn: 1440,
         tokenType: 'Bearer',
-        authState: res.data.username,
+        authState: {username: res.data.username},
       });
 
       navigate('/home');

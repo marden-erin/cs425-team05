@@ -15,6 +15,7 @@ import {
 } from '../components';
 import { GetSnailImg } from '../utils';
 import { COLORS } from '../constants';
+import {useAuthUser} from 'react-auth-kit'
 
 const FlexBoxWrapper = styled.div<{ $isModalOpen: boolean }>`
   height: 80vh;
@@ -67,7 +68,8 @@ const InputWrapper = styled.div`
  * - Close modal on escape press
  */
 function SnailAdoption() {
-  const userName = 'andrei'; // TODO: Get user's username when login implemented
+  const auth = useAuthUser()
+  const userName = auth()?.username;
   const [snailColor, setSnailColor] = useState('blue');
   const [snailName, setSnailName] = useState('');
   const [isModalOpen, toggleIsModalOpen] = useState(false);
