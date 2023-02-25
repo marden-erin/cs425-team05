@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -7,10 +7,10 @@ import {
   ThickInput,
   H2,
   P,
-  Label,
 } from '../components';
 import { COLORS } from '../constants';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { useIsAuthenticated } from 'react-auth-kit';
 
 const RegisterContainer = styled.form`
   display: flex;
@@ -55,6 +55,14 @@ function Register() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  const isAuthenticated = useIsAuthenticated();
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate('/home');
+    }
+  }, []);
 
   const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);

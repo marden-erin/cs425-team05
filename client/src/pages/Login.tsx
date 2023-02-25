@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
@@ -13,7 +13,7 @@ import {
 import { COLORS } from '../constants';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
-import { useSignIn } from 'react-auth-kit';
+import { useSignIn, useIsAuthenticated } from 'react-auth-kit';
 
 const ColumnFlexCss = css`
   display: flex;
@@ -93,11 +93,24 @@ const FlexBoxWrapper = styled.div`
   }
 `;
 
+const ErrorMessageP = styled(P)`
+  color: red;
+`;
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const signIn = useSignIn();
   const navigate = useNavigate();
+  const isAuthenticated = useIsAuthenticated();
+
+  useEffect(() => {
+    if (isAuthenticated()){
+      navigate('/home')
+    }
+  }, [])
 
   const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -110,9 +123,9 @@ function Login() {
   const handleSubmit = async () => {
     const res = await OWServiceProvider.authenticateUser(email, password);
 
+    console.log(res);
+
     if (res.status === 200) {
-      console.log(res.data.token);
-      console.log(res.data.username);
       signIn({
         token: res.data.token,
         expiresIn: 1440,
@@ -121,6 +134,9 @@ function Login() {
       });
 
       navigate('/home');
+    } else {
+      setIsError(true);
+      setErrorMessage('Error: Invalid Credentials');
     }
   };
 
@@ -142,6 +158,7 @@ function Login() {
         </LeftContentWrapper>
         <RightContentWrapper>
           <LoginContainer>
+            {isError && <ErrorMessageP>{errorMessage}</ErrorMessageP>}
             <LoginPromptH2>Let's Get Reading!</LoginPromptH2>
             <LoginInput
               type="text"

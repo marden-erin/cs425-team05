@@ -64,12 +64,13 @@ const authenticateUser = asyncHandler(async (req: Request, res: Response) => {
 				const userData = { username, token };
 				res.status(HTTPStatus.OK).json(userData);
 			} else {
+				console.log("IN2")
 				const errMsg = "Error. Incorrect email and/or password";
 				res.status(HTTPStatus.BAD).json(errMsg);
 				throw new Error(errMsg);
 			}
 		} catch (err: any) {
-			res.status(HTTPStatus.BAD).json(err.sqlMessage);
+			res.status(HTTPStatus.BAD).json(err);
 			throw new Error(err);
 		}
 	} else {
