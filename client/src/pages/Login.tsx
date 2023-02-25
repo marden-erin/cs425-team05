@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
-  LoginPageWrapper,
+  Login_RegisterPageWrapper,
   H2,
   ThickInput,
   LargeRoundedButton,
   AnimationPauseButton,
-  SubTitle,
+  P,
+  Label,
 } from '../components';
 import { COLORS } from '../constants';
-import Logo from '../imgs/logo.png';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useSignIn } from 'react-auth-kit';
@@ -21,8 +21,9 @@ const ColumnFlexCss = css`
   align-items: center;
 `;
 
-const LogoStyle = {
-  textAlign: 'center' as const,
+const buttonStyle = {
+  backgroundColor: 'transparent',
+  border: 'none',
 };
 
 const LoginContainer = styled.div`
@@ -110,29 +111,25 @@ function Login() {
     const res = await OWServiceProvider.authenticateUser(email, password);
 
     if (res.status === 200) {
-      console.log(res.data.token)
-      console.log(res.data.username)
+      console.log(res.data.token);
+      console.log(res.data.username);
       signIn({
         token: res.data.token,
         expiresIn: 1440,
         tokenType: 'Bearer',
-        authState: {username: res.data.username},
+        authState: { username: res.data.username },
       });
 
       navigate('/home');
     }
   };
 
+  const handleRegister = async () => {
+    navigate('/register');
+  };
+
   return (
-    <LoginPageWrapper pageTitle="Login">
-      <div style={LogoStyle}>
-        <h1>
-          <img src={Logo} alt="OuterWhorld" width="400" />
-        </h1>
-        <SubTitle className="subtitle">
-          Adopt and feed an astronaut snail by reading books you love!
-        </SubTitle>
-      </div>
+    <Login_RegisterPageWrapper pageTitle="Login">
       <FlexBoxWrapper>
         <LeftContentWrapper>
           <AnimationPauseButton />
@@ -161,10 +158,16 @@ function Login() {
             <LargeRoundedButton onClick={handleSubmit}>
               Login
             </LargeRoundedButton>
+            <button style={buttonStyle} onClick={handleRegister}>
+              <P>
+                Don't have an account?{' '}
+                <Label style={{ cursor: 'pointer' }}>Register Now!</Label>
+              </P>
+            </button>
           </LoginContainer>
         </RightContentWrapper>
       </FlexBoxWrapper>
-    </LoginPageWrapper>
+    </Login_RegisterPageWrapper>
   );
 }
 export default Login;

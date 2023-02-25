@@ -6,9 +6,10 @@ import styled, {
   ThemedCssFunction,
 } from 'styled-components';
 
-import { H1, SemiHiddenLink } from '../../simple-components';
+import { H1, SemiHiddenLink, SubTitle } from '../../simple-components';
 import { COLORS, FONTS_SECONDARY } from '../../../constants';
 import PlanetImg from '../../../imgs/planet.png';
+import Logo from '../../../imgs/logo.png';
 
 type WrapperProps = {
   /**
@@ -46,6 +47,10 @@ const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
     }
 `;
 
+const LogoStyle = {
+  textAlign: 'center' as const,
+};
+
 // TODO: Allow custom css to be passed in
 const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
   background-image: url(${PlanetImg});
@@ -62,7 +67,7 @@ const Header = styled(H1)<{ fontColor?: string }>`
   color: ${(props) => (props.fontColor ? props.fontColor : COLORS.WHITE)};
 `;
 
-export const LoginPageWrapper = ({
+export const Login_RegisterPageWrapper = ({
   children,
   pageTitle,
   header,
@@ -79,10 +84,20 @@ export const LoginPageWrapper = ({
       <Wrapper $css={$css}>
         <SemiHiddenLink href="#main">Skip to Content</SemiHiddenLink>
         {header && <Header fontColor={titleColor}>{header}</Header>}
+        <div style={LogoStyle}>
+          <h1>
+            <a href="/">
+              <img src={Logo} alt="OuterWhorld" width="400" />
+            </a>
+          </h1>
+          <SubTitle className="subtitle">
+            Adopt and feed an astronaut snail by reading books you love!
+          </SubTitle>
+        </div>
         <div id="main">{children}</div>
       </Wrapper>
     </>
   );
 };
 
-export default LoginPageWrapper;
+export default Login_RegisterPageWrapper;

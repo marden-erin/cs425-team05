@@ -1,2 +1,2 @@
 export { PageWrapper } from './PageWrapper';
-export {LoginPageWrapper} from './LoginPageWrapper'
+export {Login_RegisterPageWrapper} from './Login_RegisterPageWrapper'

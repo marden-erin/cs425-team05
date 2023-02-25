@@ -429,7 +429,9 @@ class OuterWhorldServiceProvider {
 
     const data = await res.json();
 
-    return data;
+    const payload = {status: res.status, data}
+
+    return payload;
   }
 
     /*
