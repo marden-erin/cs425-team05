@@ -5,6 +5,7 @@ import { H2, SmallHalfRoundedButton } from '../../simple-components';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 import { Book } from '../../../../../server/src/utils/Types';
 import { render } from '@testing-library/react';
+import {useAuthUser} from 'react-auth-kit'
 
 const Wrapper = styled.div`
   width: 18rem;
@@ -69,6 +70,7 @@ const OutputWrapper = styled.div`
 `;
 
 export const ClusterDropDown = (props: any) => {
+  const auth = useAuthUser();
   const [bookInfo, setBookInfo] = useState({} as Book);
   const { title, authors, description, pageCount, cover } = props.children;
   console.log(title);
@@ -79,10 +81,12 @@ export const ClusterDropDown = (props: any) => {
   ]);
   const [selected, setSelected] = useState<any>();
 
+  const username = auth()?.username;
+
   useEffect(() => {
     const loadData = async () => {
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
-        'andrei'
+        username
       );
       setCluster(clusterInfo);
     };
@@ -106,7 +110,7 @@ export const ClusterDropDown = (props: any) => {
     const addBook = async () => {
       const clusterInfo = await OWServiceProvider.addBookToCluster(
         tempSelect,
-        'andrei',
+        username,
         data[0]
       );
 

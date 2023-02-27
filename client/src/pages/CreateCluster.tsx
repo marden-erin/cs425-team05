@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import {useAuthUser} from 'react-auth-kit'
 import styled from 'styled-components';
-import { H1, H2, PageWrapper, SubTitle } from '../components';
+import { H1, H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import {
   SmallHalfRoundedButton,
@@ -117,7 +118,9 @@ const Input = styled.input`
 `;
 
 function CreateCluster() {
-  const userName = 'andrei';
+  const auth = useAuthUser();
+
+  const userName = auth()?.username;
   const [input, setInput] = useState('');
   const [visibility, setVisibilty] = useState(false);
   const [outPut, setOutput] = useState('');
