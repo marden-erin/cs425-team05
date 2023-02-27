@@ -95,7 +95,7 @@ class OuterWhorldServiceProvider {
 
   /* 
 @param clusterName - the current name for the cluster
-@param userName - user the cluster belongs to (currently only 'andrei')
+@param userName - user the cluster belongs to
 @param newClusterName - the 'new' name for the cluster (if the name is unchanged then clusterName = newClusterName)
 @param visibility - the 'new' visibility for the cluster (if visibility is unchanged then the same visibilty value is passed in)
 */
@@ -393,6 +393,89 @@ class OuterWhorldServiceProvider {
 
     const res = await fetch(`/api/goals`, {
       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+    /*
+  @param username
+  @param email
+  @param password
+  @returns success or failure
+  */
+  async registerUser(username: string, email: string, password: string) {
+    const input = {
+      name:  username,
+      email,
+      password
+    };
+
+    const res = await fetch(`/api/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    const payload = {status: res.status, data}
+
+    return payload;
+  }
+
+    /*
+  @param email
+  @param password
+  @returns token if authentication is successful
+  */
+  async authenticateUser(email: string, password: string) {
+    const input = {
+      email,
+      password
+    };
+
+    const res = await fetch(`/api/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+    
+    const payload = {status: res.status, data};
+
+    return payload;
+  }
+
+  async getUserInformation(username: string) {
+    const res = await fetch(`/api/users/${username}`)
+    const data = await res.json();
+
+    return data;
+  }
+  
+  async signOutUser(username: string, date: string) {
+    const input = {
+      userName: username,
+      signOutTime: date
+    };
+
+    const res = await fetch(`/api/users/`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',

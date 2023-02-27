@@ -25,6 +25,7 @@ import {
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
+import {useAuthUser} from 'react-auth-kit'
 
 const FlexBoxWrapper = styled.div<{
   $isModalOpen: boolean;
@@ -220,6 +221,7 @@ const SmallBoxWords = styled(H2)`
 `;
 
 function ViewClusters() {
+  const auth = useAuthUser();
   const [cluster, setCluster] = useState([
     { cluster_id: ' ', clusterName: ' ', user_id: '', visibility: '' },
   ]);
@@ -241,18 +243,20 @@ function ViewClusters() {
 
   let newArray: any;
 
+  const username = auth()?.username;
+
   useEffect(() => {
     const loadData = async () => {
       console.log('IN');
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
-        'andrei'
+        username
       );
       setCluster(clusterInfo);
       const clusterArray: any[] = [];
       for (const temp of clusterInfo) {
         const info: Book = await OWServiceProvider.getClusterInformation(
           temp.clusterName,
-          'andrei'
+          username
         );
         clusterArray.push({ clusterName: temp.clusterName, books: info });
         setClusterBooks([...clusterArray]);
@@ -262,14 +266,14 @@ function ViewClusters() {
   }, []);
 
   const deleteCluster = async (e: any) => {
-    const temp = await OWServiceProvider.deleteCluster(e, 'andrei');
+    const temp = await OWServiceProvider.deleteCluster(e, username);
     return temp;
   };
 
   const handleUpdate = async (e: any) => {
     const update = await OWServiceProvider.updateClusterInformation(
       e,
-      'andrei',
+      username,
       newName,
       visibility
     );
@@ -281,7 +285,7 @@ function ViewClusters() {
     console.log('HERE');
     const deleteBook = await OWServiceProvider.deleteBookFromCluster(
       tempCluster,
-      'andrei',
+      username,
       e
     );
     console.log(deleteBook);

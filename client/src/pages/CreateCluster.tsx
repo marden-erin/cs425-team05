@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Switch from 'react-switch';
 import { H1, H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import {
@@ -8,6 +7,7 @@ import {
   ThinInput,
 } from '../components/simple-components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
+import {useAuthUser} from 'react-auth-kit'
 
 const FlexBoxWrapper = styled.div`
   height: 85vh;
@@ -118,7 +118,9 @@ const Input = styled.input`
 `;
 
 function CreateCluster() {
-  const userName = 'andrei';
+  const auth = useAuthUser();
+
+  const userName = auth()?.username;
   const [input, setInput] = useState('');
   const [visibility, setVisibilty] = useState(false);
   const [outPut, setOutput] = useState('');
