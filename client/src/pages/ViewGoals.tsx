@@ -75,7 +75,7 @@ function ViewGoals() {
     <PageWrapper pageTitle="Goals" header="Goals">
       <FlexWrapper>
       <SnailCard>
-        <img src={snailImage} width="250" height="250" />
+        <img src={snailImage} width="250" height="250" alt={'An image of ' + snailName}/>
         <H2>{snailName}</H2>
         <SnailStatus>
           <P><b>{snailName}</b> {GetSnailStatusText(snailHealth)}</P>
