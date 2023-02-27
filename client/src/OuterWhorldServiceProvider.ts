@@ -142,7 +142,7 @@ class OuterWhorldServiceProvider {
     bookCoverLink: string
   ) {
     const res = await fetch(
-      `/api/book?clusterName=${clusterName}&userName=${userName}&title=${title}&pageNumbers=${pageNumbers}&bookCoverLink=${bookCoverLink}`
+      `/api/booksInClusters?clusterName=${clusterName}&userName=${userName}&title=${title}&pageNumbers=${pageNumbers}&bookCoverLink=${encodeURIComponent(bookCoverLink)}`
     );
     const data = await res.json();
 
