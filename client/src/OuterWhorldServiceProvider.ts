@@ -460,6 +460,33 @@ class OuterWhorldServiceProvider {
 
     return payload;
   }
+
+  async getUserInformation(username: string) {
+    const res = await fetch(`/api/users/${username}`)
+    const data = await res.json();
+
+    return data;
+  }
+  
+  async signOutUser(username: string, date: string) {
+    const input = {
+      userName: username,
+      signOutTime: date
+    };
+
+    const res = await fetch(`/api/users/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
 }
 
 const OWServiceProvider = new OuterWhorldServiceProvider();

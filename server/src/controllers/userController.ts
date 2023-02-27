@@ -64,7 +64,7 @@ const authenticateUser = asyncHandler(async (req: Request, res: Response) => {
 				const userData = { username, token };
 				res.status(HTTPStatus.OK).json(userData);
 			} else {
-				console.log("IN2")
+				console.log("IN2");
 				const errMsg = "Error. Incorrect email and/or password";
 				res.status(HTTPStatus.BAD).json(errMsg);
 				throw new Error(errMsg);
@@ -81,7 +81,41 @@ const authenticateUser = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const getUserInformation = asyncHandler(async (req: Request, res: Response) => {
-	res.status(HTTPStatus.OK).json("In get user info");
+	const { userName } = req.params;
+
+	if (userName) {
+		const filteredUserName = (userName as string).replace(/"/g, "''");
+		try {
+			const query = `select * from Users where userName="${filteredUserName}";`;
+			const [user]: any[] = await db.promise().query(query);
+
+			res.status(HTTPStatus.OK).json(user[0]);
+		} catch (err: any) {
+			res.status(HTTPStatus.BAD).json(err.sqlMessage);
+			throw new Error(err);
+		}
+	} else {
+		const errMsg = "Error. Missing params (userName)";
+		res.status(HTTPStatus.BAD).json(errMsg);
+		throw new Error(errMsg);
+	}
 });
 
-export { registerUser, authenticateUser, getUserInformation };
+const signOutUser = asyncHandler(async (req: Request, res: Response) => {
+	const { userName, signOutTime } = req.body;
+
+	if (userName && signOutTime) {
+		const filteredUserName = (userName as string).replace(/"/g, "''");
+
+		const query = `update Users set last_login="${signOutTime}" where userName="${filteredUserName}"`;
+		await db.promise().query(query);
+
+		res.status(HTTPStatus.OK).json("Successfully signed out user");
+	} else {
+		const errMsg = "Error. Missing params (userName, signOutTime)";
+		res.status(HTTPStatus.BAD).json(errMsg);
+		throw new Error(errMsg);
+	}
+});
+
+export { registerUser, authenticateUser, getUserInformation, signOutUser };

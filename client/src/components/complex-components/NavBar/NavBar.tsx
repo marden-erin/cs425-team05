@@ -11,8 +11,9 @@ import {
   SnailPages,
 } from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
-import { useSignOut } from 'react-auth-kit';
+import { useSignOut, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
+import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 
 const LinkStyle = css`
   width: 15rem;
@@ -133,8 +134,12 @@ const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
 export const NavBar = () => {
   const signOut = useSignOut();
   const navigate = useNavigate();
+  const auth = useAuthUser();
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    const username = auth()?.username;
+    const date = new Date().toString();
+    const res = await OWServiceProvider.signOutUser(username, date);
     signOut();
     navigate('/');
   };

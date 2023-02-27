@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 
 import {
@@ -11,6 +11,8 @@ import {
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { useAuthUser } from 'react-auth-kit';
 
 const ColumnFlexCss = css`
   display: flex;
@@ -91,6 +93,22 @@ const _TEMP_LoginButton = styled.div`
 `;
 
 function Home() {
+  // const auth = useAuthUser();
+
+  // const username = auth()?.username;
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const user = await OWServiceProvider.getUserInformation(username);
+
+  //     if (user?.last_login === null) {
+  //       console.log("First time login, should redirect to snail adoption page");
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   return (
     <PageWrapper pageTitle="OuterWhorld">
       <FlexBoxWrapper>
