@@ -1,11 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { COLORS } from '../constants';
 import styled from 'styled-components';
 import { PageWrapper } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { GetSnailImg, GetSnailStatusText } from '../utils';
+import { ScrollBarStyle } from '../constants';
 import { GoalCard, H2, LargeRoundedButton, P } from '../components';
+
+// TODO: Replace with actual goals
+const placeholderCover =
+  'https://i.pinimg.com/originals/a1/f8/87/a1f88733921c820db477d054fe96afbb.jpg';
+const PlaceholderGoalInfo = [
+  {
+    bookTitle: 'title',
+    bookCover: placeholderCover,
+    dueDate: new Date(),
+  },
+  {
+    bookTitle: 'title',
+    bookCover: placeholderCover,
+    dueDate: new Date(),
+  },
+  {
+    bookTitle: 'title',
+    bookCover: placeholderCover,
+    dueDate: new Date(),
+  },
+  {
+    bookTitle: 'title',
+    bookCover: placeholderCover,
+    dueDate: new Date(),
+  },
+  {
+    bookTitle: 'title',
+    bookCover: placeholderCover,
+    dueDate: new Date(),
+  },
+  {
+    bookTitle: 'title',
+    bookCover: placeholderCover,
+    dueDate: new Date(),
+  },
+];
 
 const FlexWrapper = styled.div`
   height: 75vh;
@@ -57,10 +93,16 @@ const GoalsCard = styled.div`
 const GoalsWrapper = styled.div`
   width: 65rem;
   background-color: ${COLORS.PURPLE_LIGHT};
+  border: 3px solid ${COLORS.PURPLE_LIGHT};
   margin-block-start: 2rem;
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  ${ScrollBarStyle};
 `;
 
-function ViewGoals() {
+function ViewGoals(this: any) {
   const [snailName, setSnailName] = useState('');
   const [snailImage, setSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
@@ -91,6 +133,49 @@ function ViewGoals() {
             <P>
               <b>{snailName}</b> {GetSnailStatusText(snailHealth)}
             </P>
+            {
+              // TODO: DELETE AFTER DEMO
+            }
+            <input
+              type="radio"
+              id="3"
+              name="snail-health"
+              value="3"
+              onChange={() => {
+                setSnailHealth(3);
+              }}
+            />
+            <label htmlFor="html">3</label>
+            <input
+              type="radio"
+              id="2"
+              name="snail-health"
+              value="2"
+              onChange={() => {
+                setSnailHealth(2);
+              }}
+            />
+            <label htmlFor="css">2</label>
+            <input
+              type="radio"
+              id="1"
+              name="snail-health"
+              value="1"
+              onChange={() => {
+                setSnailHealth(1);
+              }}
+            />
+            <label htmlFor="javascript">1</label>
+            <input
+              type="radio"
+              id="0"
+              name="snail-health"
+              value="0"
+              onChange={() => {
+                setSnailHealth(0);
+              }}
+            />
+            <label htmlFor="javascript">0</label>
           </SnailStatus>
           {snailHealth === 0 && ( // Only show button if snail is dead
             <LargeRoundedButton>Go to the Graveyard</LargeRoundedButton>
@@ -100,7 +185,18 @@ function ViewGoals() {
           <GoalsCard>
             <H2>Active Goals</H2>
             <GoalsWrapper>
-              <GoalCard dueDate={new Date()}></GoalCard>
+              {PlaceholderGoalInfo.map(
+                ({ bookTitle, bookCover, dueDate }, index) => {
+                  return (
+                    <GoalCard
+                      bookTitle={bookTitle}
+                      bookCover={bookCover}
+                      dueDate={dueDate}
+                      key={index}
+                    />
+                  );
+                }
+              )}
             </GoalsWrapper>
           </GoalsCard>
         )}

@@ -6,13 +6,13 @@ import { P, SmallRoundedButton } from '../../simple-components';
 
 type GoalCardType = {
   /**
-   * Title of the book
+   * Title of the book used for alt text
    */
-  bookTitle?: string;
+  bookTitle: string;
   /**
    * Image of book cover
    */
-  bookCover?: any;
+  bookCover: any;
   /**
    * Date goal is due
    */
@@ -49,11 +49,7 @@ const CoverWrapper = styled.div`
   margin-block-start: 0.5rem;
 `;
 
-export const GoalCard = ({
-  bookTitle,
-  bookCover,
-  dueDate
-}: GoalCardType) => {
+export const GoalCard = ({ bookTitle, bookCover, dueDate }: GoalCardType) => {
   return (
     <ResultWrapper className="book-card">
       <CoverWrapper>
@@ -63,8 +59,12 @@ export const GoalCard = ({
           alt={bookTitle + ' book cover'}
         />
       </CoverWrapper>
-      <P>Due Date: <b>{dueDate.toLocaleDateString()}</b></P>
-      <P>Days left: <b>{NumberOfDaysUntilDate(dueDate)}</b></P>
+      <P>
+        Due Date: <b>{dueDate.toLocaleDateString()}</b>
+      </P>
+      <P>
+        Days left: <b>{NumberOfDaysUntilDate(dueDate)}</b>
+      </P>
       <SmallRoundedButton>Update</SmallRoundedButton>
     </ResultWrapper>
   );
