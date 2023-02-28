@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {useAuthUser} from 'react-auth-kit'
+import { useAuthUser } from 'react-auth-kit';
 import styled from 'styled-components';
 import { H1, H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';

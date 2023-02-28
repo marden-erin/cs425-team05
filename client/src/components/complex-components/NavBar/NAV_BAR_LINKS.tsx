@@ -40,5 +40,5 @@ export const SnailPages = [
   {
     linkLabel: 'View Goals',
     linkURL: '/view-goals',
-  }
+  },
 ];

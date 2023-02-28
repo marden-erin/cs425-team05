@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { PageWrapper } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { GetSnailImg, GetSnailStatusText } from '../utils';
-import { H2, LargeRoundedButton, P } from '../components';
+import { GoalCard, H2, LargeRoundedButton, P } from '../components';
 
 const FlexWrapper = styled.div`
   height: 75vh;
@@ -27,7 +27,7 @@ const SnailCard = styled.div`
   flex-direction: column;
   align-items: center;
 
-  button { 
+  button {
     margin-block-start: 15px;
   }
 `;
@@ -45,14 +45,19 @@ const SnailStatus = styled.div`
 
 const GoalsCard = styled.div`
   width: 70rem;
-  height: 50rem;
-  padding: 20px 15px;
+  padding: 20px 15px 25px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const GoalsWrapper = styled.div`
+  width: 65rem;
+  background-color: ${COLORS.PURPLE_LIGHT};
+  margin-block-start: 2rem;
 `;
 
 function ViewGoals() {
@@ -63,31 +68,42 @@ function ViewGoals() {
   useEffect(() => {
     const loadData = async () => {
       const snailInfo = await OWServiceProvider.getSnailInfo('andrei');
-      console.log(snailInfo)
-      setSnailName(snailInfo.name)
+      console.log(snailInfo);
+      setSnailName(snailInfo.name);
       // setSnailHealth(snailInfo.health); // TODO
-      setSnailImage(GetSnailImg(snailInfo.color, snailHealth))
+      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
       //TODO: Set snail health
-    }
+    };
     loadData();
-  })
+  });
   return (
     <PageWrapper pageTitle="Goals" header="Goals">
       <FlexWrapper>
-      <SnailCard>
-        <img src={snailImage} width="250" height="250" alt={'An image of ' + snailName}/>
-        <H2>{snailName}</H2>
-        <SnailStatus>
-          <P><b>{snailName}</b> {GetSnailStatusText(snailHealth)}</P>
-        </SnailStatus>
-        {snailHealth === 0 && // Only show button if snail is dead
+        <SnailCard>
+          <img
+            src={snailImage}
+            width="250"
+            height="250"
+            alt={'An image of ' + snailName}
+          />
+          <H2>{snailName}</H2>
+          <SnailStatus>
+            <P>
+              <b>{snailName}</b> {GetSnailStatusText(snailHealth)}
+            </P>
+          </SnailStatus>
+          {snailHealth === 0 && ( // Only show button if snail is dead
             <LargeRoundedButton>Go to the Graveyard</LargeRoundedButton>
-          }
-      </SnailCard>
-      {snailHealth !== 0 && // Don't show Goals if snail is dead
-      <GoalsCard>
-
-      </GoalsCard>}
+          )}
+        </SnailCard>
+        {snailHealth !== 0 && ( // Don't show Goals if snail is dead
+          <GoalsCard>
+            <H2>Active Goals</H2>
+            <GoalsWrapper>
+              <GoalCard dueDate={new Date()}></GoalCard>
+            </GoalsWrapper>
+          </GoalsCard>
+        )}
       </FlexWrapper>
     </PageWrapper>
   );

@@ -20,14 +20,11 @@ function GetSnailImg(snailColor: string, snailHealth?: Number) {
     snailColor.charAt(0).toUpperCase() + snailColor.slice(1).toLowerCase(); // Ensure consistent capitalization
   if (snailHealth === 0) {
     return GetShellImg(capitalizedColor);
-  }
-  else if (snailHealth === 1) {
+  } else if (snailHealth === 1) {
     return GetStarvingImg(capitalizedColor);
-  }
-  else if (snailHealth === 2) {
+  } else if (snailHealth === 2) {
     return GetHungryImg(capitalizedColor);
-  }
-  else {
+  } else {
     return GetDefaultImg(capitalizedColor);
   }
 }
@@ -35,8 +32,7 @@ function GetSnailImg(snailColor: string, snailHealth?: Number) {
 function GetDefaultImg(capitalizedColor: string) {
   if (capitalizedColor === 'Blue') {
     return BlueDefaultSnail;
-  }
-  else if (capitalizedColor === 'Pink') {
+  } else if (capitalizedColor === 'Pink') {
     return PinkDefaultSnail;
   } else {
     // Fallback
@@ -47,8 +43,7 @@ function GetDefaultImg(capitalizedColor: string) {
 function GetHungryImg(capitalizedColor: string) {
   if (capitalizedColor === 'Blue') {
     return BlueHungrySnail;
-  }
-  else if (capitalizedColor === 'Pink') {
+  } else if (capitalizedColor === 'Pink') {
     return PinkHungrySnail;
   } else {
     // Fallback
@@ -59,8 +54,7 @@ function GetHungryImg(capitalizedColor: string) {
 function GetStarvingImg(capitalizedColor: string) {
   if (capitalizedColor === 'Blue') {
     return BlueStarvingSnail;
-  }
-  else if (capitalizedColor === 'Pink') {
+  } else if (capitalizedColor === 'Pink') {
     return PinkStarvingSnail;
   } else {
     // Fallback
@@ -71,8 +65,7 @@ function GetStarvingImg(capitalizedColor: string) {
 function GetShellImg(capitalizedColor: string) {
   if (capitalizedColor === 'Blue') {
     return BlueShell;
-  }
-  else if (capitalizedColor === 'Pink') {
+  } else if (capitalizedColor === 'Pink') {
     return PinkShell;
   } else {
     // Fallback
@@ -81,15 +74,15 @@ function GetShellImg(capitalizedColor: string) {
 }
 
 function GetSnailStatusText(snailHealth: Number) {
-  switch(snailHealth) {
+  switch (snailHealth) {
     case 3:
-      return "is feeling fantastic! They're rooting for you to complete your goals."
+      return "is feeling fantastic! They're rooting for you to complete your goals.";
     case 2:
-      return "is getting pretty hungry. They still believe in you!"
+      return 'is getting pretty hungry. They still believe in you!';
     case 1:
-      return "is starving. They're starting to worry if they can trust you."
+      return "is starving. They're starting to worry if they can trust you.";
     case 0:
-      return "is dead. It's time to say goodbye."
+      return "is dead. It's time to say goodbye.";
   }
 }
 

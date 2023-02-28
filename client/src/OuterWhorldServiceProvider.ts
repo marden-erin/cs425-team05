@@ -142,7 +142,9 @@ class OuterWhorldServiceProvider {
     bookCoverLink: string
   ) {
     const res = await fetch(
-      `/api/booksInClusters?clusterName=${clusterName}&userName=${userName}&title=${title}&pageNumbers=${pageNumbers}&bookCoverLink=${encodeURIComponent(bookCoverLink)}`
+      `/api/booksInClusters?clusterName=${clusterName}&userName=${userName}&title=${title}&pageNumbers=${pageNumbers}&bookCoverLink=${encodeURIComponent(
+        bookCoverLink
+      )}`
     );
     const data = await res.json();
 
@@ -405,7 +407,7 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
-    /*
+  /*
   @param username
   @param email
   @param password
@@ -413,9 +415,9 @@ class OuterWhorldServiceProvider {
   */
   async registerUser(username: string, email: string, password: string) {
     const input = {
-      name:  username,
+      name: username,
       email,
-      password
+      password,
     };
 
     const res = await fetch(`/api/users`, {
@@ -429,12 +431,12 @@ class OuterWhorldServiceProvider {
 
     const data = await res.json();
 
-    const payload = {status: res.status, data}
+    const payload = { status: res.status, data };
 
     return payload;
   }
 
-    /*
+  /*
   @param email
   @param password
   @returns token if authentication is successful
@@ -442,7 +444,7 @@ class OuterWhorldServiceProvider {
   async authenticateUser(email: string, password: string) {
     const input = {
       email,
-      password
+      password,
     };
 
     const res = await fetch(`/api/users/login`, {
@@ -455,23 +457,23 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-    
-    const payload = {status: res.status, data};
+
+    const payload = { status: res.status, data };
 
     return payload;
   }
 
   async getUserInformation(username: string) {
-    const res = await fetch(`/api/users/${username}`)
+    const res = await fetch(`/api/users/${username}`);
     const data = await res.json();
 
     return data;
   }
-  
+
   async signOutUser(username: string, date: string) {
     const input = {
       userName: username,
-      signOutTime: date
+      signOutTime: date,
     };
 
     const res = await fetch(`/api/users/`, {
