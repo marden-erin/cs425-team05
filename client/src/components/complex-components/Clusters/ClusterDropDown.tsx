@@ -5,7 +5,7 @@ import { H2, SmallHalfRoundedButton } from '../../simple-components';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 import { Book } from '../../../../../server/src/utils/Types';
 import { render } from '@testing-library/react';
-import {useAuthUser} from 'react-auth-kit'
+import { useAuthUser } from 'react-auth-kit';
 
 const Wrapper = styled.div`
   width: 18rem;

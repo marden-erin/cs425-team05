@@ -26,7 +26,7 @@ import {
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
-import {useAuthUser} from 'react-auth-kit'
+import { useAuthUser } from 'react-auth-kit';
 
 const FlexBoxWrapper = styled.div<{
   $isModalOpen: boolean;

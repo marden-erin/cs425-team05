@@ -12,15 +12,15 @@ const ColorCss = (color: ColorType) => {
     case 'green':
       return css``; // POST-PROTOTYPE TODO: Add green css
     case 'gray':
-      return  css`
-      color: ${COLORS.WHITE};
-      background: ${GRADIENTS.GRAY};
-      border: 2px solid ${COLORS.WHITE};
+      return css`
+        color: ${COLORS.WHITE};
+        background: ${GRADIENTS.GRAY};
+        border: 2px solid ${COLORS.WHITE};
 
-      :hover {
-        background: ${COLORS.GRAY_MIDARK};
-      }
-    `;
+        :hover {
+          background: ${COLORS.GRAY_MIDARK};
+        }
+      `;
     default: // Assuming purple for buttons
       return css`
         color: ${COLORS.WHITE};
@@ -102,8 +102,6 @@ const LargeRoundedButton = styled.button<{
 
   ${(props) => props.disabled && DisabledCss}
 `;
-
-
 
 // Looks like a button, but is a link
 const LargeRoundedLink = styled.a<{ color?: ColorType; disabled?: boolean }>`

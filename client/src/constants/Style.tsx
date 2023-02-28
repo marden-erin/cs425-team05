@@ -16,7 +16,7 @@ export const ScrollBarStyle = css`::-webkit-scrollbar {
     border-radius: 15px;
   }`;
 
-  export const GraveScrollBarStyle = css`::-webkit-scrollbar {
+export const GraveScrollBarStyle = css`::-webkit-scrollbar {
     width: 1.2rem;s
   }
    

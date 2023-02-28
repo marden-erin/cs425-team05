@@ -20,7 +20,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Login />} />
-        <Route path="register" element= {<Register />} />
+        <Route path="register" element={<Register />} />
         <Route
           path="home"
           element={
@@ -77,7 +77,7 @@ export default function App() {
             </RequireAuth>
           }
         />
-         <Route
+        <Route
           path="grave-adoption"
           element={
             <RequireAuth loginPath="/">
@@ -85,7 +85,7 @@ export default function App() {
             </RequireAuth>
           }
         />
-         <Route
+        <Route
           path="graveyard"
           element={
             <RequireAuth loginPath="/">

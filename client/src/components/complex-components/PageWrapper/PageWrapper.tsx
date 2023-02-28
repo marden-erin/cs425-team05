@@ -48,7 +48,7 @@ const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
 `;
 
 // TODO: Allow custom css to be passed in
-const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme>}>`
+const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
   background-image: url(${PlanetImg});
   background-size: 75%;
   background-position: right center;

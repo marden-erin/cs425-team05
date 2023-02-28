@@ -13,10 +13,7 @@ export const ClusterPages = [
   },
 ];
 
-export const PrototypePages = [
- 
-  
-];
+export const PrototypePages = [];
 
 export const SnailPages = [
   {
@@ -30,5 +27,5 @@ export const SnailPages = [
   {
     linkLabel: 'Adopt a Grave',
     linkURL: '/grave-adoption',
-  }
+  },
 ];

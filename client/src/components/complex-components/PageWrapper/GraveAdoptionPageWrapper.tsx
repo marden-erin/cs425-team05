@@ -46,17 +46,17 @@ const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
 `;
 
 // TODO: Allow custom css to be passed in
-const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme>}>`
+const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
   background-image: url(${Moon});
-  
+
   background-position: 20% 80%;
-background-repeat: no-repeat;
+  background-repeat: no-repeat;
 `;
 
 const Header = styled(H1)<{ fontColor?: string }>`
   text-align: center;
   color: ${(props) => (props.fontColor ? props.fontColor : COLORS.WHITE)};
-  padding-top:5rem;
+  padding-top: 5rem;
 `;
 
 export const GraveAdoptionPageWrapper = ({

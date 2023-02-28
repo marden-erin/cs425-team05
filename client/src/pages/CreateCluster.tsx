@@ -7,7 +7,7 @@ import {
   ThinInput,
 } from '../components/simple-components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
-import {useAuthUser} from 'react-auth-kit'
+import { useAuthUser } from 'react-auth-kit';
 
 const FlexBoxWrapper = styled.div`
   height: 85vh;
@@ -150,7 +150,6 @@ function CreateCluster() {
     );
     console.log(create);
     setOutput(create);
-    
   };
 
   return (
@@ -206,7 +205,6 @@ function CreateCluster() {
                 </form>{' '}
               </QuestionWrapper>
               <OutPut>{outPut}</OutPut>
-            
             </ClusterBox>
           </ContentWrapper>
         </ClusterBoxWrapper>

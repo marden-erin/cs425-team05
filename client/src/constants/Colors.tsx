@@ -16,8 +16,5 @@ export const COLORS = {
 export const GRADIENTS = {
   PURPLE:
     'linear-gradient(180deg, rgba(96, 35, 157, 0.9) 0%, rgba(67, 35, 157, 0.9) 100%)',
-  GRAY:
-    'linear-gradient(180deg, #101010, #555555)',
+  GRAY: 'linear-gradient(180deg, #101010, #555555)',
 };
-
-

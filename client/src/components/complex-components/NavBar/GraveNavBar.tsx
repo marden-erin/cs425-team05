@@ -4,11 +4,7 @@ import { FiChevronDown } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
-import {
-  PrototypePages,
-  ClusterPages,
-  SnailPages,
-} from './NAV_BAR_LINKS';
+import { PrototypePages, ClusterPages, SnailPages } from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
 import { useSignOut, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';

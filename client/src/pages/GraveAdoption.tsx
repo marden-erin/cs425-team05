@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
-import {
-  LargeRoundedButton,
-  GraveAdoptionPageWrapper,
-} from '../components';
+import { LargeRoundedButton, GraveAdoptionPageWrapper } from '../components';
 import { COLORS } from '../constants';
 
 import Grave1 from './../imgs/graveyard/Grave stone.png';
@@ -19,7 +16,7 @@ const FlexBoxWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10rem;
-  margin-top:5rem;
+  margin-top: 5rem;
 `;
 
 const Radio = styled.div`
@@ -107,7 +104,10 @@ function GraveAdoption() {
   };
 
   return (
-    <GraveAdoptionPageWrapper pageTitle="Adopt A Grave Stone" header="Adopt A Grave Stone">
+    <GraveAdoptionPageWrapper
+      pageTitle="Adopt A Grave Stone"
+      header="Adopt A Grave Stone"
+    >
       <FlexBoxWrapper>
         <Radio>
           <GraveWrapper>
@@ -143,7 +143,9 @@ function GraveAdoption() {
             </CardWrapper>
           </GraveWrapper>
         </Radio>
-        <LargeRoundedButton color="gray" onClick={handleChange}>Continue</LargeRoundedButton>
+        <LargeRoundedButton color="gray" onClick={handleChange}>
+          Continue
+        </LargeRoundedButton>
       </FlexBoxWrapper>
     </GraveAdoptionPageWrapper>
   );

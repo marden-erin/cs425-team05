@@ -107,10 +107,10 @@ function Login() {
   const isAuthenticated = useIsAuthenticated();
 
   useEffect(() => {
-    if (isAuthenticated()){
-      navigate('/home')
+    if (isAuthenticated()) {
+      navigate('/home');
     }
-  }, [])
+  }, []);
 
   const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);

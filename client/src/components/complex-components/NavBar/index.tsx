@@ -1,2 +1,2 @@
 export { NavBar } from './NavBar';
-export {GraveNavBar} from './GraveNavBar'
+export { GraveNavBar } from './GraveNavBar';
