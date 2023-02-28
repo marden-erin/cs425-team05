@@ -7,10 +7,8 @@ import styled, {
 } from 'styled-components';
 
 import { H1, SemiHiddenLink } from '../../simple-components';
-import { NavBar } from '../NavBar';
 import { COLORS, FONTS_SECONDARY } from '../../../constants';
-import PlanetImg from '../../../imgs/planet.png';
-
+import Moon from './../../../imgs/graveyard/Moon.png';
 type WrapperProps = {
   /**
    * Any props that come in the component (Actual page content)
@@ -42,25 +40,26 @@ type WrapperProps = {
 const GlobalStyle = createGlobalStyle<{ backgroundColor?: string }>`
     html {
         background: ${(props) =>
-          props.backgroundColor ? props.backgroundColor : COLORS.PURPLE_DARK};
+          props.backgroundColor ? props.backgroundColor : COLORS.GRAY_MIDARK};
         ${FONTS_SECONDARY}
     }
 `;
 
 // TODO: Allow custom css to be passed in
 const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme>}>`
-  background-image: url(${PlanetImg});
-  background-size: 75%;
-  background-position: right center;
-  background-repeat: no-repeat;
+  background-image: url(${Moon});
+  
+  background-position: 20% 80%;
+background-repeat: no-repeat;
 `;
 
 const Header = styled(H1)<{ fontColor?: string }>`
   text-align: center;
   color: ${(props) => (props.fontColor ? props.fontColor : COLORS.WHITE)};
+  padding-top:5rem;
 `;
 
-export const PageWrapper = ({
+export const GraveAdoptionPageWrapper = ({
   children,
   pageTitle,
   header,
@@ -76,7 +75,6 @@ export const PageWrapper = ({
       <GlobalStyle backgroundColor={backgroundColor} />
       <Wrapper $css={$css}>
         <SemiHiddenLink href="#main">Skip to Content</SemiHiddenLink>
-        <NavBar />
         {header && <Header fontColor={titleColor}>{header}</Header>}
         <div id="main">{children}</div>
       </Wrapper>
@@ -84,4 +82,4 @@ export const PageWrapper = ({
   );
 };
 
-export default PageWrapper;
+export default GraveAdoptionPageWrapper;

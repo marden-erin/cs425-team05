@@ -8,6 +8,8 @@ import About from './pages/About';
 import CreateCluster from './pages/CreateCluster';
 import CreateGoal from './pages/CreateGoal';
 import Register from './pages/Register';
+import GraveAdoption from './pages/GraveAdoption';
+import Graveyard from './pages/Graveyard';
 import SearchResults from './pages/SearchResults';
 import SnailAdoption from './pages/SnailAdoption';
 import ViewClusters from './pages/ViewClusters';
@@ -72,6 +74,22 @@ export default function App() {
           element={
             <RequireAuth loginPath="/">
               <ViewClusters />
+            </RequireAuth>
+          }
+        />
+         <Route
+          path="grave-adoption"
+          element={
+            <RequireAuth loginPath="/">
+              <GraveAdoption />
+            </RequireAuth>
+          }
+        />
+         <Route
+          path="graveyard"
+          element={
+            <RequireAuth loginPath="/">
+              <Graveyard />
             </RequireAuth>
           }
         />

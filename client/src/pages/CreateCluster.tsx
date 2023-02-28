@@ -40,9 +40,9 @@ const SmallHeading = styled(SubTitle)`
 const ClusterBox = styled.div`
   width: 600px;
   height: 300px;
-  background-color: ${COLORS.PURPLE_LIGHT};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
   border-radius: 22px;
-  margin-bottom: 250px;
+  border: 2px solid ${COLORS.PURPLE_MID};
 `;
 const InputBarWrapper = styled.div`
   display: flex;
@@ -62,8 +62,9 @@ const LargeButtonWrapper = styled.div`
 const OutPut = styled(H2)`
   font-size: 2rem;
   font-weight: 200;
-  color: ${COLORS.WHITE};
-  padding: 20px;
+  color: ${COLORS.PURPLE_DARK};
+  padding: 35px;
+
   text-align: center;
 `;
 
@@ -72,15 +73,15 @@ const Name = styled(H2)`
   text-align: left;
   color: ${COLORS.PURPLE_DARK};
   margin-left: 30px;
-  margin-top: 20px;
 `;
+
 const VisWords = styled(H2)`
   font-size: 3rem;
   text-align: center;
   color: ${COLORS.PURPLE_DARK};
-  margin-top: 20px;
+  margin-left: 50px;
 `;
-const Visibility = styled(H2)`
+const Visibility = styled(P)`
   font-size: 2.5rem;
   text-align: left;
   color: ${COLORS.PURPLE_DARK};
@@ -117,6 +118,21 @@ const Input = styled.input`
   }
 `;
 
+const QuestionWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+`;
+const ContentWrapper = styled.div`
+  display: flex;
+  padding: 25px 50px;
+  height: 350px;
+  border-radius: 22px;
+  align-items: center;
+  justify-content: center;
+  background: ${COLORS.PURPLE_LIGHT};
+`;
+
 function CreateCluster() {
   const auth = useAuthUser();
 
@@ -134,6 +150,7 @@ function CreateCluster() {
     );
     console.log(create);
     setOutput(create);
+    
   };
 
   return (
@@ -145,46 +162,53 @@ function CreateCluster() {
             Your cluster will contain books you want to save for later.
           </SmallHeading>
         </HeadingWrapper>
+
         <ClusterBoxWrapper>
-          <ClusterBox>
-            <form onSubmit={loadData}>
-              <VisWords>Choose the visiblity for your cluster:</VisWords>
-              <LargeButtonWrapper>
-                <VisibilityButtonWrapper>
-                  <Visibility>
-                    <Input
-                      type="radio"
-                      value="true"
-                      name="visibility"
-                      onClick={() => setVisibilty(true)}
-                    />
-                    Public
-                  </Visibility>
-                  <Visibility>
-                    <Input
-                      type="radio"
-                      value="false"
-                      name="visibility"
-                      onClick={() => setVisibilty(false)}
-                    />
-                    Private
-                  </Visibility>
-                </VisibilityButtonWrapper>
-              </LargeButtonWrapper>
-              <Name>Name:</Name>
-              <InputBarWrapper>
-                <ThinInput
-                  placeholder="Enter Cluster Name"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                ></ThinInput>
-                <SmallHalfRoundedButton type="submit">
-                  Continue
-                </SmallHalfRoundedButton>
-              </InputBarWrapper>
-            </form>{' '}
-            <OutPut>{outPut}</OutPut>
-          </ClusterBox>
+          {' '}
+          <ContentWrapper>
+            <ClusterBox>
+              <QuestionWrapper>
+                <form onSubmit={loadData}>
+                  <VisWords>Choose the visiblity for your cluster:</VisWords>
+                  <LargeButtonWrapper>
+                    <VisibilityButtonWrapper>
+                      <Visibility>
+                        <Input
+                          type="radio"
+                          value="true"
+                          name="visibility"
+                          onClick={() => setVisibilty(true)}
+                        />
+                        Public
+                      </Visibility>
+                      <Visibility>
+                        <Input
+                          type="radio"
+                          value="false"
+                          name="visibility"
+                          onClick={() => setVisibilty(false)}
+                        />
+                        Private
+                      </Visibility>
+                    </VisibilityButtonWrapper>
+                  </LargeButtonWrapper>
+                  <Name>Name:</Name>
+                  <InputBarWrapper>
+                    <ThinInput
+                      placeholder="Enter Cluster Name"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                    ></ThinInput>
+                    <SmallHalfRoundedButton type="submit">
+                      Continue
+                    </SmallHalfRoundedButton>
+                  </InputBarWrapper>
+                </form>{' '}
+              </QuestionWrapper>
+              <OutPut>{outPut}</OutPut>
+            
+            </ClusterBox>
+          </ContentWrapper>
         </ClusterBoxWrapper>
       </FlexBoxWrapper>
     </PageWrapper>

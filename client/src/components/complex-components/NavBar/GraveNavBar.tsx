@@ -7,7 +7,6 @@ import Search from '../SearchBar/Search';
 import {
   PrototypePages,
   ClusterPages,
-  SnailImageURL,
   SnailPages,
 } from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
@@ -19,7 +18,7 @@ const LinkStyle = css`
   width: 15rem;
   height: 5rem;
   border: none;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.GRAY_MID};
   transition: background-color 0.75s ease-out;
   cursor: pointer;
   text-decoration: none;
@@ -31,14 +30,14 @@ const LinkStyle = css`
   justify-content: center;
 
   :hover {
-    background-color: ${COLORS.BLUE_DARK};
+    background-color: ${COLORS.GRAY_MIDARK};
   }
 `;
 
 const NavWrapper = styled.nav`
   height: 5rem;
   padding: 0.5rem 6rem 0.5rem 3rem;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.GRAY_MID};
 
   display: flex;
   justify-content: space-between;
@@ -131,7 +130,7 @@ const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
 };
 
 // POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
-export const NavBar = () => {
+export const GraveNavBar = () => {
   const signOut = useSignOut();
   const navigate = useNavigate();
   const auth = useAuthUser();
@@ -163,4 +162,4 @@ export const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default GraveNavBar;
