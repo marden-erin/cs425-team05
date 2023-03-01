@@ -11,6 +11,7 @@ import CreateGoal from './pages/CreateGoal';
 import Register from './pages/Register';
 import SearchResults from './pages/SearchResults';
 import SnailAdoption from './pages/SnailAdoption';
+import UpdateGoal from './pages/UpdateGoal';
 import ViewGoals from './pages/ViewGoals';
 import ViewClusters from './pages/ViewClusters';
 
@@ -65,6 +66,14 @@ export default function App() {
           element={
             <RequireAuth loginPath="/">
               <SearchResults />
+            </RequireAuth>
+          }
+        />
+        <Route 
+          path="update-goal"
+          element={
+            <RequireAuth loginPath="/">
+              <UpdateGoal />
             </RequireAuth>
           }
         />

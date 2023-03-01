@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { NumberOfDaysUntilDate } from '../../../utils';
 import { COLORS } from '../../../constants';
 import { P, SmallRoundedButton } from '../../simple-components';
+import { useNavigate } from 'react-router-dom';
 
 type GoalCardType = {
   /**
@@ -50,6 +51,7 @@ const CoverWrapper = styled.div`
 `;
 
 export const GoalCard = ({ bookTitle, bookCover, dueDate }: GoalCardType) => {
+    const navigate = useNavigate();
   return (
     <ResultWrapper className="book-card">
       <CoverWrapper>
@@ -65,7 +67,7 @@ export const GoalCard = ({ bookTitle, bookCover, dueDate }: GoalCardType) => {
       <P>
         Days left: <b>{NumberOfDaysUntilDate(dueDate)}</b>
       </P>
-      <SmallRoundedButton>Update</SmallRoundedButton>
+      <SmallRoundedButton onClick={() => {navigate('/update-goal')}}>Update</SmallRoundedButton>
     </ResultWrapper>
   );
 };

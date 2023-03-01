@@ -28,8 +28,14 @@ type LargeBookCardType = {
    */
 
   description: string;
-
+/**
+ * 
+ */
   tempFunction: any;
+  /**
+   * Whether to display buttons like "Set Goal" or "Add Review"
+   */
+  showButtons?: boolean;
 };
 
 const CardWrapper = styled.div`
@@ -138,6 +144,7 @@ export const LargeBookCard = ({
   bookCover,
   description,
   tempFunction,
+  showButtons=true
 }: LargeBookCardType) => {
   return (
     <CardWrapper>
@@ -151,8 +158,9 @@ export const LargeBookCard = ({
             <ButtonWrapper>
               {/* TODO: link set goal page to button
             TODO: create functionality for reviews */}
-              <SmallRoundedButton>Set Goal</SmallRoundedButton>
-              <SmallRoundedButton>Add Review</SmallRoundedButton>
+            {showButtons && (<><SmallRoundedButton>Set Goal</SmallRoundedButton>
+              <SmallRoundedButton>Add Review</SmallRoundedButton></>)}
+              
             </ButtonWrapper>
             <DropWrapper> {tempFunction}</DropWrapper>
           </AllButtonWrapper>
