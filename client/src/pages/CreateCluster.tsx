@@ -38,8 +38,8 @@ const SmallHeading = styled(SubTitle)`
 `;
 
 const ClusterBox = styled.div`
-  width: 600px;
-  height: 300px;
+  width: 60rem;
+  height: 30rem;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   border-radius: 22px;
   border: 2px solid ${COLORS.PURPLE_MID};
@@ -63,7 +63,7 @@ const OutPut = styled(H2)`
   font-size: 2rem;
   font-weight: 200;
   color: ${COLORS.PURPLE_DARK};
-  padding: 35px;
+  padding: 4rem;
 
   text-align: center;
 `;
@@ -72,21 +72,21 @@ const Name = styled(H2)`
   font-size: 3rem;
   text-align: left;
   color: ${COLORS.PURPLE_DARK};
-  margin-left: 30px;
+  margin-left: 3rem;
 `;
 
 const VisWords = styled(H2)`
   font-size: 3rem;
   text-align: center;
   color: ${COLORS.PURPLE_DARK};
-  margin-left: 50px;
+  margin-left: 5rem;
 `;
 const Visibility = styled(P)`
   font-size: 2.5rem;
   text-align: left;
   color: ${COLORS.PURPLE_DARK};
-  margin-left: 30px;
-  margin-bottom: 20px;
+  margin-left: 3rem;
+  margin-bottom: 2rem;
 `;
 
 const VisibilityButtonWrapper = styled.div`
@@ -94,7 +94,6 @@ const VisibilityButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 3px;
   gap: 40px;
 `;
 
@@ -121,12 +120,12 @@ const Input = styled.input`
 const QuestionWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 30px;
+  margin-top: 4rem;
 `;
 const ContentWrapper = styled.div`
   display: flex;
-  padding: 25px 50px;
-  height: 350px;
+  padding: 3rem 5rem;
+  height: 37rem;
   border-radius: 22px;
   align-items: center;
   justify-content: center;

@@ -20,7 +20,7 @@ const GridWrapper = styled.div<{ $isModalOpen: boolean }>`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 35px;
+  gap: 15rem;
   ${(props) =>
     props.$isModalOpen &&
     css`
@@ -30,7 +30,7 @@ const GridWrapper = styled.div<{ $isModalOpen: boolean }>`
 const ModalContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 2rem;
   gap: 4rem;
   align-items: center;
   justify-content: center;
@@ -38,8 +38,8 @@ const ModalContentWrapper = styled.div`
   border-radius: 10px;
 `;
 const ModalContentBox = styled(Box)`
-  height: 300px;
-  width: 400px;
+  height: 40rem;
+  width: 38rem;
   background-color: ${COLORS.GRAY_LIGHT};
 `;
 const YardWrapper = styled(Box)`
@@ -63,7 +63,7 @@ const SignWrapper = styled.div`
 const AllGraveWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 60px;
+  gap: 3rem;
   margin-top: 2rem;
 `;
 const GraveWrapper = styled.button`
@@ -71,7 +71,7 @@ const GraveWrapper = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 190px;
+  height: 20rem;
   border: 3px solid ${COLORS.GRAY_LIGHT};
   border-radius: 5px;
   background-color: ${COLORS.GRAY_DARK};
