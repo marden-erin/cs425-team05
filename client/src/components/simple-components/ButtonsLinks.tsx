@@ -12,6 +12,16 @@ const ColorCss = (color: ColorType) => {
   switch (color) {
     case 'green':
       return css``; // POST-PROTOTYPE TODO: Add green css
+    case 'gray':
+      return css`
+        color: ${COLORS.WHITE};
+        background: ${GRADIENTS.GRAY};
+        border: 2px solid ${COLORS.WHITE};
+
+        :hover {
+          background: ${COLORS.GRAY_MIDARK};
+        }
+      `;
     default: // Assuming purple for buttons
       return css`
         color: ${COLORS.WHITE};

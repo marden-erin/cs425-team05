@@ -18,4 +18,12 @@ export const GoalPages = [
     linkLabel: 'View Goals',
     linkURL: '/view-goals',
   },
+  {
+  linkLabel: 'Graveyard',
+    linkURL: '/graveyard',
+  },
+  {
+    linkLabel: 'Adopt a Grave',
+    linkURL: '/grave-adoption',
+  },
 ];

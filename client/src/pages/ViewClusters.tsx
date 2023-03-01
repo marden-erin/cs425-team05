@@ -9,6 +9,7 @@ import {
   FONTS_MAIN,
   FONTS_SECONDARY,
   ScrollBarStyle,
+  GRADIENTS,
 } from '../constants';
 import {
   PageWrapper,
@@ -75,14 +76,21 @@ const ClusterName = styled.h2`
   font-size: 4rem;
   line-height: 2.5rem;
   text-align: center;
-  color: ${COLORS.PURPLE_DARK};
+  color: ${COLORS.WHITE};
   text-align: left;
   margin-top: 10px;
+`;
+
+const NameWrapper = styled.div`
+  display: flex;
+  border-radius: 5px;
+  background: ${GRADIENTS.PURPLE};
+  padding: 10px 5px 15px 10px;
 `;
 const ScrollableDiv = styled.div`
   height: 27rem;
   width: 75rem;
-  padding: 5rem;
+  padding: 3rem;
   background-color: ${COLORS.PURPLE_LIGHT};
   overflow-y: hidden;
   overflow-x: scroll;
@@ -91,6 +99,7 @@ const ScrollableDiv = styled.div`
 
 const ImgWrapper = styled.div`
   padding: 15px;
+  margin-top: -25px;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
   border-radius: 5px;
@@ -127,7 +136,7 @@ const Options = styled.div`
   display: flex;
   flex-direction: row;
   margin-left: 80rem;
-  margin-top: -20px;
+  margin-top: -40px;
   gap: 30px;
 `;
 const ModalContentWrapper = styled.div`
@@ -305,8 +314,9 @@ function ViewClusters() {
       <div key={index}>
         <Box_Wrapper>
           <ClusterBox>
-            <ClusterName> {item.clusterName}</ClusterName>
-
+            <NameWrapper>
+              <ClusterName> {item.clusterName}</ClusterName>
+            </NameWrapper>
             <Options>
               <SmallRoundedButton
                 className="Delete Cluster"
