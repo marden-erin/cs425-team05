@@ -6,6 +6,7 @@ import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { GetSnailImg, GetSnailStatusText } from '../utils';
 import { ScrollBarStyle } from '../constants';
 import { GoalCard, H2, LargeRoundedButton, P } from '../components';
+import { useNavigate } from 'react-router-dom';
 
 // TODO: Replace with actual goals
 const placeholderCover =
@@ -103,6 +104,7 @@ const GoalsWrapper = styled.div`
 `;
 
 function ViewGoals(this: any) {
+  const navigate = useNavigate();
   const [snailName, setSnailName] = useState('');
   const [snailImage, setSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
@@ -178,7 +180,7 @@ function ViewGoals(this: any) {
             <label htmlFor="javascript">0</label>
           </SnailStatus>
           {snailHealth === 0 && ( // Only show button if snail is dead
-            <LargeRoundedButton>Go to the Graveyard</LargeRoundedButton>
+            <LargeRoundedButton onClick={() => {navigate('/grave-adoption')}}>Bury Snail</LargeRoundedButton>
           )}
         </SnailCard>
         {snailHealth !== 0 && ( // Don't show Goals if snail is dead
