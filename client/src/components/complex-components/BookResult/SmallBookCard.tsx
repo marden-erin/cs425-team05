@@ -21,7 +21,7 @@ type SmallBookCardType = {
   selected?: boolean;
 };
 
-const ResultWrapper = styled.div<{$selected?: boolean}>`
+const ResultWrapper = styled.div<{ $selected?: boolean }>`
   width: 43rem;
   height: 10rem;
   background-color: ${COLORS.WHITE};
@@ -36,9 +36,13 @@ const ResultWrapper = styled.div<{$selected?: boolean}>`
     background-color: ${COLORS.PURPLE_LIGHT};
     border: 4px solid ${COLORS.PURPLE_MID};
   }
-  ${(props) => props.$selected && css`background-color: ${COLORS.PURPLE_LIGHT};
-  border: 4px solid ${COLORS.PURPLE_MID};`}
-    
+  ${(props) =>
+    props.$selected &&
+    css`
+      background-color: ${COLORS.PURPLE_LIGHT};
+      border: 4px solid ${COLORS.PURPLE_MID};
+    `}
+
   cursor: pointer;
 `;
 
@@ -56,8 +60,6 @@ const Input = styled.input`
     background-color: ${COLORS.PURPLE_LIGHT};
     border: 4px solid ${COLORS.PURPLE_MID};
   }
-
-  
 `;
 
 //TODO: have cover wrapper adjust to image size

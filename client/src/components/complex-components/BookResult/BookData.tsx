@@ -50,15 +50,16 @@ const GridWrapper = styled.div`
   align-items: center;
   gap: 35px;
 `;
- // From https://stackoverflow.com/questions/2460100/remove-the-complete-styling-of-an-html-button-submit
+// From https://stackoverflow.com/questions/2460100/remove-the-complete-styling-of-an-html-button-submit
 const Button = styled.button`
-background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;`;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+`;
 
 function BookData(props: any) {
   const { title, authors, description, pageCount, cover } = props.book;
