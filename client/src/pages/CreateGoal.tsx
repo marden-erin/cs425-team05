@@ -115,6 +115,7 @@ function CreateGoal() {
   const navigate = useNavigate();
   const snailName = 'Snailosaurus'; // TODO: Get name from API
   const [startDate, setStartDate] = useState(new Date());
+  startDate.setDate(startDate.getDate() + 1)
   const [numDays, setNumDays] = useState(0);
   const numPages = 392; // TODO: Get page number from book info
   return (
@@ -152,7 +153,7 @@ function CreateGoal() {
               />
             </DeadlineWrapper>
             <P>
-              With this deadline, you will have <b>{Math.ceil(numDays)} days</b> to
+              With this deadline, you will have <b>{Math.ceil(numDays)} day{Math.ceil(numDays) !== 1 && 's'}</b> to
               complete your goal.
             </P>
             <P>
