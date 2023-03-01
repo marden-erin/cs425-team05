@@ -4,12 +4,7 @@ import { FiChevronDown } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
-import {
-  PrototypePages,
-  ClusterPages,
-  SnailImageURL,
-  SnailPages,
-} from './NAV_BAR_LINKS';
+import { ClusterPages, GoalPages } from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
 import { useSignOut, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
@@ -151,9 +146,9 @@ export const NavBar = () => {
       </LogoLinkWrapper>
       <LinkWrapper>
         <NavLink href="/about">About</NavLink>
-        <DropDownLink linkLabel="Prototype" dropDownItems={PrototypePages} />
-        <DropDownLink linkLabel="Cluster" dropDownItems={ClusterPages} />
-        <DropDownLink linkLabel="Snails" dropDownItems={SnailPages} />
+        <DropDownLink linkLabel="Account" dropDownItems={ClusterPages} />
+        <DropDownLink linkLabel="Clusters" dropDownItems={ClusterPages} />
+        <DropDownLink linkLabel="Goals" dropDownItems={GoalPages} />
       </LinkWrapper>
       <SearchBarWrapper>
         <Search />

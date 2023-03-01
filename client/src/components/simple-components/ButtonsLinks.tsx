@@ -5,6 +5,7 @@ import { ColorType } from '../../types';
 
 const ButtonCss = css`
   transition: background-color 0.75s ease-out;
+  cursor: pointer;
 `;
 
 const ColorCss = (color: ColorType) => {

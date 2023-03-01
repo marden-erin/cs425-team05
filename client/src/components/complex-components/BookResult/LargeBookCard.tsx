@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   COLORS,
@@ -28,8 +29,14 @@ type LargeBookCardType = {
    */
 
   description: string;
-
+  /**
+   *
+   */
   tempFunction: any;
+  /**
+   * Whether to display buttons like "Set Goal" or "Add Review"
+   */
+  showButtons?: boolean;
 };
 
 const CardWrapper = styled.div`
@@ -138,7 +145,9 @@ export const LargeBookCard = ({
   bookCover,
   description,
   tempFunction,
+  showButtons = true,
 }: LargeBookCardType) => {
+  const navigate = useNavigate();
   return (
     <CardWrapper>
       <TopWrapper>
@@ -151,8 +160,18 @@ export const LargeBookCard = ({
             <ButtonWrapper>
               {/* TODO: link set goal page to button
             TODO: create functionality for reviews */}
-              <SmallRoundedButton>Set Goal</SmallRoundedButton>
-              <SmallRoundedButton>Add Review</SmallRoundedButton>
+              {showButtons && (
+                <>
+                  <SmallRoundedButton
+                    onClick={() => {
+                      navigate('/create-goal');
+                    }}
+                  >
+                    Set Goal
+                  </SmallRoundedButton>
+                  <SmallRoundedButton>Add Review</SmallRoundedButton>
+                </>
+              )}
             </ButtonWrapper>
             <DropWrapper> {tempFunction}</DropWrapper>
           </AllButtonWrapper>
