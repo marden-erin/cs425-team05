@@ -21,7 +21,7 @@ type SmallBookCardType = {
   selected?: boolean;
 };
 
-const ResultWrapper = styled.div`
+const ResultWrapper = styled.div<{$selected?: boolean}>`
   width: 43rem;
   height: 10rem;
   background-color: ${COLORS.WHITE};
@@ -36,6 +36,9 @@ const ResultWrapper = styled.div`
     background-color: ${COLORS.PURPLE_LIGHT};
     border: 4px solid ${COLORS.PURPLE_MID};
   }
+  ${(props) => props.$selected && css`background-color: ${COLORS.PURPLE_LIGHT};
+  border: 4px solid ${COLORS.PURPLE_MID};`}
+    
   cursor: pointer;
 `;
 
@@ -54,10 +57,7 @@ const Input = styled.input`
     border: 4px solid ${COLORS.PURPLE_MID};
   }
 
-  :checked + .book-card {
-    background-color: ${COLORS.PURPLE_LIGHT};
-    border: 4px solid ${COLORS.PURPLE_MID};
-  }
+  
 `;
 
 //TODO: have cover wrapper adjust to image size
@@ -106,15 +106,7 @@ export const SmallBookCard = ({
 }: SmallBookCardType) => {
   return (
     <>
-      <Input
-        type="radio"
-        name="small-book-radio"
-        onChange={() => {
-          selected = true;
-        }}
-      />
-
-      <ResultWrapper className="book-card">
+      <ResultWrapper className="book-card" $selected={selected}>
         <CoverWrapper>{bookCover}</CoverWrapper>
         <TextWrapper>
           <TitleH2>{bookTitle}</TitleH2>
