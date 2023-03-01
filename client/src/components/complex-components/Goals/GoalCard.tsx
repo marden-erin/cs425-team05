@@ -51,7 +51,7 @@ const CoverWrapper = styled.div`
 `;
 
 export const GoalCard = ({ bookTitle, bookCover, dueDate }: GoalCardType) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <ResultWrapper className="book-card">
       <CoverWrapper>
@@ -67,7 +67,13 @@ export const GoalCard = ({ bookTitle, bookCover, dueDate }: GoalCardType) => {
       <P>
         Days left: <b>{NumberOfDaysUntilDate(dueDate)}</b>
       </P>
-      <SmallRoundedButton onClick={() => {navigate('/update-goal')}}>Update</SmallRoundedButton>
+      <SmallRoundedButton
+        onClick={() => {
+          navigate('/update-goal');
+        }}
+      >
+        Update
+      </SmallRoundedButton>
     </ResultWrapper>
   );
 };

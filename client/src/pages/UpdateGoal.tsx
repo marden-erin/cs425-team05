@@ -7,7 +7,7 @@ import {
   LargeRoundedButton, // TODO: Swap to link once other PR merged
   P,
   PageSlider,
-  PageWrapper
+  PageWrapper,
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
 import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
@@ -119,39 +119,41 @@ const NotesWrapper = styled.div`
 `;
 
 function UpdateGoal() {
-    const navigate = useNavigate();
-    const [snailName, setSnailName] = useState('');
-    const [snailImage, setSnailImage] = useState('');
-    const [snailHealth, setSnailHealth] = useState(3);
-  
-    useEffect(() => {
-      const loadData = async () => {
-        const snailInfo = await OWServiceProvider.getSnailInfo('andrei');
-        console.log(snailInfo);
-        setSnailName(snailInfo.name);
-        // setSnailHealth(snailInfo.health); // TODO
-        setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+  const navigate = useNavigate();
+  const [snailName, setSnailName] = useState('');
+  const [snailImage, setSnailImage] = useState('');
+  const [snailHealth, setSnailHealth] = useState(3);
 
-        // TODO: Get goal info
-      };
-      loadData();
-    });
+  useEffect(() => {
+    const loadData = async () => {
+      const snailInfo = await OWServiceProvider.getSnailInfo('andrei');
+      console.log(snailInfo);
+      setSnailName(snailInfo.name);
+      // setSnailHealth(snailInfo.health); // TODO
+      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+
+      // TODO: Get goal info
+    };
+    loadData();
+  });
   const dueDate = new Date('May 17, 2023'); // TODO
   const numDays = NumberOfDaysUntilDate(dueDate); // TODO
   const numPagesTotal = 392; // TODO: Get page number from book info
   const [numPagesRead, setNumPagesRead] = useState(140); // TODO: Get from goal
-  const pagesPerDay = Math.ceil((numPagesTotal- numPagesRead) / numDays);
+  const pagesPerDay = Math.ceil((numPagesTotal - numPagesRead) / numDays);
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
         <LargeBookCard
           bookTitle="This is the Title of a Book I could Write"
           authorName={['Joe Jonas']}
-          bookCover={<img
-            src='https://i.pinimg.com/originals/a1/f8/87/a1f88733921c820db477d054fe96afbb.jpg'
-            style={{ maxWidth: '100%' }}
-            alt={'' + ' book cover'}
-          />}
+          bookCover={
+            <img
+              src="https://i.pinimg.com/originals/a1/f8/87/a1f88733921c820db477d054fe96afbb.jpg"
+              style={{ maxWidth: '100%' }}
+              alt={'' + ' book cover'}
+            />
+          }
           description=""
           tempFunction=""
           showButtons={false}
@@ -160,21 +162,26 @@ function UpdateGoal() {
           <H1>Update Goal</H1>
           <GoalInfoWrapper>
             <DeadlineWrapper>
-              <P>Due Date: <b>{dueDate.toLocaleDateString()}</b></P>
+              <P>
+                Due Date: <b>{dueDate.toLocaleDateString()}</b>
+              </P>
             </DeadlineWrapper>
             <P>
               You have <b>{numDays}</b> days left to finish this goal.
             </P>
             <P>
               On average, you need to read{' '}
-              <b>{pagesPerDay} page{pagesPerDay !== 1 && 's' }</b> per day.
+              <b>
+                {pagesPerDay} page{pagesPerDay !== 1 && 's'}
+              </b>{' '}
+              per day.
             </P>
           </GoalInfoWrapper>
           <NotesWrapper>
-            <PageSlider label="Pages Read" max={numPagesTotal}/>
+            <PageSlider label="Pages Read" max={numPagesTotal} />
             <div className="textarea-wrapper">
-                <Label htmlFor="goal-notes">Notes</Label>
-                <textarea name="goal-notes" />
+              <Label htmlFor="goal-notes">Notes</Label>
+              <textarea name="goal-notes" />
             </div>
           </NotesWrapper>
           <SnailSection>
@@ -186,10 +193,15 @@ function UpdateGoal() {
             />
             <SnailSectionRightWrapper>
               <P>
-                <b>{snailName}</b> is cheering for you. Don't
-                let them down!
+                <b>{snailName}</b> is cheering for you. Don't let them down!
               </P>
-              <LargeRoundedButton onClick={() => {navigate('/view-goals')}}>Update Goal</LargeRoundedButton>
+              <LargeRoundedButton
+                onClick={() => {
+                  navigate('/view-goals');
+                }}
+              >
+                Update Goal
+              </LargeRoundedButton>
             </SnailSectionRightWrapper>
           </SnailSection>
         </GoalCard>

@@ -71,7 +71,7 @@ export default function App() {
             </RequireAuth>
           }
         />
-        <Route 
+        <Route
           path="update-goal"
           element={
             <RequireAuth loginPath="/">
@@ -92,7 +92,7 @@ export default function App() {
           element={
             <RequireAuth loginPath="/">
               <ViewGoals />
-              </RequireAuth>
+            </RequireAuth>
           }
         />
         <Route

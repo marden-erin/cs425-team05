@@ -29,9 +29,9 @@ type LargeBookCardType = {
    */
 
   description: string;
-/**
- * 
- */
+  /**
+   *
+   */
   tempFunction: any;
   /**
    * Whether to display buttons like "Set Goal" or "Add Review"
@@ -145,7 +145,7 @@ export const LargeBookCard = ({
   bookCover,
   description,
   tempFunction,
-  showButtons=true
+  showButtons = true,
 }: LargeBookCardType) => {
   const navigate = useNavigate();
   return (
@@ -160,9 +160,18 @@ export const LargeBookCard = ({
             <ButtonWrapper>
               {/* TODO: link set goal page to button
             TODO: create functionality for reviews */}
-            {showButtons && (<><SmallRoundedButton onClick={() => {navigate('/create-goal')}}>Set Goal</SmallRoundedButton>
-              <SmallRoundedButton>Add Review</SmallRoundedButton></>)}
-              
+              {showButtons && (
+                <>
+                  <SmallRoundedButton
+                    onClick={() => {
+                      navigate('/create-goal');
+                    }}
+                  >
+                    Set Goal
+                  </SmallRoundedButton>
+                  <SmallRoundedButton>Add Review</SmallRoundedButton>
+                </>
+              )}
             </ButtonWrapper>
             <DropWrapper> {tempFunction}</DropWrapper>
           </AllButtonWrapper>

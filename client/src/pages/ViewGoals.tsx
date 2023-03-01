@@ -180,7 +180,13 @@ function ViewGoals(this: any) {
             <label htmlFor="javascript">0</label>
           </SnailStatus>
           {snailHealth === 0 && ( // Only show button if snail is dead
-            <LargeRoundedButton onClick={() => {navigate('/grave-adoption')}}>Bury Snail</LargeRoundedButton>
+            <LargeRoundedButton
+              onClick={() => {
+                navigate('/grave-adoption');
+              }}
+            >
+              Bury Snail
+            </LargeRoundedButton>
           )}
         </SnailCard>
         {snailHealth !== 0 && ( // Don't show Goals if snail is dead

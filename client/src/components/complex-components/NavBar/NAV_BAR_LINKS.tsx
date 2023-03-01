@@ -19,7 +19,7 @@ export const GoalPages = [
     linkURL: '/view-goals',
   },
   {
-  linkLabel: 'Graveyard',
+    linkLabel: 'Graveyard',
     linkURL: '/graveyard',
   },
   {

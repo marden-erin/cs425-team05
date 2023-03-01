@@ -115,7 +115,7 @@ function CreateGoal() {
   const navigate = useNavigate();
   const snailName = 'Snailosaurus'; // TODO: Get name from API
   const [startDate, setStartDate] = useState(new Date());
-  startDate.setDate(startDate.getDate() + 1)
+  startDate.setDate(startDate.getDate() + 1);
   const [numDays, setNumDays] = useState(0);
   const numPages = 392; // TODO: Get page number from book info
   return (
@@ -153,8 +153,11 @@ function CreateGoal() {
               />
             </DeadlineWrapper>
             <P>
-              With this deadline, you will have <b>{Math.ceil(numDays)} day{Math.ceil(numDays) !== 1 && 's'}</b> to
-              complete your goal.
+              With this deadline, you will have{' '}
+              <b>
+                {Math.ceil(numDays)} day{Math.ceil(numDays) !== 1 && 's'}
+              </b>{' '}
+              to complete your goal.
             </P>
             <P>
               On average, you will need to read{' '}
@@ -177,7 +180,13 @@ function CreateGoal() {
                 <b>{snailName}</b> is ready to help you on your journey. Don't
                 let them down!
               </P>
-              <LargeRoundedButton onClick={() => {navigate('/view-goals')}}>Set Goal</LargeRoundedButton>
+              <LargeRoundedButton
+                onClick={() => {
+                  navigate('/view-goals');
+                }}
+              >
+                Set Goal
+              </LargeRoundedButton>
             </SnailSectionRightWrapper>
           </SnailSection>
         </GoalCard>
