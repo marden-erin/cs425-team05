@@ -9,8 +9,8 @@ const Box_Wrapper = styled.div`
   gap: 15px;
 `;
 const Box = styled.div`
-  width: 999px;
-  height: 400px;
+  width: 100rem;
+  height: 40rem;
   background-color: ${COLORS.PURPLE_LIGHT};
   border-radius: 22px;
   margin-top: 30px;
