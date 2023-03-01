@@ -80,18 +80,6 @@ const LoginPromptH2 = styled(H2)`
   font-style: italic;
 `;
 
-// POST-PROTOTYPE TODO: Replace with Google login API
-const _TEMP_LoginButton = styled.div`
-  width: 250px;
-  height: 100px;
-  text-align: center;
-  background-color: ${COLORS.WHITE};
-
-  > p {
-    margin-top: 6px;
-  }
-`;
-
 function Home() {
   // const auth = useAuthUser();
 
@@ -109,6 +97,7 @@ function Home() {
   //   fetchData();
   // }, []);
 
+  // TODO: Add quick links to important pages where login placeholder used to be
   return (
     <PageWrapper pageTitle="OuterWhorld">
       <FlexBoxWrapper>
@@ -130,11 +119,6 @@ function Home() {
           </SubTitle>
           <LoginContainer>
             <LoginPromptH2>Let's get Reading!</LoginPromptH2>
-            <_TEMP_LoginButton>
-              <P>TEMPORARY</P>
-              <P>Login with Google</P>
-              <P>Appearance of this button will be determined by API</P>
-            </_TEMP_LoginButton>
           </LoginContainer>
         </RightContentWrapper>
       </FlexBoxWrapper>

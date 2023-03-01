@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Routes, Route, Outlet, Link } from 'react-router-dom';
+import { RequireAuth } from 'react-auth-kit';
 
 // After home, alphabetical order
 import Login from './pages/Login';
@@ -12,8 +13,9 @@ import GraveAdoption from './pages/GraveAdoption';
 import Graveyard from './pages/Graveyard';
 import SearchResults from './pages/SearchResults';
 import SnailAdoption from './pages/SnailAdoption';
+import UpdateGoal from './pages/UpdateGoal';
+import ViewGoals from './pages/ViewGoals';
 import ViewClusters from './pages/ViewClusters';
-import { RequireAuth } from 'react-auth-kit';
 
 export default function App() {
   return (
@@ -70,10 +72,26 @@ export default function App() {
           }
         />
         <Route
+          path="update-goal"
+          element={
+            <RequireAuth loginPath="/">
+              <UpdateGoal />
+            </RequireAuth>
+          }
+        />
+        <Route
           path="view-clusters"
           element={
             <RequireAuth loginPath="/">
               <ViewClusters />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="view-goals"
+          element={
+            <RequireAuth loginPath="/">
+              <ViewGoals />
             </RequireAuth>
           }
         />

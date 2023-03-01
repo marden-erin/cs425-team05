@@ -24,8 +24,8 @@ const FlexBoxWrapper = styled.div`
 `;
 
 const ProjectBox = styled(Box)`
-  height: 500px;
   margin-top: 30px;
+  height: auto;
 `;
 
 const WordContainer = styled.div`
