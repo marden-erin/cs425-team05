@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 import { COLORS } from '../../constants';
 import { P } from './TextComponents';
 import OWServiceProvider from '../../OuterWhorldServiceProvider';
-import {useAuthUser} from 'react-auth-kit'
+import { useAuthUser } from 'react-auth-kit';
 
 const ColumnFlexCss = css`
   display: flex;
@@ -75,7 +75,7 @@ function ClusterBooks(book: Book) {
 
   const [add, setAdd] = useState('');
 
-  const username = auth()?.username
+  const username = auth()?.username;
 
   const loadData = async (e: any) => {
     e.preventDefault();
