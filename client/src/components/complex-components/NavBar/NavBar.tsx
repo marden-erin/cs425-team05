@@ -6,7 +6,7 @@ import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
 import {
   PrototypePages,
-  SampleItems,
+  ClusterPages,
   SnailImageURL,
   SnailPages,
 } from './NAV_BAR_LINKS';
@@ -152,7 +152,7 @@ export const NavBar = () => {
       <LinkWrapper>
         <NavLink href="/about">About</NavLink>
         <DropDownLink linkLabel="Prototype" dropDownItems={PrototypePages} />
-        <DropDownLink linkLabel="Cluster" dropDownItems={SampleItems} />
+        <DropDownLink linkLabel="Cluster" dropDownItems={ClusterPages} />
         <DropDownLink linkLabel="Snails" dropDownItems={SnailPages} />
       </LinkWrapper>
       <SearchBarWrapper>
