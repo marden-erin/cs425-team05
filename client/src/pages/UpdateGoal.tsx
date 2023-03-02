@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import {
   Label,
   LargeBookCard,
   LargeRoundedButton, // TODO: Swap to link once other PR merged
   P,
+  PageSlider,
   PageWrapper,
 } from '../components';
-import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../constants';
-import { NumberOfDaysUntilDate } from '../utils';
-import SnailImage from '../imgs/snails/yellow-default.png'; // TODO: Change to utility function once other PR merged
-import { useNavigate } from 'react-router-dom';
+import { COLORS, FONTS_SECONDARY } from '../constants';
+import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const GridWrapper = styled.div`
   height: 85vh;
@@ -88,17 +87,25 @@ const H1 = styled.h1`
   font-weight: 600;
   font-size: 2.4rem;
   line-height: 2.9rem;
-  margin-bottom: 8px;
+  margin-block-end: 8px;
 `;
 
 const NotesWrapper = styled.div`
   display: flex;
   flex-flow: column wrap;
-  padding: 20px;
+  align-items: center;
+  padding: 10px 0px 20px;
   label {
     white-space: nowrap; // Prevents text wrapping
     font-weight: bold;
-    margin-bottom: 4px;
+    margin-block-end: 4px;
+  }
+  input {
+    margin-block-end: 4px;
+  }
+  .textarea-wrapper {
+    display: flex;
+    flex-direction: column;
   }
   textarea {
     ${FONTS_SECONDARY};
@@ -111,81 +118,89 @@ const NotesWrapper = styled.div`
   }
 `;
 
-function CreateGoal() {
+function UpdateGoal() {
   const navigate = useNavigate();
-  const snailName = 'Snailosaurus'; // TODO: Get name from API
-  const [startDate, setStartDate] = useState(new Date());
-  startDate.setDate(startDate.getDate() + 1);
-  const [numDays, setNumDays] = useState(0);
-  const numPages = 392; // TODO: Get page number from book info
+  const [snailName, setSnailName] = useState('');
+  const [snailImage, setSnailImage] = useState('');
+  const [snailHealth, setSnailHealth] = useState(3);
+
+  useEffect(() => {
+    const loadData = async () => {
+      const snailInfo = await OWServiceProvider.getSnailInfo('andrei');
+      console.log(snailInfo);
+      setSnailName(snailInfo.name);
+      // setSnailHealth(snailInfo.health); // TODO
+      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+
+      // TODO: Get goal info
+    };
+    loadData();
+  });
+  const dueDate = new Date('May 17, 2023'); // TODO
+  const numDays = NumberOfDaysUntilDate(dueDate); // TODO
+  const numPagesTotal = 392; // TODO: Get page number from book info
+  const [numPagesRead, setNumPagesRead] = useState(140); // TODO: Get from goal
+  const pagesPerDay = Math.ceil((numPagesTotal - numPagesRead) / numDays);
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
         <LargeBookCard
           bookTitle="This is the Title of a Book I could Write"
           authorName={['Joe Jonas']}
-          bookCover=""
+          bookCover={
+            <img
+              src="https://i.pinimg.com/originals/a1/f8/87/a1f88733921c820db477d054fe96afbb.jpg"
+              style={{ maxWidth: '100%' }}
+              alt={'' + ' book cover'}
+            />
+          }
           description=""
           tempFunction=""
           showButtons={false}
         />
         <GoalCard>
-          <H1>Create a Goal</H1>
+          <H1>Update Goal</H1>
           <GoalInfoWrapper>
             <DeadlineWrapper>
-              <Label htmlFor="deadline-datepicker">Goal Deadline</Label>
-              <DatePicker // TODO: Look into console error
-                name="deadline-datepicker"
-                className="datepicker"
-                selected={startDate}
-                onChange={(newDate) => {
-                  if (newDate) {
-                    const today = new Date();
-                    if (newDate < today) {
-                      // If the new date is in the past, it's invalid
-                      console.log('This date is in the past!');
-                    } else {
-                      setStartDate(newDate);
-                      setNumDays(NumberOfDaysUntilDate(newDate));
-                    }
-                  }
-                }}
-              />
+              <P>
+                Due Date: <b>{dueDate.toLocaleDateString()}</b>
+              </P>
             </DeadlineWrapper>
             <P>
-              With this deadline, you will have{' '}
-              <b>
-                {Math.ceil(numDays)} day{Math.ceil(numDays) !== 1 && 's'}
-              </b>{' '}
-              to complete your goal.
+              You have <b>{numDays}</b> days left to finish this goal.
             </P>
             <P>
-              On average, you will need to read{' '}
-              <b>{Math.ceil(numPages / numDays)} pages</b> per day.
+              On average, you need to read{' '}
+              <b>
+                {pagesPerDay} page{pagesPerDay !== 1 && 's'}
+              </b>{' '}
+              per day.
             </P>
           </GoalInfoWrapper>
           <NotesWrapper>
-            <Label htmlFor="goal-notes">Notes (Optional)</Label>
-            <textarea name="goal-notes" />
+            <PageSlider label="Pages Read" max={numPagesTotal} />
+            <div className="textarea-wrapper">
+              <Label htmlFor="goal-notes">Notes</Label>
+              <textarea name="goal-notes" />
+            </div>
           </NotesWrapper>
           <SnailSection>
             <img
-              src={SnailImage}
-              alt="A happy yellow snail"
+              src={snailImage}
+              alt={snailName + ' cheering for you to complete your goal'}
               width="190"
-              className="snail animated"
+              className="snail"
             />
             <SnailSectionRightWrapper>
               <P>
-                <b>{snailName}</b> is ready to help you on your journey. Don't
-                let them down!
+                <b>{snailName}</b> is cheering for you. Don't let them down!
               </P>
               <LargeRoundedButton
                 onClick={() => {
                   navigate('/view-goals');
                 }}
               >
-                Set Goal
+                Update Goal
               </LargeRoundedButton>
             </SnailSectionRightWrapper>
           </SnailSection>
@@ -195,4 +210,4 @@ function CreateGoal() {
   );
 }
 
-export default CreateGoal;
+export default UpdateGoal;

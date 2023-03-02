@@ -222,8 +222,8 @@ const DeleteWrapper = styled.div`
   justify-content: center;
   margin-left: -30px;
 `;
-const SmallBoxWords = styled(H2)`
-  font-size: 2.5rem;
+const SmallBoxWords = styled.span`
+  font-size: 1.6rem;
   font-weight: 200;
   color: ${COLORS.WHITE};
   text-align: center;

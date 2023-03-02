@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useAuthUser } from 'react-auth-kit';
 import styled from 'styled-components';
 import { H1, H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
@@ -7,7 +8,6 @@ import {
   ThinInput,
 } from '../components/simple-components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
-import { useAuthUser } from 'react-auth-kit';
 
 const FlexBoxWrapper = styled.div`
   height: 85vh;
