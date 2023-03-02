@@ -50,10 +50,21 @@ const GridWrapper = styled.div`
   align-items: center;
   gap: 35px;
 `;
+// From https://stackoverflow.com/questions/2460100/remove-the-complete-styling-of-an-html-button-submit
+const Button = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+`;
 
 function BookData(props: any) {
   const { title, authors, description, pageCount, cover } = props.book;
 
+  const [selectedElement, setSelectedElement] = useState(0);
   const shouldDisplay = title && authors && description && pageCount && cover;
   const [t, setT] = useState('');
   const [a, setA] = useState<any>();
@@ -68,8 +79,6 @@ function BookData(props: any) {
     setDropBook(props.book);
   }, [title, authors, description, cover, props.book]);
 
-  var selector: boolean;
-
   const handleClick = (
     title: string,
     author: [],
@@ -83,6 +92,7 @@ function BookData(props: any) {
     setD(props.allBooks[index].description);
     setC(cover);
     setDropBook(props.allBooks[index]);
+    setSelectedElement(index);
   };
   return (
     <>
@@ -109,14 +119,9 @@ function BookData(props: any) {
                   },
                   index: any
                 ) => {
-                  if (props.book.cover === cover) {
-                    selector = false;
-                  } else {
-                    selector = true;
-                  }
                   return (
                     <>
-                      <button
+                      <Button
                         onClick={() =>
                           handleClick(
                             title,
@@ -138,10 +143,10 @@ function BookData(props: any) {
                               alt={title + ' book cover'}
                             />
                           }
-                          selected={selector}
+                          selected={selectedElement === index}
                           key={index}
                         />
-                      </button>
+                      </Button>
                     </>
                   );
                 }
