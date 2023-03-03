@@ -104,7 +104,11 @@ function Register() {
         {isRegistered ? (
           <>
             <RegisterPromptH2>Registration Successful!</RegisterPromptH2>
-            <button  id = "register-redirect"onClick={redirectLogin} style={buttonStyle}>
+            <button
+              id="register-redirect"
+              onClick={redirectLogin}
+              style={buttonStyle}
+            >
               <RegisterPromptH2 style={{ color: COLORS.PURPLE_DARK }}>
                 Login Now
               </RegisterPromptH2>
@@ -114,14 +118,14 @@ function Register() {
           <>
             <RegisterPromptH2>Your Snail Awaits!</RegisterPromptH2>
             <RegisterInput
-              id = "register-email"
+              id="register-email"
               type="text"
               value={email}
               onChange={updateEmail}
               placeholder="email"
             />
             <RegisterInput
-              id = "register-username"
+              id="register-username"
               type="text"
               value={username}
               onChange={updateUsername}
@@ -134,7 +138,9 @@ function Register() {
               onChange={updatePassword}
               placeholder="password"
             />
-            <LargeRoundedButton id="register-submit">Create Account</LargeRoundedButton>
+            <LargeRoundedButton id="register-submit">
+              Create Account
+            </LargeRoundedButton>
             {isError && <ErrorMessageP>{errorMsg}</ErrorMessageP>}
           </>
         )}
