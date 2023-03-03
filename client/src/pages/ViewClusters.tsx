@@ -114,7 +114,11 @@ const ImgWrapper = styled.div`
 const Img = styled.div`
   width: 133.3px;
   height: 200px;
-  background-color: ${COLORS.PURPLE_DARK};
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: ${COLORS.PURPLE_MID};
   border: 5px solid ${COLORS.PURPLE_MID};
   max-width-inline: 100%;
   object-fit: scale-down;
@@ -215,6 +219,7 @@ const Input = styled.input`
 
 const ImgButton = styled.button`
   background: ${COLORS.PURPLE_MID};
+  cursor: pointer;
 `;
 
 const DeleteWrapper = styled.div`

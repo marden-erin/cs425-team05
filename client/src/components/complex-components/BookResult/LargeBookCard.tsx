@@ -53,9 +53,12 @@ const CardWrapper = styled.div`
 `;
 
 const CoverWrapper = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
   width: 133.3px;
-  height: 200px;
-  background-color: ${COLORS.PURPLE_DARK};
+  background-color: ${COLORS.PURPLE_MID};
   border: 3px solid ${COLORS.PURPLE_MID};
   max-width-inline: 100%;
 `;
