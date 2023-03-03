@@ -114,9 +114,11 @@ const NotesWrapper = styled.div`
 function CreateGoal() {
   const navigate = useNavigate();
   const snailName = 'Snailosaurus'; // TODO: Get name from API
-  const [startDate, setStartDate] = useState(new Date());
-  startDate.setDate(startDate.getDate() + 1);
-  const [numDays, setNumDays] = useState(0);
+  const today = new Date();
+  const twoWeeksAhead = new Date();
+  twoWeeksAhead.setDate(today.getDate() + 14);
+  const [startDate, setStartDate] = useState(twoWeeksAhead); // Set start date to be two weeks ahead by default
+  const [numDays, setNumDays] = useState(14); // Two weeks = 14 days
   const numPages = 392; // TODO: Get page number from book info
   return (
     <PageWrapper pageTitle="Create a Goal">
