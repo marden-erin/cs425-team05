@@ -20,11 +20,16 @@ export const Search = () => {
       <form>
         <SearchBarWrapper>
           <ThinInput
+            id="book-search-input"
             placeholder={'Search for books...'}
             value={input}
             onChange={(e) => setInput(e.target.value)}
           ></ThinInput>
-          <SmallHalfRoundedButton type="button" onClick={handleChange}>
+          <SmallHalfRoundedButton
+            id="book-search-button"
+            type="button"
+            onClick={handleChange}
+          >
             Search
           </SmallHalfRoundedButton>
         </SearchBarWrapper>

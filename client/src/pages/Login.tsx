@@ -161,18 +161,20 @@ function Login() {
             {isError && <ErrorMessageP>{errorMessage}</ErrorMessageP>}
             <LoginPromptH2>Let's Get Reading!</LoginPromptH2>
             <LoginInput
+              id="email-input"
               type="text"
               value={email}
               onChange={updateEmail}
               placeholder="email"
             ></LoginInput>
             <LoginInput
+              id="password-input"
               type="password"
               value={password}
               onChange={updatePassword}
               placeholder="password"
             ></LoginInput>
-            <LargeRoundedButton onClick={handleSubmit}>
+            <LargeRoundedButton id="login-button" onClick={handleSubmit}>
               Login
             </LargeRoundedButton>
             <button style={buttonStyle} onClick={handleRegister}>
