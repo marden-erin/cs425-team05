@@ -19,7 +19,7 @@ describe("book", () => {
 						statusText: "OK",
 					})
 				);
-				const response = await supertest(app).get(`/api/book/test`);
+				const response = await supertest(app).get(`/api/book?bookTitle=test`);
 				expect(response.statusCode).toBe(200);
 			});
 
@@ -31,7 +31,7 @@ describe("book", () => {
 						statusText: "OK",
 					})
 				);
-				const response = await supertest(app).get(`/api/book/test`);
+				const response = await supertest(app).get(`/api/book?bookTitle=test`);
 				expect(response.statusCode).toBe(400);
 				expect(response.text).toContain("Retrieving book info failed");
 			});
