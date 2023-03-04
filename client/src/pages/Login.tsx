@@ -177,7 +177,11 @@ function Login() {
             <LargeRoundedButton id="login-button" onClick={handleSubmit}>
               Login
             </LargeRoundedButton>
-            <button style={buttonStyle} onClick={handleRegister}>
+            <button
+              id="register-button"
+              style={buttonStyle}
+              onClick={handleRegister}
+            >
               <P>
                 Don't have an account?{' '}
                 <Label style={{ cursor: 'pointer' }}>Register Now!</Label>
