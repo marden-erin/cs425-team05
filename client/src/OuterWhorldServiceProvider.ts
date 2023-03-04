@@ -237,12 +237,14 @@ class OuterWhorldServiceProvider {
   async updateSnailInfo(
     userName: string,
     snailName: string,
-    snailColor: string
+    snailColor: string,
+    snailHealth: number
   ) {
     const input = {
       userName,
       snailName,
       snailColor,
+      snailHealth
     };
 
     const res = await fetch(`/api/snails`, {
