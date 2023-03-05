@@ -32,10 +32,14 @@ type LargeBookCardType = {
   /**
    *
    */
-  tempFunction: any;
+  AddClusterFunction: any;
+  CreateGoalFunction:any;
+  tempFunction?: any;
   /**
    * Whether to display buttons like "Set Goal" or "Add Review"
    */
+  pageCount?: number;
+
   showButtons?: boolean;
 };
 
@@ -144,7 +148,10 @@ export const LargeBookCard = ({
   authorName,
   bookCover,
   description,
+  AddClusterFunction,
+  CreateGoalFunction,
   tempFunction,
+  pageCount,
   showButtons = true,
 }: LargeBookCardType) => {
   const navigate = useNavigate();
@@ -162,18 +169,12 @@ export const LargeBookCard = ({
             TODO: create functionality for reviews */}
               {showButtons && (
                 <>
-                  <SmallRoundedButton
-                    onClick={() => {
-                      navigate('/create-goal');
-                    }}
-                  >
-                    Set Goal
-                  </SmallRoundedButton>
+                  <>{CreateGoalFunction}</>
                   <SmallRoundedButton>Add Review</SmallRoundedButton>
                 </>
               )}
             </ButtonWrapper>
-            <DropWrapper> {tempFunction}</DropWrapper>
+            <DropWrapper> {tempFunction}{AddClusterFunction}</DropWrapper>
           </AllButtonWrapper>
         </InfoWrapper>
       </TopWrapper>

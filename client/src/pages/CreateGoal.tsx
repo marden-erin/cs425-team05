@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
+import { useLocation } from 'react-router-dom';
+import { Book } from '../../../server/src/utils/Types';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
   Label,
@@ -13,6 +15,9 @@ import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../constants';
 import { NumberOfDaysUntilDate } from '../utils';
 import SnailImage from '../imgs/snails/yellow-default.png'; // TODO: Change to utility function once other PR merged
 import { useNavigate } from 'react-router-dom';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { useAuthUser } from 'react-auth-kit';
+
 
 const GridWrapper = styled.div`
   height: 85vh;
@@ -112,21 +117,60 @@ const NotesWrapper = styled.div`
 `;
 
 function CreateGoal() {
+  const auth = useAuthUser();
+  const username:string = auth()?.username;
+
   const navigate = useNavigate();
   const snailName = 'Snailosaurus'; // TODO: Get name from API
   const [startDate, setStartDate] = useState(new Date());
   startDate.setDate(startDate.getDate() + 1);
   const [numDays, setNumDays] = useState(0);
-  const numPages = 392; // TODO: Get page number from book info
+  const [cardBook, setCardBook] = useState({} as Book);
+  const [notes, setNotes] = useState('');
+
+  const location = useLocation();
+
+  //userInput is what the user typed into search bar
+  const numPages = location.state.pageCount;
+  const cover = location.state.cover;
+  const title = location.state.title;
+  const author = location.state.author;
+  const description = location.state.description;
+  const c= cover.toString();
+  const p= numPages.toString();
+  const t= title.toString();
+  const d= description.toString();
+  const a= author.toString();
+
+
+
+  const bookTemp:Book = {
+    title:t, authors:a, pageCount:p, description:d, cover:c
+  }
+
+    const handleSubmit =async () => {
+      console.log("herere")
+      const goal = await OWServiceProvider.createGoal(bookTemp, username, notes)
+      console.log(goal)
+      console.log("here2")
+       navigate('/view-goals');
+
+    }
+
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
         <LargeBookCard
-          bookTitle="This is the Title of a Book I could Write"
-          authorName={['Joe Jonas']}
-          bookCover=""
-          description=""
+          bookTitle={title}
+          authorName={author}
+          bookCover={<img
+            src={cover}
+            alt={title + ' book cover'}
+          />}
+          description={description}
           tempFunction=""
+          CreateGoalFunction=''
+          AddClusterFunction=''
           showButtons={false}
         />
         <GoalCard>
@@ -165,8 +209,8 @@ function CreateGoal() {
             </P>
           </GoalInfoWrapper>
           <NotesWrapper>
-            <Label htmlFor="goal-notes">Notes (Optional)</Label>
-            <textarea name="goal-notes" />
+            <Label htmlFor="goal-notes" >Notes (Optional)</Label>
+            <textarea name="goal-notes" value={notes} onChange={(e) =>setNotes(e.target.value)} />
           </NotesWrapper>
           <SnailSection>
             <img
@@ -181,9 +225,7 @@ function CreateGoal() {
                 let them down!
               </P>
               <LargeRoundedButton
-                onClick={() => {
-                  navigate('/view-goals');
-                }}
+                onClick={handleSubmit}
               >
                 Set Goal
               </LargeRoundedButton>

@@ -12,6 +12,8 @@ import {
 import { COLORS, FONTS_SECONDARY } from '../constants';
 import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { useAuthUser } from 'react-auth-kit';
+
 
 const GridWrapper = styled.div`
   height: 85vh;
@@ -120,18 +122,21 @@ const NotesWrapper = styled.div`
 
 function UpdateGoal() {
   const navigate = useNavigate();
+  const auth = useAuthUser();
+  const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
   const [snailImage, setSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
 
   useEffect(() => {
     const loadData = async () => {
-      const snailInfo = await OWServiceProvider.getSnailInfo('andrei');
+      const snailInfo = await OWServiceProvider.getSnailInfo(username);
       console.log(snailInfo);
       setSnailName(snailInfo.name);
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
 
+     
       // TODO: Get goal info
     };
     loadData();
@@ -141,6 +146,9 @@ function UpdateGoal() {
   const numPagesTotal = 392; // TODO: Get page number from book info
   const [numPagesRead, setNumPagesRead] = useState(140); // TODO: Get from goal
   const pagesPerDay = Math.ceil((numPagesTotal - numPagesRead) / numDays);
+
+
+  
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
@@ -154,6 +162,8 @@ function UpdateGoal() {
               alt={'' + ' book cover'}
             />
           }
+          AddClusterFunction=''
+           CreateGoalFunction=''
           description=""
           tempFunction=""
           showButtons={false}

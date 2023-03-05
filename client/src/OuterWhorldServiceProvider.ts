@@ -318,7 +318,6 @@ class OuterWhorldServiceProvider {
     const res = await fetch(`/api/goals/${userName}/${goalID}`);
 
     const data = await res.json();
-
     return data;
   }
 
@@ -356,7 +355,8 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-
+    console.log(userName);
+    console.log(book);
     return data;
   }
   /*

@@ -32,7 +32,7 @@ function SearchResults() {
       const data = await OWServiceProvider.getBookInfo(userInput);
       setBookInfo(data[0]);
       console.log('HERERER');
-      console.log(data);
+      console.log(data[0]);
       const temp = data.map((x, index) => {
         return {
           key: index,

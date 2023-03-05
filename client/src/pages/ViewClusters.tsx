@@ -27,6 +27,8 @@ import {
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
 import { useAuthUser } from 'react-auth-kit';
+import { CreateGoalButton } from './../components/complex-components/Goals';
+
 
 const FlexBoxWrapper = styled.div<{
   $isModalOpen: boolean;
@@ -78,19 +80,19 @@ const ClusterName = styled.h2`
   text-align: center;
   color: ${COLORS.WHITE};
   text-align: left;
-  margin-top: 10px;
 `;
 
 const NameWrapper = styled.div`
   display: flex;
   border-radius: 5px;
   background: ${GRADIENTS.PURPLE};
-  padding: 10px 5px 15px 10px;
+  padding: 15px;
 `;
 const ScrollableDiv = styled.div`
   height: 27rem;
   width: 75rem;
   padding: 3rem;
+  margin-top:5px;
   background-color: ${COLORS.PURPLE_LIGHT};
   overflow-y: hidden;
   overflow-x: scroll;
@@ -98,8 +100,8 @@ const ScrollableDiv = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  padding: 15px;
-  margin-top: -25px;
+  padding: 10px;
+  margin-top: -20px;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
   border-radius: 5px;
@@ -107,6 +109,7 @@ const ImgWrapper = styled.div`
   min-width: 100%;
   min-height: 100%;
   align-content: center;
+  align-items: center;
   justify-content: center;
   gap: 25px;
   overflow-x: scroll;
@@ -115,7 +118,7 @@ const Img = styled.div`
   width: 133.3px;
   height: 200px;
   background-color: ${COLORS.PURPLE_DARK};
-  border: 5px solid ${COLORS.PURPLE_MID};
+  border: 1px solid ${COLORS.PURPLE_MID};
   max-width-inline: 100%;
   object-fit: scale-down;
 `;
@@ -126,7 +129,6 @@ const Title = styled.h2`
   font-size: 1.6rem;
   line-height: 2rem;
   color: ${COLORS.PURPLE_DARK};
-  margin-left: -20px;
   overflow: hidden;
   white-space: normal;
   width: 180px;
@@ -249,8 +251,7 @@ function ViewClusters() {
   const [tempCluster, setTempCluster] = useState('');
 
   ReactModal.setAppElement('*');
-
-  let newArray: any;
+ 
 
   const username = auth()?.username;
 
@@ -308,6 +309,13 @@ function ViewClusters() {
       cover: e,
     };
     setCardBooks(bookTemp);
+  };
+  let propsToGoalPage = {
+    cover: modalCover,
+    pageCount: modalPage,
+    author: [modalAuthors],
+    description: modalDes,
+    title: modalBooks
   };
   const temp2 = clusterBooks.map((item: any, index: any) => {
     return (
@@ -467,6 +475,9 @@ function ViewClusters() {
                               />
                             }
                             description={modalDes}
+                            AddClusterFunction=''
+                            CreateGoalFunction={<CreateGoalButton{...propsToGoalPage}></CreateGoalButton>}
+                            showButtons={true}
                             tempFunction={
                               <DeleteWrapper>
                                 <SmallRoundedButton

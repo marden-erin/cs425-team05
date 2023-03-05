@@ -7,6 +7,8 @@ import { GetSnailImg, GetSnailStatusText } from '../utils';
 import { ScrollBarStyle } from '../constants';
 import { GoalCard, H2, LargeRoundedButton, P } from '../components';
 import { useNavigate } from 'react-router-dom';
+import { useAuthUser } from 'react-auth-kit';
+
 
 // TODO: Replace with actual goals
 const placeholderCover =
@@ -105,21 +107,45 @@ const GoalsWrapper = styled.div`
 
 function ViewGoals(this: any) {
   const navigate = useNavigate();
+  const auth = useAuthUser();
+  const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
   const [snailImage, setSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
-
+  const [allGoals, setAllGoals] = useState();
+  const [indGoals, setIndGoals] = useState<any>([]);
+  const goalID:any = [];
   useEffect(() => {
     const loadData = async () => {
-      const snailInfo = await OWServiceProvider.getSnailInfo('andrei');
+      const snailInfo = await OWServiceProvider.getSnailInfo(username);
       console.log(snailInfo);
       setSnailName(snailInfo.name);
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
       //TODO: Set snail health
-    };
+      const temp = await OWServiceProvider.getAllGoals(username);
+      console.log("here");
+      setAllGoals(temp)
+      console.log(allGoals);
+      temp.map((x:any)=>{
+          goalID.push(x.goal_id)
+      })
+      const goalArray: any = [];
+
+      for(const i of goalID){
+        const getGoals = await OWServiceProvider.getGoal(username, i);
+          goalArray.push(getGoals)
+    }
+    console.log(goalArray)
+
+
+      
+
+      
+  };
+    
     loadData();
-  });
+  }, []);
   return (
     <PageWrapper pageTitle="Goals" header="Goals">
       <FlexWrapper>
