@@ -18,8 +18,8 @@ const getSnail = asyncHandler(async (req: Request, res: Response) => {
 			const [snail]: any[] = await db.promise().query(query);
 
 			if (snail.length > 0) {
-				const { name, color } = snail[0];
-				res.status(HTTPStatus.OK).json({ name, color });
+				const { name, color, health } = snail[0];
+				res.status(HTTPStatus.OK).json({ name, color, health });
 			} else {
 				const errMsg = "Error. User does not have a snail";
 				res.status(HTTPStatus.BAD).json(errMsg);
@@ -36,7 +36,7 @@ const getSnail = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const updateSnail = asyncHandler(async (req: Request, res: Response) => {
-	const { userName, snailName, snailColor } = req.body;
+	const { userName, snailName, snailColor, snailHealth } = req.body;
 
 	if (userName && snailName && snailColor) {
 		const filteredUserName = userName.replace(/"/g, "''");
@@ -52,7 +52,7 @@ const updateSnail = asyncHandler(async (req: Request, res: Response) => {
 
 			if (snail.length > 0) {
 				const { snail_id } = snail[0];
-				query = `update Snails set name="${filteredSnailName}", color="${snailColor}" where snail_id="${snail_id}"`;
+				query = `update Snails set name="${filteredSnailName}", color="${snailColor}", health="${snailHealth}" where snail_id="${snail_id}"`;
 				await db.promise().query(query);
 
 				res.status(HTTPStatus.OK).json("Snail successfully updated");
@@ -87,7 +87,7 @@ const createSnail = asyncHandler(async (req: Request, res: Response) => {
 			const [snail]: any[] = await db.promise().query(query);
 
 			if (snail.length == 0) {
-				query = `insert into Snails (snail_id, user_id, color, name) values(default, ${user_id}, "${snailColor}", "${filteredSnailName}")`;
+				query = `insert into Snails (snail_id, user_id, color, name, health) values(default, ${user_id}, "${snailColor}", "${filteredSnailName}", "${3}")`;
 				await db.promise().query(query);
 
 				res.status(HTTPStatus.OK).json("Snail successfully created");
