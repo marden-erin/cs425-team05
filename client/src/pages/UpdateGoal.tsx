@@ -14,7 +14,6 @@ import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useAuthUser } from 'react-auth-kit';
 
-
 const GridWrapper = styled.div`
   height: 85vh;
   padding: 3vh;
@@ -136,7 +135,6 @@ function UpdateGoal() {
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
 
-     
       // TODO: Get goal info
     };
     loadData();
@@ -147,8 +145,6 @@ function UpdateGoal() {
   const [numPagesRead, setNumPagesRead] = useState(140); // TODO: Get from goal
   const pagesPerDay = Math.ceil((numPagesTotal - numPagesRead) / numDays);
 
-
-  
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
@@ -162,8 +158,8 @@ function UpdateGoal() {
               alt={'' + ' book cover'}
             />
           }
-          AddClusterFunction=''
-           CreateGoalFunction=''
+          AddClusterFunction=""
+          CreateGoalFunction=""
           description=""
           tempFunction=""
           showButtons={false}

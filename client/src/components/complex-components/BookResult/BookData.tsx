@@ -82,8 +82,6 @@ function BookData(props: any) {
     setDropBook(props.book);
   }, [title, authors, description, cover, pageCount, props.book]);
 
-  
-
   const handleClick = (
     title: string,
     author: [],
@@ -104,8 +102,8 @@ function BookData(props: any) {
     cover: c,
     pageCount: p,
     author: [a],
-    description:d,
-    title: t
+    description: d,
+    title: t,
   };
   return (
     <>
@@ -179,7 +177,9 @@ function BookData(props: any) {
             }
             description={d}
             AddClusterFunction={<ClusterDropDown>{dropBook}</ClusterDropDown>}
-            CreateGoalFunction={<CreateGoalButton{...propsToGoalPage}></CreateGoalButton>}
+            CreateGoalFunction={
+              <CreateGoalButton {...propsToGoalPage}></CreateGoalButton>
+            }
           />
         </GridWrapper>
       </div>

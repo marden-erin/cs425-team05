@@ -56,7 +56,7 @@ export const GoalCard = ({ bookTitle, bookCover, dueDate }: GoalCardType) => {
     <ResultWrapper className="book-card">
       <CoverWrapper>
         <img
-          style={{ maxWidth: '100%' }}
+          style={{ maxWidth: '100%', height: '100%' }}
           src={bookCover}
           alt={bookTitle + ' book cover'}
         />

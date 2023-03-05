@@ -18,7 +18,6 @@ import { useNavigate } from 'react-router-dom';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useAuthUser } from 'react-auth-kit';
 
-
 const GridWrapper = styled.div`
   height: 85vh;
   padding: 3vh;
@@ -118,12 +117,13 @@ const NotesWrapper = styled.div`
 
 function CreateGoal() {
   const auth = useAuthUser();
-  const username:string = auth()?.username;
+  const username: string = auth()?.username;
 
   const navigate = useNavigate();
   const snailName = 'Snailosaurus'; // TODO: Get name from API
   const [startDate, setStartDate] = useState(new Date());
   startDate.setDate(startDate.getDate() + 1);
+  const tempStart = startDate.toDateString();
   const [numDays, setNumDays] = useState(0);
   const [cardBook, setCardBook] = useState({} as Book);
   const [notes, setNotes] = useState('');
@@ -136,26 +136,33 @@ function CreateGoal() {
   const title = location.state.title;
   const author = location.state.author;
   const description = location.state.description;
-  const c= cover.toString();
-  const p= numPages.toString();
-  const t= title.toString();
-  const d= description.toString();
-  const a= author.toString();
+  const c = cover.toString();
+  const p = numPages.toString();
+  const t = title.toString();
+  const d = description.toString();
+  const a = author.toString();
 
+  const bookTemp: Book = {
+    title: t,
+    authors: a,
+    pageCount: p,
+    description: d,
+    cover: c,
+  };
 
-
-  const bookTemp:Book = {
-    title:t, authors:a, pageCount:p, description:d, cover:c
-  }
-
-    const handleSubmit =async () => {
-      console.log("herere")
-      const goal = await OWServiceProvider.createGoal(bookTemp, username, notes)
-      console.log(goal)
-      console.log("here2")
-       navigate('/view-goals');
-
-    }
+  const handleSubmit = async () => {
+    console.log('herere');
+    const goal = await OWServiceProvider.createGoal(
+      bookTemp,
+      username,
+      notes,
+      p,
+      tempStart
+    );
+    console.log(goal);
+    console.log('here2');
+    navigate('/view-goals');
+  };
 
   return (
     <PageWrapper pageTitle="Create a Goal">
@@ -163,14 +170,11 @@ function CreateGoal() {
         <LargeBookCard
           bookTitle={title}
           authorName={author}
-          bookCover={<img
-            src={cover}
-            alt={title + ' book cover'}
-          />}
+          bookCover={<img src={cover} alt={title + ' book cover'} />}
           description={description}
           tempFunction=""
-          CreateGoalFunction=''
-          AddClusterFunction=''
+          CreateGoalFunction=""
+          AddClusterFunction=""
           showButtons={false}
         />
         <GoalCard>
@@ -209,8 +213,12 @@ function CreateGoal() {
             </P>
           </GoalInfoWrapper>
           <NotesWrapper>
-            <Label htmlFor="goal-notes" >Notes (Optional)</Label>
-            <textarea name="goal-notes" value={notes} onChange={(e) =>setNotes(e.target.value)} />
+            <Label htmlFor="goal-notes">Notes (Optional)</Label>
+            <textarea
+              name="goal-notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
           </NotesWrapper>
           <SnailSection>
             <img
@@ -224,9 +232,7 @@ function CreateGoal() {
                 <b>{snailName}</b> is ready to help you on your journey. Don't
                 let them down!
               </P>
-              <LargeRoundedButton
-                onClick={handleSubmit}
-              >
+              <LargeRoundedButton onClick={handleSubmit}>
                 Set Goal
               </LargeRoundedButton>
             </SnailSectionRightWrapper>

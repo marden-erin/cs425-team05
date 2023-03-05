@@ -29,7 +29,6 @@ import { Book } from '../../../server/src/utils/Types';
 import { useAuthUser } from 'react-auth-kit';
 import { CreateGoalButton } from './../components/complex-components/Goals';
 
-
 const FlexBoxWrapper = styled.div<{
   $isModalOpen: boolean;
   $isModalOpen2: boolean;
@@ -92,7 +91,7 @@ const ScrollableDiv = styled.div`
   height: 27rem;
   width: 75rem;
   padding: 3rem;
-  margin-top:5px;
+  margin-top: 5px;
   background-color: ${COLORS.PURPLE_LIGHT};
   overflow-y: hidden;
   overflow-x: scroll;
@@ -251,7 +250,6 @@ function ViewClusters() {
   const [tempCluster, setTempCluster] = useState('');
 
   ReactModal.setAppElement('*');
- 
 
   const username = auth()?.username;
 
@@ -315,7 +313,7 @@ function ViewClusters() {
     pageCount: modalPage,
     author: [modalAuthors],
     description: modalDes,
-    title: modalBooks
+    title: modalBooks,
   };
   const temp2 = clusterBooks.map((item: any, index: any) => {
     return (
@@ -475,8 +473,12 @@ function ViewClusters() {
                               />
                             }
                             description={modalDes}
-                            AddClusterFunction=''
-                            CreateGoalFunction={<CreateGoalButton{...propsToGoalPage}></CreateGoalButton>}
+                            AddClusterFunction=""
+                            CreateGoalFunction={
+                              <CreateGoalButton
+                                {...propsToGoalPage}
+                              ></CreateGoalButton>
+                            }
                             showButtons={true}
                             tempFunction={
                               <DeleteWrapper>

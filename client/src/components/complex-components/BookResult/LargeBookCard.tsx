@@ -33,7 +33,7 @@ type LargeBookCardType = {
    *
    */
   AddClusterFunction: any;
-  CreateGoalFunction:any;
+  CreateGoalFunction: any;
   tempFunction?: any;
   /**
    * Whether to display buttons like "Set Goal" or "Add Review"
@@ -174,7 +174,11 @@ export const LargeBookCard = ({
                 </>
               )}
             </ButtonWrapper>
-            <DropWrapper> {tempFunction}{AddClusterFunction}</DropWrapper>
+            <DropWrapper>
+              {' '}
+              {tempFunction}
+              {AddClusterFunction}
+            </DropWrapper>
           </AllButtonWrapper>
         </InfoWrapper>
       </TopWrapper>

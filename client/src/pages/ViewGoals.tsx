@@ -5,10 +5,10 @@ import { PageWrapper } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { GetSnailImg, GetSnailStatusText } from '../utils';
 import { ScrollBarStyle } from '../constants';
-import { GoalCard, H2, LargeRoundedButton, P } from '../components';
+import { GoalCard, H2, LargeRoundedButton, P, H1 } from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
-
+import { FaYCombinator } from 'react-icons/fa';
 
 // TODO: Replace with actual goals
 const placeholderCover =
@@ -114,7 +114,10 @@ function ViewGoals(this: any) {
   const [snailHealth, setSnailHealth] = useState(3);
   const [allGoals, setAllGoals] = useState();
   const [indGoals, setIndGoals] = useState<any>([]);
-  const goalID:any = [];
+  let temp: any;
+  const goalID: any = [];
+  let noDuplicatesID: number[];
+  const goalArray: any[] = [];
   useEffect(() => {
     const loadData = async () => {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
@@ -123,29 +126,46 @@ function ViewGoals(this: any) {
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
       //TODO: Set snail health
-      const temp = await OWServiceProvider.getAllGoals(username);
-      console.log("here");
-      setAllGoals(temp)
-      console.log(allGoals);
-      temp.map((x:any)=>{
-          goalID.push(x.goal_id)
-      })
-      const goalArray: any = [];
+      temp = await OWServiceProvider.getAllGoals(username);
+      // console.log("here");
+      // console.log(temp)
+      setAllGoals(temp);
+      // console.log(allGoals);
+      const getID = temp.map((x: any) => {
+        var y: number = +x.goal_id;
+        goalID.push(y);
+      });
+      //above map out puts duplicate of every goal_id
+      //noDuplicatesID removes these
 
-      for(const i of goalID){
-        const getGoals = await OWServiceProvider.getGoal(username, i);
-          goalArray.push(getGoals)
-    }
-    console.log(goalArray)
-
-
-      
-
-      
-  };
-    
+      noDuplicatesID = Array.from(new Set(goalID));
+      console.log(noDuplicatesID);
+      for (const i of noDuplicatesID) {
+        goalArray.push(await OWServiceProvider.getGoal(username, i));
+      }
+      setIndGoals(goalArray);
+    };
     loadData();
   }, []);
+
+  const [book, setBook] = useState<any>([]);
+  const bookArray: any[] = [];
+
+  const goal = indGoals.map((x: any, i: any) => {
+    const tempDate = new Date(x.deadline);
+    const tempImg = x.foundBook.cover;
+    return (
+      <div key={i}>
+        <GoalCard
+          bookTitle={x.foundBook.title}
+          bookCover={x.foundBook.cover}
+          dueDate={tempDate}
+        />
+      </div>
+    );
+  });
+  console.log(bookArray);
+
   return (
     <PageWrapper pageTitle="Goals" header="Goals">
       <FlexWrapper>
@@ -219,18 +239,7 @@ function ViewGoals(this: any) {
           <GoalsCard>
             <H2>Active Goals</H2>
             <GoalsWrapper>
-              {PlaceholderGoalInfo.map(
-                ({ bookTitle, bookCover, dueDate }, index) => {
-                  return (
-                    <GoalCard
-                      bookTitle={bookTitle}
-                      bookCover={bookCover}
-                      dueDate={dueDate}
-                      key={index}
-                    />
-                  );
-                }
-              )}
+              <> {goal}</>
             </GoalsWrapper>
           </GoalsCard>
         )}
