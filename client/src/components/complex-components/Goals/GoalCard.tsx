@@ -18,6 +18,14 @@ type GoalCardType = {
    * Date goal is due
    */
   dueDate: Date;
+  /**
+   * button to navigate and pass state
+   */
+  updateFunction: any;
+  /**
+   * button for deleting goal
+   */
+  deleteFunction: any;
 };
 
 const ResultWrapper = styled.div`
@@ -39,8 +47,8 @@ const ResultWrapper = styled.div`
 
 //TODO: have cover wrapper adjust to image size
 const CoverWrapper = styled.div`
-  width: 18rem;
-  height: 27rem;
+  width: 15rem;
+  height: 24rem;
   background-color: ${COLORS.PURPLE_DARK};
   border: 3px solid ${COLORS.PURPLE_MID};
   overflow-y: hidden;
@@ -50,13 +58,25 @@ const CoverWrapper = styled.div`
   margin-block-start: 0.5rem;
 `;
 
-export const GoalCard = ({ bookTitle, bookCover, dueDate }: GoalCardType) => {
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+export const GoalCard = ({
+  bookTitle,
+  bookCover,
+  dueDate,
+  updateFunction,
+  deleteFunction,
+}: GoalCardType) => {
   const navigate = useNavigate();
   return (
     <ResultWrapper className="book-card">
       <CoverWrapper>
         <img
-          style={{ maxWidth: '100%' }}
+          style={{ maxWidth: '100%', height: '100%' }}
           src={bookCover}
           alt={bookTitle + ' book cover'}
         />
@@ -67,13 +87,10 @@ export const GoalCard = ({ bookTitle, bookCover, dueDate }: GoalCardType) => {
       <P>
         Days left: <b>{NumberOfDaysUntilDate(dueDate)}</b>
       </P>
-      <SmallRoundedButton
-        onClick={() => {
-          navigate('/update-goal');
-        }}
-      >
-        Update
-      </SmallRoundedButton>
+      <ButtonWrapper>
+        <>{updateFunction}</>
+        <>{deleteFunction}</>
+      </ButtonWrapper>
     </ResultWrapper>
   );
 };

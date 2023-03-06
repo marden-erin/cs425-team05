@@ -50,6 +50,10 @@ type PageSliderType = {
    * The maximum number of pages
    */
   max: number;
+
+  sliderValue: number;
+
+  setSliderValue: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const SliderWrapper = styled.div`
@@ -87,9 +91,14 @@ const SliderWrapper = styled.div`
   }
 `;
 
-const PageSlider = ({ label, min = 0, max }: PageSliderType) => {
+const PageSlider = ({
+  label,
+  min = 0,
+  max,
+  sliderValue,
+  setSliderValue,
+}: PageSliderType) => {
   const labelWithDashes = label.replace(/\s+/g, '-').toLowerCase();
-  const [sliderValue, setSliderValue] = useState(min);
   const [inputValue, setInputValue] = useState(min);
 
   const onInputChange = (value: any) => {

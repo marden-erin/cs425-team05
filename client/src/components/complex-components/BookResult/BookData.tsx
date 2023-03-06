@@ -6,6 +6,7 @@ import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 import { LargeBookCard, SmallBookCard } from '.';
 import { FilterDropdown } from '../SearchBar';
 import { ClusterDropDown } from '../Clusters';
+import { CreateGoalButton } from '../Goals';
 
 const ResultsCard = styled.div`
   width: 50rem;
@@ -69,15 +70,17 @@ function BookData(props: any) {
   const [t, setT] = useState('');
   const [a, setA] = useState<any>();
   const [d, setD] = useState('');
-  const [c, setC] = useState('');
+  const [c, setC] = useState<string>('');
+  const [p, setP] = useState<number>(0);
   const [dropBook, setDropBook] = useState({} as Book);
   useEffect(() => {
     setT(title);
     setA(authors);
     setD(description);
     setC(cover);
+    setP(pageCount);
     setDropBook(props.book);
-  }, [title, authors, description, cover, props.book]);
+  }, [title, authors, description, cover, pageCount, props.book]);
 
   const handleClick = (
     title: string,
@@ -91,8 +94,16 @@ function BookData(props: any) {
     setA(author);
     setD(props.allBooks[index].description);
     setC(cover);
+    setP(pageCount);
     setDropBook(props.allBooks[index]);
     setSelectedElement(index);
+  };
+  let propsToGoalPage = {
+    cover: c,
+    pageCount: p,
+    author: [a],
+    description: d,
+    title: t,
   };
   return (
     <>
@@ -138,7 +149,7 @@ function BookData(props: any) {
                           authorName={author}
                           bookCover={
                             <img
-                              style={{ maxWidth: '100%' }}
+                              style={{ maxWidth: '100%', height: '100%' }}
                               src={cover}
                               alt={title + ' book cover'}
                             />
@@ -160,12 +171,15 @@ function BookData(props: any) {
             bookCover={
               <img
                 src={c}
-                style={{ maxWidth: '100%' }}
+                style={{ maxWidth: '100%', height: '100%' }}
                 alt={t + ' book cover'}
               />
             }
             description={d}
-            tempFunction={<ClusterDropDown>{dropBook}</ClusterDropDown>}
+            AddClusterFunction={<ClusterDropDown>{dropBook}</ClusterDropDown>}
+            CreateGoalFunction={
+              <CreateGoalButton {...propsToGoalPage}></CreateGoalButton>
+            }
           />
         </GridWrapper>
       </div>
