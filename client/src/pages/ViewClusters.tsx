@@ -76,7 +76,7 @@ const ClusterName = styled.h2`
   font-size: 4rem;
   line-height: 2.5rem;
   text-align: center;
-  color: ${COLORS.WHITE};
+  color: ${COLORS.PURPLE_DARK};
   text-align: left;
   margin-top: 10px;
 `;
@@ -84,7 +84,6 @@ const ClusterName = styled.h2`
 const NameWrapper = styled.div`
   display: flex;
   border-radius: 5px;
-  background: ${GRADIENTS.PURPLE};
   padding: 10px 5px 15px 10px;
 `;
 const ScrollableDiv = styled.div`
