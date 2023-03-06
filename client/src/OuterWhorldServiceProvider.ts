@@ -394,7 +394,7 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-
+    
     return data;
   }
 

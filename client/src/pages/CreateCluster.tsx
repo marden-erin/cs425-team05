@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useAuthUser } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
 import { H1, H2, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
@@ -134,11 +136,10 @@ const ContentWrapper = styled.div`
 
 function CreateCluster() {
   const auth = useAuthUser();
-
+  const navigate = useNavigate();
   const userName = auth()?.username;
   const [input, setInput] = useState('');
   const [visibility, setVisibilty] = useState(false);
-  const [outPut, setOutput] = useState('');
 
   const loadData = async (e: any) => {
     e.preventDefault();
@@ -148,7 +149,7 @@ function CreateCluster() {
       visibility
     );
     console.log(create);
-    setOutput(create);
+    navigate('/view-clusters');
   };
 
   return (
@@ -203,7 +204,6 @@ function CreateCluster() {
                   </InputBarWrapper>
                 </form>{' '}
               </QuestionWrapper>
-              <OutPut>{outPut}</OutPut>
             </ClusterBox>
           </ContentWrapper>
         </ClusterBoxWrapper>

@@ -149,7 +149,7 @@ function BookData(props: any) {
                           authorName={author}
                           bookCover={
                             <img
-                              style={{ maxWidth: '100%' }}
+                              style={{ maxWidth: '100%', height: '100%' }}
                               src={cover}
                               alt={title + ' book cover'}
                             />
@@ -171,7 +171,7 @@ function BookData(props: any) {
             bookCover={
               <img
                 src={c}
-                style={{ maxWidth: '100%' }}
+                style={{ maxWidth: '100%', height: '100%' }}
                 alt={t + ' book cover'}
               />
             }

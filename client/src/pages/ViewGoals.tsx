@@ -1,50 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { COLORS } from '../constants';
 import styled from 'styled-components';
-import { PageWrapper } from '../components';
+import { CreateUpdateButton, PageWrapper } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { GetSnailImg, GetSnailStatusText } from '../utils';
 import { ScrollBarStyle } from '../constants';
-import { GoalCard, H2, LargeRoundedButton, P, H1 } from '../components';
+import {
+  GoalCard,
+  H2,
+  LargeRoundedButton,
+  P,
+  SmallRoundedButton,
+} from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
 import { FaYCombinator } from 'react-icons/fa';
-
-// TODO: Replace with actual goals
-const placeholderCover =
-  'https://i.pinimg.com/originals/a1/f8/87/a1f88733921c820db477d054fe96afbb.jpg';
-const PlaceholderGoalInfo = [
-  {
-    bookTitle: 'title',
-    bookCover: placeholderCover,
-    dueDate: new Date(),
-  },
-  {
-    bookTitle: 'title',
-    bookCover: placeholderCover,
-    dueDate: new Date(),
-  },
-  {
-    bookTitle: 'title',
-    bookCover: placeholderCover,
-    dueDate: new Date(),
-  },
-  {
-    bookTitle: 'title',
-    bookCover: placeholderCover,
-    dueDate: new Date(),
-  },
-  {
-    bookTitle: 'title',
-    bookCover: placeholderCover,
-    dueDate: new Date(),
-  },
-  {
-    bookTitle: 'title',
-    bookCover: placeholderCover,
-    dueDate: new Date(),
-  },
-];
 
 const FlexWrapper = styled.div`
   height: 75vh;
@@ -111,6 +81,7 @@ function ViewGoals(this: any) {
   const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
   const [snailImage, setSnailImage] = useState('');
+  const [snailColor, setSnailColor] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
   const [allGoals, setAllGoals] = useState();
   const [indGoals, setIndGoals] = useState<any>([]);
@@ -118,28 +89,25 @@ function ViewGoals(this: any) {
   const goalID: any = [];
   let noDuplicatesID: number[];
   const goalArray: any[] = [];
+  let snailInfo: any;
   useEffect(() => {
     const loadData = async () => {
-      const snailInfo = await OWServiceProvider.getSnailInfo(username);
-      console.log(snailInfo);
+      snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
+      setSnailColor(snailInfo.color);
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
       //TODO: Set snail health
       temp = await OWServiceProvider.getAllGoals(username);
-      // console.log("here");
-      // console.log(temp)
+
       setAllGoals(temp);
-      // console.log(allGoals);
       const getID = temp.map((x: any) => {
         var y: number = +x.goal_id;
         goalID.push(y);
       });
       //above map out puts duplicate of every goal_id
       //noDuplicatesID removes these
-
       noDuplicatesID = Array.from(new Set(goalID));
-      console.log(noDuplicatesID);
       for (const i of noDuplicatesID) {
         goalArray.push(await OWServiceProvider.getGoal(username, i));
       }
@@ -148,23 +116,71 @@ function ViewGoals(this: any) {
     loadData();
   }, []);
 
-  const [book, setBook] = useState<any>([]);
-  const bookArray: any[] = [];
+  const handleUpdate = (e: any) => {
+    return (
+      <SmallRoundedButton
+        onClick={() => navigate('/update-goal', { state: e })}
+      ></SmallRoundedButton>
+    );
+  };
 
+  const handleDelete = async (e: any) => {
+    const goalDelete = await OWServiceProvider.deleteGoal(e);
+  };
+  const deleteGoal = (t: any) => {
+    return (
+      <SmallRoundedButton
+        onClick={() => {
+          const confirmBox = window.confirm(
+            'Do you really want to delete this goal?'
+          );
+          if (confirmBox === true) {
+            handleDelete(t);
+            window.location.reload();
+          }
+        }}
+      >
+        Delete Goal
+      </SmallRoundedButton>
+    );
+  };
+
+  let propsToGoalPage;
   const goal = indGoals.map((x: any, i: any) => {
     const tempDate = new Date(x.deadline);
     const tempImg = x.foundBook.cover;
+    const tempID = x.goal_id;
+    const numberID = parseInt(tempID);
+    const tempTotalPage = x.foundBook.pageCount;
+    const tempAuthor = x.foundBook.authors;
+    const tempDes = x.foundBook.description;
+    const tempTitle = x.foundBook.title;
+    const tempRead = x.goal_pageCount;
+
+    propsToGoalPage = {
+      cover: tempImg,
+      pageCount: tempTotalPage,
+      author: [tempAuthor],
+      description: tempDes,
+      title: tempTitle,
+      goalID: tempID,
+      deadline: tempDate.toLocaleDateString(),
+      pagesRead: tempRead,
+    };
     return (
       <div key={i}>
         <GoalCard
-          bookTitle={x.foundBook.title}
-          bookCover={x.foundBook.cover}
+          bookTitle={tempTitle}
+          bookCover={tempImg}
           dueDate={tempDate}
+          updateFunction={
+            <CreateUpdateButton {...propsToGoalPage}></CreateUpdateButton>
+          }
+          deleteFunction={deleteGoal(numberID)}
         />
       </div>
     );
   });
-  console.log(bookArray);
 
   return (
     <PageWrapper pageTitle="Goals" header="Goals">
@@ -191,6 +207,7 @@ function ViewGoals(this: any) {
               value="3"
               onChange={() => {
                 setSnailHealth(3);
+                setSnailImage(GetSnailImg(snailColor, 3));
               }}
             />
             <label htmlFor="html">3</label>
@@ -201,6 +218,7 @@ function ViewGoals(this: any) {
               value="2"
               onChange={() => {
                 setSnailHealth(2);
+                setSnailImage(GetSnailImg(snailColor, 2));
               }}
             />
             <label htmlFor="css">2</label>
@@ -211,6 +229,7 @@ function ViewGoals(this: any) {
               value="1"
               onChange={() => {
                 setSnailHealth(1);
+                setSnailImage(GetSnailImg(snailColor, 1));
               }}
             />
             <label htmlFor="javascript">1</label>
@@ -221,6 +240,7 @@ function ViewGoals(this: any) {
               value="0"
               onChange={() => {
                 setSnailHealth(0);
+                setSnailImage(GetSnailImg(snailColor, 0));
               }}
             />
             <label htmlFor="javascript">0</label>

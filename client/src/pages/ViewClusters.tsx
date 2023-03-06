@@ -255,7 +255,6 @@ function ViewClusters() {
 
   useEffect(() => {
     const loadData = async () => {
-      console.log('IN');
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         username
       );
@@ -285,12 +284,10 @@ function ViewClusters() {
       newName,
       visibility
     );
-    console.log(update);
     const temp = { toggleIsModalOpen };
   };
 
   const handleDeleteBook = async (e: any) => {
-    console.log('HERE');
     const deleteBook = await OWServiceProvider.deleteBookFromCluster(
       tempCluster,
       username,
@@ -449,7 +446,7 @@ function ViewClusters() {
                         <Img>
                           <img
                             src={t.cover}
-                            style={{ maxWidth: '100%' }}
+                            style={{ maxWidth: '100%', height: '100%' }}
                             alt={t.title + ' book cover'}
                           />
                         </Img>
@@ -468,7 +465,7 @@ function ViewClusters() {
                             bookCover={
                               <img
                                 src={modalCover}
-                                style={{ maxWidth: '100%' }}
+                                style={{ maxWidth: '100%', height: '100%' }}
                                 alt={modalBooks + ' cover'}
                               />
                             }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import { useLocation } from 'react-router-dom';
@@ -12,7 +12,8 @@ import {
   PageWrapper,
 } from '../components';
 import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../constants';
-import { NumberOfDaysUntilDate } from '../utils';
+
+import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
 import SnailImage from '../imgs/snails/yellow-default.png'; // TODO: Change to utility function once other PR merged
 import { useNavigate } from 'react-router-dom';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
@@ -120,7 +121,6 @@ function CreateGoal() {
   const username: string = auth()?.username;
 
   const navigate = useNavigate();
-  const snailName = 'Snailosaurus'; // TODO: Get name from API
   const [startDate, setStartDate] = useState(new Date());
   startDate.setDate(startDate.getDate() + 1);
   const tempStart = startDate.toDateString();
@@ -141,6 +141,9 @@ function CreateGoal() {
   const t = title.toString();
   const d = description.toString();
   const a = author.toString();
+  const [snailName, setSnailName] = useState('');
+  const [snailImage, setSnailImage] = useState('');
+  const [snailHealth, setSnailHealth] = useState(3);
 
   const bookTemp: Book = {
     title: t,
@@ -150,17 +153,27 @@ function CreateGoal() {
     cover: c,
   };
 
+  useEffect(() => {
+    const loadData = async () => {
+      const snailInfo = await OWServiceProvider.getSnailInfo(username);
+      setSnailName(snailInfo.name);
+
+      // setSnailHealth(snailInfo.health); // TODO
+      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+
+      // TODO: Get goal info
+    };
+    loadData();
+  });
+
   const handleSubmit = async () => {
-    console.log('herere');
     const goal = await OWServiceProvider.createGoal(
       bookTemp,
       username,
       notes,
-      p,
+      0,
       tempStart
     );
-    console.log(goal);
-    console.log('here2');
     navigate('/view-goals');
   };
 
@@ -170,7 +183,13 @@ function CreateGoal() {
         <LargeBookCard
           bookTitle={title}
           authorName={author}
-          bookCover={<img src={cover} alt={title + ' book cover'} />}
+          bookCover={
+            <img
+              src={cover}
+              alt={title + ' book cover'}
+              style={{ maxWidth: '100%', height: '100%' }}
+            />
+          }
           description={description}
           tempFunction=""
           CreateGoalFunction=""
@@ -222,10 +241,10 @@ function CreateGoal() {
           </NotesWrapper>
           <SnailSection>
             <img
-              src={SnailImage}
-              alt="A happy yellow snail"
+              src={snailImage}
+              alt={snailName + ' , a happy'}
               width="190"
-              className="snail animated"
+              className="snail"
             />
             <SnailSectionRightWrapper>
               <P>
