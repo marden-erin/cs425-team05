@@ -164,7 +164,9 @@ function CreateCluster() {
             <ClusterBox>
               <QuestionWrapper>
                 <form onSubmit={loadData}>
-                  <CustomLabel htmlFor='visibility'>Cluster Visibility</CustomLabel>
+                  <CustomLabel htmlFor="visibility">
+                    Cluster Visibility
+                  </CustomLabel>
                   <LargeButtonWrapper>
                     <VisibilityButtonWrapper>
                       <Visibility>
