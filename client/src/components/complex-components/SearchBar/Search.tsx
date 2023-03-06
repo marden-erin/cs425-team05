@@ -13,7 +13,10 @@ export const Search = () => {
   const navigate = useNavigate();
 
   const handleChange = () => {
-    navigate('/search-results', { state: { input } });
+    // Only search if the user actually entered something
+    if (input !== '') {
+      navigate('/search-results', { state: { input } });
+    }
   };
   return (
     <>

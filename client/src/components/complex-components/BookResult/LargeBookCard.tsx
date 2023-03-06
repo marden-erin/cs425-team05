@@ -161,8 +161,6 @@ export const LargeBookCard = ({
           <StarRating rating={3} />
           <AllButtonWrapper>
             <ButtonWrapper>
-              {/* TODO: link set goal page to button
-            TODO: create functionality for reviews */}
               {showButtons && (
                 <>
                   <SmallRoundedButton
@@ -172,6 +170,7 @@ export const LargeBookCard = ({
                   >
                     Set Goal
                   </SmallRoundedButton>
+                  {/* TODO: create functionality for reviews */}
                   <SmallRoundedButton>Add Review</SmallRoundedButton>
                 </>
               )}

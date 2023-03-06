@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLORS } from '../../../constants';
 import { H2, SmallHalfRoundedButton } from '../../simple-components';
@@ -70,6 +71,7 @@ const OutputWrapper = styled.div`
 `;
 
 export const ClusterDropDown = (props: any) => {
+  const navigate = useNavigate();
   const auth = useAuthUser();
   const [bookInfo, setBookInfo] = useState({} as Book);
   const { title, authors, description, pageCount, cover } = props.children;
@@ -117,6 +119,7 @@ export const ClusterDropDown = (props: any) => {
       console.log(clusterInfo);
       setSelected('');
       setOutput(clusterInfo);
+      navigate('/view-clusters');
     };
     addBook();
   };
