@@ -108,7 +108,6 @@ const ImgWrapper = styled.div`
   align-content: center;
   justify-content: center;
   gap: 25px;
-  overflow-x: scroll;
 `;
 const Img = styled.div`
   width: 133.3px;
