@@ -127,7 +127,6 @@ function UpdateGoal() {
   const [snailName, setSnailName] = useState('');
   const [snailImage, setSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
-  const [notes, setNotes] = useState(' ');
 
   const location = useLocation();
 
@@ -140,12 +139,13 @@ function UpdateGoal() {
   const author = location.state.author;
   const description = location.state.description;
   const deadline = location.state.deadline;
-
+  const goalNotes = location.state.goalNotes;
+  const [notes, setNotes] = useState(goalNotes);
   useEffect(() => {
     const loadData = async () => {
+      console.log(notes);
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
-
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
 
@@ -216,6 +216,7 @@ function UpdateGoal() {
           <NotesWrapper>
             <PageSlider
               label="Pages Read"
+              min={pagesRead}
               max={numPagesTotal}
               sliderValue={sliderValue}
               setSliderValue={setSliderValue}

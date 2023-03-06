@@ -18,6 +18,7 @@ export const CreateUpdateButton = (props: any) => {
             goalID: [props.goalID],
             deadline: [props.deadline],
             pagesRead: [props.pagesRead],
+            goalNotes: [props.goalNotes],
           },
         });
       }}

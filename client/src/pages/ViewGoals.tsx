@@ -148,6 +148,7 @@ function ViewGoals(this: any) {
   let propsToGoalPage;
   const goal = indGoals.map((x: any, i: any) => {
     const tempDate = new Date(x.deadline);
+    const tempNotes = x.notes;
     const tempImg = x.foundBook.cover;
     const tempID = x.goal_id;
     const numberID = parseInt(tempID);
@@ -166,6 +167,7 @@ function ViewGoals(this: any) {
       goalID: tempID,
       deadline: tempDate.toLocaleDateString(),
       pagesRead: tempRead,
+      goalNotes: tempNotes,
     };
     return (
       <div key={i}>
