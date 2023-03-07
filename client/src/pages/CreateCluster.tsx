@@ -39,7 +39,7 @@ const SmallHeading = styled(SubTitle)`
 `;
 
 const ClusterBox = styled.div`
-  display:flex;
+  display: flex;
   justify-content: center;
   width: 45rem;
   height: 30rem;
@@ -130,11 +130,7 @@ function CreateCluster() {
 
   const loadData = async (e: any) => {
     e.preventDefault();
-     await OWServiceProvider.createCluster(
-      input,
-      userName,
-      visibility
-    );
+    await OWServiceProvider.createCluster(input, userName, visibility);
     navigate('/view-clusters');
   };
 

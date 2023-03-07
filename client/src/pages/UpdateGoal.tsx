@@ -166,11 +166,7 @@ function UpdateGoal() {
 
   const handleSubmit = async () => {
     const tempPageUpdate: number = +sliderValue;
-    await OWServiceProvider.updateGoal(
-      tempGoalId,
-      notes,
-      tempPageUpdate
-    );
+    await OWServiceProvider.updateGoal(tempGoalId, notes, tempPageUpdate);
     navigate('/view-goals');
   };
 

@@ -167,13 +167,7 @@ function CreateGoal() {
   });
 
   const handleSubmit = async () => {
-    await OWServiceProvider.createGoal(
-      bookTemp,
-      username,
-      notes,
-      0,
-      tempStart
-    );
+    await OWServiceProvider.createGoal(bookTemp, username, notes, 0, tempStart);
     navigate('/view-goals');
   };
 

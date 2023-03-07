@@ -83,21 +83,20 @@ function ViewGoals(this: any) {
   const [snailColor, setSnailColor] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
   const [indGoals, setIndGoals] = useState<any>([]);
-  
+
   useEffect(() => {
     const loadData = async () => {
-      
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-  const goalID: any = [];
-  const goalArray: any[] = [];    //TODO: Set snail health
+      const goalID: any = [];
+      const goalArray: any[] = []; //TODO: Set snail health
       const temp = await OWServiceProvider.getAllGoals(username);
 
       let noDuplicatesID: number[];
-       temp.map((x: any) => {
+      temp.map((x: any) => {
         var y: number = +x.goal_id;
         goalID.push(y);
       });

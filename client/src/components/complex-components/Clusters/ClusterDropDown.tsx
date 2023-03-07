@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLORS } from '../../../constants';
-import {  SmallHalfRoundedButton } from '../../simple-components';
+import { SmallHalfRoundedButton } from '../../simple-components';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 import { render } from '@testing-library/react';
 import { useAuthUser } from 'react-auth-kit';
@@ -56,7 +56,6 @@ const SubmitWrapper = styled.div`
   gap: 15px;
 `;
 
-
 const OutputWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -97,11 +96,7 @@ export const ClusterDropDown = (props: any) => {
     const data = await OWServiceProvider.getBookInfo(title);
 
     const addBook = async () => {
-       await OWServiceProvider.addBookToCluster(
-        tempSelect,
-        username,
-        data[0]
-      );
+      await OWServiceProvider.addBookToCluster(tempSelect, username, data[0]);
 
       setSelected('');
       navigate('/view-clusters');
@@ -136,7 +131,6 @@ export const ClusterDropDown = (props: any) => {
             <SubmitButton type="submit"> Submit</SubmitButton>
           </SubmitWrapper>
         </form>
-
       </OutputWrapper>
     </Wrapper>
   );

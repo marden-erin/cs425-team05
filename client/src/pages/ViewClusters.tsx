@@ -274,7 +274,7 @@ function ViewClusters() {
       }
     };
     loadData();
-  },[]);
+  }, []);
 
   const deleteCluster = async (e: any) => {
     const temp = await OWServiceProvider.deleteCluster(e, username);

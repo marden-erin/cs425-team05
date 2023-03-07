@@ -46,8 +46,6 @@ const ResultWrapper = styled.div<{ $selected?: boolean }>`
   cursor: pointer;
 `;
 
-
-
 const CoverWrapper = styled.div`
   width: 60px;
   display: flex;
