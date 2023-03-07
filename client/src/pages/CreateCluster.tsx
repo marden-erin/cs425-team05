@@ -131,11 +131,9 @@ const ContentWrapper = styled.div`
 function CreateCluster() {
   const auth = useAuthUser();
   const navigate = useNavigate();
-
   const userName = auth()?.username;
   const [input, setInput] = useState('');
   const [visibility, setVisibilty] = useState(false);
-  const [outPut, setOutput] = useState('');
 
   const loadData = async (e: any) => {
     e.preventDefault();
@@ -144,7 +142,6 @@ function CreateCluster() {
       userName,
       visibility
     );
-    setOutput(create);
     navigate('view-clusters');
   };
 
@@ -203,7 +200,6 @@ function CreateCluster() {
                   </InputBarWrapper>
                 </form>{' '}
               </QuestionWrapper>
-              <OutPut>{outPut}</OutPut>
             </ClusterBox>
           </ContentWrapper>
         </ClusterBoxWrapper>

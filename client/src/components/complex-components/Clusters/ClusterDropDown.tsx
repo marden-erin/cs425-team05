@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { COLORS } from '../../../constants';
 import { H2, SmallHalfRoundedButton } from '../../simple-components';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
@@ -73,6 +74,8 @@ const OutputWrapper = styled.div`
 export const ClusterDropDown = (props: any) => {
   const navigate = useNavigate();
   const auth = useAuthUser();
+  const navigate = useNavigate();
+
   const [bookInfo, setBookInfo] = useState({} as Book);
   const { title, authors, description, pageCount, cover } = props.children;
   console.log(title);
@@ -99,15 +102,10 @@ export const ClusterDropDown = (props: any) => {
   let tempSelect: string;
   const loadAddBook = async (e: any) => {
     e.preventDefault();
-    console.log('in loAD');
-    console.log(selected);
     tempSelect = selected;
-    console.log('TEMP SELECT ' + tempSelect);
 
     const data = await OWServiceProvider.getBookInfo(title);
-    console.log('in data');
     setBookInfo(data[0]);
-    console.log(data[0]);
 
     const addBook = async () => {
       const clusterInfo = await OWServiceProvider.addBookToCluster(
@@ -118,7 +116,6 @@ export const ClusterDropDown = (props: any) => {
 
       console.log(clusterInfo);
       setSelected('');
-      setOutput(clusterInfo);
       navigate('/view-clusters');
     };
     addBook();
@@ -126,7 +123,6 @@ export const ClusterDropDown = (props: any) => {
 
   const handleChange = (e: any) => {
     let newSelect = e.target.value;
-    console.log('MADE IT INTO HERE');
     setSelected(newSelect);
     console.log(selected);
     render(<>{selected}</>);
@@ -141,7 +137,7 @@ export const ClusterDropDown = (props: any) => {
               <Select
                 onChange={handleChange}
                 name="Add to Cluster"
-                id="Add to Cluster"
+                id="Add-to-Cluster"
               >
                 <option value={''}>Add to Cluster</option>
                 {cluster.map((item) => (

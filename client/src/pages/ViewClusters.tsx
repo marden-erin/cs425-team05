@@ -27,6 +27,7 @@ import {
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
 import { useAuthUser } from 'react-auth-kit';
+import { CreateGoalButton } from './../components/complex-components/Goals';
 
 const FlexBoxWrapper = styled.div<{
   $isModalOpen: boolean;
@@ -78,7 +79,6 @@ const ClusterName = styled.h2`
   text-align: center;
   color: ${COLORS.PURPLE_DARK};
   text-align: left;
-  margin-top: 10px;
 `;
 
 const NameWrapper = styled.div`
@@ -90,6 +90,7 @@ const ScrollableDiv = styled.div`
   height: 27rem;
   width: 75rem;
   padding: 3rem;
+  margin-top: 5px;
   background-color: ${COLORS.PURPLE_LIGHT};
   overflow-y: hidden;
   overflow-x: scroll;
@@ -97,8 +98,8 @@ const ScrollableDiv = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  padding: 15px;
-  margin-top: -25px;
+  padding: 10px;
+  margin-top: -20px;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
   border-radius: 5px;
@@ -106,6 +107,7 @@ const ImgWrapper = styled.div`
   min-width: 100%;
   min-height: 100%;
   align-content: center;
+  align-items: center;
   justify-content: center;
   gap: 25px;
 `;
@@ -128,7 +130,6 @@ const Title = styled.h2`
   font-size: 1.6rem;
   line-height: 2rem;
   color: ${COLORS.PURPLE_DARK};
-  margin-left: -20px;
   overflow: hidden;
   white-space: normal;
   width: 180px;
@@ -253,13 +254,10 @@ function ViewClusters() {
 
   ReactModal.setAppElement('*');
 
-  let newArray: any;
-
   const username = auth()?.username;
 
   useEffect(() => {
     const loadData = async () => {
-      console.log('IN');
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         username
       );
@@ -289,12 +287,10 @@ function ViewClusters() {
       newName,
       visibility
     );
-    console.log(update);
     const temp = { toggleIsModalOpen };
   };
 
   const handleDeleteBook = async (e: any) => {
-    console.log('HERE');
     const deleteBook = await OWServiceProvider.deleteBookFromCluster(
       tempCluster,
       username,
@@ -311,6 +307,13 @@ function ViewClusters() {
       cover: e,
     };
     setCardBooks(bookTemp);
+  };
+  let propsToGoalPage = {
+    cover: modalCover,
+    pageCount: modalPage,
+    author: [modalAuthors],
+    description: modalDes,
+    title: modalBooks,
   };
   const temp2 = clusterBooks.map((item: any, index: any) => {
     return (
@@ -446,7 +449,7 @@ function ViewClusters() {
                         <Img>
                           <img
                             src={t.cover}
-                            style={{ maxWidth: '100%' }}
+                            style={{ maxWidth: '100%', height: '100%' }}
                             alt={t.title + ' book cover'}
                           />
                         </Img>
@@ -465,11 +468,18 @@ function ViewClusters() {
                             bookCover={
                               <img
                                 src={modalCover}
-                                style={{ maxWidth: '100%' }}
+                                style={{ maxWidth: '100%', height: '100%' }}
                                 alt={modalBooks + ' cover'}
                               />
                             }
                             description={modalDes}
+                            AddClusterFunction=""
+                            CreateGoalFunction={
+                              <CreateGoalButton
+                                {...propsToGoalPage}
+                              ></CreateGoalButton>
+                            }
+                            showButtons={true}
                             tempFunction={
                               <DeleteWrapper>
                                 <SmallRoundedButton

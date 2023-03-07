@@ -11,7 +11,7 @@ const getGoal = asyncHandler(async (req: Request, res: Response) => {
 		let query = `select * from Goals where goal_id="${goalID}"`;
 		const [goal]: any[] = await db.promise().query(query);
 		if (goal.length > 0) {
-			const { goal_id, book_id, notes } = goal[0];
+			const { goal_id, book_id, notes, pageCount: goal_pageCount , deadline } = goal[0];
 
 			query = `select * from Books where book_id=${book_id}`;
 			const [book]: any[] = await db.promise().query(query);
@@ -32,6 +32,8 @@ const getGoal = asyncHandler(async (req: Request, res: Response) => {
 			const returnedObject = {
 				goal_id,
 				notes,
+				goal_pageCount,
+				deadline,
 				foundBook,
 			};
 
@@ -65,7 +67,7 @@ const getAllGoals = asyncHandler(async (req: Request, res: Response) => {
 		const response: any[] = [];
 
 		for (const goal of goals) {
-			const { goal_id, book_id, user_id, notes } = goal;
+			const { goal_id, book_id, notes , pageCount: goal_pageCount, deadline } = goal;
 
 			query = `select * from Books where book_id=${book_id}`;
 			const [book]: any[] = await db.promise().query(query);
@@ -86,6 +88,8 @@ const getAllGoals = asyncHandler(async (req: Request, res: Response) => {
 			const returnedObject = {
 				goal_id,
 				notes,
+				goal_pageCount, 
+				deadline,
 				foundBook,
 			};
 
@@ -100,8 +104,8 @@ const getAllGoals = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const addGoal = asyncHandler(async (req: Request, res: Response) => {
-	const { book, userName, notes } = req.body;
-	if (book && userName) {
+	const { book, userName, notes, pageCount: goalPageCount, deadline } = req.body;
+	if (book && userName && deadline) {
 		const { title, pageCount, cover } = book;
 		const filteredUserName = userName.replace(/"/g, "''");
 		const filteredTitle = (title as string).replace(/"/g, "''");
@@ -114,29 +118,29 @@ const addGoal = asyncHandler(async (req: Request, res: Response) => {
 		const [returnedBook]: any[] = await db.promise().query(query);
 		const { book_id } = returnedBook[0];
 
-		query = `insert into Goals(goal_id, book_id, user_id, notes) values(DEFAULT, "${book_id}", "${user_id}", "${notes}");`;
+		query = `insert into Goals(goal_id, book_id, user_id, notes, pageCount, deadline) values(DEFAULT, "${book_id}", "${user_id}", "${notes}", "${goalPageCount}", "${deadline}");`;
 		await db.promise().query(query);
 
 		res.status(HTTPStatus.OK).json("Successfully added goal");
 	} else {
 		const errMsg =
-			"Error, Missing one or more required params (book, userName)";
+			"Error, Missing one or more required params (book, userName, pageCount, deadline)";
 		res.status(HTTPStatus.BAD).json(errMsg);
 		throw new Error(errMsg);
 	}
 });
 
 const updateGoal = asyncHandler(async (req: Request, res: Response) => {
-	const { goalID, notes } = req.body;
+	const { goalID, notes, pageCount } = req.body;
 
-	if (goalID && notes) {
-		const query = `update Goals set notes="${notes}" where goal_id=${goalID}`;
+	if (goalID && notes && pageCount) {
+		const query = `update Goals set notes="${notes}", pageCount="${pageCount}" where goal_id=${goalID}`;
 		await db.promise().query(query);
 
 		res.status(HTTPStatus.OK).json("Successfully updated goal");
 	} else {
 		const errMsg =
-			"Error, Missing one or more required params (goal id, notes)";
+			"Error, Missing one or more required params (goal id, notes, pageCount)";
 		res.status(HTTPStatus.BAD).json(errMsg);
 		throw new Error(errMsg);
 	}

@@ -237,12 +237,14 @@ class OuterWhorldServiceProvider {
   async updateSnailInfo(
     userName: string,
     snailName: string,
-    snailColor: string
+    snailColor: string,
+    snailHealth: number
   ) {
     const input = {
       userName,
       snailName,
       snailColor,
+      snailHealth,
     };
 
     const res = await fetch(`/api/snails`, {
@@ -318,7 +320,6 @@ class OuterWhorldServiceProvider {
     const res = await fetch(`/api/goals/${userName}/${goalID}`);
 
     const data = await res.json();
-
     return data;
   }
 
@@ -337,13 +338,23 @@ class OuterWhorldServiceProvider {
   @param book
   @param userName
   @param notes - optional with default value being empty string
+  @param pageCount - current page user is on (on creation it should be 0)
+  @param deadline - deadline date stringified
   @returns success or failure
   */
-  async createGoal(book: Book, userName: string, notes: string = '') {
+  async createGoal(
+    book: Book,
+    userName: string,
+    notes: string = '',
+    pageCount: number,
+    deadline: string
+  ) {
     const input = {
       book,
       userName,
       notes,
+      pageCount,
+      deadline,
     };
 
     const res = await fetch(`/api/goals`, {
@@ -356,18 +367,21 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-
+    console.log(userName);
+    console.log(book);
     return data;
   }
   /*
   @param goalID
   @param notes
+  @param pageCount - current page user is on
   @returns success or failure
   */
-  async updateGoal(goalID: number, notes: string) {
+  async updateGoal(goalID: number, notes: string, pageCount: number) {
     const input = {
       goalID,
       notes,
+      pageCount,
     };
 
     const res = await fetch(`/api/goals`, {

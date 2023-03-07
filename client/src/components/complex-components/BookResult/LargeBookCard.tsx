@@ -9,7 +9,6 @@ import {
 } from '../../../constants';
 import { SmallRoundedButton, P } from '../../simple-components';
 import { StarRating } from '../Reviews';
-import SmallBookCard from './SmallBookCard';
 
 type LargeBookCardType = {
   /**
@@ -32,10 +31,14 @@ type LargeBookCardType = {
   /**
    *
    */
-  tempFunction: any;
+  AddClusterFunction: any;
+  CreateGoalFunction: any;
+  tempFunction?: any;
   /**
    * Whether to display buttons like "Set Goal" or "Add Review"
    */
+  pageCount?: number;
+
   showButtons?: boolean;
 };
 
@@ -147,7 +150,10 @@ export const LargeBookCard = ({
   authorName,
   bookCover,
   description,
+  AddClusterFunction,
+  CreateGoalFunction,
   tempFunction,
+  pageCount,
   showButtons = true,
 }: LargeBookCardType) => {
   const navigate = useNavigate();
@@ -163,19 +169,16 @@ export const LargeBookCard = ({
             <ButtonWrapper>
               {showButtons && (
                 <>
-                  <SmallRoundedButton
-                    onClick={() => {
-                      navigate('/create-goal');
-                    }}
-                  >
-                    Set Goal
-                  </SmallRoundedButton>
-                  {/* TODO: create functionality for reviews */}
+                  <>{CreateGoalFunction}</>
                   <SmallRoundedButton>Add Review</SmallRoundedButton>
                 </>
               )}
             </ButtonWrapper>
-            <DropWrapper> {tempFunction}</DropWrapper>
+            <DropWrapper>
+              {' '}
+              {tempFunction}
+              {AddClusterFunction}
+            </DropWrapper>
           </AllButtonWrapper>
         </InfoWrapper>
       </TopWrapper>
