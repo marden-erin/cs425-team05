@@ -14,6 +14,10 @@ import YellowStarvingSnail from '../imgs/snails/yellow-starving.png';
 import BlueShell from '../imgs/snails/blue-shell.png';
 import PinkShell from '../imgs/snails/pink-shell.png';
 import YellowShell from '../imgs/snails/yellow-shell.png';
+// Eating Images
+import BlueEatingSnail from '../imgs/snails/blue-eating.png';
+import PinkEatingSnail from '../imgs/snails/pink-eating.png';
+import YellowEatingSnail from '../imgs/snails/yellow-eating.png';
 
 function GetSnailImg(snailColor: string, snailHealth?: Number) {
   const capitalizedColor =
@@ -27,6 +31,19 @@ function GetSnailImg(snailColor: string, snailHealth?: Number) {
   } else {
     return GetDefaultImg(capitalizedColor);
   }
+}
+
+function GetEatingSnailImg(snailColor: string) {
+  const capitalizedColor =
+    snailColor.charAt(0).toUpperCase() + snailColor.slice(1).toLowerCase(); // Ensure consistent capitalization
+    if (capitalizedColor === 'Blue') {
+      return BlueEatingSnail;
+    } else if (capitalizedColor === 'Pink') {
+      return PinkEatingSnail;
+    } else {
+      // Fallback
+      return YellowEatingSnail;
+    }
 }
 
 function GetDefaultImg(capitalizedColor: string) {
@@ -86,4 +103,4 @@ function GetSnailStatusText(snailHealth: Number) {
   }
 }
 
-export { GetSnailImg, GetSnailStatusText };
+export { GetSnailImg, GetEatingSnailImg, GetSnailStatusText };
