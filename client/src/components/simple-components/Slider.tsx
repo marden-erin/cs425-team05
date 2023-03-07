@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { COLORS, FONTS_MAIN } from '../../constants';
 import { Label } from './TextComponents';

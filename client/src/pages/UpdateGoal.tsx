@@ -166,7 +166,7 @@ function UpdateGoal() {
 
   const handleSubmit = async () => {
     const tempPageUpdate: number = +sliderValue;
-    const update = await OWServiceProvider.updateGoal(
+    await OWServiceProvider.updateGoal(
       tempGoalId,
       notes,
       tempPageUpdate

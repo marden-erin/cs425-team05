@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLORS } from '../../../constants';
-import { H2, SmallHalfRoundedButton } from '../../simple-components';
+import {  SmallHalfRoundedButton } from '../../simple-components';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
-import { Book } from '../../../../../server/src/utils/Types';
 import { render } from '@testing-library/react';
 import { useAuthUser } from 'react-auth-kit';
 
@@ -56,12 +55,7 @@ const SubmitWrapper = styled.div`
   margin-left: 13%;
   gap: 15px;
 `;
-const OutPut = styled(H2)`
-  font-size: 1.5rem;
-  font-weight: 100;
-  color: ${COLORS.PURPLE_MID};
-  margin-top: 8%;
-`;
+
 
 const OutputWrapper = styled.div`
   display: flex;
@@ -74,10 +68,8 @@ export const ClusterDropDown = (props: any) => {
   const navigate = useNavigate();
   const auth = useAuthUser();
 
-  const [bookInfo, setBookInfo] = useState({} as Book);
-  const { title, authors, description, pageCount, cover } = props.children;
+  const { title } = props.children;
   console.log(title);
-  const [output, setOutput] = useState('');
 
   const [cluster, setCluster] = useState([
     { cluster_id: ' ', clusterName: ' ', user_id: '', visibility: '' },
@@ -94,7 +86,7 @@ export const ClusterDropDown = (props: any) => {
       setCluster(clusterInfo);
     };
     loadData();
-  }, []);
+  });
 
   //set selected cluster when clicked then load and add book to chosen cluster
   let tempSelect: string;
@@ -103,10 +95,9 @@ export const ClusterDropDown = (props: any) => {
     tempSelect = selected;
 
     const data = await OWServiceProvider.getBookInfo(title);
-    setBookInfo(data[0]);
 
     const addBook = async () => {
-      const clusterInfo = await OWServiceProvider.addBookToCluster(
+       await OWServiceProvider.addBookToCluster(
         tempSelect,
         username,
         data[0]
@@ -146,7 +137,6 @@ export const ClusterDropDown = (props: any) => {
           </SubmitWrapper>
         </form>
 
-        <OutPut>{output}</OutPut>
       </OutputWrapper>
     </Wrapper>
   );

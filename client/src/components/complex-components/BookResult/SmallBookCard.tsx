@@ -46,21 +46,7 @@ const ResultWrapper = styled.div<{ $selected?: boolean }>`
   cursor: pointer;
 `;
 
-const Input = styled.input`
-  position: absolute;
-  width: 20rem;
-  height: 10rem;
-  opacity: 0;
 
-  :hover {
-    cursor: pointer;
-  }
-
-  :hover + .book-card {
-    background-color: ${COLORS.PURPLE_LIGHT};
-    border: 4px solid ${COLORS.PURPLE_MID};
-  }
-`;
 
 const CoverWrapper = styled.div`
   width: 60px;

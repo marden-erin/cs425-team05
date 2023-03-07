@@ -134,7 +134,7 @@ export const NavBar = () => {
   const handleSignOut = async () => {
     const username = auth()?.username;
     const date = new Date().toString();
-    const res = await OWServiceProvider.signOutUser(username, date);
+    await OWServiceProvider.signOutUser(username, date);
     signOut();
     navigate('/');
   };

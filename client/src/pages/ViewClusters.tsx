@@ -1,7 +1,6 @@
 //Erin TODO: Format and show all clusters made
 
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import ReactModal from 'react-modal';
 import {
@@ -9,13 +8,12 @@ import {
   FONTS_MAIN,
   FONTS_SECONDARY,
   ScrollBarStyle,
-  GRADIENTS,
 } from '../constants';
 import {
   PageWrapper,
   H1,
   Box,
-  Box_Wrapper,
+  BoxWrapper,
   Label,
   CloseButton,
   H2,
@@ -276,7 +274,7 @@ function ViewClusters() {
       }
     };
     loadData();
-  }, []);
+  },[]);
 
   const deleteCluster = async (e: any) => {
     const temp = await OWServiceProvider.deleteCluster(e, username);
@@ -284,7 +282,7 @@ function ViewClusters() {
   };
 
   const handleUpdate = async (e: any) => {
-    const update = await OWServiceProvider.updateClusterInformation(
+    await OWServiceProvider.updateClusterInformation(
       e,
       username,
       newName,
@@ -321,7 +319,7 @@ function ViewClusters() {
   const temp2 = clusterBooks.map((item: any, index: any) => {
     return (
       <div key={index}>
-        <Box_Wrapper>
+        <BoxWrapper>
           <ClusterBox>
             <NameWrapper>
               <ClusterName> {item.clusterName}</ClusterName>
@@ -512,7 +510,7 @@ function ViewClusters() {
               </ImgWrapper>{' '}
             </ScrollableDiv>
           </ClusterBox>
-        </Box_Wrapper>
+        </BoxWrapper>
       </div>
     );
   });

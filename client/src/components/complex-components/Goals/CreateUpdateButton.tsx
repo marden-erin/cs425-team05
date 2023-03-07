@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { SmallRoundedButton } from '../../simple-components';
 import { useNavigate } from 'react-router-dom';
 

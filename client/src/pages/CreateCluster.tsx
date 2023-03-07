@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { H1, H2, Label, P, PageWrapper, SubTitle } from '../components';
+import { H1, Label, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import {
   SmallHalfRoundedButton,
@@ -39,7 +39,9 @@ const SmallHeading = styled(SubTitle)`
 `;
 
 const ClusterBox = styled.div`
-  width: 60rem;
+  display:flex;
+  justify-content: center;
+  width: 45rem;
   height: 30rem;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   border-radius: 22px;
@@ -58,15 +60,6 @@ const LargeButtonWrapper = styled.div`
   height: 100px;
   align-items: center;
   gap: 200px;
-`;
-
-const OutPut = styled(H2)`
-  font-size: 2rem;
-  font-weight: 200;
-  color: ${COLORS.PURPLE_DARK};
-  padding: 4rem;
-
-  text-align: center;
 `;
 
 const CustomLabel = styled(Label)`
@@ -137,12 +130,12 @@ function CreateCluster() {
 
   const loadData = async (e: any) => {
     e.preventDefault();
-    const create = await OWServiceProvider.createCluster(
+     await OWServiceProvider.createCluster(
       input,
       userName,
       visibility
     );
-    navigate('view-clusters');
+    navigate('/view-clusters');
   };
 
   return (

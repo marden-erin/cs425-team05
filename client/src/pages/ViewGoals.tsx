@@ -14,7 +14,6 @@ import {
 } from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
-import { FaYCombinator } from 'react-icons/fa';
 
 const FlexWrapper = styled.div`
   height: 75vh;
@@ -83,25 +82,22 @@ function ViewGoals(this: any) {
   const [snailImage, setSnailImage] = useState('');
   const [snailColor, setSnailColor] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
-  const [allGoals, setAllGoals] = useState();
   const [indGoals, setIndGoals] = useState<any>([]);
-  let temp: any;
-  const goalID: any = [];
-  let noDuplicatesID: number[];
-  const goalArray: any[] = [];
-  let snailInfo: any;
+  
   useEffect(() => {
     const loadData = async () => {
-      snailInfo = await OWServiceProvider.getSnailInfo(username);
+      
+      const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-      //TODO: Set snail health
-      temp = await OWServiceProvider.getAllGoals(username);
+  const goalID: any = [];
+  const goalArray: any[] = [];    //TODO: Set snail health
+      const temp = await OWServiceProvider.getAllGoals(username);
 
-      setAllGoals(temp);
-      const getID = temp.map((x: any) => {
+      let noDuplicatesID: number[];
+       temp.map((x: any) => {
         var y: number = +x.goal_id;
         goalID.push(y);
       });

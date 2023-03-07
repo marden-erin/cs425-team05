@@ -126,7 +126,6 @@ function CreateGoal() {
   const [startDate, setStartDate] = useState(twoWeeksAhead); // Set start date to be two weeks ahead by default
   const [numDays, setNumDays] = useState(14); // Two weeks = 14 days
   const tempStart = startDate.toDateString();
-  const [cardBook, setCardBook] = useState({} as Book);
   const [notes, setNotes] = useState('');
 
   const location = useLocation();
@@ -168,7 +167,7 @@ function CreateGoal() {
   });
 
   const handleSubmit = async () => {
-    const goal = await OWServiceProvider.createGoal(
+    await OWServiceProvider.createGoal(
       bookTemp,
       username,
       notes,

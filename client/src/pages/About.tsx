@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import {
   H1,
   H2,
@@ -7,7 +7,7 @@ import {
   PageWrapper,
   SubTitle,
   Box,
-  Box_Wrapper,
+  BoxWrapper,
 } from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
@@ -83,7 +83,7 @@ function About() {
   return (
     <PageWrapper pageTitle="About">
       <FlexBoxWrapper>
-        <Box_Wrapper>
+        <BoxWrapper>
           <WordContainer>
             <PageTitle>About Us</PageTitle>
           </WordContainer>
@@ -169,7 +169,7 @@ function About() {
               </ParagraphText>
             </AboutUs>
           </Box>
-        </Box_Wrapper>
+        </BoxWrapper>
       </FlexBoxWrapper>
     </PageWrapper>
   );

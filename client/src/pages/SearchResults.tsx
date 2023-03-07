@@ -43,7 +43,7 @@ function SearchResults() {
       setAllBooks([...temp]);
     };
     loadData(userInput);
-  }, []);
+  });
 
   let props = {
     book: bookInfo,

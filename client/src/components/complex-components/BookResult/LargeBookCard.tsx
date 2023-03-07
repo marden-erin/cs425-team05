@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   COLORS,
@@ -156,7 +155,6 @@ export const LargeBookCard = ({
   pageCount,
   showButtons = true,
 }: LargeBookCardType) => {
-  const navigate = useNavigate();
   return (
     <CardWrapper>
       <TopWrapper>
