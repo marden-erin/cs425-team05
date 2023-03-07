@@ -4,7 +4,7 @@ import { COLORS, GRADIENTS } from '../../constants';
 import { ColorType } from '../../types';
 
 const ButtonCss = css`
-  transition: background-color 0.75s ease-out;
+  transition: background-color 0.3s ease-out;
   cursor: pointer;
 `;
 

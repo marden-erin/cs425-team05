@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
-import { H1, H2, P, PageWrapper, SubTitle } from '../components';
+import { H1, H2, Label, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import {
   SmallHalfRoundedButton,
@@ -15,7 +14,7 @@ const FlexBoxWrapper = styled.div`
   height: 85vh;
   padding: 3vh;
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: center;
   gap: 35px;
@@ -36,7 +35,7 @@ const PageTitle = styled(H1)`
   text-align: center;
 `;
 const SmallHeading = styled(SubTitle)`
-  font-size: 5rem;
+  font-size: 2rem;
 `;
 
 const ClusterBox = styled.div`
@@ -70,21 +69,16 @@ const OutPut = styled(H2)`
   text-align: center;
 `;
 
-const Name = styled(H2)`
-  font-size: 3rem;
+const CustomLabel = styled(Label)`
+  font-size: 2.4rem;
+  font-weight: bold;
   text-align: left;
   color: ${COLORS.PURPLE_DARK};
   margin-left: 3rem;
 `;
 
-const VisWords = styled(H2)`
-  font-size: 3rem;
-  text-align: center;
-  color: ${COLORS.PURPLE_DARK};
-  margin-left: 5rem;
-`;
 const Visibility = styled(P)`
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: left;
   color: ${COLORS.PURPLE_DARK};
   margin-left: 3rem;
@@ -148,8 +142,7 @@ function CreateCluster() {
       userName,
       visibility
     );
-    console.log(create);
-    navigate('/view-clusters');
+    navigate('view-clusters');
   };
 
   return (
@@ -158,7 +151,7 @@ function CreateCluster() {
         <HeadingWrapper>
           <PageTitle>Create Your Cluster</PageTitle>
           <SmallHeading>
-            Your cluster will contain books you want to save for later.
+            Clusters contain books you want to save for later.
           </SmallHeading>
         </HeadingWrapper>
 
@@ -168,7 +161,9 @@ function CreateCluster() {
             <ClusterBox>
               <QuestionWrapper>
                 <form onSubmit={loadData}>
-                  <VisWords>Choose the visiblity for your cluster:</VisWords>
+                  <CustomLabel htmlFor="visibility">
+                    Cluster Visibility
+                  </CustomLabel>
                   <LargeButtonWrapper>
                     <VisibilityButtonWrapper>
                       <Visibility>
@@ -191,9 +186,10 @@ function CreateCluster() {
                       </Visibility>
                     </VisibilityButtonWrapper>
                   </LargeButtonWrapper>
-                  <Name>Name:</Name>
+                  <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
                   <InputBarWrapper>
                     <ThinInput
+                      name="cluster-name"
                       placeholder="Enter Cluster Name"
                       value={input}
                       onChange={(e) => setInput(e.target.value)}

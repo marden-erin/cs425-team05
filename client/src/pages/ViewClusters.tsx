@@ -77,15 +77,14 @@ const ClusterName = styled.h2`
   font-size: 4rem;
   line-height: 2.5rem;
   text-align: center;
-  color: ${COLORS.WHITE};
+  color: ${COLORS.PURPLE_DARK};
   text-align: left;
 `;
 
 const NameWrapper = styled.div`
   display: flex;
   border-radius: 5px;
-  background: ${GRADIENTS.PURPLE};
-  padding: 15px;
+  padding: 10px 5px 15px 10px;
 `;
 const ScrollableDiv = styled.div`
   height: 27rem;
@@ -111,13 +110,13 @@ const ImgWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 25px;
-  overflow-x: scroll;
 `;
 const Img = styled.div`
   width: 133.3px;
-  height: 200px;
-  background-color: ${COLORS.PURPLE_DARK};
-  border: 1px solid ${COLORS.PURPLE_MID};
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
   max-width-inline: 100%;
   object-fit: scale-down;
 `;
@@ -216,6 +215,13 @@ const Input = styled.input`
 
 const ImgButton = styled.button`
   background: ${COLORS.PURPLE_MID};
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-out;
+
+  :hover {
+    background-color: ${COLORS.PURPLE_DARK};
+  }
 `;
 
 const DeleteWrapper = styled.div`

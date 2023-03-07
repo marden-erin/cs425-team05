@@ -62,11 +62,13 @@ const Input = styled.input`
   }
 `;
 
-//TODO: have cover wrapper adjust to image size
 const CoverWrapper = styled.div`
   width: 60px;
-  height: 90px;
-  background-color: ${COLORS.PURPLE_DARK};
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: ${COLORS.PURPLE_MID};
   border: 3px solid ${COLORS.PURPLE_MID};
   overflow-y: hidden;
   max-width-inline: 100%;

@@ -11,10 +11,9 @@ import {
   P,
   PageWrapper,
 } from '../components';
-import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../constants';
+import { COLORS, FONTS_SECONDARY } from '../constants';
 
 import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
-import SnailImage from '../imgs/snails/yellow-default.png'; // TODO: Change to utility function once other PR merged
 import { useNavigate } from 'react-router-dom';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useAuthUser } from 'react-auth-kit';
@@ -121,10 +120,12 @@ function CreateGoal() {
   const username: string = auth()?.username;
 
   const navigate = useNavigate();
-  const [startDate, setStartDate] = useState(new Date());
-  startDate.setDate(startDate.getDate() + 1);
+  const today = new Date();
+  const twoWeeksAhead = new Date();
+  twoWeeksAhead.setDate(today.getDate() + 14);
+  const [startDate, setStartDate] = useState(twoWeeksAhead); // Set start date to be two weeks ahead by default
+  const [numDays, setNumDays] = useState(14); // Two weeks = 14 days
   const tempStart = startDate.toDateString();
-  const [numDays, setNumDays] = useState(0);
   const [cardBook, setCardBook] = useState({} as Book);
   const [notes, setNotes] = useState('');
 

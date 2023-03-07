@@ -14,7 +14,7 @@ const ThumbCss = css`
   cursor: pointer;
   border-radius: 50%;
   border: 2px solid ${COLORS.PURPLE_DARK};
-  transition: background-color 0.75s ease-out;
+  transition: background-color 0.3s ease-out;
   :hover {
     background: ${COLORS.BLUE_DARK};
   }
@@ -99,14 +99,12 @@ const PageSlider = ({
   setSliderValue,
 }: PageSliderType) => {
   const labelWithDashes = label.replace(/\s+/g, '-').toLowerCase();
-  const [inputValue, setInputValue] = useState(min);
 
   const onInputChange = (value: any) => {
     if (value) {
       // Update slider with new value only if it’s within the sliders domain
       if (value >= min && value <= max) {
         setSliderValue(value);
-        setInputValue(value);
       }
     }
   };
@@ -115,7 +113,6 @@ const PageSlider = ({
       // Update slider with new value only if it’s within the sliders domain
       if (value >= min && value <= max) {
         setSliderValue(value);
-        setInputValue(value);
       }
     }
   };
@@ -138,7 +135,7 @@ const PageSlider = ({
           className="number-input"
           id={labelWithDashes + '-input'}
           name={labelWithDashes + '-input'}
-          value={inputValue}
+          value={sliderValue}
           onChange={(e) => onInputChange(e.target.value)}
         />
         <span> /{max}</span>
