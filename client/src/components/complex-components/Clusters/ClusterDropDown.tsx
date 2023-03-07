@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { COLORS } from '../../../constants';
 import { H2, SmallHalfRoundedButton } from '../../simple-components';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
@@ -34,7 +33,7 @@ font-size: 1.6rem;
   background-color: transparent;
   width: 140px;
 height: 10px
-  transition: background-color 0.75s ease-out;
+  transition: background-color 0.3s ease-out;
 
   :hover {
     background-color: ${COLORS.PURPLE_LIGHT};
@@ -74,7 +73,6 @@ const OutputWrapper = styled.div`
 export const ClusterDropDown = (props: any) => {
   const navigate = useNavigate();
   const auth = useAuthUser();
-  const navigate = useNavigate();
 
   const [bookInfo, setBookInfo] = useState({} as Book);
   const { title, authors, description, pageCount, cover } = props.children;
@@ -114,7 +112,6 @@ export const ClusterDropDown = (props: any) => {
         data[0]
       );
 
-      console.log(clusterInfo);
       setSelected('');
       navigate('/view-clusters');
     };

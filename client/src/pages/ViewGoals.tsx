@@ -125,7 +125,7 @@ function ViewGoals(this: any) {
   };
 
   const handleDelete = async (e: any) => {
-    const goalDelete = await OWServiceProvider.deleteGoal(e);
+    // const goalDelete = await OWServiceProvider.deleteGoal(e); // TODO
   };
   const deleteGoal = (t: any) => {
     return (

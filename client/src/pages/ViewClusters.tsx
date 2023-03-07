@@ -113,13 +113,10 @@ const ImgWrapper = styled.div`
 `;
 const Img = styled.div`
   width: 133.3px;
-  height: 200px;
   display: flex;
   flex-flow: wrap;
   align-items: center;
   justify-content: center;
-  background-color: ${COLORS.PURPLE_MID};
-  border: 5px solid ${COLORS.PURPLE_MID};
   max-width-inline: 100%;
   object-fit: scale-down;
 `;
@@ -218,7 +215,13 @@ const Input = styled.input`
 
 const ImgButton = styled.button`
   background: ${COLORS.PURPLE_MID};
+  padding: 0.5rem;
   cursor: pointer;
+  transition: background-color 0.3s ease-out;
+
+  :hover {
+    background-color: ${COLORS.PURPLE_DARK};
+  }
 `;
 
 const DeleteWrapper = styled.div`

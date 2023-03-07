@@ -11,10 +11,9 @@ import {
   P,
   PageWrapper,
 } from '../components';
-import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../constants';
+import { COLORS, FONTS_SECONDARY } from '../constants';
 
 import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
-import SnailImage from '../imgs/snails/yellow-default.png'; // TODO: Change to utility function once other PR merged
 import { useNavigate } from 'react-router-dom';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useAuthUser } from 'react-auth-kit';

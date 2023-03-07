@@ -23,7 +23,7 @@ const Select = styled.select`
   padding: 2px;
   background-color: transparent;
 
-  transition: background-color 0.75s ease-out;
+  transition: background-color 0.3s ease-out;
   :hover {
     background-color: ${COLORS.PURPLE_MID};
     color: ${COLORS.WHITE};
