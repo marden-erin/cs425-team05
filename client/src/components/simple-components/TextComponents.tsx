@@ -28,6 +28,11 @@ const H2 = styled.h2`
     font-size: 2.4rem;
 `;
 
+const H3 = styled.h3`
+  ${FONTS_MAIN}
+    font-size: 2rem;
+    color: ${COLORS.PURPLE_MID};
+`;
 const P = styled.p<{ centered?: boolean }>`
   ${TextCss}
   ${FONTS_SECONDARY}
@@ -75,4 +80,4 @@ const BookTitle = styled.span`
   text-align: center;
 `;
 
-export { H1, H2, P, SubTitle, Author, PageCount, BookTitle, Label };
+export { H1, H2, H3, P, SubTitle, Author, PageCount, BookTitle, Label };
