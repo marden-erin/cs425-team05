@@ -11,7 +11,13 @@ const getGoal = asyncHandler(async (req: Request, res: Response) => {
 		let query = `select * from Goals where goal_id="${goalID}"`;
 		const [goal]: any[] = await db.promise().query(query);
 		if (goal.length > 0) {
-			const { goal_id, book_id, notes, pageCount: goal_pageCount , deadline } = goal[0];
+			const {
+				goal_id,
+				book_id,
+				notes,
+				pageCount: goal_pageCount,
+				deadline,
+			} = goal[0];
 
 			query = `select * from Books where book_id=${book_id}`;
 			const [book]: any[] = await db.promise().query(query);
@@ -67,7 +73,13 @@ const getAllGoals = asyncHandler(async (req: Request, res: Response) => {
 		const response: any[] = [];
 
 		for (const goal of goals) {
-			const { goal_id, book_id, notes , pageCount: goal_pageCount, deadline } = goal;
+			const {
+				goal_id,
+				book_id,
+				notes,
+				pageCount: goal_pageCount,
+				deadline,
+			} = goal;
 
 			query = `select * from Books where book_id=${book_id}`;
 			const [book]: any[] = await db.promise().query(query);
@@ -88,7 +100,7 @@ const getAllGoals = asyncHandler(async (req: Request, res: Response) => {
 			const returnedObject = {
 				goal_id,
 				notes,
-				goal_pageCount, 
+				goal_pageCount,
 				deadline,
 				foundBook,
 			};
@@ -104,7 +116,13 @@ const getAllGoals = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const addGoal = asyncHandler(async (req: Request, res: Response) => {
-	const { book, userName, notes, pageCount: goalPageCount, deadline } = req.body;
+	const {
+		book,
+		userName,
+		notes,
+		pageCount: goalPageCount,
+		deadline,
+	} = req.body;
 	if (book && userName && deadline) {
 		const { title, pageCount, cover } = book;
 		const filteredUserName = userName.replace(/"/g, "''");

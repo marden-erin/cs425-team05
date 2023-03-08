@@ -29,7 +29,7 @@ const getSnail = asyncHandler(async (req: Request, res: Response) => {
 			throw new Error(err);
 		}
 	} else {
-		const errMsg = "Error. Missing one or more params";
+		const errMsg = "Error. Missing one or more params (userName)";
 		res.status(HTTPStatus.BAD).json(errMsg);
 		throw new Error(errMsg);
 	}
