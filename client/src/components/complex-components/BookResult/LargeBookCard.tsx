@@ -9,7 +9,6 @@ import {
 } from '../../../constants';
 import { SmallRoundedButton, P } from '../../simple-components';
 import { StarRating } from '../Reviews';
-import SmallBookCard from './SmallBookCard';
 
 type LargeBookCardType = {
   /**
@@ -32,10 +31,14 @@ type LargeBookCardType = {
   /**
    *
    */
-  tempFunction: any;
+  AddClusterFunction: any;
+  CreateGoalFunction: any;
+  tempFunction?: any;
   /**
    * Whether to display buttons like "Set Goal" or "Add Review"
    */
+  pageCount?: number;
+
   showButtons?: boolean;
 };
 
@@ -53,9 +56,12 @@ const CardWrapper = styled.div`
 `;
 
 const CoverWrapper = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
   width: 133.3px;
-  height: 200px;
-  background-color: ${COLORS.PURPLE_DARK};
+  background-color: ${COLORS.PURPLE_MID};
   border: 3px solid ${COLORS.PURPLE_MID};
   max-width-inline: 100%;
 `;
@@ -144,7 +150,10 @@ export const LargeBookCard = ({
   authorName,
   bookCover,
   description,
+  AddClusterFunction,
+  CreateGoalFunction,
   tempFunction,
+  pageCount,
   showButtons = true,
 }: LargeBookCardType) => {
   const navigate = useNavigate();
@@ -158,22 +167,18 @@ export const LargeBookCard = ({
           <StarRating rating={3} />
           <AllButtonWrapper>
             <ButtonWrapper>
-              {/* TODO: link set goal page to button
-            TODO: create functionality for reviews */}
               {showButtons && (
                 <>
-                  <SmallRoundedButton
-                    onClick={() => {
-                      navigate('/create-goal');
-                    }}
-                  >
-                    Set Goal
-                  </SmallRoundedButton>
+                  <>{CreateGoalFunction}</>
                   <SmallRoundedButton>Add Review</SmallRoundedButton>
                 </>
               )}
             </ButtonWrapper>
-            <DropWrapper> {tempFunction}</DropWrapper>
+            <DropWrapper>
+              {' '}
+              {tempFunction}
+              {AddClusterFunction}
+            </DropWrapper>
           </AllButtonWrapper>
         </InfoWrapper>
       </TopWrapper>

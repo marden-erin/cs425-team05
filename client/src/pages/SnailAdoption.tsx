@@ -85,7 +85,7 @@ function SnailAdoption() {
       snailColor
     );
     console.log(create);
-    navigate('/');
+    navigate('/view-goals');
   };
 
   return (

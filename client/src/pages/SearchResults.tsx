@@ -23,7 +23,7 @@ function SearchResults() {
 
   const location = useLocation();
 
-  //userInput is what the user typed into search bar
+  // userInput is what the user typed into search bar
   var userInput = location.state.input;
   console.log(userInput);
 
@@ -31,8 +31,6 @@ function SearchResults() {
     const loadData = async (e: any) => {
       const data = await OWServiceProvider.getBookInfo(userInput);
       setBookInfo(data[0]);
-      console.log('HERERER');
-      console.log(data);
       const temp = data.map((x, index) => {
         return {
           key: index,

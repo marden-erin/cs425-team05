@@ -14,7 +14,7 @@ const ThumbCss = css`
   cursor: pointer;
   border-radius: 50%;
   border: 2px solid ${COLORS.PURPLE_DARK};
-  transition: background-color 0.75s ease-out;
+  transition: background-color 0.3s ease-out;
   :hover {
     background: ${COLORS.BLUE_DARK};
   }
@@ -50,6 +50,10 @@ type PageSliderType = {
    * The maximum number of pages
    */
   max: number;
+
+  sliderValue: number;
+
+  setSliderValue: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const SliderWrapper = styled.div`
@@ -87,17 +91,20 @@ const SliderWrapper = styled.div`
   }
 `;
 
-const PageSlider = ({ label, min = 0, max }: PageSliderType) => {
+const PageSlider = ({
+  label,
+  min = 0,
+  max,
+  sliderValue,
+  setSliderValue,
+}: PageSliderType) => {
   const labelWithDashes = label.replace(/\s+/g, '-').toLowerCase();
-  const [sliderValue, setSliderValue] = useState(min);
-  const [inputValue, setInputValue] = useState(min);
 
   const onInputChange = (value: any) => {
     if (value) {
       // Update slider with new value only if it’s within the sliders domain
       if (value >= min && value <= max) {
         setSliderValue(value);
-        setInputValue(value);
       }
     }
   };
@@ -106,7 +113,6 @@ const PageSlider = ({ label, min = 0, max }: PageSliderType) => {
       // Update slider with new value only if it’s within the sliders domain
       if (value >= min && value <= max) {
         setSliderValue(value);
-        setInputValue(value);
       }
     }
   };
@@ -129,7 +135,7 @@ const PageSlider = ({ label, min = 0, max }: PageSliderType) => {
           className="number-input"
           id={labelWithDashes + '-input'}
           name={labelWithDashes + '-input'}
-          value={inputValue}
+          value={sliderValue}
           onChange={(e) => onInputChange(e.target.value)}
         />
         <span> /{max}</span>

@@ -12,6 +12,8 @@ import {
 import { COLORS, FONTS_SECONDARY } from '../constants';
 import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { useAuthUser } from 'react-auth-kit';
+import { useLocation } from 'react-router-dom';
 
 const GridWrapper = styled.div`
   height: 85vh;
@@ -120,14 +122,29 @@ const NotesWrapper = styled.div`
 
 function UpdateGoal() {
   const navigate = useNavigate();
+  const auth = useAuthUser();
+  const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
   const [snailImage, setSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
 
+  const location = useLocation();
+
+  const goalID = location.state.goalID;
+  const tempGoalId = parseInt(goalID);
+  const numPagesTotal = location.state.pageCount;
+  const pagesRead = location.state.pagesRead;
+  const cover = location.state.cover;
+  const title = location.state.title;
+  const author = location.state.author;
+  const description = location.state.description;
+  const deadline = location.state.deadline;
+  const goalNotes = location.state.goalNotes;
+  const [notes, setNotes] = useState(goalNotes);
   useEffect(() => {
     const loadData = async () => {
-      const snailInfo = await OWServiceProvider.getSnailInfo('andrei');
-      console.log(snailInfo);
+      console.log(notes);
+      const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
@@ -136,25 +153,43 @@ function UpdateGoal() {
     };
     loadData();
   });
-  const dueDate = new Date('May 17, 2023'); // TODO
-  const numDays = NumberOfDaysUntilDate(dueDate); // TODO
-  const numPagesTotal = 392; // TODO: Get page number from book info
-  const [numPagesRead, setNumPagesRead] = useState(140); // TODO: Get from goal
+  const dueDate = new Date(deadline);
+  const numDays = NumberOfDaysUntilDate(dueDate);
+  const [numPagesRead, setNumPagesRead] = useState<number>(pagesRead);
   const pagesPerDay = Math.ceil((numPagesTotal - numPagesRead) / numDays);
+  const pagesLeft = Math.ceil(numPagesTotal - numPagesRead);
+
+  //// slider temp fix
+  const [sliderValue, setSliderValue] = useState(numPagesRead);
+
+  ////
+
+  const handleSubmit = async () => {
+    const tempPageUpdate: number = +sliderValue;
+    const update = await OWServiceProvider.updateGoal(
+      tempGoalId,
+      notes,
+      tempPageUpdate
+    );
+    navigate('/view-goals');
+  };
+
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
         <LargeBookCard
-          bookTitle="This is the Title of a Book I could Write"
-          authorName={['Joe Jonas']}
+          bookTitle={title}
+          authorName={[author]}
           bookCover={
             <img
-              src="https://i.pinimg.com/originals/a1/f8/87/a1f88733921c820db477d054fe96afbb.jpg"
-              style={{ maxWidth: '100%' }}
-              alt={'' + ' book cover'}
+              src={cover}
+              style={{ maxWidth: '100%', height: '100%' }}
+              alt={title + ' book cover'}
             />
           }
-          description=""
+          AddClusterFunction=""
+          CreateGoalFunction=""
+          description={description}
           tempFunction=""
           showButtons={false}
         />
@@ -163,11 +198,12 @@ function UpdateGoal() {
           <GoalInfoWrapper>
             <DeadlineWrapper>
               <P>
-                Due Date: <b>{dueDate.toLocaleDateString()}</b>
+                Due Date: <b>{deadline}</b>
               </P>
             </DeadlineWrapper>
             <P>
-              You have <b>{numDays}</b> days left to finish this goal.
+              You have <b>{numDays}</b> days left to finish this goal, and{' '}
+              <b>{pagesLeft}</b> pages to read.
             </P>
             <P>
               On average, you need to read{' '}
@@ -178,10 +214,20 @@ function UpdateGoal() {
             </P>
           </GoalInfoWrapper>
           <NotesWrapper>
-            <PageSlider label="Pages Read" max={numPagesTotal} />
+            <PageSlider
+              label="Pages Read"
+              min={pagesRead}
+              max={numPagesTotal}
+              sliderValue={sliderValue}
+              setSliderValue={setSliderValue}
+            />
             <div className="textarea-wrapper">
               <Label htmlFor="goal-notes">Notes</Label>
-              <textarea name="goal-notes" />
+              <textarea
+                name="goal-notes"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              />
             </div>
           </NotesWrapper>
           <SnailSection>
@@ -197,7 +243,7 @@ function UpdateGoal() {
               </P>
               <LargeRoundedButton
                 onClick={() => {
-                  navigate('/view-goals');
+                  handleSubmit();
                 }}
               >
                 Update Goal

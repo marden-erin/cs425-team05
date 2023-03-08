@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
+import { useLocation } from 'react-router-dom';
+import { Book } from '../../../server/src/utils/Types';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
   Label,
@@ -9,10 +11,12 @@ import {
   P,
   PageWrapper,
 } from '../components';
-import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../constants';
-import { NumberOfDaysUntilDate } from '../utils';
-import SnailImage from '../imgs/snails/yellow-default.png'; // TODO: Change to utility function once other PR merged
+import { COLORS, FONTS_SECONDARY } from '../constants';
+
+import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
 import { useNavigate } from 'react-router-dom';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { useAuthUser } from 'react-auth-kit';
 
 const GridWrapper = styled.div`
   height: 85vh;
@@ -112,21 +116,85 @@ const NotesWrapper = styled.div`
 `;
 
 function CreateGoal() {
+  const auth = useAuthUser();
+  const username: string = auth()?.username;
+
   const navigate = useNavigate();
-  const snailName = 'Snailosaurus'; // TODO: Get name from API
-  const [startDate, setStartDate] = useState(new Date());
-  startDate.setDate(startDate.getDate() + 1);
-  const [numDays, setNumDays] = useState(0);
-  const numPages = 392; // TODO: Get page number from book info
+  const today = new Date();
+  const twoWeeksAhead = new Date();
+  twoWeeksAhead.setDate(today.getDate() + 14);
+  const [startDate, setStartDate] = useState(twoWeeksAhead); // Set start date to be two weeks ahead by default
+  const [numDays, setNumDays] = useState(14); // Two weeks = 14 days
+  const tempStart = startDate.toDateString();
+  const [cardBook, setCardBook] = useState({} as Book);
+  const [notes, setNotes] = useState('');
+
+  const location = useLocation();
+
+  //userInput is what the user typed into search bar
+  const numPages = location.state.pageCount;
+  const cover = location.state.cover;
+  const title = location.state.title;
+  const author = location.state.author;
+  const description = location.state.description;
+  const c = cover.toString();
+  const p = numPages.toString();
+  const t = title.toString();
+  const d = description.toString();
+  const a = author.toString();
+  const [snailName, setSnailName] = useState('');
+  const [snailImage, setSnailImage] = useState('');
+  const [snailHealth, setSnailHealth] = useState(3);
+
+  const bookTemp: Book = {
+    title: t,
+    authors: a,
+    pageCount: p,
+    description: d,
+    cover: c,
+  };
+
+  useEffect(() => {
+    const loadData = async () => {
+      const snailInfo = await OWServiceProvider.getSnailInfo(username);
+      setSnailName(snailInfo.name);
+
+      // setSnailHealth(snailInfo.health); // TODO
+      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+
+      // TODO: Get goal info
+    };
+    loadData();
+  });
+
+  const handleSubmit = async () => {
+    const goal = await OWServiceProvider.createGoal(
+      bookTemp,
+      username,
+      notes,
+      0,
+      tempStart
+    );
+    navigate('/view-goals');
+  };
+
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
         <LargeBookCard
-          bookTitle="This is the Title of a Book I could Write"
-          authorName={['Joe Jonas']}
-          bookCover=""
-          description=""
+          bookTitle={title}
+          authorName={author}
+          bookCover={
+            <img
+              src={cover}
+              alt={title + ' book cover'}
+              style={{ maxWidth: '100%', height: '100%' }}
+            />
+          }
+          description={description}
           tempFunction=""
+          CreateGoalFunction=""
+          AddClusterFunction=""
           showButtons={false}
         />
         <GoalCard>
@@ -166,25 +234,25 @@ function CreateGoal() {
           </GoalInfoWrapper>
           <NotesWrapper>
             <Label htmlFor="goal-notes">Notes (Optional)</Label>
-            <textarea name="goal-notes" />
+            <textarea
+              name="goal-notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
           </NotesWrapper>
           <SnailSection>
             <img
-              src={SnailImage}
-              alt="A happy yellow snail"
+              src={snailImage}
+              alt={snailName + ' , a happy'}
               width="190"
-              className="snail animated"
+              className="snail"
             />
             <SnailSectionRightWrapper>
               <P>
                 <b>{snailName}</b> is ready to help you on your journey. Don't
                 let them down!
               </P>
-              <LargeRoundedButton
-                onClick={() => {
-                  navigate('/view-goals');
-                }}
-              >
+              <LargeRoundedButton onClick={handleSubmit}>
                 Set Goal
               </LargeRoundedButton>
             </SnailSectionRightWrapper>

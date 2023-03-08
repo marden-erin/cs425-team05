@@ -15,7 +15,7 @@ const LinkStyle = css`
   height: 5rem;
   border: none;
   background-color: ${COLORS.BLUE_MID};
-  transition: background-color 0.75s ease-out;
+  transition: background-color 0.3s ease-out;
   cursor: pointer;
   text-decoration: none;
   font-size: 1.6rem;
