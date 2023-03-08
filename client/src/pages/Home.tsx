@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import {
@@ -11,7 +12,7 @@ import {
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
-import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { updateSnailStatus } from '../utils/SnailHealthUtils';
 import { useAuthUser } from 'react-auth-kit';
 
 const ColumnFlexCss = css`
@@ -81,21 +82,27 @@ const LoginPromptH2 = styled(H2)`
 `;
 
 function Home() {
-  // const auth = useAuthUser();
+  const auth = useAuthUser();
+  const username = auth()?.username;
+  const navigate = useNavigate();
 
-  // const username = auth()?.username;
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await updateSnailStatus(username);
+      switch (res) {
+        case 'dne':
+          navigate('/snail-adoption');
+          break;
+        case 'dead':
+          navigate('/grave-adoption');
+          break;
+        default:
+          break;
+      }
+    };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const user = await OWServiceProvider.getUserInformation(username);
-
-  //     if (user?.last_login === null) {
-  //       console.log("First time login, should redirect to snail adoption page");
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   // TODO: Add quick links to important pages where login placeholder used to be
   return (
