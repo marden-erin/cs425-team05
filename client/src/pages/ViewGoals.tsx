@@ -64,26 +64,29 @@ const GoalsCard = styled.div`
   align-items: center;
 `;
 
-const GoalsWrapper = styled.div<{$hasGoals: boolean}>`
+const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
   background-color: ${COLORS.PURPLE_LIGHT};
   border: 3px solid ${COLORS.PURPLE_LIGHT};
   margin-block-start: 2rem;
   display: flex;
 
-  ${props => props.$hasGoals ? css`
-  width: 65rem;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  ${ScrollBarStyle};` : // Only show scrollbar if there are goals
-  css`
-    width: 35rem;
-    padding: 1rem 2rem 2rem;
-    flex-direction: column;
-    text-align: center;
-    * + * {
-      margin-block-start: 2rem;
-    }`
-  }
+  ${(props) =>
+    props.$hasGoals
+      ? css`
+          width: 65rem;
+          overflow-x: scroll;
+          overflow-y: hidden;
+          ${ScrollBarStyle};
+        ` // Only show scrollbar if there are goals
+      : css`
+          width: 35rem;
+          padding: 1rem 2rem 2rem;
+          flex-direction: column;
+          text-align: center;
+          * + * {
+            margin-block-start: 2rem;
+          }
+        `}
 `;
 
 function ViewGoals(this: any) {
@@ -273,13 +276,22 @@ function ViewGoals(this: any) {
             <H2>Active Goals</H2>
             <GoalsWrapper $hasGoals={allGoals.length !== 0}>
               {goal}
-              {allGoals.length === 0 &&
-              <>
-              <H3>You have no goals!</H3>
-              <P>To set a goal, find a book by <b>searching</b> for one using the search bar or by selecting a book from one of your <b>clusters</b>. </P>
-              <P>Don't worry, your snail will <b>stay at its current health</b> if you don't have any goals set.</P>
-              <LargeRoundedButton>Go to Clusters</LargeRoundedButton>
-              </>}
+              {allGoals.length === 0 && (
+                <>
+                  <H3>You have no goals!</H3>
+                  <P>
+                    To set a goal, find a book by <b>searching</b> for one using
+                    the search bar or by selecting a book from one of your{' '}
+                    <b>clusters</b>.{' '}
+                  </P>
+                  <P>
+                    Don't worry, your snail will{' '}
+                    <b>stay at its current health</b> if you don't have any
+                    goals set.
+                  </P>
+                  <LargeRoundedButton>Go to Clusters</LargeRoundedButton>
+                </>
+              )}
             </GoalsWrapper>
           </GoalsCard>
         )}

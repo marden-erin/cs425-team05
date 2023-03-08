@@ -125,7 +125,16 @@ function SnailAdoption() {
         >
           <CloseButton handler={toggleIsModalOpen} />
           <ModalContentWrapper>
-            <img src={GetSnailImg(snailColor)} alt={'A ' + snailColor + ' snail waiting for you to choose their name'} width="250" height="250" />
+            <img
+              src={GetSnailImg(snailColor)}
+              alt={
+                'A ' +
+                snailColor +
+                ' snail waiting for you to choose their name'
+              }
+              width="250"
+              height="250"
+            />
             <RightModalContentWrapper>
               <H2>Name Your Snail!</H2>
               <InputWrapper>

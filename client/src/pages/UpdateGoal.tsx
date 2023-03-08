@@ -14,7 +14,11 @@ import {
   SmallRoundedButton,
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
-import { GetSnailImg, GetEatingSnailImg, NumberOfDaysUntilDate } from '../utils';
+import {
+  GetSnailImg,
+  GetEatingSnailImg,
+  NumberOfDaysUntilDate,
+} from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const GridWrapper = styled.div`
@@ -189,15 +193,16 @@ function UpdateGoal() {
       // Heal snail
       if (snailHealth < 3) {
         setSnailHealth(snailHealth + 1);
-        await OWServiceProvider.updateSnailInfo(username, snailName, snailColor, snailHealth);
+        await OWServiceProvider.updateSnailInfo(
+          username,
+          snailName,
+          snailColor,
+          snailHealth
+        );
       }
-    }
-    else { // Not done - Update progress
-      await OWServiceProvider.updateGoal(
-        tempGoalId,
-        notes,
-        newPagesRead
-      );
+    } else {
+      // Not done - Update progress
+      await OWServiceProvider.updateGoal(tempGoalId, notes, newPagesRead);
       navigate('/view-goals');
     }
   };
@@ -205,12 +210,29 @@ function UpdateGoal() {
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
-        <ReactModal isOpen={isModalOpen} className='modal-body' overlayClassName='modal-overlay'>
+        <ReactModal
+          isOpen={isModalOpen}
+          className="modal-body"
+          overlayClassName="modal-overlay"
+        >
           <ModalContentWrapper>
-          <img src={eatingSnailImage} alt={snailName + ' enjoying a yummy mushroom'} width="350" height="350" />
-          <P>You did it! You completed your goal for reading <b>{title}</b>.</P>
-          <P>You fed your snail a bright red mushroom. Yum!</P>
-          <SmallRoundedButton onClick={() => {navigate('/view-goals')}}>Return to Goals Page</SmallRoundedButton>
+            <img
+              src={eatingSnailImage}
+              alt={snailName + ' enjoying a yummy mushroom'}
+              width="350"
+              height="350"
+            />
+            <P>
+              You did it! You completed your goal for reading <b>{title}</b>.
+            </P>
+            <P>You fed your snail a bright red mushroom. Yum!</P>
+            <SmallRoundedButton
+              onClick={() => {
+                navigate('/view-goals');
+              }}
+            >
+              Return to Goals Page
+            </SmallRoundedButton>
           </ModalContentWrapper>
         </ReactModal>
         <LargeBookCard

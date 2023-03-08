@@ -30,8 +30,8 @@ const H2 = styled.h2`
 
 const H3 = styled.h3`
   ${FONTS_MAIN}
-    font-size: 2rem;
-    color: ${COLORS.PURPLE_MID};
+  font-size: 2rem;
+  color: ${COLORS.PURPLE_MID};
 `;
 const P = styled.p<{ centered?: boolean }>`
   ${TextCss}

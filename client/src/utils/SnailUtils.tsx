@@ -36,14 +36,14 @@ function GetSnailImg(snailColor: string, snailHealth?: Number) {
 function GetEatingSnailImg(snailColor: string) {
   const capitalizedColor =
     snailColor.charAt(0).toUpperCase() + snailColor.slice(1).toLowerCase(); // Ensure consistent capitalization
-    if (capitalizedColor === 'Blue') {
-      return BlueEatingSnail;
-    } else if (capitalizedColor === 'Pink') {
-      return PinkEatingSnail;
-    } else {
-      // Fallback
-      return YellowEatingSnail;
-    }
+  if (capitalizedColor === 'Blue') {
+    return BlueEatingSnail;
+  } else if (capitalizedColor === 'Pink') {
+    return PinkEatingSnail;
+  } else {
+    // Fallback
+    return YellowEatingSnail;
+  }
 }
 
 function GetDefaultImg(capitalizedColor: string) {
