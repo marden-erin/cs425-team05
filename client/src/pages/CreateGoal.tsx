@@ -156,6 +156,7 @@ function CreateGoal() {
 
   useEffect(() => {
     const loadData = async () => {
+      
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
 
