@@ -47,13 +47,15 @@ const ResultWrapper = styled.div`
 
 //TODO: have cover wrapper adjust to image size
 const CoverWrapper = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
   width: 15rem;
-  height: 24rem;
   background-color: ${COLORS.PURPLE_DARK};
   border: 3px solid ${COLORS.PURPLE_MID};
   overflow-y: hidden;
   max-width-inline: 100%;
-  object-fit: scale-down;
   margin-block-end: 1.5rem;
   margin-block-start: 0.5rem;
 `;
@@ -76,7 +78,7 @@ export const GoalCard = ({
     <ResultWrapper className="book-card">
       <CoverWrapper>
         <img
-          style={{ maxWidth: '100%', height: '100%' }}
+          style={{ width: '100%' }}
           src={bookCover}
           alt={bookTitle + ' book cover'}
         />

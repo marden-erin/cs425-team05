@@ -142,7 +142,7 @@ function CreateCluster() {
       userName,
       visibility
     );
-    navigate('view-clusters');
+    navigate('/view-clusters');
   };
 
   return (
