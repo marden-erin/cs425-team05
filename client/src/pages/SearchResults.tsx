@@ -38,6 +38,7 @@ function SearchResults() {
           author: x.authors + ' ',
           cover: x.cover,
           description: x.description,
+          pageCount: x.pageCount
         };
       });
       setAllBooks([...temp]);

@@ -131,7 +131,6 @@ const addGoal = asyncHandler(async (req: Request, res: Response) => {
 		let query = `select * from Users where userName="${filteredUserName}"`;
 		const [user]: any[] = await db.promise().query(query);
 		const { user_id } = user[0];
-
 		query = `select * from Books where bookTitle="${filteredTitle}" and pageCount="${pageCount}" and bookCover="${cover}"`;
 		const [returnedBook]: any[] = await db.promise().query(query);
 		const { book_id } = returnedBook[0];

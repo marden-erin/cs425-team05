@@ -360,7 +360,6 @@ class OuterWhorldServiceProvider {
       pageCount,
       deadline,
     };
-
     const res = await fetch(`/api/goals`, {
       method: 'POST',
       headers: {
