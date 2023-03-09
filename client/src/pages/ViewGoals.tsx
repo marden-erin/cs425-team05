@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { COLORS } from '../constants';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { CreateUpdateButton, PageWrapper } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { GetSnailImg, GetSnailStatusText } from '../utils';
@@ -8,6 +8,7 @@ import { ScrollBarStyle } from '../constants';
 import {
   GoalCard,
   H2,
+  H3,
   LargeRoundedButton,
   P,
   SmallRoundedButton,
@@ -63,16 +64,29 @@ const GoalsCard = styled.div`
   align-items: center;
 `;
 
-const GoalsWrapper = styled.div`
-  width: 65rem;
+const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
   background-color: ${COLORS.PURPLE_LIGHT};
   border: 3px solid ${COLORS.PURPLE_LIGHT};
   margin-block-start: 2rem;
   display: flex;
-  overflow-x: scroll;
-  overflow-y: hidden;
 
-  ${ScrollBarStyle};
+  ${(props) =>
+    props.$hasGoals
+      ? css`
+          width: 65rem;
+          overflow-x: scroll;
+          overflow-y: hidden;
+          ${ScrollBarStyle};
+        ` // Only show scrollbar if there are goals
+      : css`
+          width: 35rem;
+          padding: 1rem 2rem 2rem;
+          flex-direction: column;
+          text-align: center;
+          * + * {
+            margin-block-start: 2rem;
+          }
+        `}
 `;
 
 function ViewGoals(this: any) {
@@ -83,7 +97,7 @@ function ViewGoals(this: any) {
   const [snailImage, setSnailImage] = useState('');
   const [snailColor, setSnailColor] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
-  const [allGoals, setAllGoals] = useState();
+  const [allGoals, setAllGoals] = useState([]);
   const [indGoals, setIndGoals] = useState<any>([]);
   let temp: any;
   const goalID: any = [];
@@ -125,7 +139,7 @@ function ViewGoals(this: any) {
   };
 
   const handleDelete = async (e: any) => {
-    // const goalDelete = await OWServiceProvider.deleteGoal(e); // TODO
+    await OWServiceProvider.deleteGoal(e);
   };
   const deleteGoal = (t: any) => {
     return (
@@ -260,8 +274,24 @@ function ViewGoals(this: any) {
         {snailHealth !== 0 && ( // Don't show Goals if snail is dead
           <GoalsCard>
             <H2>Active Goals</H2>
-            <GoalsWrapper>
-              <> {goal}</>
+            <GoalsWrapper $hasGoals={allGoals.length !== 0}>
+              {goal}
+              {allGoals.length === 0 && (
+                <>
+                  <H3>You have no goals!</H3>
+                  <P>
+                    To set a goal, find a book by <b>searching</b> for one using
+                    the search bar or by selecting a book from one of your{' '}
+                    <b>clusters</b>.{' '}
+                  </P>
+                  <P>
+                    Don't worry, your snail will{' '}
+                    <b>stay at its current health</b> if you don't have any
+                    goals set.
+                  </P>
+                  <LargeRoundedButton>Go to Clusters</LargeRoundedButton>
+                </>
+              )}
             </GoalsWrapper>
           </GoalsCard>
         )}

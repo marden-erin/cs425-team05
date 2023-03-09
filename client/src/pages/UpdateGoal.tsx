@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import ReactModal from 'react-modal';
+import { useAuthUser } from 'react-auth-kit';
+import { useLocation } from 'react-router-dom';
 import {
   Label,
   LargeBookCard,
@@ -8,12 +11,15 @@ import {
   P,
   PageSlider,
   PageWrapper,
+  SmallRoundedButton,
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
-import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
+import {
+  GetSnailImg,
+  GetEatingSnailImg,
+  NumberOfDaysUntilDate,
+} from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
-import { useAuthUser } from 'react-auth-kit';
-import { useLocation } from 'react-router-dom';
 
 const GridWrapper = styled.div`
   height: 85vh;
@@ -120,12 +126,23 @@ const NotesWrapper = styled.div`
   }
 `;
 
+const ModalContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 40rem;
+  padding: 2rem;
+  text-align: center;
+`;
+
 function UpdateGoal() {
   const navigate = useNavigate();
   const auth = useAuthUser();
   const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
+  const [snailColor, setSnailColor] = useState('');
   const [snailImage, setSnailImage] = useState('');
+  const [eatingSnailImage, setEatingSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
 
   const location = useLocation();
@@ -143,13 +160,12 @@ function UpdateGoal() {
   const [notes, setNotes] = useState(goalNotes);
   useEffect(() => {
     const loadData = async () => {
-      console.log(notes);
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
+      setSnailColor(snailInfo.color);
       // setSnailHealth(snailInfo.health); // TODO
-      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-
-      // TODO: Get goal info
+      setSnailImage(GetSnailImg(snailColor, snailHealth));
+      setEatingSnailImage(GetEatingSnailImg(snailColor));
     };
     loadData();
   });
@@ -159,24 +175,66 @@ function UpdateGoal() {
   const pagesPerDay = Math.ceil((numPagesTotal - numPagesRead) / numDays);
   const pagesLeft = Math.ceil(numPagesTotal - numPagesRead);
 
+  // NO CLOSE BUTTON ON MODAL - We don't want the user to "undo" feeding the snail
+  const [isModalOpen, toggleIsModalOpen] = useState(false);
+  ReactModal.setAppElement('*');
+
   //// slider temp fix
   const [sliderValue, setSliderValue] = useState(numPagesRead);
 
-  ////
-
   const handleSubmit = async () => {
-    const tempPageUpdate: number = +sliderValue;
-    const update = await OWServiceProvider.updateGoal(
-      tempGoalId,
-      notes,
-      tempPageUpdate
-    );
-    navigate('/view-goals');
+    const newPagesRead: number = +sliderValue;
+
+    // If goal completed, close out goal
+    if (newPagesRead === numPagesTotal[0]) {
+      toggleIsModalOpen(true);
+      // TODO: Add goal to list of completed goals for snail
+      await OWServiceProvider.deleteGoal(tempGoalId); // Close out goal
+      // Heal snail
+      if (snailHealth < 3) {
+        setSnailHealth(snailHealth + 1);
+        await OWServiceProvider.updateSnailInfo(
+          username,
+          snailName,
+          snailColor,
+          snailHealth
+        );
+      }
+    } else {
+      // Not done - Update progress
+      await OWServiceProvider.updateGoal(tempGoalId, notes, newPagesRead);
+      navigate('/view-goals');
+    }
   };
 
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
+        <ReactModal
+          isOpen={isModalOpen}
+          className="modal-body"
+          overlayClassName="modal-overlay"
+        >
+          <ModalContentWrapper>
+            <img
+              src={eatingSnailImage}
+              alt={snailName + ' enjoying a yummy mushroom'}
+              width="350"
+              height="350"
+            />
+            <P>
+              You did it! You completed your goal for reading <b>{title}</b>.
+            </P>
+            <P>You fed your snail a bright red mushroom. Yum!</P>
+            <SmallRoundedButton
+              onClick={() => {
+                navigate('/view-goals');
+              }}
+            >
+              Return to Goals Page
+            </SmallRoundedButton>
+          </ModalContentWrapper>
+        </ReactModal>
         <LargeBookCard
           bookTitle={title}
           authorName={[author]}
