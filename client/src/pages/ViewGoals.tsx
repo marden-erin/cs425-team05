@@ -102,7 +102,6 @@ function ViewGoals(this: any) {
   let temp: any;
   const goalID: any = [];
   let noDuplicatesID: number[];
-  const goalArray: any[] = [];
   let snailInfo: any;
   useEffect(() => {
     const loadData = async () => {
@@ -111,11 +110,11 @@ function ViewGoals(this: any) {
       setSnailColor(snailInfo.color);
       // setSnailHealth(snailInfo.health); // TODO
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-      //TODO: Set snail health
+      
+      const goalArray: any[] = [];
       temp = await OWServiceProvider.getAllGoals(username);
-
       setAllGoals(temp);
-      const getID = temp.map((x: any) => {
+      temp.map((x: any) => {
         var y: number = +x.goal_id;
         goalID.push(y);
       });
@@ -274,9 +273,9 @@ function ViewGoals(this: any) {
         {snailHealth !== 0 && ( // Don't show Goals if snail is dead
           <GoalsCard>
             <H2>Active Goals</H2>
-            <GoalsWrapper $hasGoals={allGoals.length !== 0}>
+            <GoalsWrapper $hasGoals={indGoals.length !== 0}>
               {goal}
-              {allGoals.length === 0 && (
+              {indGoals.length === 0 && (
                 <>
                   <H3>You have no goals!</H3>
                   <P>
@@ -289,7 +288,7 @@ function ViewGoals(this: any) {
                     <b>stay at its current health</b> if you don't have any
                     goals set.
                   </P>
-                  <LargeRoundedButton>Go to Clusters</LargeRoundedButton>
+                  <LargeRoundedButton onClick={() => {navigate('/view-clusters')}}>Go to Clusters</LargeRoundedButton>
                 </>
               )}
             </GoalsWrapper>
