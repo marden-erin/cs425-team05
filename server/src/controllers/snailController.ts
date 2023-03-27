@@ -84,15 +84,23 @@ const createSnail = asyncHandler(async (req: Request, res: Response) => {
 			const { user_id } = user[0];
 
 			query = `select * from Snails where user_id="${user_id}"`;
-			const [snail]: any[] = await db.promise().query(query);
+			const [snails]: any[] = await db.promise().query(query);
 
-			if (snail.length == 0) {
-				query = `insert into Snails (snail_id, user_id, color, name, health) values(default, ${user_id}, "${snailColor}", "${filteredSnailName}", "${3}")`;
-				await db.promise().query(query);
+			if (!snails.some((e: { health: number }) => e.health > 0)) {
+				query = `select * from Snails where user_id="${user_id}" and name="${filteredSnailName}"`;
+				const [snail]: any[] = await db.promise().query(query);
 
-				res.status(HTTPStatus.OK).json("Snail successfully created");
+				if (snail.length === 0) {
+					query = `insert into Snails (snail_id, user_id, color, name, health) values(default, ${user_id}, "${snailColor}", "${filteredSnailName}", "${3}")`;
+					await db.promise().query(query);
+
+					res.status(HTTPStatus.OK).json("Snail successfully created");
+				} else {
+					const errMsg = `Error. Snail with name ${snailName} already exists for user`;
+					res.status(HTTPStatus.BAD).json(errMsg);
+				}
 			} else {
-				const errMsg = "Error. User already has a snail";
+				const errMsg = "Error. User already has a living snail";
 				res.status(HTTPStatus.BAD).json(errMsg);
 			}
 		} catch (err: any) {
@@ -107,10 +115,11 @@ const createSnail = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const deleteSnail = asyncHandler(async (req: Request, res: Response) => {
-	const { userName } = req.body;
+	const { userName, snailName } = req.body;
 
-	if (userName) {
+	if (userName && snailName) {
 		const filteredUserName = (userName as string).replace(/"/g, "''");
+		const filteredSnailName = snailName.replace(/"/g, "''");
 
 		try {
 			let query = `select * from Users where userName="${filteredUserName}";`;
@@ -121,7 +130,7 @@ const deleteSnail = asyncHandler(async (req: Request, res: Response) => {
 			const [snail]: any[] = await db.promise().query(query);
 
 			if (snail.length > 0) {
-				query = `delete from Snails where user_id="${user_id}"`;
+				query = `delete from Snails where user_id="${user_id}" and name="${filteredSnailName}"`;
 				await db.promise().query(query);
 
 				res.status(HTTPStatus.OK).json("Successfully deleted snail");
