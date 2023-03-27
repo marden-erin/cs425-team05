@@ -6,16 +6,15 @@ import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { GetSnailImg, GetSnailStatusText } from '../utils';
 import { ScrollBarStyle } from '../constants';
 import {
+  BookSearchCard,
   GoalCard,
   H2,
-  H3,
   LargeRoundedButton,
   P,
   SmallRoundedButton,
 } from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
-import { FaYCombinator } from 'react-icons/fa';
 
 const FlexWrapper = styled.div`
   padding: 3vh;
@@ -82,7 +81,6 @@ const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
           ${ScrollBarStyle};
         ` // Only show scrollbar if there are goals
       : css`
-          width: 35rem;
           padding: 1rem 2rem 2rem;
           flex-direction: column;
           text-align: center;
@@ -224,26 +222,10 @@ function ViewGoals(this: any) {
             <GoalsWrapper $hasGoals={indGoals.length !== 0}>
               {goal}
               {indGoals.length === 0 && (
-                <>
-                  <H3>You have no goals!</H3>
-                  <P>
-                    To set a goal, find a book by <b>searching</b> for one using
-                    the search bar or by selecting a book from one of your{' '}
-                    <b>clusters</b>.{' '}
-                  </P>
-                  <P>
-                    Don't worry, your snail will{' '}
-                    <b>stay at its current health</b> if you don't have any
-                    goals set.
-                  </P>
-                  <LargeRoundedButton
-                    onClick={() => {
-                      navigate('/view-clusters');
-                    }}
-                  >
-                    Go to Clusters
-                  </LargeRoundedButton>
-                </>
+                <BookSearchCard
+                  cardKey={0}
+                  additionalText="To set a goal, you need to first find a book."
+                />
               )}
             </GoalsWrapper>
           </GoalsCard>
