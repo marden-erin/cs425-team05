@@ -271,12 +271,17 @@ class OuterWhorldServiceProvider {
   @param snailColor
   @returns success or failure
   */
-  async createSnail(userName: string, snailName: string, snailColor: string, date: string) {
+  async createSnail(
+    userName: string,
+    snailName: string,
+    snailColor: string,
+    date: string
+  ) {
     const input = {
       userName,
       snailName,
       snailColor,
-      date
+      date,
     };
 
     const res = await fetch(`/api/snails`, {
@@ -381,12 +386,17 @@ class OuterWhorldServiceProvider {
   @param pageCount - current page user is on
   @returns success or failure
   */
-  async updateGoal(goalID: number, notes: string, pageCount: number, completed: boolean) {
+  async updateGoal(
+    goalID: number,
+    notes: string,
+    pageCount: number,
+    completed: boolean
+  ) {
     const input = {
       goalID,
       notes,
       pageCount,
-      completed
+      completed,
     };
 
     const res = await fetch(`/api/goals`, {
@@ -497,6 +507,116 @@ class OuterWhorldServiceProvider {
 
     const res = await fetch(`/api/users/`, {
       method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param graveID
+  @returns snail info from associated grave
+  */
+  async getGrave(graveID: number) {
+    const res = await fetch(`/api/graveyard?graveID=${graveID}`);
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param username
+  @returns array of graves for associated user
+  */
+  async getAllGraves(username: string) {
+    const res = await fetch(`/api/graveyard/${username}`);
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param snailName
+  @param userName
+  @param gravestone - the grave's 'headstone text' aka the header text in the popup modal card
+  @param grave_type - one of 3 types of headstones we offer
+  @returns success or failure
+  */
+  async createGrave(
+    snailName: string,
+    userName: string,
+    gravestone: string,
+    grave_type: number
+  ) {
+    const input = {
+      snailName,
+      userName,
+      gravestone,
+      grave_type,
+    };
+
+    const res = await fetch(`/api/graveyard/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param graveyard_id
+  @param gravestone - the grave's 'headstone text' aka the header text in the popup modal card
+  @param grave_type - one of 3 types of headstones we offer
+  @returns success or failure
+  */
+  async updateGrave(
+    graveyard_id: number,
+    gravestone: string,
+    grave_type: number
+  ) {
+    const input = {
+      graveyard_id,
+      gravestone,
+      grave_type,
+    };
+
+    const res = await fetch(`/api/graveyard/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param graveyard_id
+  @returns success or failure
+  */
+  async deleteGrave(graveyard_id: number) {
+    const input = {
+      graveyard_id,
+    };
+
+    const res = await fetch(`/api/graveyard/`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',

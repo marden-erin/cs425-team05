@@ -52,9 +52,9 @@ const getAllGraves = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const createGrave = asyncHandler(async (req: Request, res: Response) => {
-	const { snailName, userName, gravestone } = req.body;
+	const { snailName, userName, gravestone, grave_type } = req.body;
 
-	if (userName && snailName && gravestone) {
+	if (userName && snailName && gravestone && grave_type) {
 		const filteredUserName = userName.replace(/"/g, "''");
 		const filteredSnailName = snailName.replace(/"/g, "''");
 
@@ -69,7 +69,7 @@ const createGrave = asyncHandler(async (req: Request, res: Response) => {
 			if (snail.length > 0) {
 				const { snail_id } = snail[0];
 
-				query = `insert into Graveyard (graveyard_id, snail_id, gravestone, user_id) values (default, ${snail_id}, "${gravestone}", ${user_id})`;
+				query = `insert into Graveyard (graveyard_id, snail_id, gravestone, user_id, grave_type, snail_name) values (default, ${snail_id}, "${gravestone}", ${user_id}, "${grave_type}", "${filteredSnailName}")`;
 				await db.promise().query(query);
 
 				res.status(HTTPStatus.OK).json("Grave successfully created");
@@ -83,7 +83,7 @@ const createGrave = asyncHandler(async (req: Request, res: Response) => {
 		}
 	} else {
 		const errMsg =
-			"Error. Missing one or more params (snailName, userName, gravestone)";
+			"Error. Missing one or more params (snailName, userName, gravestone, grave_type)";
 		res.status(HTTPStatus.BAD).json(errMsg);
 		throw new Error(errMsg);
 	}
