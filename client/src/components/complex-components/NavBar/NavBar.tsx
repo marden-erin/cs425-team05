@@ -9,6 +9,7 @@ import Logo from '../../../imgs/logo.png';
 import { useSignOut, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
+import { ProfilePic } from '../ProfileNav';
 
 const LinkStyle = css`
   width: 15rem;
@@ -127,17 +128,6 @@ const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
 
 // POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
 export const NavBar = () => {
-  const signOut = useSignOut();
-  const navigate = useNavigate();
-  const auth = useAuthUser();
-
-  const handleSignOut = async () => {
-    const username = auth()?.username;
-    const date = new Date().toString();
-    const res = await OWServiceProvider.signOutUser(username, date);
-    signOut();
-    navigate('/');
-  };
 
   return (
     <NavWrapper>
@@ -153,7 +143,7 @@ export const NavBar = () => {
       <SearchBarWrapper>
         <Search />
       </SearchBarWrapper>
-      <NavLink onClick={handleSignOut}>Sign Out</NavLink>
+      <ProfilePic/>
     </NavWrapper>
   );
 };

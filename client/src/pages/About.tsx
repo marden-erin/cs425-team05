@@ -11,9 +11,10 @@ import {
 } from '../components';
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
-import erinPic from '../imgs/erinPic.png';
-import andreiPic from '../imgs/andreiPic.png';
-import jodiPic from '../imgs/jodiPic.png';
+import erinPic from '../imgs/photos/erinPic.png';
+import andreiPic from '../imgs/photos/andreiPic.png';
+import jodiPic from '../imgs/photos/jodiPic.png';
+import groupPic from '../imgs/photos/groupPic.png';
 
 const FlexBoxWrapper = styled.div`
   display: flex;
@@ -89,7 +90,6 @@ function About() {
           </WordContainer>
           <WordContainer>
             <SmallHeading>
-              <br />
               Our Project
             </SmallHeading>
           </WordContainer>
@@ -123,6 +123,8 @@ function About() {
               <br />
               Meet The Brainy-ators
             </SmallHeading>
+          <img src={groupPic} height="500rem" style={{borderRadius: '5%'}}alt="Photo of Erin, Andrei, Jodi" />
+
           </WordContainer>
 
           <Box>

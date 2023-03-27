@@ -5,7 +5,7 @@ import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
 const SearchBarWrapper = styled.div`
   display: flex;
   gap: 5px;
-  width: 55rem;
+  width: 45rem;
 `;
 
 export const Search = () => {

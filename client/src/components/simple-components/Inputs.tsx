@@ -7,7 +7,6 @@ import { COLORS } from '../../constants';
 const InputCss = css`
   width: auto;
   flex-grow: 1;
-
   font-size: 1.6rem;
 
   border: 1px solid ${COLORS.PURPLE_DARK};
