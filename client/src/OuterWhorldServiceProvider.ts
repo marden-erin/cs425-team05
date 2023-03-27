@@ -271,11 +271,12 @@ class OuterWhorldServiceProvider {
   @param snailColor
   @returns success or failure
   */
-  async createSnail(userName: string, snailName: string, snailColor: string) {
+  async createSnail(userName: string, snailName: string, snailColor: string, date: string) {
     const input = {
       userName,
       snailName,
       snailColor,
+      date
     };
 
     const res = await fetch(`/api/snails`, {

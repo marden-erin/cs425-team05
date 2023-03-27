@@ -72,9 +72,9 @@ const updateSnail = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const createSnail = asyncHandler(async (req: Request, res: Response) => {
-	const { userName, snailName, snailColor } = req.body;
+	const { userName, snailName, snailColor, date } = req.body;
 
-	if (userName && snailName && snailColor) {
+	if (userName && snailName && snailColor && date) {
 		const filteredUserName = userName.replace(/"/g, "''");
 		const filteredSnailName = snailName.replace(/"/g, "''");
 
@@ -91,7 +91,7 @@ const createSnail = asyncHandler(async (req: Request, res: Response) => {
 				const [snail]: any[] = await db.promise().query(query);
 
 				if (snail.length === 0) {
-					query = `insert into Snails (snail_id, user_id, color, name, health) values(default, ${user_id}, "${snailColor}", "${filteredSnailName}", "${3}")`;
+					query = `insert into Snails (snail_id, user_id, color, name, health, date_created, date_died) values(default, ${user_id}, "${snailColor}", "${filteredSnailName}", "${3}", "${date}", ${null})`;
 					await db.promise().query(query);
 
 					res.status(HTTPStatus.OK).json("Snail successfully created");
