@@ -89,9 +89,7 @@ function About() {
             <PageTitle>About Us</PageTitle>
           </WordContainer>
           <WordContainer>
-            <SmallHeading>
-              Our Project
-            </SmallHeading>
+            <SmallHeading>Our Project</SmallHeading>
           </WordContainer>
           <ProjectBox>
             <h1>
@@ -123,8 +121,12 @@ function About() {
               <br />
               Meet The Brainy-ators
             </SmallHeading>
-          <img src={groupPic} height="500rem" style={{borderRadius: '5%'}}alt="Photo of Erin, Andrei, Jodi" />
-
+            <img
+              src={groupPic}
+              height="500rem"
+              style={{ borderRadius: '5%' }}
+              alt="Photo of Erin, Andrei, Jodi"
+            />
           </WordContainer>
 
           <Box>

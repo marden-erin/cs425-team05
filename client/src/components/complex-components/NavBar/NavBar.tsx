@@ -128,7 +128,6 @@ const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
 
 // POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
 export const NavBar = () => {
-
   return (
     <NavWrapper>
       <LogoLinkWrapper href="/">
@@ -143,7 +142,7 @@ export const NavBar = () => {
       <SearchBarWrapper>
         <Search />
       </SearchBarWrapper>
-      <ProfilePic/>
+      <ProfilePic />
     </NavWrapper>
   );
 };

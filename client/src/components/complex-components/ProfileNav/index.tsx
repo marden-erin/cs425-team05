@@ -1,1 +1,1 @@
-export {ProfilePic} from './ProfilePic';
+export { ProfilePic } from './ProfilePic';

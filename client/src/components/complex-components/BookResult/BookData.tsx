@@ -106,8 +106,6 @@ function BookData(props: any) {
     title: t,
   };
 
- 
-
   return (
     <>
       <div>

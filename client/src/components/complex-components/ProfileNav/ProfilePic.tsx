@@ -1,27 +1,26 @@
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { COLORS } from '../../../constants';
 import { useSignOut, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 import { GetSnailImg } from '../../../utils';
 
-   const Img = styled.img`
-    align-items: center;
-    width: 5rem;
-    height: 5rem;
-    margin-left:4rem;   
-    background-color:  ${COLORS.PURPLE_LIGHT};
-    border: 1px solid ${COLORS.PURPLE_XTRALIGHT};
-    border-radius:40%
-
-    `;
+const Img = styled.img`
+  align-items: center;
+  width: 5rem;
+  height: 5rem;
+  margin-left: 4rem;
+  background-color: ${COLORS.PURPLE_LIGHT};
+  border: 1px solid ${COLORS.PURPLE_XTRALIGHT};
+  border-radius: 40%;
+`;
 
 // Jodi's styling
-  const DropDownWrapper = styled.div`
+const DropDownWrapper = styled.div`
   :hover .dropdown-content {
     display: block;
-    margin-left:-1rem;
+    margin-left: -1rem;
   }
 `;
 const LinkStyle = css`
@@ -55,54 +54,46 @@ const DropDownContentWrapper = styled.div`
   z-index: 1;
 `;
 
-
 export const ProfilePic = () => {
-    const signOut = useSignOut();
-    const navigate = useNavigate();
-    const auth = useAuthUser();    const username: string = auth()?.username;
-    const [snailImage, setSnailImage] = useState('');
-    const snailHealth = 3
+  const signOut = useSignOut();
+  const navigate = useNavigate();
+  const auth = useAuthUser();
+  const username: string = auth()?.username;
+  const [snailImage, setSnailImage] = useState('');
+  const snailHealth = 3;
 
- 
+  useEffect(() => {
+    const loadData = async () => {
+      const snailInfo = await OWServiceProvider.getSnailInfo(username);
+      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+      console.log(snailImage);
+    };
+    loadData();
+  });
 
-    useEffect(()=>{
-        const loadData = async () => {
-            const snailInfo = await OWServiceProvider.getSnailInfo(username);
-            setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-            console.log(snailImage)
-      
-          };
-          loadData();
-    }
-    )
+  // andrei's signout code
+  const handleSignOut = async () => {
+    const username = auth()?.username;
+    const date = new Date().toString();
+    const res = await OWServiceProvider.signOutUser(username, date);
+    signOut();
+    navigate('/');
+  };
 
-    // andrei's signout code
-    const handleSignOut = async () => {
-        const username = auth()?.username;
-        const date = new Date().toString();
-        const res = await OWServiceProvider.signOutUser(username, date);
-        signOut();
-        navigate('/');
-      };
+  const handleProfile = () => {
+    navigate('/profile-page');
+  };
 
-      const handleProfile = ()=>{
-        navigate('/profile-page');
+  return (
+    <>
+      <DropDownWrapper>
+        <Img src={snailImage} alt="Users Snail Profile Image" />
 
-      }
-
-    return(
-        
-<>
-        <DropDownWrapper>        
-         <Img src = {snailImage} alt="Users Snail Profile Image"/>
-
-        <DropDownContentWrapper className="dropdown-content"> 
-        <DropDownItems onClick={handleProfile}>My Account</DropDownItems>
-            <DropDownItems onClick={handleSignOut}>Sign Out</DropDownItems>
-            </DropDownContentWrapper>
-       
-        </DropDownWrapper>
-     </>
-    )
-}
-
+        <DropDownContentWrapper className="dropdown-content">
+          <DropDownItems onClick={handleProfile}>My Account</DropDownItems>
+          <DropDownItems onClick={handleSignOut}>Sign Out</DropDownItems>
+        </DropDownContentWrapper>
+      </DropDownWrapper>
+    </>
+  );
+};
