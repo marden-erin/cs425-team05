@@ -14,12 +14,14 @@ const getSnail = asyncHandler(async (req: Request, res: Response) => {
 			const [user]: any[] = await db.promise().query(query);
 			const { user_id } = user[0];
 
-			query = `select * from Snails where user_id="${user_id}"`;
+			query = `select * from Snails where user_id="${user_id}" and health > 0`;
 			const [snail]: any[] = await db.promise().query(query);
 
 			if (snail.length > 0) {
-				const { name, color, health } = snail[0];
-				res.status(HTTPStatus.OK).json({ name, color, health });
+				const { name, color, health, date_created, date_died } = snail[0];
+				res
+					.status(HTTPStatus.OK)
+					.json({ name, color, health, date_created, date_died });
 			} else {
 				const errMsg = "Error. User does not have a snail";
 				res.status(HTTPStatus.BAD).json(errMsg);
