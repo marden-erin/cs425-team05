@@ -11,9 +11,9 @@ const Img = styled.img`
   width: 5rem;
   height: 5rem;
   margin-left: 4rem;
-  background-color: ${COLORS.PURPLE_LIGHT};
+  background-color: ${COLORS.PURPLE_LIGHTMID};
   border: 1px solid ${COLORS.PURPLE_XTRALIGHT};
-  border-radius: 40%;
+  border-radius: 50%;
 `;
 
 // Jodi's styling
