@@ -2,19 +2,19 @@ import express from "express";
 import { getGrave, getAllGraves, updateGrave, deleteGrave, createGrave } from "../controllers/graveyardController";
 const graveyardRouter = express.Router();
 
-//gets every book from individual cluster
+//gets grave info
 graveyardRouter.get("/", getGrave);
 
-// gets all clusters from user
+// gets all graves from user
 graveyardRouter.get("/:userName", getAllGraves);
 
-//modifies cluster
+//modifies grave
 graveyardRouter.put("/", updateGrave);
 
-//adds cluster
+//adds grave
 graveyardRouter.post("/", createGrave);
 
-//deletes cluster and its contents
+//deletes grave
 graveyardRouter.delete("/", deleteGrave);
 
 export default graveyardRouter;
