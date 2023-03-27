@@ -3,13 +3,52 @@ import asyncHandler from "express-async-handler";
 import { HTTPStatus } from "../utils/Enums";
 import db from "../model/database";
 const getGrave = asyncHandler(async (req: Request, res: Response) => {
-	console.log("in get grave");
-	res.status(HTTPStatus.OK).json("in get grave");
+	const { graveID } = req.query;
+
+	if (graveID) {
+		try {
+			let query = `select * from Graveyard where graveyard_id=${graveID}`;
+			const [grave]: any[] = await db.promise().query(query);
+			const { snail_id } = grave[0];
+
+			query = `select * from Snails where snail_id=${snail_id}`;
+			const [snail]: any[] = await db.promise().query(query);
+
+			res.status(HTTPStatus.OK).json(snail[0]);
+		} catch (err: any) {
+			res.status(HTTPStatus.BAD).json(err.sqlMessage);
+			throw new Error(err);
+		}
+	} else {
+		const errMsg = `Error. Missing one or more params (graveID)`;
+		res.status(HTTPStatus.BAD).json(errMsg);
+		throw new Error(errMsg);
+	}
 });
 
 const getAllGraves = asyncHandler(async (req: Request, res: Response) => {
-	console.log("in get all graves");
-	res.status(HTTPStatus.OK).json("in get all graves");
+	const { userName } = req.params;
+
+	if (userName) {
+		const filteredUserName = (userName as string).replace(/"/g, "''");
+		try {
+			let query = `select * from Users where userName="${filteredUserName}";`;
+			const [user]: any[] = await db.promise().query(query);
+			const { user_id } = user[0];
+
+			query = `select * from Graveyard where user_id="${user_id}"`;
+			const [graves]: any[] = await db.promise().query(query);
+
+			res.status(HTTPStatus.OK).json(graves);
+		} catch (err: any) {
+			res.status(HTTPStatus.BAD).json(err.sqlMessage);
+			throw new Error(err);
+		}
+	} else {
+		const errMsg = "Error. Missing username";
+		res.status(HTTPStatus.BAD).json(errMsg);
+		throw new Error(errMsg);
+	}
 });
 
 const createGrave = asyncHandler(async (req: Request, res: Response) => {
