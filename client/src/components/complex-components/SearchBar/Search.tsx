@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
+
+type SearchProps = {
+  /**
+   * What to override the id with
+   */
+  overrideId?: string;
+};
+
 const SearchBarWrapper = styled.div`
   display: flex;
   gap: 5px;
   width: 55rem;
 `;
 
-export const Search = () => {
+export const Search = ({ overrideId }: SearchProps) => {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
 
@@ -23,7 +31,7 @@ export const Search = () => {
       <form>
         <SearchBarWrapper>
           <ThinInput
-            id="book-search-input"
+            id={overrideId ? overrideId : 'book-search-input'}
             placeholder={'Search for books...'}
             value={input}
             onChange={(e) => setInput(e.target.value)}

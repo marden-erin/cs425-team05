@@ -113,7 +113,7 @@ function ViewGoals(this: any) {
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-      
+
       const goalArray: any[] = [];
       temp = await OWServiceProvider.getAllGoals(username);
       setAllGoals(temp);
@@ -236,7 +236,13 @@ function ViewGoals(this: any) {
                     <b>stay at its current health</b> if you don't have any
                     goals set.
                   </P>
-                  <LargeRoundedButton onClick={() => {navigate('/view-clusters')}}>Go to Clusters</LargeRoundedButton>
+                  <LargeRoundedButton
+                    onClick={() => {
+                      navigate('/view-clusters');
+                    }}
+                  >
+                    Go to Clusters
+                  </LargeRoundedButton>
                 </>
               )}
             </GoalsWrapper>
