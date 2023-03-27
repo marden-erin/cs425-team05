@@ -57,7 +57,7 @@ const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
 `;
 
 const Header = styled(H1)<{ fontColor?: string }>`
-  text-align: center;\
+  text-align: center;
   color: ${(props) => (props.fontColor ? props.fontColor : COLORS.WHITE)};
   margin-block-start: 4rem;
 `;
