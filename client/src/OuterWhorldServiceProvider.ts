@@ -381,11 +381,12 @@ class OuterWhorldServiceProvider {
   @param pageCount - current page user is on
   @returns success or failure
   */
-  async updateGoal(goalID: number, notes: string, pageCount: number) {
+  async updateGoal(goalID: number, notes: string, pageCount: number, completed: boolean) {
     const input = {
       goalID,
       notes,
       pageCount,
+      completed
     };
 
     const res = await fetch(`/api/goals`, {
