@@ -163,31 +163,29 @@ function Login() {
             {isError && <ErrorMessageP>{errorMessage}</ErrorMessageP>}
             <LoginPromptH2>Let's Get Reading!</LoginPromptH2>
             <InputWrapper>
-            <Label htmlFor="email-input">Email</Label>
-            <LoginInput
-              id="email-input"
-              type="email"
-              value={email}
-              onChange={updateEmail}
-            />
+              <Label htmlFor="email-input">Email</Label>
+              <LoginInput
+                id="email-input"
+                type="email"
+                value={email}
+                onChange={updateEmail}
+              />
             </InputWrapper>
             <InputWrapper>
-            <Label 
-            htmlFor="password-input">Password</Label>
-            <LoginInput
-              id="password-input"
-              type="password"
-              value={password}
-              onChange={updatePassword}
- />
- </InputWrapper>
+              <Label htmlFor="password-input">Password</Label>
+              <LoginInput
+                id="password-input"
+                type="password"
+                value={password}
+                onChange={updatePassword}
+              />
+            </InputWrapper>
             <LargeRoundedButton id="login-button" onClick={handleSubmit}>
               Login
             </LargeRoundedButton>
-              <P>
-                Don't have an account?{' '}
-                <a href='/register'>Register Now!</a>
-              </P>
+            <P>
+              Don't have an account? <a href="/register">Register Now!</a>
+            </P>
           </LoginContainer>
         </RightContentWrapper>
       </FlexBoxWrapper>

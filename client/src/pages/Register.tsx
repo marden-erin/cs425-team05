@@ -7,6 +7,7 @@ import {
   ThickInput,
   H2,
   P,
+  Label,
 } from '../components';
 import { COLORS } from '../constants';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
@@ -17,19 +18,28 @@ const RegisterContainer = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 450px;
-  height: 350px;
+  padding: 2rem 0rem;
+  width: 45rem;
   background-color: ${COLORS.PURPLE_LIGHT};
   border-radius: 25px;
-  gap: 20px;
+  gap: 2rem;
   margin: auto;
-  margin-top: 20%;
+  margin-block-start: 4rem;
   box-shadow: 0 0.188em 1.55em ${COLORS.BLACK};
 `;
 
 const RegisterInput = styled(ThickInput)`
   flex-grow: 0;
   border-radius: 5px;
+`;
+
+const RegisterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  label {
+    font-weight: bold;
+  }
 `;
 
 const RegisterPromptH2 = styled(H2)`
@@ -52,6 +62,8 @@ function Register() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [disableContinue, toggleDisableContinue] = useState(true);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -70,6 +82,25 @@ function Register() {
 
   const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const updateConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const checkPassword = () => {
+    console.log(confirmPassword);
+    console.log(password);
+    console.log(confirmPassword === password);
+    if (confirmPassword !== password) {
+      setErrorMsg('Passwords must be matching!');
+      setIsError(true);
+      toggleDisableContinue(true);
+    } else {
+      setErrorMsg('');
+      setIsError(false);
+      toggleDisableContinue(false);
+    }
   };
 
   const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +124,7 @@ function Register() {
     setEmail('');
     setUsername('');
     setPassword('');
+    setConfirmPassword('');
   };
 
   const redirectLogin = () => {
@@ -117,28 +149,48 @@ function Register() {
         ) : (
           <>
             <RegisterPromptH2>Your Snail Awaits!</RegisterPromptH2>
-            <RegisterInput
-              id="register-email"
-              type="text"
-              value={email}
-              onChange={updateEmail}
-              placeholder="email"
-            />
-            <RegisterInput
-              id="register-username"
-              type="text"
-              value={username}
-              onChange={updateUsername}
-              placeholder="username"
-            />
-            <RegisterInput
-              id="register-password"
-              type="password"
-              value={password}
-              onChange={updatePassword}
-              placeholder="password"
-            />
-            <LargeRoundedButton id="register-submit">
+            <RegisterWrapper>
+              <Label htmlFor="register-email">Email</Label>
+              <RegisterInput
+                id="register-email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={updateEmail}
+              />
+            </RegisterWrapper>
+            <RegisterWrapper>
+              <Label htmlFor="register-username">Username</Label>
+              <RegisterInput
+                id="register-username"
+                name="username"
+                type="text"
+                value={username}
+                onChange={updateUsername}
+              />
+            </RegisterWrapper>
+            <RegisterWrapper>
+              <Label htmlFor="register-password">Password</Label>
+              <RegisterInput
+                id="register-password"
+                name="pwd"
+                type="password"
+                value={password}
+                onChange={updatePassword}
+              />
+            </RegisterWrapper>
+            <RegisterWrapper>
+              <Label htmlFor="confirm-password">Confirm Password</Label>
+              <RegisterInput
+                id="confirm-password"
+                name="confirm-pwd"
+                type="password"
+                value={confirmPassword}
+                onChange={updateConfirmPassword}
+                onBlur={checkPassword}
+              />
+            </RegisterWrapper>
+            <LargeRoundedButton id="register-submit" disabled={disableContinue}>
               Create Account
             </LargeRoundedButton>
             {isError && <ErrorMessageP>{errorMsg}</ErrorMessageP>}

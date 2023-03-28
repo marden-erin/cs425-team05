@@ -63,6 +63,7 @@ const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
 
   h1 {
     margin-block-start: 5rem;
+    margin-block-end: 1.25rem;
   }
 `;
 
