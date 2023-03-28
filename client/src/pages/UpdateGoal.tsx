@@ -202,7 +202,8 @@ function UpdateGoal() {
       }
     } else {
       // Not done - Update progress
-      await OWServiceProvider.updateGoal(tempGoalId, notes, newPagesRead);
+      // TODO: create "completed" state to manage whether goal has been completed and should be updated accordingly
+      await OWServiceProvider.updateGoal(tempGoalId, notes, newPagesRead, false);
       navigate('/view-goals');
     }
   };

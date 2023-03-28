@@ -9,7 +9,6 @@ import {
   FONTS_MAIN,
   FONTS_SECONDARY,
   ScrollBarStyle,
-  GRADIENTS,
 } from '../constants';
 import {
   PageWrapper,
@@ -23,6 +22,7 @@ import {
   ThickInput,
   SmallRoundedButton,
   LargeBookCard,
+  BookSearchCard,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
@@ -33,7 +33,7 @@ const FlexBoxWrapper = styled.div<{
   $isModalOpen: boolean;
   $isModalOpen2: boolean;
 }>`
-  height: 85vh;
+  margin-block-start: 2rem;
   padding: 3vh;
   display: flex;
   flex-wrap: wrap;
@@ -91,9 +91,8 @@ const ScrollableDiv = styled.div`
   width: 75rem;
   padding: 3rem;
   margin-top: 5px;
-  background-color: ${COLORS.PURPLE_LIGHT};
   overflow-y: hidden;
-  overflow-x: scroll;
+  overflow-x: auto;
   ${ScrollBarStyle}
 `;
 
@@ -104,7 +103,6 @@ const ImgWrapper = styled.div`
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
   border-radius: 5px;
   display: inline-flex;
-  min-width: 100%;
   min-height: 100%;
   align-content: center;
   align-items: center;
@@ -318,7 +316,7 @@ function ViewClusters() {
     description: modalDes,
     title: modalBooks,
   };
-  const temp2 = clusterBooks.map((item: any, index: any) => {
+  const Books = clusterBooks.map((item: any, index: any) => {
     return (
       <div key={index}>
         <Box_Wrapper>
@@ -426,91 +424,98 @@ function ViewClusters() {
                 </ModalContentWrapper>
               </ReactModal>
             </Options>
-            <ScrollableDiv>
-              <ImgWrapper>
-                {item.books.map((t: any, i: any) => {
-                  return (
-                    <div key={i}>
-                      <ImgButton
-                        onClick={() => {
-                          setTempCluster(item.clusterName);
-                          setModalBooks(t.title);
-                          setModalAuthors(t.authors);
-                          setModalDes(t.description);
-                          setModalCover(t.cover);
-                          setModalPage(t.pageCount);
-                          bookCard(
-                            t.title,
-                            t.authors,
-                            t.pageCount,
-                            t.description,
-                            t.cover
-                          );
-                          toggleIsModalOpen2(true);
-                        }}
-                      >
-                        <Img>
-                          <img
-                            src={t.cover}
-                            style={{ maxWidth: '100%', height: '100%' }}
-                            alt={t.title + ' book cover'}
-                          />
-                        </Img>
-                      </ImgButton>
-                      <Title>{t.title}</Title>
-                      <ReactModal
-                        isOpen={isModalOpen2}
-                        className="modal-body"
-                        overlayClassName="modal-overlay2"
-                      >
-                        <CloseButton handler={toggleIsModalOpen2} />
-                        <ModalContentWrapper2>
-                          <LargeBookCard
-                            bookTitle={modalBooks}
-                            authorName={[modalAuthors]}
-                            bookCover={
-                              <img
-                                src={modalCover}
-                                style={{ maxWidth: '100%', height: '100%' }}
-                                alt={modalBooks + ' cover'}
-                              />
-                            }
-                            description={modalDes}
-                            AddClusterFunction=""
-                            CreateGoalFunction={
-                              <CreateGoalButton
-                                {...propsToGoalPage}
-                              ></CreateGoalButton>
-                            }
-                            showButtons={true}
-                            tempFunction={
-                              <DeleteWrapper>
-                                <SmallRoundedButton
-                                  onClick={() => {
-                                    const confirmBox = window.confirm(
-                                      'Do you really want to delete ' +
-                                        modalBooks +
-                                        ' from this cluster?'
-                                    );
-                                    if (confirmBox === true) {
-                                      console.log(cardBooks);
-                                      handleDeleteBook(cardBooks);
-                                      window.location.reload();
-                                    }
-                                  }}
-                                >
-                                  {'Delete Book From Cluster'}
-                                </SmallRoundedButton>
-                              </DeleteWrapper>
-                            }
-                          />
-                        </ModalContentWrapper2>
-                      </ReactModal>
-                    </div>
-                  );
-                })}
-              </ImgWrapper>{' '}
-            </ScrollableDiv>
+            {item.books.length === 0 ? (
+              <BookSearchCard
+                cardKey={index}
+                additionalText="You don't have any books in this cluster."
+              />
+            ) : (
+              <ScrollableDiv>
+                <ImgWrapper>
+                  {item.books.map((t: any, i: any) => {
+                    return (
+                      <div key={i}>
+                        <ImgButton
+                          onClick={() => {
+                            setTempCluster(item.clusterName);
+                            setModalBooks(t.title);
+                            setModalAuthors(t.authors);
+                            setModalDes(t.description);
+                            setModalCover(t.cover);
+                            setModalPage(t.pageCount);
+                            bookCard(
+                              t.title,
+                              t.authors,
+                              t.pageCount,
+                              t.description,
+                              t.cover
+                            );
+                            toggleIsModalOpen2(true);
+                          }}
+                        >
+                          <Img>
+                            <img
+                              src={t.cover}
+                              style={{ maxWidth: '100%', height: '100%' }}
+                              alt={t.title + ' book cover'}
+                            />
+                          </Img>
+                        </ImgButton>
+                        <Title>{t.title}</Title>
+                        <ReactModal
+                          isOpen={isModalOpen2}
+                          className="modal-body"
+                          overlayClassName="modal-overlay2"
+                        >
+                          <CloseButton handler={toggleIsModalOpen2} />
+                          <ModalContentWrapper2>
+                            <LargeBookCard
+                              bookTitle={modalBooks}
+                              authorName={[modalAuthors]}
+                              bookCover={
+                                <img
+                                  src={modalCover}
+                                  style={{ maxWidth: '100%', height: '100%' }}
+                                  alt={modalBooks + ' cover'}
+                                />
+                              }
+                              description={modalDes}
+                              AddClusterFunction=""
+                              CreateGoalFunction={
+                                <CreateGoalButton
+                                  {...propsToGoalPage}
+                                ></CreateGoalButton>
+                              }
+                              showButtons={true}
+                              tempFunction={
+                                <DeleteWrapper>
+                                  <SmallRoundedButton
+                                    onClick={() => {
+                                      const confirmBox = window.confirm(
+                                        'Do you really want to delete ' +
+                                          modalBooks +
+                                          ' from this cluster?'
+                                      );
+                                      if (confirmBox === true) {
+                                        console.log(cardBooks);
+                                        handleDeleteBook(cardBooks);
+                                        window.location.reload();
+                                      }
+                                    }}
+                                  >
+                                    {'Delete Book From Cluster'}
+                                  </SmallRoundedButton>
+                                </DeleteWrapper>
+                              }
+                            />
+                          </ModalContentWrapper2>
+                        </ReactModal>
+                      </div>
+                    );
+                  })}
+                </ImgWrapper>{' '}
+              </ScrollableDiv>
+            )}
           </ClusterBox>
         </Box_Wrapper>
       </div>
@@ -523,8 +528,7 @@ function ViewClusters() {
         <FlexBoxWrapper $isModalOpen={isModalOpen} $isModalOpen2={isModalOpen2}>
           <HeadingWrapper>
             <PageTitle>View Your Clusters</PageTitle>
-
-            <div>{temp2}</div>
+            <div>{Books}</div>
           </HeadingWrapper>
         </FlexBoxWrapper>
       </PageWrapper>

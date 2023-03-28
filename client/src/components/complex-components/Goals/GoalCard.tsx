@@ -45,7 +45,6 @@ const ResultWrapper = styled.div`
   }
 `;
 
-//TODO: have cover wrapper adjust to image size
 const CoverWrapper = styled.div`
   display: flex;
   flex-flow: wrap;
