@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { H1, H2, Label, P, PageWrapper, SubTitle } from '../components';
+import { H1, Label, P, PageWrapper, SubTitle } from '../components';
 import { COLORS } from '../constants';
 import {
   SmallHalfRoundedButton,
@@ -38,36 +38,13 @@ const SmallHeading = styled(SubTitle)`
   font-size: 2rem;
 `;
 
-const ClusterBox = styled.div`
-  width: 60rem;
-  height: 30rem;
-  background-color: ${COLORS.PURPLE_XTRALIGHT};
-  border-radius: 22px;
-  border: 2px solid ${COLORS.PURPLE_MID};
-`;
 const InputBarWrapper = styled.div`
   display: flex;
   gap: 10px;
   padding: 10px 30px 30px;
 `;
 
-const LargeButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 100px;
-  align-items: center;
-  gap: 200px;
-`;
 
-const OutPut = styled(H2)`
-  font-size: 2rem;
-  font-weight: 200;
-  color: ${COLORS.PURPLE_DARK};
-  padding: 4rem;
-
-  text-align: center;
-`;
 
 const CustomLabel = styled(Label)`
   font-size: 2.4rem;
@@ -85,31 +62,25 @@ const Visibility = styled(P)`
   margin-bottom: 2rem;
 `;
 
-const VisibilityButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-`;
+
 
 const Input = styled.input`
   appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 4px solid ${COLORS.PURPLE_MID};
-  border-radius: 50%;
-  padding: 2px;
+  width: 15px;
+  height: 15px;
+  border: 2px solid ${COLORS.PURPLE_MID};
+  padding: 1px;
+  border-radius: 10%;
   background-clip: content-box;
-  margin-bottom: -1px;
   cursor: pointer;
+  margin-right: 5px;
 
   :checked {
     background-color: ${COLORS.PURPLE_MID};
   }
 
   :hover {
-    background-color: ${COLORS.PURPLE_MID};
+    background-color: ${COLORS.PURPLE_LIGHTMID};
   }
 `;
 
@@ -121,11 +92,13 @@ const QuestionWrapper = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   padding: 3rem 5rem;
-  height: 37rem;
+  height: 15rem;
   border-radius: 22px;
   align-items: center;
   justify-content: center;
-  background: ${COLORS.PURPLE_LIGHT};
+  background: ${COLORS.PURPLE_LIGHT}; 
+  border: 10px solid ${COLORS.PURPLE_XTRALIGHT}
+
 `;
 
 function CreateCluster() {
@@ -134,6 +107,11 @@ function CreateCluster() {
   const userName = auth()?.username;
   const [input, setInput] = useState('');
   const [visibility, setVisibilty] = useState(false);
+
+  const toggle = useCallback(
+    () => setVisibilty(state => !state),
+    [setVisibilty],
+  );
 
   const loadData = async (e: any) => {
     e.preventDefault();
@@ -158,34 +136,9 @@ function CreateCluster() {
         <ClusterBoxWrapper>
           {' '}
           <ContentWrapper>
-            <ClusterBox>
               <QuestionWrapper>
                 <form onSubmit={loadData}>
-                  <CustomLabel htmlFor="visibility">
-                    Cluster Visibility
-                  </CustomLabel>
-                  <LargeButtonWrapper>
-                    <VisibilityButtonWrapper>
-                      <Visibility>
-                        <Input
-                          type="radio"
-                          value="true"
-                          name="visibility"
-                          onClick={() => setVisibilty(true)}
-                        />
-                        Public
-                      </Visibility>
-                      <Visibility>
-                        <Input
-                          type="radio"
-                          value="false"
-                          name="visibility"
-                          onClick={() => setVisibilty(false)}
-                        />
-                        Private
-                      </Visibility>
-                    </VisibilityButtonWrapper>
-                  </LargeButtonWrapper>
+
                   <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
                   <InputBarWrapper>
                     <ThinInput
@@ -195,12 +148,20 @@ function CreateCluster() {
                       onChange={(e) => setInput(e.target.value)}
                     ></ThinInput>
                     <SmallHalfRoundedButton type="submit">
-                      Continue
+                      Create Cluster
                     </SmallHalfRoundedButton>
                   </InputBarWrapper>
+                      <Visibility>
+                        <Input
+                          type="checkbox"
+                          value="true"
+                          name="visibility"
+                          onClick={toggle}
+                        />
+                        By checking this I agree to make this Cluster visible to other users.
+                      </Visibility>
                 </form>{' '}
               </QuestionWrapper>
-            </ClusterBox>
           </ContentWrapper>
         </ClusterBoxWrapper>
       </FlexBoxWrapper>
