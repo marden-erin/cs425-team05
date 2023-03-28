@@ -56,7 +56,7 @@ export default function App() {
             </RequireAuth>
           }
         />
-         <Route
+        <Route
           path="profile-page"
           element={
             <RequireAuth loginPath="/">

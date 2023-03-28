@@ -66,7 +66,6 @@ export const ProfilePic = () => {
     const loadData = async () => {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-      console.log(snailImage);
     };
     loadData();
   });
