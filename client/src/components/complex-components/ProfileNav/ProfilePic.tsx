@@ -59,7 +59,7 @@ export const ProfilePic = () => {
   const navigate = useNavigate();
   const auth = useAuthUser();
   const username: string = auth()?.username;
-  const [snailImage, setSnailImage] = useState('');
+  const [snailImage, setSnailImage] = useState(GetSnailImg('yellow', 3));
   const snailHealth = 3;
 
   useEffect(() => {
