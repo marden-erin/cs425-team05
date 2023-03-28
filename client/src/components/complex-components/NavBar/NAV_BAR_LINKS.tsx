@@ -11,19 +11,11 @@ export const ClusterPages = [
 
 export const GoalPages = [
   {
-    linkLabel: 'Adopt a Snail',
-    linkURL: '/snail-adoption',
-  },
-  {
     linkLabel: 'View Goals',
     linkURL: '/view-goals',
   },
   {
     linkLabel: 'Graveyard',
     linkURL: '/graveyard',
-  },
-  {
-    linkLabel: 'Adopt a Grave',
-    linkURL: '/grave-adoption',
   },
 ];

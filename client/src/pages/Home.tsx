@@ -64,21 +64,33 @@ const RightContentWrapper = styled.div`
   }
 `;
 
-const LoginContainer = styled.div`
+const WelcomeContainer = styled.div`
   ${ColumnFlexCss}
   justify-content: center;
   width: 450px;
   height: 225px;
-  background-color: ${COLORS.PURPLE_LIGHT};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
   border-radius: 25px;
-  gap: 20px;
+  gap: 0.4rem;
   margin-top: 25px;
 `;
 
-const LoginPromptH2 = styled(H2)`
+const WelcomePromptH2 = styled(H2)`
   color: ${COLORS.BLACK};
   font-weight: 300;
   font-style: italic;
+`;
+
+const Link = styled.a`
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 1.2rem 2rem;
+  transition: background-color 0.3s ease-out;
+  :hover {
+    background-color: ${COLORS.PURPLE_LIGHT};
+  }
 `;
 
 function Home() {
@@ -104,7 +116,6 @@ function Home() {
     fetchData();
   }, []);
 
-  // TODO: Add quick links to important pages where login placeholder used to be
   return (
     <PageWrapper pageTitle="OuterWhorld">
       <FlexBoxWrapper>
@@ -124,9 +135,12 @@ function Home() {
           <SubTitle className="subtitle">
             Adopt and feed an astronaut snail by reading books you love!
           </SubTitle>
-          <LoginContainer>
-            <LoginPromptH2>Let's get Reading!</LoginPromptH2>
-          </LoginContainer>
+          <WelcomeContainer>
+            <WelcomePromptH2>Let's get Reading!</WelcomePromptH2>
+            <Link href="/">Account 🡪</Link>
+            <Link href="/view-clusters">View Clusters 🡪</Link>
+            <Link href="/view-goals">View Goals 🡪</Link>
+          </WelcomeContainer>
         </RightContentWrapper>
       </FlexBoxWrapper>
     </PageWrapper>

@@ -6,21 +6,20 @@ import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { GetSnailImg, GetSnailStatusText } from '../utils';
 import { ScrollBarStyle } from '../constants';
 import {
+  BookSearchCard,
   GoalCard,
   H2,
-  H3,
   LargeRoundedButton,
   P,
   SmallRoundedButton,
 } from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
-import { FaYCombinator } from 'react-icons/fa';
 
 const FlexWrapper = styled.div`
-  height: 75vh;
   padding: 3vh;
   display: flex;
+  margin-block-start: 4rem;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -29,6 +28,7 @@ const FlexWrapper = styled.div`
 
 const SnailCard = styled.div`
   width: 40rem;
+  min-height: 36rem;
   padding: 25px 15px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
@@ -55,6 +55,7 @@ const SnailStatus = styled.div`
 
 const GoalsCard = styled.div`
   width: 70rem;
+  height: 36.5rem;
   padding: 20px 15px 25px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
@@ -62,6 +63,7 @@ const GoalsCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
 `;
 
 const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
@@ -79,7 +81,6 @@ const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
           ${ScrollBarStyle};
         ` // Only show scrollbar if there are goals
       : css`
-          width: 35rem;
           padding: 1rem 2rem 2rem;
           flex-direction: column;
           text-align: center;
@@ -108,9 +109,9 @@ function ViewGoals(this: any) {
       snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
-      // setSnailHealth(snailInfo.health); // TODO
+      setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-      
+
       const goalArray: any[] = [];
       temp = await OWServiceProvider.getAllGoals(username);
       setAllGoals(temp);
@@ -128,14 +129,6 @@ function ViewGoals(this: any) {
     };
     loadData();
   }, []);
-
-  const handleUpdate = (e: any) => {
-    return (
-      <SmallRoundedButton
-        onClick={() => navigate('/update-goal', { state: e })}
-      ></SmallRoundedButton>
-    );
-  };
 
   const handleDelete = async (e: any) => {
     await OWServiceProvider.deleteGoal(e);
@@ -212,53 +205,6 @@ function ViewGoals(this: any) {
             <P>
               <b>{snailName}</b> {GetSnailStatusText(snailHealth)}
             </P>
-            {
-              // TODO: DELETE AFTER DEMO
-            }
-            <input
-              type="radio"
-              id="3"
-              name="snail-health"
-              value="3"
-              onChange={() => {
-                setSnailHealth(3);
-                setSnailImage(GetSnailImg(snailColor, 3));
-              }}
-            />
-            <label htmlFor="html">3</label>
-            <input
-              type="radio"
-              id="2"
-              name="snail-health"
-              value="2"
-              onChange={() => {
-                setSnailHealth(2);
-                setSnailImage(GetSnailImg(snailColor, 2));
-              }}
-            />
-            <label htmlFor="css">2</label>
-            <input
-              type="radio"
-              id="1"
-              name="snail-health"
-              value="1"
-              onChange={() => {
-                setSnailHealth(1);
-                setSnailImage(GetSnailImg(snailColor, 1));
-              }}
-            />
-            <label htmlFor="javascript">1</label>
-            <input
-              type="radio"
-              id="0"
-              name="snail-health"
-              value="0"
-              onChange={() => {
-                setSnailHealth(0);
-                setSnailImage(GetSnailImg(snailColor, 0));
-              }}
-            />
-            <label htmlFor="javascript">0</label>
           </SnailStatus>
           {snailHealth === 0 && ( // Only show button if snail is dead
             <LargeRoundedButton
@@ -276,20 +222,10 @@ function ViewGoals(this: any) {
             <GoalsWrapper $hasGoals={indGoals.length !== 0}>
               {goal}
               {indGoals.length === 0 && (
-                <>
-                  <H3>You have no goals!</H3>
-                  <P>
-                    To set a goal, find a book by <b>searching</b> for one using
-                    the search bar or by selecting a book from one of your{' '}
-                    <b>clusters</b>.{' '}
-                  </P>
-                  <P>
-                    Don't worry, your snail will{' '}
-                    <b>stay at its current health</b> if you don't have any
-                    goals set.
-                  </P>
-                  <LargeRoundedButton onClick={() => {navigate('/view-clusters')}}>Go to Clusters</LargeRoundedButton>
-                </>
+                <BookSearchCard
+                  cardKey={0}
+                  additionalText="To set a goal, you need to first find a book."
+                />
               )}
             </GoalsWrapper>
           </GoalsCard>

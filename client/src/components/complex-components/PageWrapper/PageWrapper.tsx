@@ -53,11 +53,13 @@ const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
   background-size: 75%;
   background-position: right center;
   background-repeat: no-repeat;
+  min-height: 100vh;
 `;
 
 const Header = styled(H1)<{ fontColor?: string }>`
   text-align: center;
   color: ${(props) => (props.fontColor ? props.fontColor : COLORS.WHITE)};
+  margin-block-start: 4rem;
 `;
 
 export const PageWrapper = ({
