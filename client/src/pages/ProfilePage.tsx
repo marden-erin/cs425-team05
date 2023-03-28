@@ -18,8 +18,8 @@ const FlexBoxWrapper = styled.div`
 
 const PageTitle = styled(H1)`
   color: ${COLORS.WHITE};
-  justify-content: center;
   text-align: center;
+  padding-top: 3rem;
 `;
 
 const AccountBox = styled(Box)`
@@ -27,6 +27,7 @@ const AccountBox = styled(Box)`
   height: 60rem;
   display: flex;
   flex-direction: row;
+  margin-top: -10px;
 `;
 const AccountWrapper = styled.div`
   display: flex;
