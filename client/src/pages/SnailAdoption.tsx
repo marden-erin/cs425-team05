@@ -78,11 +78,14 @@ function SnailAdoption() {
   ReactModal.setAppElement('*');
 
   const handleSubmit = async (e: any) => {
+    const date = new Date();
+    const dateString = date.toDateString();
     e.preventDefault();
     const create = await OWServiceProvider.createSnail(
       userName,
       snailName,
-      snailColor
+      snailColor,
+      dateString
     );
     console.log(create);
     navigate('/view-goals');

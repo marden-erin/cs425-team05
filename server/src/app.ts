@@ -5,6 +5,7 @@ import booksInClusterRouter from "./routes/booksInClusterRoutes";
 import snailRouter from './routes/snailRoutes'
 import goalRouter from './routes/goalRoutes'
 import userRouter from './routes/userRoutes'
+import graveyardRouter from './routes/graveyardRoutes'
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.use("/api/booksInClusters", booksInClusterRouter);
 app.use("/api/snails", snailRouter); 
 app.use("/api/goals", goalRouter);
 app.use("/api/users", userRouter);
+app.use("/api/graveyard", graveyardRouter);
 
 export default app;

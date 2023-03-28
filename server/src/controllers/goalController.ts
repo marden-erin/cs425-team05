@@ -135,7 +135,7 @@ const addGoal = asyncHandler(async (req: Request, res: Response) => {
 		const [returnedBook]: any[] = await db.promise().query(query);
 		const { book_id } = returnedBook[0];
 
-		query = `insert into Goals(goal_id, book_id, user_id, notes, pageCount, deadline) values(DEFAULT, "${book_id}", "${user_id}", "${notes}", "${goalPageCount}", "${deadline}");`;
+		query = `insert into Goals(goal_id, book_id, user_id, notes, pageCount, deadline, completed) values(DEFAULT, "${book_id}", "${user_id}", "${notes}", "${goalPageCount}", "${deadline}", "${false}");`;
 		await db.promise().query(query);
 
 		res.status(HTTPStatus.OK).json("Successfully added goal");
@@ -148,10 +148,10 @@ const addGoal = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const updateGoal = asyncHandler(async (req: Request, res: Response) => {
-	const { goalID, notes, pageCount } = req.body;
+	const { goalID, notes, pageCount, completed } = req.body;
 
 	if (goalID && notes && pageCount) {
-		const query = `update Goals set notes="${notes}", pageCount="${pageCount}" where goal_id=${goalID}`;
+		const query = `update Goals set notes="${notes}", pageCount="${pageCount}", completed=${completed} where goal_id=${goalID}`;
 		await db.promise().query(query);
 
 		res.status(HTTPStatus.OK).json("Successfully updated goal");
