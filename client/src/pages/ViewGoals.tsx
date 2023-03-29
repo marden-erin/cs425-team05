@@ -17,9 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
 
 const FlexWrapper = styled.div`
-  padding: 3vh;
   display: flex;
-  margin-block-start: 4rem;
+  margin-block-start: 3rem;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -29,7 +28,7 @@ const FlexWrapper = styled.div`
 const SnailCard = styled.div`
   width: 40rem;
   min-height: 45rem;
-  padding: 25px 15px;
+  padding: 20px 15px 25px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
   border-radius: 15px;
