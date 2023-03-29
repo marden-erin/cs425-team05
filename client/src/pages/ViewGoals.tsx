@@ -28,7 +28,7 @@ const FlexWrapper = styled.div`
 
 const SnailCard = styled.div`
   width: 40rem;
-  min-height: 36rem;
+  min-height: 45rem;
   padding: 25px 15px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
@@ -44,6 +44,7 @@ const SnailCard = styled.div`
 
 const SnailStatus = styled.div`
   margin-block-start: 10px;
+  margin-top: 20px;
   background-color: ${COLORS.PURPLE_LIGHT};
   width: 90%;
   padding: 15px 10px;
@@ -55,7 +56,7 @@ const SnailStatus = styled.div`
 
 const GoalsCard = styled.div`
   width: 70rem;
-  height: 36.5rem;
+  height: 45rem;
   padding: 20px 15px 25px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
@@ -196,8 +197,8 @@ function ViewGoals(this: any) {
         <SnailCard>
           <img
             src={snailImage}
-            width="250"
-            height="250"
+            width="300"
+            height="300"
             alt={'An image of ' + snailName}
           />
           <H2>{snailName}</H2>

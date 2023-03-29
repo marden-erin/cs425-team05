@@ -1,17 +1,23 @@
 // TODO: once linked to backend-loop through all dead snails to create gravewrapper and modal for each
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { COLORS, GraveScrollBarStyle } from '../constants';
 import { useLocation } from 'react-router-dom';
 import ReactModal from 'react-modal';
+import { useAuthUser } from 'react-auth-kit';
+import { GetSnailImg } from '../utils';
 
-import Grave1 from './../imgs/graveyard/Grave stone.png';
-import Grave2 from './../imgs/graveyard/Grave stone 2.png';
-import Grave3 from './../imgs/graveyard/Grave stone 3.png';
-import PinkSnail from './../imgs/snails/pink-default.png';
-
-import { H1, H2, Box, GraveyardPageWrapper, CloseButton } from '../components';
+import {
+  H1,
+  H3,
+  Box,
+  GraveyardPageWrapper,
+  CloseButton,
+  SubTitle,
+  P,
+} from '../components';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const GridWrapper = styled.div<{ $isModalOpen: boolean }>`
   height: 85vh;
@@ -41,11 +47,13 @@ const ModalContentBox = styled(Box)`
   height: 40rem;
   width: 38rem;
   background-color: ${COLORS.GRAY_LIGHT};
+  overflow: scroll;
 `;
 const YardWrapper = styled(Box)`
   background-color: ${COLORS.GRAY_MID};
   border: 15px double ${COLORS.GRAY_LIGHT};
 `;
+
 const ScrollableDiv = styled.div`
   // Makes the div scrollable
   padding: 10px;
@@ -62,9 +70,11 @@ const SignWrapper = styled.div`
 
 const AllGraveWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   gap: 3rem;
   margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
 `;
 const GraveWrapper = styled.button`
   display: flex;
@@ -80,7 +90,7 @@ const GraveWrapper = styled.button`
 const Title = styled(H1)`
   color: ${COLORS.BLACK};
 `;
-const SnailH2 = styled(H2)`
+const SnailH2 = styled(H3)`
   color: ${COLORS.BLACK};
 `;
 
@@ -94,73 +104,91 @@ const Snail = styled.div`
 `;
 
 function Graveyard() {
-  const location = useLocation();
   const [isModalOpen, toggleIsModalOpen] = useState(false);
   ReactModal.setAppElement('*');
+  const auth = useAuthUser();
+  const username: string = auth()?.username;
 
-  //userInput is what the user typed into search bar
-  // var userInput = location.state.selected;
-  // console.log(userInput);
-  var tempGrave = Grave1;
-  const graves = [];
-  graves.push(tempGrave);
-  console.log(graves);
+  const deathDate = 'March 28 2023 ';
 
-  const temp = graves.map((x) => {
+  const GraveID: any = [];
+
+  const [grave, setGrave] = useState<any>([]);
+  const [snail, setSnail] = useState<any>([]);
+  useEffect(() => {
+    const loadData = async () => {
+      const getGraves = await OWServiceProvider.getAllGraves(username);
+      const snailArray: any[] = [];
+      const graveArray: any[] = [];
+
+      for (const temp of getGraves) {
+        const snailInfo = await OWServiceProvider.getGrave(temp.graveyard_id);
+        snailArray.push(snailInfo);
+      }
+      setSnail([...snailArray]);
+      graveArray.push({ snail: snail, graveInfo: getGraves });
+      setGrave([...graveArray]);
+    };
+    loadData();
+  });
+  const temp = grave.map((x: any, i: any) => {
     return (
-      <ScrollableDiv>
-        <AllGraveWrapper>
-          <GraveWrapper
-            onClick={() => {
-              toggleIsModalOpen(true);
-            }}
-          >
-            <img src={x} alt="Spooky grave" height="150px" />
-            <SnailH2>Snail</SnailH2>
-          </GraveWrapper>
-          <GraveWrapper>
-            <img src={Grave2} alt="Spooky grave" height="150px" />
-            <SnailH2>Snailiosaurus</SnailH2>
-          </GraveWrapper>
-          <GraveWrapper>
-            <img src={Grave3} alt="Spooky grave" height="150px" />
-            <SnailH2>Mike</SnailH2>
-          </GraveWrapper>
-          <GraveWrapper>
-            <img src={Grave1} alt="Spooky grave" height="150px" />
-            <SnailH2>boo</SnailH2>
-          </GraveWrapper>
-          <GraveWrapper>
-            <img src={Grave3} alt="Spooky grave" height="150px" />
-            <SnailH2>Mike</SnailH2>
-          </GraveWrapper>
-          <GraveWrapper>
-            <img src={Grave1} alt="Spooky grave" height="150px" />
-            <SnailH2>boo</SnailH2>
-          </GraveWrapper>
-        </AllGraveWrapper>
+      <div key={i}>
+        <ScrollableDiv>
+          <AllGraveWrapper>
+            {x.graveInfo.map((a: any, b: any) => (
+              <div key={b}>
+                <GraveWrapper
+                  onClick={() => {
+                    toggleIsModalOpen(true);
+                  }}
+                >
+                  <img src={a.gravestone} alt="Spooky grave" height="150px" />
+                  <SnailH2>{a.snail_name}</SnailH2>
+                </GraveWrapper>
+              </div>
+            ))}
+          </AllGraveWrapper>
 
-        <ReactModal
-          isOpen={isModalOpen}
-          className="modal-body"
-          overlayClassName="modal-overlay"
-        >
-          <CloseButton handler={toggleIsModalOpen} />
-          <ModalContentWrapper>
-            {/* TODO: snail name */}
-            <Title>Here lies Snail</Title>{' '}
-            <ModalContentBox>
-              <Snail>
-                <img src={PinkSnail} alt="snail who passed away" width="200" />
-              </Snail>
-
-              <SnailH2>
-                Snail passed away when you failed your reading goal.
-              </SnailH2>
-            </ModalContentBox>
-          </ModalContentWrapper>
-        </ReactModal>
-      </ScrollableDiv>
+          {x.snail.map((c: any, d: any) => {
+            return (
+              <div key={d}>
+                <ReactModal
+                  isOpen={isModalOpen}
+                  className="modal-body"
+                  overlayClassName="modal-overlay"
+                >
+                  <CloseButton handler={toggleIsModalOpen} />
+                  <ModalContentWrapper>
+                    <Title>Here lies {c.name} </Title>{' '}
+                    <ModalContentBox>
+                      <Snail>
+                        <img
+                          src={GetSnailImg(c.color, 3)}
+                          alt="snail who passed away"
+                          width="200"
+                        />
+                      </Snail>
+                      <P>
+                        {/* TODO:change deathdate to accurate day; manuaally added rn for presentation */}
+                        {c.date_created} - {deathDate}
+                      </P>
+                      <br />
+                      <SnailH2>
+                        {c.name} passed away when you failed your reading goal.
+                      </SnailH2>
+                      <br />
+                      <SnailH2>
+                        Hopefully you will be more careful next time.
+                      </SnailH2>
+                    </ModalContentBox>
+                  </ModalContentWrapper>
+                </ReactModal>
+              </div>
+            );
+          })}
+        </ScrollableDiv>
+      </div>
     );
   });
   return (
