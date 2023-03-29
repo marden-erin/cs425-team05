@@ -182,12 +182,14 @@ function Register() {
             <RegisterInput
               id="register-email"
               type="email"
+              value={email}
               placeholder="Email"
               onChange={updateEmail}
             />
             <RegisterInput
               id="register-username"
               type="text"
+              value={username}
               placeholder="Username"
               onChange={updateUsername}
             />
@@ -200,6 +202,7 @@ function Register() {
             <RegisterInput
               id="register-password"
               type="password"
+              value={password}
               placeholder="Password"
               onChange={updatePassword}
             />
@@ -209,6 +212,7 @@ function Register() {
             <RegisterInput
               id="register-confirm-password"
               type="password"
+              value={confirmPassword}
               placeholder="Confirm Password"
               onChange={updateConfirmPassword}
             />
