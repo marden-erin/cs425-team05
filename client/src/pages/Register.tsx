@@ -18,7 +18,7 @@ const RegisterContainer = styled.form`
   align-items: center;
   justify-content: center;
   width: 450px;
-  height: 550px;
+  height: 600px;
   background-color: ${COLORS.PURPLE_LIGHT};
   border-radius: 25px;
   gap: 20px;
@@ -60,6 +60,14 @@ const ErrorMessageSpan = styled.span`
   }
 `;
 
+const RegisterLabel = styled.label`
+  align-self: start;
+  margin-left: 115px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: -15px;
+`;
+
 function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -95,7 +103,6 @@ function Register() {
     } else {
       setErrors({ ...errors, email: true });
     }
-
   };
 
   const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,18 +148,14 @@ function Register() {
   };
 
   useEffect(() => {
-
     const hasAllFields = email && username && password && confirmPassword;
 
-    if (hasAllFields && Object.values(errors).every((v) => v === false))
-    {
+    if (hasAllFields && Object.values(errors).every((v) => v === false)) {
       setIsButtonDisabled(false);
-    } else 
-    {
-      setIsButtonDisabled(true)
+    } else {
+      setIsButtonDisabled(true);
     }
-
-  }, [errors, email, username, password, confirmPassword])
+  }, [errors, email, username, password, confirmPassword]);
 
   const redirectLogin = () => {
     navigate('/');
@@ -176,9 +179,7 @@ function Register() {
         ) : (
           <>
             <RegisterPromptH2>Your Snail Awaits!</RegisterPromptH2>
-            {errors.email && (
-              <ErrorMessageSpan>Please enter a valid email</ErrorMessageSpan>
-            )}
+            <RegisterLabel>Email</RegisterLabel>
             <RegisterInput
               id="register-email"
               type="email"
@@ -186,6 +187,10 @@ function Register() {
               placeholder="Email"
               onChange={updateEmail}
             />
+            {errors.email && (
+              <ErrorMessageSpan>Please enter a valid email</ErrorMessageSpan>
+            )}
+            <RegisterLabel>Username</RegisterLabel>
             <RegisterInput
               id="register-username"
               type="text"
@@ -193,12 +198,7 @@ function Register() {
               placeholder="Username"
               onChange={updateUsername}
             />
-            {errors.password && (
-              <ErrorMessageSpan>
-                Password must have 6 to 16 characters and contain a special
-                character
-              </ErrorMessageSpan>
-            )}
+            <RegisterLabel>Password</RegisterLabel>
             <RegisterInput
               id="register-password"
               type="password"
@@ -206,9 +206,13 @@ function Register() {
               placeholder="Password"
               onChange={updatePassword}
             />
-            {errors.confirmPassword && (
-              <ErrorMessageSpan>Passwords must match</ErrorMessageSpan>
+            {errors.password && (
+              <ErrorMessageSpan>
+                Password must have 6 to 16 characters and contain a special
+                character
+              </ErrorMessageSpan>
             )}
+            <RegisterLabel>Confirm Password</RegisterLabel>
             <RegisterInput
               id="register-confirm-password"
               type="password"
@@ -216,6 +220,9 @@ function Register() {
               placeholder="Confirm Password"
               onChange={updateConfirmPassword}
             />
+            {errors.confirmPassword && (
+              <ErrorMessageSpan>Passwords must match</ErrorMessageSpan>
+            )}
 
             <LargeRoundedButton
               id="register-submit"
