@@ -38,7 +38,7 @@ const getSnail = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const updateSnail = asyncHandler(async (req: Request, res: Response) => {
-	const { userName, snailName, snailColor, snailHealth } = req.body;
+	const { userName, snailName, snailColor, snailHealth, deathDate } = req.body;
 
 	if (userName && snailName && snailColor) {
 		const filteredUserName = userName.replace(/"/g, "''");
@@ -54,7 +54,7 @@ const updateSnail = asyncHandler(async (req: Request, res: Response) => {
 
 			if (snail.length > 0) {
 				const { snail_id } = snail[0];
-				query = `update Snails set name="${filteredSnailName}", color="${snailColor}", health="${snailHealth}" where snail_id="${snail_id}"`;
+				query = `update Snails set name="${filteredSnailName}", color="${snailColor}", health="${snailHealth}", date_died="${deathDate}" where snail_id="${snail_id}"`;
 				await db.promise().query(query);
 
 				res.status(HTTPStatus.OK).json("Snail successfully updated");
