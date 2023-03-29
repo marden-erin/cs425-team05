@@ -44,8 +44,6 @@ const InputBarWrapper = styled.div`
   padding: 10px 30px 30px;
 `;
 
-
-
 const CustomLabel = styled(Label)`
   font-size: 2.4rem;
   font-weight: bold;
@@ -61,8 +59,6 @@ const Visibility = styled(P)`
   margin-left: 3rem;
   margin-bottom: 2rem;
 `;
-
-
 
 const Input = styled.input`
   appearance: none;
@@ -96,9 +92,8 @@ const ContentWrapper = styled.div`
   border-radius: 22px;
   align-items: center;
   justify-content: center;
-  background: ${COLORS.PURPLE_LIGHT}; 
-  border: 10px solid ${COLORS.PURPLE_XTRALIGHT}
-
+  background: ${COLORS.PURPLE_LIGHT};
+  border: 10px solid ${COLORS.PURPLE_XTRALIGHT};
 `;
 
 function CreateCluster() {
@@ -109,8 +104,8 @@ function CreateCluster() {
   const [visibility, setVisibilty] = useState(false);
 
   const toggle = useCallback(
-    () => setVisibilty(state => !state),
-    [setVisibilty],
+    () => setVisibilty((state) => !state),
+    [setVisibilty]
   );
 
   const loadData = async (e: any) => {
@@ -136,32 +131,32 @@ function CreateCluster() {
         <ClusterBoxWrapper>
           {' '}
           <ContentWrapper>
-              <QuestionWrapper>
-                <form onSubmit={loadData}>
-
-                  <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
-                  <InputBarWrapper>
-                    <ThinInput
-                      name="cluster-name"
-                      placeholder="Enter Cluster Name"
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                    ></ThinInput>
-                    <SmallHalfRoundedButton type="submit">
-                      Create Cluster
-                    </SmallHalfRoundedButton>
-                  </InputBarWrapper>
-                      <Visibility>
-                        <Input
-                          type="checkbox"
-                          value="true"
-                          name="visibility"
-                          onClick={toggle}
-                        />
-                        By checking this I agree to make this Cluster visible to other users.
-                      </Visibility>
-                </form>{' '}
-              </QuestionWrapper>
+            <QuestionWrapper>
+              <form onSubmit={loadData}>
+                <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
+                <InputBarWrapper>
+                  <ThinInput
+                    name="cluster-name"
+                    placeholder="Enter Cluster Name"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                  ></ThinInput>
+                  <SmallHalfRoundedButton type="submit">
+                    Create Cluster
+                  </SmallHalfRoundedButton>
+                </InputBarWrapper>
+                <Visibility>
+                  <Input
+                    type="checkbox"
+                    value="true"
+                    name="visibility"
+                    onClick={toggle}
+                  />
+                  By checking this I agree to make this Cluster visible to other
+                  users.
+                </Visibility>
+              </form>{' '}
+            </QuestionWrapper>
           </ContentWrapper>
         </ClusterBoxWrapper>
       </FlexBoxWrapper>

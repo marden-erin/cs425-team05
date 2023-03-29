@@ -44,7 +44,7 @@ const SnailCard = styled.div`
 
 const SnailStatus = styled.div`
   margin-block-start: 10px;
-  margin-top:20px;
+  margin-top: 20px;
   background-color: ${COLORS.PURPLE_LIGHT};
   width: 90%;
   padding: 15px 10px;
@@ -98,7 +98,7 @@ function ViewGoals(this: any) {
   const [snailName, setSnailName] = useState('');
   const [snailImage, setSnailImage] = useState('');
   const [snailColor, setSnailColor] = useState('');
-  const [snailHealth, setSnailHealth] = useState(3);
+  const [snailHealth, setSnailHealth] = useState(0);
   const [allGoals, setAllGoals] = useState([]);
   const [indGoals, setIndGoals] = useState<any>([]);
   let temp: any;
@@ -110,7 +110,7 @@ function ViewGoals(this: any) {
       snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
-      setSnailHealth(snailInfo.health);
+      // setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
 
       const goalArray: any[] = [];

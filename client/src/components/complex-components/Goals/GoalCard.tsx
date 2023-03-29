@@ -50,7 +50,7 @@ const CoverWrapper = styled.div`
   flex-flow: wrap;
   align-items: center;
   justify-content: center;
-  max-width:12rem;
+  max-width: 12rem;
   background-color: ${COLORS.PURPLE_DARK};
   border: 3px solid ${COLORS.PURPLE_MID};
   overflow-y: hidden;
