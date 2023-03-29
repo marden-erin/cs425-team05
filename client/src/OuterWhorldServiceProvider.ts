@@ -236,19 +236,23 @@ class OuterWhorldServiceProvider {
   @param userName
   @param snailName - if keeping the same, pass in existing name
   @param snailColor - if keeping the same, pass in existing color
+  @param snailHealth - snails new health (0 means dead, 3 means full health)
+  @param deathDate - snail death date
   @returns success or failure
   */
   async updateSnailInfo(
     userName: string,
     snailName: string,
     snailColor: string,
-    snailHealth: number
+    snailHealth: number,
+    deathDate: string | null = null
   ) {
     const input = {
       userName,
       snailName,
       snailColor,
       snailHealth,
+      deathDate
     };
 
     const res = await fetch(`/api/snails`, {
