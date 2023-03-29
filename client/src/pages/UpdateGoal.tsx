@@ -163,9 +163,9 @@ function UpdateGoal() {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
-      // setSnailHealth(snailInfo.health); // TODO
+      setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailColor, snailHealth));
-      setEatingSnailImage(GetEatingSnailImg(snailColor));
+      setEatingSnailImage(GetEatingSnailImg(snailColor, 'red'));
     };
     loadData();
   });
@@ -189,7 +189,7 @@ function UpdateGoal() {
     if (newPagesRead === numPagesTotal[0]) {
       toggleIsModalOpen(true);
       // TODO: Add goal to list of completed goals for snail
-      await OWServiceProvider.deleteGoal(tempGoalId); // Close out goal
+      await OWServiceProvider.deleteGoal(tempGoalId); // TODO: Mark as completed, not delete
       // Heal snail
       if (snailHealth < 3) {
         setSnailHealth(snailHealth + 1);

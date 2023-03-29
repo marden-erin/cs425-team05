@@ -18,6 +18,14 @@ import YellowShell from '../imgs/snails/yellow-shell.png';
 import BlueEatingRed from '../imgs/snails/eating/blue-red-shroom.png';
 import PinkEatingRed from '../imgs/snails/eating/pink-red-shroom.png';
 import YellowEatingRed from '../imgs/snails/eating/yellow-red-shroom.png';
+// Eating Images - Purple Shroom
+import BlueEatingPurple from '../imgs/snails/eating/blue-purple-shroom.png';
+import PinkEatingPurple from '../imgs/snails/eating/pink-purple-shroom.png';
+import YellowEatingPurple from '../imgs/snails/eating/yellow-purple-shroom.png';
+// Eating Images - Green Shroom
+import BlueEatingGreen from '../imgs/snails/eating/blue-green-shroom.png';
+import PinkEatingGreen from '../imgs/snails/eating/pink-green-shroom.png';
+import YellowEatingGreen from '../imgs/snails/eating/yellow-green-shroom.png';
 
 function GetSnailImg(snailColor: string, snailHealth?: Number) {
   const capitalizedColor =
@@ -33,16 +41,51 @@ function GetSnailImg(snailColor: string, snailHealth?: Number) {
   }
 }
 
-function GetEatingSnailImg(snailColor: string) {
-  const capitalizedColor =
+function GetEatingSnailImg(snailColor: string, shroomColor: string) {
+  const capitalizedSnailColor =
     snailColor.charAt(0).toUpperCase() + snailColor.slice(1).toLowerCase(); // Ensure consistent capitalization
-  if (capitalizedColor === 'Blue') {
+  const capitalizedShroomColor =
+    shroomColor.charAt(0).toUpperCase() + shroomColor.slice(1).toLowerCase(); // Ensure consistent capitalization
+  if (capitalizedShroomColor === 'Purple') {
+    return GetEatingPurpleShroomImg(capitalizedSnailColor);
+  } else if (capitalizedShroomColor === 'Green') {
+    return GetEatingGreenShroomImg(capitalizedSnailColor);
+  } else {
+    // Fallback
+    return GetEatingRedShroomImg(capitalizedSnailColor);
+  }
+}
+
+function GetEatingRedShroomImg(snailColor: string) {
+  if (snailColor === 'Blue') {
     return BlueEatingRed;
-  } else if (capitalizedColor === 'Pink') {
+  } else if (snailColor === 'Pink') {
     return PinkEatingRed;
   } else {
     // Fallback
     return YellowEatingRed;
+  }
+}
+
+function GetEatingPurpleShroomImg(snailColor: string) {
+  if (snailColor === 'Blue') {
+    return BlueEatingPurple;
+  } else if (snailColor === 'Pink') {
+    return PinkEatingPurple;
+  } else {
+    // Fallback
+    return YellowEatingPurple;
+  }
+}
+
+function GetEatingGreenShroomImg(snailColor: string) {
+  if (snailColor === 'Blue') {
+    return BlueEatingGreen;
+  } else if (snailColor === 'Pink') {
+    return PinkEatingGreen;
+  } else {
+    // Fallback
+    return YellowEatingGreen;
   }
 }
 
