@@ -5,6 +5,7 @@ import ReactModal from 'react-modal';
 import { useAuthUser } from 'react-auth-kit';
 import { useLocation } from 'react-router-dom';
 import {
+  FoodSelectCard,
   Label,
   LargeBookCard,
   LargeRoundedButton, // TODO: Swap to link once other PR merged
@@ -126,7 +127,14 @@ const NotesWrapper = styled.div`
   }
 `;
 
-const ModalContentWrapper = styled.div`
+const Radio = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+`;
+
+const FeedingModalContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -144,6 +152,7 @@ function UpdateGoal() {
   const [snailImage, setSnailImage] = useState('');
   const [eatingSnailImage, setEatingSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
+  const [foodColor, setFoodColor] = useState('');
 
   const location = useLocation();
 
@@ -176,7 +185,8 @@ function UpdateGoal() {
   const pagesLeft = Math.ceil(numPagesTotal - numPagesRead);
 
   // NO CLOSE BUTTON ON MODAL - We don't want the user to "undo" feeding the snail
-  const [isModalOpen, toggleIsModalOpen] = useState(false);
+  const [isFoodChoiceModalOpen, toggleIsFoodChoiceModalOpen] = useState(false);
+  const [isFeedingModalOpen, toggleIsFeedingModalOpen] = useState(false);
   ReactModal.setAppElement('*');
 
   //// slider temp fix
@@ -187,7 +197,7 @@ function UpdateGoal() {
 
     // If goal completed, close out goal
     if (newPagesRead === numPagesTotal[0]) {
-      toggleIsModalOpen(true);
+      toggleIsFoodChoiceModalOpen(true);
       // TODO: Add goal to list of completed goals for snail
       await OWServiceProvider.deleteGoal(tempGoalId); // TODO: Mark as completed, not delete
       // Heal snail
@@ -217,11 +227,46 @@ function UpdateGoal() {
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
         <ReactModal
-          isOpen={isModalOpen}
+          isOpen={isFoodChoiceModalOpen}
           className="modal-body"
           overlayClassName="modal-overlay"
         >
-          <ModalContentWrapper>
+          <Radio>
+            <FoodSelectCard
+              color="red"
+              name="food-selection"
+              result={foodColor}
+              changeResult={setFoodColor}
+            />
+            <FoodSelectCard
+              color="green"
+              name="food-selection"
+              result={foodColor}
+              changeResult={setFoodColor}
+            />
+            <FoodSelectCard
+              color="purple"
+              name="food-selection"
+              result={foodColor}
+              changeResult={setFoodColor}
+            />
+          </Radio>
+          <LargeRoundedButton
+            onClick={() => {
+              toggleIsFoodChoiceModalOpen(false);
+              toggleIsFeedingModalOpen(true);
+              console.log(foodColor);
+            }}
+          >
+            Continue
+          </LargeRoundedButton>
+        </ReactModal>
+        <ReactModal
+          isOpen={isFeedingModalOpen}
+          className="modal-body"
+          overlayClassName="modal-overlay"
+        >
+          <FeedingModalContentWrapper>
             <img
               src={eatingSnailImage}
               alt={snailName + ' enjoying a yummy mushroom'}
@@ -239,7 +284,7 @@ function UpdateGoal() {
             >
               Return to Goals Page
             </SmallRoundedButton>
-          </ModalContentWrapper>
+          </FeedingModalContentWrapper>
         </ReactModal>
         <LargeBookCard
           bookTitle={title}
