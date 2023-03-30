@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { COLORS } from '../../../constants';
-import { H2 } from '../../simple-components';
+import { H3 } from '../../simple-components';
 
-import { GetFoodImg } from '../../../utils';
+import { GetFoodImg, GetFoodAffect } from '../../../utils';
 
 type FoodSelectCardTypes = {
   /**
@@ -30,9 +30,9 @@ const CardWrapper = styled.div`
 `;
 
 const CardStyler = styled.div`
-  width: 25.5rem;
-  height: 29rem;
-  padding: 30px 15px;
+  width: 25rem;
+  height: 30rem;
+  padding: 30px 20px;
   background-color: ${COLORS.PURPLE_LIGHT};
   box-shadow: 10px 10px 10px #220d50;
   transition: background-color 0.25s ease-out;
@@ -47,7 +47,7 @@ const CardStyler = styled.div`
   :hover {
     background-color: ${COLORS.PURPLE_MID};
     cursor: pointer;
-    h2 {
+    h3 {
         color: ${COLORS.WHITE};
     }
     img {
@@ -71,24 +71,36 @@ const Input = styled.input`
   :hover + .card {
     background-color: ${COLORS.PURPLE_MID};
     cursor: pointer;
-    h2 {
+    h3 {
       color: ${COLORS.WHITE};
     }
     img {
       filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
+    }
+    span {
+      color: ${COLORS.WHITE};
     }
   }
 
   :checked + .card {
     background-color: ${COLORS.PURPLE_MID};
     border: 5px solid ${COLORS.PURPLE_LIGHT};
-    h2 {
+    h3 {
       color: ${COLORS.WHITE};
     }
     img {
       filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
     }
   }
+`;
+
+const Span = styled.span`
+  color: ${COLORS.PURPLE_DARK};
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+
+  padding: 0 1rem;
 `;
 
 export const FoodSelectCard = ({
@@ -112,8 +124,9 @@ export const FoodSelectCard = ({
         }}
       />
       <CardStyler className="card">
-        <H2>{capitalizedColor}</H2>
+        <H3>{capitalizedColor}</H3>
         <img src={GetFoodImg(capitalizedColor)} width="200" />
+        <Span>{GetFoodAffect(capitalizedColor)}</Span>
       </CardStyler>
     </CardWrapper>
   );
