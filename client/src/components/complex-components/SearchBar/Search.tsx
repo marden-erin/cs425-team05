@@ -13,7 +13,7 @@ type SearchProps = {
 const SearchBarWrapper = styled.div`
   display: flex;
   gap: 5px;
-  width: 55rem;
+  width: 45rem;
 `;
 
 export const Search = ({ overrideId }: SearchProps) => {

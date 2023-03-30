@@ -236,19 +236,23 @@ class OuterWhorldServiceProvider {
   @param userName
   @param snailName - if keeping the same, pass in existing name
   @param snailColor - if keeping the same, pass in existing color
+  @param snailHealth - snails new health (0 means dead, 3 means full health)
+  @param deathDate - snail death date
   @returns success or failure
   */
   async updateSnailInfo(
     userName: string,
     snailName: string,
     snailColor: string,
-    snailHealth: number
+    snailHealth: number,
+    deathDate: string | null = null
   ) {
     const input = {
       userName,
       snailName,
       snailColor,
       snailHealth,
+      deathDate,
     };
 
     const res = await fetch(`/api/snails`, {
@@ -317,7 +321,7 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-
+    // console.log(data)
     return data;
   }
 
@@ -544,7 +548,7 @@ class OuterWhorldServiceProvider {
   /*
   @param snailName
   @param userName
-  @param gravestone - the grave's 'headstone text' aka the header text in the popup modal card
+  @param gravestone - grave img src
   @param grave_type - one of 3 types of headstones we offer
   @returns success or failure
   */
@@ -571,13 +575,13 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-
+    console.log(data);
     return data;
   }
 
   /*
   @param graveyard_id
-  @param gravestone - the grave's 'headstone text' aka the header text in the popup modal card
+  @param gravestone - grave img src
   @param grave_type - one of 3 types of headstones we offer
   @returns success or failure
   */

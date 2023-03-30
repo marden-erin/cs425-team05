@@ -11,6 +11,7 @@ import CreateGoal from './pages/CreateGoal';
 import Register from './pages/Register';
 import GraveAdoption from './pages/GraveAdoption';
 import Graveyard from './pages/Graveyard';
+import ProfilePage from './pages/ProfilePage';
 import SearchResults from './pages/SearchResults';
 import SnailAdoption from './pages/SnailAdoption';
 import UpdateGoal from './pages/UpdateGoal';
@@ -52,6 +53,14 @@ export default function App() {
           element={
             <RequireAuth loginPath="/">
               <CreateGoal />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="profile-page"
+          element={
+            <RequireAuth loginPath="/">
+              <ProfilePage />
             </RequireAuth>
           }
         />
