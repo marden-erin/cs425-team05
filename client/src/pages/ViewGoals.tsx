@@ -117,6 +117,7 @@ function ViewGoals(this: any) {
       setAllGoals(temp);
       temp.map((x: any) => {
         var y: number = +x.goal_id;
+        // TODO: Once goals are marked completed, only show uncompleted goals
         goalID.push(y);
       });
       //above map out puts duplicate of every goal_id

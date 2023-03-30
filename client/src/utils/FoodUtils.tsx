@@ -40,7 +40,8 @@ async function ApplyFoodAffect(
   notes: any,
   newPagesRead: number
 ) {
-  await OWServiceProvider.updateGoal(goalId, notes, newPagesRead, true);
+  await OWServiceProvider.deleteGoal(goalId); // TODO: Mark as completed, not delete
+  // await OWServiceProvider.updateGoal(goalId, notes, newPagesRead, true);
   const capitalizedFood =
     food.charAt(0).toUpperCase() + food.slice(1).toLowerCase(); // Ensure consistent capitalization
   switch (capitalizedFood) {
