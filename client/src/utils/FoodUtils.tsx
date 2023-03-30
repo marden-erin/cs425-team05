@@ -36,10 +36,11 @@ async function ApplyFoodAffect(
   username: any,
   snailName: string,
   snailColor: string,
-  snailHealth: number
+  snailHealth: number,
+  notes: any,
+  newPagesRead: number
 ) {
-  // TODO: Add goal to list of completed goals for snail
-  await OWServiceProvider.deleteGoal(goalId); // TODO: Mark as completed, not delete
+  await OWServiceProvider.updateGoal(goalId, notes, newPagesRead, true);
   const capitalizedFood =
     food.charAt(0).toUpperCase() + food.slice(1).toLowerCase(); // Ensure consistent capitalization
   switch (capitalizedFood) {

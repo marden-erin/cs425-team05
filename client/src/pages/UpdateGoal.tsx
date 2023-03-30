@@ -165,6 +165,8 @@ const FeedingModalContentWrapper = styled.div`
   text-align: center;
 `;
 
+const ProgressModalWrapper = styled.div``;
+
 function UpdateGoal() {
   const navigate = useNavigate();
   const auth = useAuthUser();
@@ -222,7 +224,6 @@ function UpdateGoal() {
       toggleIsFoodChoiceModalOpen(true);
     } else {
       // Not done - Update progress
-      // TODO: create "completed" state to manage whether goal has been completed and should be updated accordingly
       await OWServiceProvider.updateGoal(
         tempGoalId,
         notes,
@@ -274,7 +275,9 @@ function UpdateGoal() {
                   username,
                   snailName,
                   snailColor,
-                  snailHealth
+                  snailHealth,
+                  notes,
+                  numPagesTotal
                 );
               }}
             >
