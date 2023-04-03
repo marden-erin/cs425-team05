@@ -5,6 +5,7 @@ import { FiChevronDown } from 'react-icons/fi';
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
 import { ClusterPages, GoalPages } from './NAV_BAR_LINKS';
+import { Label } from '../../simple-components';
 import Logo from '../../../imgs/logo.png';
 import { useSignOut, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
@@ -65,6 +66,12 @@ const NavLink = styled.a<{ noLink?: boolean }>`
 
 const SearchBarWrapper = styled.div`
   width: 55rem;
+`;
+
+const SearchLabel = styled(Label)`
+  color: ${COLORS.WHITE};
+  font-weight: bold;
+  font-size: 1.4rem;
 `;
 
 const DropDownWrapper = styled.div`
@@ -140,6 +147,7 @@ export const NavBar = () => {
         <DropDownLink linkLabel="Goals" dropDownItems={GoalPages} />
       </LinkWrapper>
       <SearchBarWrapper>
+        <SearchLabel htmlFor="book-search-input">Book Search</SearchLabel>
         <Search />
       </SearchBarWrapper>
       <ProfilePic />

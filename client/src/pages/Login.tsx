@@ -21,11 +21,6 @@ const ColumnFlexCss = css`
   align-items: center;
 `;
 
-const buttonStyle = {
-  backgroundColor: 'transparent',
-  border: 'none',
-};
-
 const LoginContainer = styled.div`
   ${ColumnFlexCss}
   justify-content: center;
@@ -41,13 +36,21 @@ const LoginContainer = styled.div`
 
 const LoginPromptH2 = styled(H2)`
   color: ${COLORS.BLACK};
-  font-weight: 300;
-  font-style: italic;
+  font-weight: normal;
 `;
 
 const LoginInput = styled(ThickInput)`
   flex-grow: 0;
   border-radius: 5px;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  label {
+    font-weight: bold;
+  }
 `;
 
 const LeftContentWrapper = styled.div`
@@ -66,7 +69,6 @@ const RightContentWrapper = styled.div`
 `;
 
 const FlexBoxWrapper = styled.div`
-  height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,33 +162,30 @@ function Login() {
           <LoginContainer>
             {isError && <ErrorMessageP>{errorMessage}</ErrorMessageP>}
             <LoginPromptH2>Let's Get Reading!</LoginPromptH2>
-            <LoginInput
-              id="email-input"
-              type="text"
-              value={email}
-              onChange={updateEmail}
-              placeholder="email"
-            ></LoginInput>
-            <LoginInput
-              id="password-input"
-              type="password"
-              value={password}
-              onChange={updatePassword}
-              placeholder="password"
-            ></LoginInput>
+            <InputWrapper>
+              <Label htmlFor="email-input">Email</Label>
+              <LoginInput
+                id="email-input"
+                type="email"
+                value={email}
+                onChange={updateEmail}
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <Label htmlFor="password-input">Password</Label>
+              <LoginInput
+                id="password-input"
+                type="password"
+                value={password}
+                onChange={updatePassword}
+              />
+            </InputWrapper>
             <LargeRoundedButton id="login-button" onClick={handleSubmit}>
               Login
             </LargeRoundedButton>
-            <button
-              id="register-button"
-              style={buttonStyle}
-              onClick={handleRegister}
-            >
-              <P>
-                Don't have an account?{' '}
-                <Label style={{ cursor: 'pointer' }}>Register Now!</Label>
-              </P>
-            </button>
+            <P>
+              Don't have an account? <a href="/register">Register Now!</a>
+            </P>
           </LoginContainer>
         </RightContentWrapper>
       </FlexBoxWrapper>
