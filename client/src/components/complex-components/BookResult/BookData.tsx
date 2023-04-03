@@ -2,7 +2,6 @@ import { Book } from '../../../../../server/src/utils/Types';
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { COLORS, FONTS_MAIN, ScrollBarStyle } from '../../../constants';
-import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 import { LargeBookCard, SmallBookCard } from '.';
 import { FilterDropdown } from '../SearchBar';
 import { ClusterDropDown } from '../Clusters';

@@ -13,6 +13,7 @@ import GraveAdoption from './pages/GraveAdoption';
 import Graveyard from './pages/Graveyard';
 import ProfilePage from './pages/ProfilePage';
 import SearchResults from './pages/SearchResults';
+import Shop from './pages/Shop';
 import SnailAdoption from './pages/SnailAdoption';
 import UpdateGoal from './pages/UpdateGoal';
 import ViewGoals from './pages/ViewGoals';
@@ -65,18 +66,26 @@ export default function App() {
           }
         />
         <Route
-          path="snail-adoption"
-          element={
-            <RequireAuth loginPath="/">
-              <SnailAdoption />
-            </RequireAuth>
-          }
-        />
-        <Route
           path="search-results"
           element={
             <RequireAuth loginPath="/">
               <SearchResults />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="shop"
+          element={
+            <RequireAuth loginPath="/">
+              <Shop />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="snail-adoption"
+          element={
+            <RequireAuth loginPath="/">
+              <SnailAdoption />
             </RequireAuth>
           }
         />
