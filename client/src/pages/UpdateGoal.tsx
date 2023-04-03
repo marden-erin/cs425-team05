@@ -5,6 +5,8 @@ import ReactModal from 'react-modal';
 import { useAuthUser } from 'react-auth-kit';
 import { useLocation } from 'react-router-dom';
 import {
+  FoodSelectCard,
+  H2,
   Label,
   LargeBookCard,
   LargeRoundedButton, // TODO: Swap to link once other PR merged
@@ -18,6 +20,8 @@ import {
   GetSnailImg,
   GetEatingSnailImg,
   NumberOfDaysUntilDate,
+  ApplyFoodAffect,
+  GetFoodAffectText,
 } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
@@ -126,7 +130,33 @@ const NotesWrapper = styled.div`
   }
 `;
 
-const ModalContentWrapper = styled.div`
+const Radio = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+`;
+
+const FoodModalContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  h2 {
+    text-align: center;
+    font-size: 2.6rem;
+    margin-block-end: 0.6rem;
+  }
+  span {
+    font-size: 1.8rem;
+    margin-block-end: 2.5rem;
+  }
+  button {
+    margin-block-start: 6.2rem;
+  }
+`;
+
+const FeedingModalContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -134,6 +164,8 @@ const ModalContentWrapper = styled.div`
   padding: 2rem;
   text-align: center;
 `;
+
+const ProgressModalWrapper = styled.div``;
 
 function UpdateGoal() {
   const navigate = useNavigate();
@@ -144,6 +176,7 @@ function UpdateGoal() {
   const [snailImage, setSnailImage] = useState('');
   const [eatingSnailImage, setEatingSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
+  const [foodColor, setFoodColor] = useState('');
 
   const location = useLocation();
 
@@ -163,9 +196,9 @@ function UpdateGoal() {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
-      // setSnailHealth(snailInfo.health); // TODO
+      setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailColor, snailHealth));
-      setEatingSnailImage(GetEatingSnailImg(snailColor));
+      setEatingSnailImage(GetEatingSnailImg(snailColor, foodColor));
     };
     loadData();
   });
@@ -175,8 +208,9 @@ function UpdateGoal() {
   const pagesPerDay = Math.ceil((numPagesTotal - numPagesRead) / numDays);
   const pagesLeft = Math.ceil(numPagesTotal - numPagesRead);
 
-  // NO CLOSE BUTTON ON MODAL - We don't want the user to "undo" feeding the snail
-  const [isModalOpen, toggleIsModalOpen] = useState(false);
+  // NO CLOSE BUTTON ON MODALS - We don't want the user to "undo" feeding the snail
+  const [isFoodChoiceModalOpen, toggleIsFoodChoiceModalOpen] = useState(false);
+  const [isFeedingModalOpen, toggleIsFeedingModalOpen] = useState(false);
   ReactModal.setAppElement('*');
 
   //// slider temp fix
@@ -187,22 +221,9 @@ function UpdateGoal() {
 
     // If goal completed, close out goal
     if (newPagesRead === numPagesTotal[0]) {
-      toggleIsModalOpen(true);
-      // TODO: Add goal to list of completed goals for snail
-      await OWServiceProvider.deleteGoal(tempGoalId); // Close out goal
-      // Heal snail
-      if (snailHealth < 3) {
-        setSnailHealth(snailHealth + 1);
-        await OWServiceProvider.updateSnailInfo(
-          username,
-          snailName,
-          snailColor,
-          snailHealth
-        );
-      }
+      toggleIsFoodChoiceModalOpen(true);
     } else {
       // Not done - Update progress
-      // TODO: create "completed" state to manage whether goal has been completed and should be updated accordingly
       await OWServiceProvider.updateGoal(
         tempGoalId,
         notes,
@@ -217,21 +238,72 @@ function UpdateGoal() {
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
         <ReactModal
-          isOpen={isModalOpen}
+          isOpen={isFoodChoiceModalOpen}
           className="modal-body"
           overlayClassName="modal-overlay"
         >
-          <ModalContentWrapper>
+          <FoodModalContentWrapper>
+            <H2>Congrats! You completed your goal!</H2>
+            <span>Select what you would like to feed your snail</span>
+            <Radio>
+              <FoodSelectCard
+                color="red"
+                name="food-selection"
+                result={foodColor}
+                changeResult={setFoodColor}
+              />
+              <FoodSelectCard
+                color="purple"
+                name="food-selection"
+                result={foodColor}
+                changeResult={setFoodColor}
+              />
+              <FoodSelectCard
+                color="green"
+                name="food-selection"
+                result={foodColor}
+                changeResult={setFoodColor}
+              />
+            </Radio>
+            <LargeRoundedButton
+              onClick={() => {
+                toggleIsFoodChoiceModalOpen(false);
+                toggleIsFeedingModalOpen(true);
+                ApplyFoodAffect(
+                  foodColor,
+                  tempGoalId,
+                  username,
+                  snailName,
+                  snailColor,
+                  snailHealth,
+                  notes,
+                  numPagesTotal
+                );
+              }}
+            >
+              Continue
+            </LargeRoundedButton>
+          </FoodModalContentWrapper>
+        </ReactModal>
+        <ReactModal
+          isOpen={isFeedingModalOpen}
+          className="modal-body"
+          overlayClassName="modal-overlay"
+        >
+          <FeedingModalContentWrapper>
             <img
               src={eatingSnailImage}
-              alt={snailName + ' enjoying a yummy mushroom'}
+              alt={
+                snailName + ' enjoying a yummy ' + { foodColor } + 'mushroom'
+              }
               width="350"
               height="350"
             />
             <P>
               You did it! You completed your goal for reading <b>{title}</b>.
             </P>
-            <P>You fed your snail a bright red mushroom. Yum!</P>
+            <P>You fed your snail a bright {foodColor} mushroom. Yum!</P>
+            <P>{snailName + ' ' + GetFoodAffectText(foodColor)}</P>
             <SmallRoundedButton
               onClick={() => {
                 navigate('/view-goals');
@@ -239,7 +311,7 @@ function UpdateGoal() {
             >
               Return to Goals Page
             </SmallRoundedButton>
-          </ModalContentWrapper>
+          </FeedingModalContentWrapper>
         </ReactModal>
         <LargeBookCard
           bookTitle={title}
