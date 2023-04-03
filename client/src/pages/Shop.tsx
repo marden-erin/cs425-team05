@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useAuthUser } from 'react-auth-kit';
 
 import styled, { css } from 'styled-components';
-import { LargeRoundedLink, P, PageWrapper } from '../components';
+import {
+  ItemSelectCard,
+  LargeRoundedLink,
+  P,
+  PageWrapper,
+} from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
-import { COLORS, FONTS_MAIN } from '../constants';
+import { COLORS, FONTS_MAIN, ScrollBarStyle } from '../constants';
 import { GetSnailImg } from '../utils';
 
 const GridWrapper = styled.div`
@@ -36,7 +41,7 @@ const SnailCard = styled.div`
 const ShopCard = styled.div`
   ${CardCss};
   height: 55rem;
-  width: 70rem;
+  width: 75rem;
 `;
 
 const HeadingCss = css`
@@ -50,6 +55,19 @@ const HeadingCss = css`
 
 const H1 = styled.h1`
   ${HeadingCss};
+`;
+
+const H2 = styled.h2`
+  font-family: ${FONTS_MAIN};
+  font-weight: 600;
+  font-size: 2.6rem;
+  color: ${COLORS.BLUE_DARK};
+`;
+
+const ItemSection = styled.div`
+  margin-inline-start: 2rem;
+  margin-block-start: 1rem;
+  margin-block-end: 1rem;
 `;
 
 // Must be span since it shows before h1
@@ -67,6 +85,19 @@ const SnailStatus = styled.div`
   p {
     text-align: center;
   }
+`;
+
+const ItemsWrapper = styled.div`
+  background-color: ${COLORS.PURPLE_LIGHT};
+  border: 3px solid ${COLORS.PURPLE_LIGHT};
+  margin-block-start: 2rem;
+  display: flex;
+
+  width: 70rem;
+  height: 45rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  ${ScrollBarStyle};
 `;
 
 function Shop() {
@@ -114,6 +145,12 @@ function Shop() {
         </SnailCard>
         <ShopCard>
           <H1>Shop</H1>
+          <ItemsWrapper>
+            <ItemSection>
+              <H2>Hats</H2>
+              <ItemSelectCard item="hat" />
+            </ItemSection>
+          </ItemsWrapper>
         </ShopCard>
       </GridWrapper>
     </PageWrapper>
