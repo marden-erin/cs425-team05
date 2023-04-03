@@ -245,6 +245,8 @@ class OuterWhorldServiceProvider {
     snailName: string,
     snailColor: string,
     snailHealth: number,
+    goalsCompleted: number,
+    goalsFailed: number,
     deathDate: string | null = null
   ) {
     const input = {
@@ -252,6 +254,8 @@ class OuterWhorldServiceProvider {
       snailName,
       snailColor,
       snailHealth,
+      goalsCompleted,
+      goalsFailed,
       deathDate
     };
 
