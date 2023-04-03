@@ -256,7 +256,7 @@ class OuterWhorldServiceProvider {
       snailHealth,
       goalsCompleted,
       goalsFailed,
-      deathDate
+      deathDate,
     };
 
     const res = await fetch(`/api/snails`, {
@@ -625,6 +625,30 @@ class OuterWhorldServiceProvider {
 
     const res = await fetch(`/api/graveyard/`, {
       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param userName
+  @param currency
+  @returns success or failure
+  */
+  async updateUserInformation(userName: string, currency: number) {
+    const input = {
+      userName,
+      currency,
+    };
+    const res = await fetch(`/api/users/login`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',

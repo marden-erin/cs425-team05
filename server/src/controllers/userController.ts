@@ -118,4 +118,21 @@ const signOutUser = asyncHandler(async (req: Request, res: Response) => {
 	}
 });
 
-export { registerUser, authenticateUser, getUserInformation, signOutUser };
+const updateUserInformation = asyncHandler(async (req: Request, res: Response) => {
+	const { userName, currency } = req.body;
+
+	if (userName && currency) {
+		const filteredUserName = (userName as string).replace(/"/g, "''");
+
+		const query = `update Users set currency="${currency}" where userName="${filteredUserName}"`;
+		await db.promise().query(query);
+
+		res.status(HTTPStatus.OK).json("Successfully updated user information");
+	} else {
+		const errMsg = "Error. Missing params (userName, currency)";
+		res.status(HTTPStatus.BAD).json(errMsg);
+		throw new Error(errMsg);
+	}
+});
+
+export { registerUser, authenticateUser, getUserInformation, signOutUser, updateUserInformation };
