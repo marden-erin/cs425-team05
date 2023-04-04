@@ -60,6 +60,11 @@ const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
   position: absolute;
   height: 100%;
   width: 100%;
+
+  h1 {
+    margin-block-start: 5rem;
+    margin-block-end: 1.25rem;
+  }
 `;
 
 const Header = styled(H1)<{ fontColor?: string }>`

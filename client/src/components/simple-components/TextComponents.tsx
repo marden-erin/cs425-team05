@@ -41,6 +41,9 @@ const P = styled.p<{ centered?: boolean }>`
     font-size: inherit;
     color: ${COLORS.BLUE_MID};
   }
+  a {
+    font-size: inherit;
+  }
 
   ${(props) =>
     props.centered &&

@@ -32,7 +32,6 @@ export const Search = ({ overrideId }: SearchProps) => {
         <SearchBarWrapper>
           <ThinInput
             id={overrideId ? overrideId : 'book-search-input'}
-            placeholder={'Search for books...'}
             value={input}
             onChange={(e) => setInput(e.target.value)}
           ></ThinInput>
