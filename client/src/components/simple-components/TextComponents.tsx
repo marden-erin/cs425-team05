@@ -38,7 +38,7 @@ const P = styled.p<{ centered?: boolean }>`
   ${FONTS_SECONDARY}
     font-size: 1.6rem;
   b {
-    font-size: 1.6rem;
+    font-size: inherit;
     color: ${COLORS.BLUE_MID};
   }
 
