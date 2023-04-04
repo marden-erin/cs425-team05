@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components';
 import {
   ItemSelectCard,
   LargeRoundedLink,
+  LargeRoundedButton,
   P,
   PageWrapper,
 } from '../components';
@@ -157,9 +158,9 @@ function Shop() {
           </P>
         </Status>
         {
-          // TODO: Go to inventory
+          // TODO: Buy item, then go to snail page
         }
-        <LargeRoundedLink href="/">Go To Inventory</LargeRoundedLink>
+        <LargeRoundedButton>Buy Item</LargeRoundedButton>
       </SnailCard>
       <ShopCard>
         <H1>Shop</H1>
