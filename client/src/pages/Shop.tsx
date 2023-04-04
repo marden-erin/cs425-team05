@@ -10,7 +10,7 @@ import {
   PageWrapper,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
-import { COLORS, FONTS_MAIN, ScrollBarStyle } from '../constants';
+import { COLORS, FONTS_MAIN } from '../constants';
 import { GetSnailImg } from '../utils';
 
 const CardCss = css`
@@ -127,6 +127,7 @@ function Shop() {
   const [snailColor, setSnailColor] = useState('');
   const [snailImage, setSnailImage] = useState('');
 
+  const [itemName, setItemName] = useState('');
   const [itemType, setItemType] = useState('hat'); // TODO: Get item type dynamically
   const [starBalance, setStarBalance] = useState(123); // TODO: Get item type dynamically
 
@@ -163,25 +164,88 @@ function Shop() {
           <ItemSection>
             <H2>Snail Colors</H2>
             <RadioWrapper>
-              <ItemSelectCard item="green" />
-              <ItemSelectCard item="black" />
-              <ItemSelectCard item="rainbow" />
+              <ItemSelectCard
+                item="green"
+                name="accessory"
+                itemResult={itemName}
+                itemType="color"
+                changeResult={setItemName}
+                changeItemType={setItemType}
+              />
+              <ItemSelectCard
+                item="black"
+                name="accessory"
+                itemResult={itemName}
+                itemType="color"
+                changeResult={setItemName}
+                changeItemType={setItemType}
+              />
+              <ItemSelectCard
+                item="rainbow"
+                name="accessory"
+                itemResult={itemName}
+                itemType="color"
+                changeResult={setItemName}
+                changeItemType={setItemType}
+              />
             </RadioWrapper>
           </ItemSection>
           <ItemSection>
             <H2>Hats</H2>
             <RadioWrapper>
-              <ItemSelectCard item="party" />
-              <ItemSelectCard item="cowboy" />
-              <ItemSelectCard item="astronaut" />
+              <ItemSelectCard
+                item="party"
+                name="accessory"
+                itemResult={itemName}
+                itemType="hat"
+                changeResult={setItemName}
+                changeItemType={setItemType}
+              />
+              <ItemSelectCard
+                item="cowboy"
+                name="accessory"
+                itemResult={itemName}
+                itemType="hat"
+                changeResult={setItemName}
+                changeItemType={setItemType}
+              />
+              <ItemSelectCard
+                item="astronaut"
+                name="accessory"
+                itemResult={itemName}
+                itemType="hat"
+                changeResult={setItemName}
+                changeItemType={setItemType}
+              />
             </RadioWrapper>
           </ItemSection>
           <ItemSection>
             <H2>Glasses</H2>
             <RadioWrapper>
-              <ItemSelectCard item="Reading" />
-              <ItemSelectCard item="Radical" />
-              <ItemSelectCard item="Alien" />
+              <ItemSelectCard
+                item="Reading"
+                name="accessory"
+                itemResult={itemName}
+                itemType="glasses"
+                changeResult={setItemName}
+                changeItemType={setItemType}
+              />
+              <ItemSelectCard
+                item="Radical"
+                name="accessory"
+                itemResult={itemName}
+                itemType="glasses"
+                changeResult={setItemName}
+                changeItemType={setItemType}
+              />
+              <ItemSelectCard
+                item="Alien"
+                name="accessory"
+                itemResult={itemName}
+                itemType="glasses"
+                changeResult={setItemName}
+                changeItemType={setItemType}
+              />
             </RadioWrapper>
           </ItemSection>
         </ItemsWrapper>

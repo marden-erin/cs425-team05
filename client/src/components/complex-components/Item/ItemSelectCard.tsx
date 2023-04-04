@@ -1,5 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { BsStars } from 'react-icons/bs';
 import { COLORS, FONTS_SECONDARY } from '../../../constants';
 
 // import { GetItemImg } from '../../../utils';
@@ -12,15 +13,23 @@ type ItemSelectCardTypes = {
   /**
    * Name of the radio group
    */
-  name?: string;
+  name: string;
   /**
    * Result so far
    */
-  result?: string;
+  itemResult: string;
+  /**
+   * Type of this item
+   */
+  itemType: string;
   /**
    * Changes result when this radio is clicked
    */
-  changeResult?: React.Dispatch<React.SetStateAction<string>>;
+  changeResult: React.Dispatch<React.SetStateAction<string>>;
+  /**
+   * Changes itemType when this radio is clicked
+   */
+  changeItemType: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const CardWrapper = styled.div``;
@@ -67,6 +76,9 @@ const Input = styled.input`
     img {
       filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
     }
+    div > svg {
+      color: ${COLORS.WHITE};
+    }
   }
 
   :checked + .card {
@@ -78,17 +90,39 @@ const Input = styled.input`
     img {
       filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
     }
+
+    div > svg {
+      color: ${COLORS.WHITE};
+    }
+  }
+`;
+
+const CostWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.2rem;
+
+  span {
+    font-size: 2rem;
+  }
+
+  svg {
+    color: ${COLORS.PURPLE_MID};
   }
 `;
 
 export const ItemSelectCard = ({
   item,
   name,
-  result,
+  itemResult,
+  itemType,
   changeResult,
+  changeItemType,
 }: ItemSelectCardTypes) => {
-  const capitalizedColor =
+  const capitalizedItem =
     item.charAt(0).toUpperCase() + item.slice(1).toLowerCase(); // Proper capitalization for header
+  const cost = 134; // TODO: Get cost
 
   return (
     <CardWrapper>
@@ -96,18 +130,23 @@ export const ItemSelectCard = ({
         type="radio"
         name={`${name}-radio`}
         value={item}
-        checked={result === item}
+        checked={itemResult === item}
         onChange={() => {
-          // changeResult(item);
+          changeResult(item);
+          changeItemType(itemType);
         }}
       />
       <CardStyler className="card">
-        <span>{capitalizedColor}</span>
-        {/* <img src={GetItemImg(capitalizedColor)} width="275" /> */}
+        <span>{capitalizedItem}</span>
+        {/* <img src={GetItemImg(capitalizedItem)} width="275" /> */}
         <img
           src="https://clipartix.com/wp-content/uploads/2019/02/cowboy-hat-transparent-2019-2.png"
           width="100"
         />
+        <CostWrapper>
+          <span>{cost}</span>
+          <BsStars size="2rem" />
+        </CostWrapper>
       </CardStyler>
     </CardWrapper>
   );
