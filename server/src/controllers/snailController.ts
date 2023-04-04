@@ -146,7 +146,6 @@ const deleteSnail = asyncHandler(async (req: Request, res: Response) => {
 	if (userName && snailName) {
 		const filteredUserName = (userName as string).replace(/"/g, "''");
 		const filteredSnailName = snailName.replace(/"/g, "''");
-
 		try {
 			let query = `select * from Users where userName="${filteredUserName}";`;
 			const [user]: any[] = await db.promise().query(query);

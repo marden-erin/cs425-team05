@@ -325,7 +325,7 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-
+    // console.log(data)
     return data;
   }
 
@@ -552,7 +552,7 @@ class OuterWhorldServiceProvider {
   /*
   @param snailName
   @param userName
-  @param gravestone - the grave's 'headstone text' aka the header text in the popup modal card
+  @param gravestone - grave img src
   @param grave_type - one of 3 types of headstones we offer
   @returns success or failure
   */
@@ -579,13 +579,13 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-
+    console.log(data);
     return data;
   }
 
   /*
   @param graveyard_id
-  @param gravestone - the grave's 'headstone text' aka the header text in the popup modal card
+  @param gravestone - grave img src
   @param grave_type - one of 3 types of headstones we offer
   @returns success or failure
   */

@@ -17,9 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
 
 const FlexWrapper = styled.div`
-  padding: 3vh;
   display: flex;
-  margin-block-start: 4rem;
+  margin-block-start: 3rem;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -28,8 +27,8 @@ const FlexWrapper = styled.div`
 
 const SnailCard = styled.div`
   width: 40rem;
-  min-height: 36rem;
-  padding: 25px 15px;
+  min-height: 45rem;
+  padding: 20px 15px 25px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
   border-radius: 15px;
@@ -44,6 +43,7 @@ const SnailCard = styled.div`
 
 const SnailStatus = styled.div`
   margin-block-start: 10px;
+  margin-top: 20px;
   background-color: ${COLORS.PURPLE_LIGHT};
   width: 90%;
   padding: 15px 10px;
@@ -55,7 +55,7 @@ const SnailStatus = styled.div`
 
 const GoalsCard = styled.div`
   width: 70rem;
-  height: 36.5rem;
+  height: 45rem;
   padding: 20px 15px 25px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
@@ -117,6 +117,7 @@ function ViewGoals(this: any) {
       setAllGoals(temp);
       temp.map((x: any) => {
         var y: number = +x.goal_id;
+        // TODO: Once goals are marked completed, only show uncompleted goals
         goalID.push(y);
       });
       //above map out puts duplicate of every goal_id
@@ -196,8 +197,8 @@ function ViewGoals(this: any) {
         <SnailCard>
           <img
             src={snailImage}
-            width="250"
-            height="250"
+            width="300"
+            height="300"
             alt={'An image of ' + snailName}
           />
           <H2>{snailName}</H2>

@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { LargeRoundedButton, GraveAdoptionPageWrapper } from '../components';
 import { COLORS } from '../constants';
+import { useAuthUser } from 'react-auth-kit';
 
 import Grave1 from './../imgs/graveyard/Grave stone.png';
 import Grave2 from './../imgs/graveyard/Grave stone 2.png';
@@ -96,11 +97,35 @@ const GraveWrapper = styled.div`
 
 function GraveAdoption() {
   const navigate = useNavigate(); // Used to redirect after grave is adopted
+  const auth = useAuthUser();
+  const username: string = auth()?.username;
 
   const [selected, setSelected] = useState(Grave1);
+  const [graveType, setGraveType] = useState(0);
 
-  const handleChange = () => {
+  const handleChange = async () => {
+    const snail = await OWServiceProvider.getSnailInfo(username);
+    const graveSelection = await OWServiceProvider.createGrave(
+      snail.name,
+      username,
+      selected,
+      graveType
+    );
+    console.log(graveSelection);
     navigate('/graveyard', { state: { selected } });
+  };
+
+  const handleGraveOne = () => {
+    setSelected(Grave1);
+    setGraveType(1);
+  };
+  const handleGraveTwo = () => {
+    setSelected(Grave2);
+    setGraveType(2);
+  };
+  const handleGraveThree = () => {
+    setSelected(Grave3);
+    setGraveType(3);
   };
 
   return (
@@ -115,7 +140,7 @@ function GraveAdoption() {
               <Input
                 type="radio"
                 name="graveAdoption"
-                onChange={() => setSelected(Grave1)}
+                onChange={() => handleGraveOne()}
               />{' '}
               <CardStyler className="card">
                 <img src={Grave1} alt="First Spooky Grave" height="300px" />
@@ -125,7 +150,7 @@ function GraveAdoption() {
               <Input
                 type="radio"
                 name="graveAdoption"
-                onChange={() => setSelected(Grave2)}
+                onChange={() => handleGraveTwo()}
               />{' '}
               <CardStyler className="card">
                 <img src={Grave2} alt="First Spooky Grave" height="300px" />
@@ -135,7 +160,7 @@ function GraveAdoption() {
               <Input
                 type="radio"
                 name="graveAdoption"
-                onChange={() => setSelected(Grave3)}
+                onChange={() => handleGraveThree()}
               />{' '}
               <CardStyler className="card">
                 <img src={Grave3} alt="First Spooky Grave" height="300px" />

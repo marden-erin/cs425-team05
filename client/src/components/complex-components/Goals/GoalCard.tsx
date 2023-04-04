@@ -30,7 +30,7 @@ type GoalCardType = {
 
 const ResultWrapper = styled.div`
   width: 18rem;
-  height: 40rem;
+  height: 35rem;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
   padding: 8px 13px;
@@ -50,7 +50,7 @@ const CoverWrapper = styled.div`
   flex-flow: wrap;
   align-items: center;
   justify-content: center;
-  width: 15rem;
+  max-width: 12rem;
   background-color: ${COLORS.PURPLE_DARK};
   border: 3px solid ${COLORS.PURPLE_MID};
   overflow-y: hidden;

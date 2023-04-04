@@ -23,7 +23,7 @@ const RegisterContainer = styled.form`
   border-radius: 25px;
   gap: 20px;
   margin: auto;
-  margin-top: 20%;
+  margin-top: 4rem;
   box-shadow: 0 0.188em 1.55em ${COLORS.BLACK};
 `;
 
@@ -166,31 +166,28 @@ function Register() {
         {isRegistered ? (
           <>
             <RegisterPromptH2>Registration Successful!</RegisterPromptH2>
-            <button
-              id="register-redirect"
-              onClick={redirectLogin}
-              style={buttonStyle}
-            >
-              <RegisterPromptH2 style={{ color: COLORS.PURPLE_DARK }}>
-                Login Now
-              </RegisterPromptH2>
-            </button>
+            <LargeRoundedButton id="register-redirect" onClick={redirectLogin}>
+              Login Now
+            </LargeRoundedButton>
           </>
         ) : (
           <>
             <RegisterPromptH2>Your Snail Awaits!</RegisterPromptH2>
-            <RegisterLabel>Email</RegisterLabel>
+            <RegisterLabel htmlFor="register-email">Email</RegisterLabel>
             <RegisterInput
               id="register-email"
               type="email"
+              aria-describedby="email-error"
               value={email}
               placeholder="Email"
               onChange={updateEmail}
             />
             {errors.email && (
-              <ErrorMessageSpan>Please enter a valid email</ErrorMessageSpan>
+              <ErrorMessageSpan id="email-error">
+                Please enter a valid email
+              </ErrorMessageSpan>
             )}
-            <RegisterLabel>Username</RegisterLabel>
+            <RegisterLabel htmlFor="register-username">Username</RegisterLabel>
             <RegisterInput
               id="register-username"
               type="text"
@@ -198,30 +195,36 @@ function Register() {
               placeholder="Username"
               onChange={updateUsername}
             />
-            <RegisterLabel>Password</RegisterLabel>
+            <RegisterLabel htmlFor="register-password">Password</RegisterLabel>
             <RegisterInput
               id="register-password"
               type="password"
+              aria-describedby="password-error"
               value={password}
               placeholder="Password"
               onChange={updatePassword}
             />
             {errors.password && (
-              <ErrorMessageSpan>
+              <ErrorMessageSpan id="password-error">
                 Password must have 6 to 16 characters and contain a special
                 character
               </ErrorMessageSpan>
             )}
-            <RegisterLabel>Confirm Password</RegisterLabel>
+            <RegisterLabel htmlFor="register-confirm-password">
+              Confirm Password
+            </RegisterLabel>
             <RegisterInput
               id="register-confirm-password"
               type="password"
+              aria-describedby="confirm-password-error"
               value={confirmPassword}
               placeholder="Confirm Password"
               onChange={updateConfirmPassword}
             />
             {errors.confirmPassword && (
-              <ErrorMessageSpan>Passwords must match</ErrorMessageSpan>
+              <ErrorMessageSpan id="confirm-password-error">
+                Passwords must match
+              </ErrorMessageSpan>
             )}
 
             <LargeRoundedButton
