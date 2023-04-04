@@ -4,11 +4,8 @@ import { FiChevronDown } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
-import { ClusterPages, GoalPages } from './NAV_BAR_LINKS';
+import { ClusterPages, SnailPages } from './NAV_BAR_LINKS';
 import Logo from '../../../imgs/logo.png';
-import { useSignOut, useAuthUser } from 'react-auth-kit';
-import { useNavigate } from 'react-router-dom';
-import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 import { ProfilePic } from '../ProfileNav';
 
 const LinkStyle = css`
@@ -126,7 +123,6 @@ const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
   );
 };
 
-// POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
 export const NavBar = () => {
   return (
     <NavWrapper>
@@ -135,9 +131,9 @@ export const NavBar = () => {
       </LogoLinkWrapper>
       <LinkWrapper>
         <NavLink href="/about">About</NavLink>
-        <DropDownLink linkLabel="Account" dropDownItems={ClusterPages} />
+        <DropDownLink linkLabel="Snail" dropDownItems={SnailPages} />
         <DropDownLink linkLabel="Clusters" dropDownItems={ClusterPages} />
-        <DropDownLink linkLabel="Goals" dropDownItems={GoalPages} />
+        <NavLink href="/view-goals">Goals</NavLink>
       </LinkWrapper>
       <SearchBarWrapper>
         <Search />

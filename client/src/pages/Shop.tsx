@@ -111,7 +111,7 @@ const ItemsWrapper = styled.div`
 function Shop() {
   useEffect(() => {
     const loadData = async () => {
-      // TODO: load available shop items
+      // TODO: load items the user already has - don't display them
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
@@ -149,8 +149,10 @@ function Shop() {
         </StarsStatus>
         <Status>
           <P>
-            <b>{snailName}</b> is checking out this cool new {itemType}. They
-            wish they could wear it forever!
+            <b>{snailName}</b> is checking out{' '}
+            {itemType === 'glasses' ? 'these' : 'this'} cool new {itemName}{' '}
+            {itemType}. They wish they could wear{' '}
+            {itemType === 'glasses' ? 'them' : 'it'} forever!
           </P>
         </Status>
         {
@@ -165,7 +167,7 @@ function Shop() {
             <H2>Snail Colors</H2>
             <RadioWrapper>
               <ItemSelectCard
-                item="green"
+                item="unselected-color-1"
                 name="accessory"
                 itemResult={itemName}
                 itemType="color"
@@ -173,7 +175,7 @@ function Shop() {
                 changeItemType={setItemType}
               />
               <ItemSelectCard
-                item="black"
+                item="unselected-color-2"
                 name="accessory"
                 itemResult={itemName}
                 itemType="color"
