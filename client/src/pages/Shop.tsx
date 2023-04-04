@@ -116,7 +116,8 @@ function Shop() {
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
       setSnailImage(GetSnailImg(snailColor, 3));
-      // TODO: load star balance
+      const userInfo = await OWServiceProvider.getUserInformation(username);
+      setStarBalance(userInfo.currency);
     };
     loadData();
   }, []);
@@ -129,7 +130,7 @@ function Shop() {
 
   const [itemName, setItemName] = useState('');
   const [itemType, setItemType] = useState('hat'); // TODO: Get item type dynamically
-  const [starBalance, setStarBalance] = useState(123); // TODO: Get item type dynamically
+  const [starBalance, setStarBalance] = useState(0);
 
   return (
     <PageWrapper pageTitle="Shop">
