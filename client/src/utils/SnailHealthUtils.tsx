@@ -53,7 +53,7 @@ const updateSnailStatus = async (username: string) => {
         }
       });
 
-      const res = await OWServiceProvider.updateSnailInfo(
+      await OWServiceProvider.updateSnailInfo(
         username,
         snail.name,
         snail.color,
