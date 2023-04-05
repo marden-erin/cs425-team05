@@ -5,11 +5,14 @@ import {
 	updateSnail,
 	createSnail,
 	deleteSnail,
+	getAllSnails,
 } from "../controllers/snailController";
 
 const snailRouter = express.Router();
 
 snailRouter.get("/", getSnail);
+
+snailRouter.get("/all", getAllSnails);
 
 snailRouter.put("/", updateSnail);
 

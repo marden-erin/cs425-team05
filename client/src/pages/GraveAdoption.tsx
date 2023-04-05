@@ -104,15 +104,19 @@ function GraveAdoption() {
   const [graveType, setGraveType] = useState(0);
 
   const handleChange = async () => {
-    const snail = await OWServiceProvider.getSnailInfo(username);
-    const graveSelection = await OWServiceProvider.createGrave(
-      snail.name,
-      username,
-      selected,
-      graveType
-    );
-    console.log(graveSelection);
-    navigate('/graveyard', { state: { selected } });
+    const snails = await OWServiceProvider.getAllSnails(username);
+    for (const snail of snails) {
+      if (snail.health <= 0 && snail.date_died === 'null') {
+        const graveSelection = await OWServiceProvider.createGrave(
+          snail.name,
+          username,
+          selected,
+          graveType
+        );
+        navigate('/graveyard', { state: { selected } });
+        break;
+      }
+    }
   };
 
   const handleGraveOne = () => {

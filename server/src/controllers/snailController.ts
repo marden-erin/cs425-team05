@@ -27,19 +27,48 @@ const getSnail = asyncHandler(async (req: Request, res: Response) => {
 					goals_completed,
 					goals_failed,
 				} = snail[0];
-				res
-					.status(HTTPStatus.OK)
-					.json({
-						name,
-						color,
-						health,
-						date_created,
-						date_died,
-						goals_completed,
-						goals_failed,
-					});
+				res.status(HTTPStatus.OK).json({
+					name,
+					color,
+					health,
+					date_created,
+					date_died,
+					goals_completed,
+					goals_failed,
+				});
 			} else {
 				const errMsg = "Error. User does not have a snail";
+				res.status(HTTPStatus.BAD).json(errMsg);
+			}
+		} catch (err: any) {
+			res.status(HTTPStatus.BAD).json(err.sqlMessage);
+			throw new Error(err);
+		}
+	} else {
+		const errMsg = "Error. Missing one or more params (userName)";
+		res.status(HTTPStatus.BAD).json(errMsg);
+		throw new Error(errMsg);
+	}
+});
+
+const getAllSnails = asyncHandler(async (req: Request, res: Response) => {
+	const { userName } = req.query;
+
+	if (userName) {
+		const filteredUserName = (userName as string).replace(/"/g, "''");
+
+		try {
+			let query = `select * from Users where userName="${filteredUserName}";`;
+			const [user]: any[] = await db.promise().query(query);
+			const { user_id } = user[0];
+
+			query = `select * from Snails where user_id="${user_id}"`;
+			const [snails]: any[] = await db.promise().query(query);
+
+			if (snails.length > 0) {
+				res.status(HTTPStatus.OK).json(snails);
+			} else {
+				const errMsg = "Error. User does not have any snails";
 				res.status(HTTPStatus.BAD).json(errMsg);
 			}
 		} catch (err: any) {
@@ -73,7 +102,7 @@ const updateSnail = asyncHandler(async (req: Request, res: Response) => {
 			const [user]: any[] = await db.promise().query(query);
 			const { user_id } = user[0];
 
-			query = `select * from Snails where user_id="${user_id}"`;
+			query = `select * from Snails where user_id="${user_id}" and name="${filteredSnailName}"`;
 			const [snail]: any[] = await db.promise().query(query);
 
 			if (snail.length > 0) {
@@ -174,4 +203,4 @@ const deleteSnail = asyncHandler(async (req: Request, res: Response) => {
 	}
 });
 
-export { getSnail, updateSnail, createSnail, deleteSnail };
+export { getSnail, updateSnail, createSnail, deleteSnail, getAllSnails };
