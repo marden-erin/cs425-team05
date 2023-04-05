@@ -130,7 +130,7 @@ function Graveyard() {
       setGrave([...graveArray]);
     };
     loadData();
-  });
+  }, []);
   const temp = grave.map((x: any, i: any) => {
     return (
       <div key={i}>

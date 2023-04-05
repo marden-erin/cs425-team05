@@ -232,6 +232,20 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
+    /*
+  @param userName
+  @returns Snail object
+  */
+  async getAllSnails(userName: string) {
+    const res = await fetch(`/api/snails/all/?userName=${userName}`);
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      return null;
+    }
+    return data;
+  }
+
   /*
   @param userName
   @param snailName - if keeping the same, pass in existing name
