@@ -84,8 +84,8 @@ const GraveWrapper = styled.button`
   border-radius: 5px;
   background-color: ${COLORS.GRAY_DARK};
 
-  :hover{
-    cursor:pointer;
+  :hover {
+    cursor: pointer;
   }
 `;
 
@@ -111,25 +111,24 @@ function Graveyard() {
   const auth = useAuthUser();
   const username: string = auth()?.username;
 
-const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(0);
 
   const [grave, setGrave] = useState<any>([]);
 
   const [snail, setSnail] = useState<any>([]);
 
-    useEffect(() => {
-      const loadData = async () => {
+  useEffect(() => {
+    const loadData = async () => {
       const getGraves = await OWServiceProvider.getAllGraves(username);
       const snailArray: any[] = [];
       const graveArray: any[] = [];
       for (const temp of getGraves) {
         const snailInfo = await OWServiceProvider.getGrave(temp.graveyard_id);
         snailArray.push(snailInfo);
-      }     
+      }
       setSnail([...snailArray]);
-      graveArray.push({graveInfo: getGraves });
+      graveArray.push({ graveInfo: getGraves });
       setGrave([...graveArray]);
-
     };
     loadData();
   }, []);
@@ -142,47 +141,48 @@ const [index, setIndex] = useState(0)
             {x.graveInfo.map((a: any, b: any) => (
               <div key={b}>
                 <GraveWrapper
-                  onClick={() =>  {toggleIsModalOpen(true);setIndex(b)}}
+                  onClick={() => {
+                    toggleIsModalOpen(true);
+                    setIndex(b);
+                  }}
                 >
                   <img src={a.gravestone} alt="Spooky grave" height="150px" />
                   <SnailH2>{a.snail_name}</SnailH2>
                 </GraveWrapper>
-            
               </div>
-              
             ))}
-             <ReactModal
-                isOpen={isModalOpen}
-                className="modal-body"
-                overlayClassName="modal-overlay"
-                >
-            <CloseButton handler={toggleIsModalOpen} />
-            <ModalContentWrapper>
-              <Title>Here lies {snail[index].name} </Title>{' '}
-              <ModalContentBox>
-                <Snail>
-                  <img
-                    src={GetSnailImg(snail[index].color, 3)}
-                    alt="snail who passed away"
-                    width="200"
-                  />
-                </Snail>
-                <P>
-                  {/* TODO:change deathdate to accurate day; manuaally added rn for presentation */}
-                  {snail[index].date_created} - {snail[index].date_died}
-                </P>
-                <br />
-                <SnailH2>
-                  {snail[index].name} passed away when you failed your reading goal.
-                </SnailH2>
-                <br />
-                <SnailH2>
-                  Hopefully you will be more careful next time.
-                </SnailH2>
-              </ModalContentBox>
-            </ModalContentWrapper>
-          </ReactModal>
-
+            <ReactModal
+              isOpen={isModalOpen}
+              className="modal-body"
+              overlayClassName="modal-overlay"
+            >
+              <CloseButton handler={toggleIsModalOpen} />
+              <ModalContentWrapper>
+                <Title>Here lies {snail[index].name} </Title>{' '}
+                <ModalContentBox>
+                  <Snail>
+                    <img
+                      src={GetSnailImg(snail[index].color, 3)}
+                      alt="snail who passed away"
+                      width="200"
+                    />
+                  </Snail>
+                  <P>
+                    {/* TODO:change deathdate to accurate day; manuaally added rn for presentation */}
+                    {snail[index].date_created} - {snail[index].date_died}
+                  </P>
+                  <br />
+                  <SnailH2>
+                    {snail[index].name} passed away when you failed your reading
+                    goal.
+                  </SnailH2>
+                  <br />
+                  <SnailH2>
+                    Hopefully you will be more careful next time.
+                  </SnailH2>
+                </ModalContentBox>
+              </ModalContentWrapper>
+            </ReactModal>
           </AllGraveWrapper>
         </ScrollableDiv>
       </div>
@@ -197,7 +197,7 @@ const [index, setIndex] = useState(0)
               Welcome to the <br /> Graveyard
             </Title>
           </SignWrapper>
-           {temp} 
+          {temp}
         </YardWrapper>
       </GridWrapper>
     </GraveyardPageWrapper>

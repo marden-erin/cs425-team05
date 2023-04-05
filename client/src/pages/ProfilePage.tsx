@@ -145,7 +145,6 @@ export const ProfilePage = () => {
   const [snailShown, setSnailShown] = useState(false);
   const [statsShown, setStatsShown] = useState(false);
 
-
   useEffect(() => {
     const loadData = async () => {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
@@ -163,21 +162,17 @@ export const ProfilePage = () => {
     setAccountShown(true);
     setSnailShown(false);
     setStatsShown(false);
-
   };
   const handleSnailClick = () => {
     setSnailShown(true);
     setAccountShown(false);
     setStatsShown(false);
-
   };
   const handleStatClick = () => {
     setStatsShown(true);
     setAccountShown(false);
     setSnailShown(false);
-
   };
-
 
   return (
     <PageWrapper pageTitle="Profile Page">
@@ -265,7 +260,7 @@ export const ProfilePage = () => {
               </Wrapper>
             )}
 
-{statsShown && (
+            {statsShown && (
               <Wrapper>
                 <Img
                   src={proSnailImage}
@@ -276,7 +271,10 @@ export const ProfilePage = () => {
                 <LabelInputWrapper>
                   <StyledLabel>Goals Completed</StyledLabel>
                   <InputWrapper>
-                    <ThinInput placeholder="add number of goals completed here" disabled={true} />
+                    <ThinInput
+                      placeholder="add number of goals completed here"
+                      disabled={true}
+                    />
                   </InputWrapper>
                 </LabelInputWrapper>
 
@@ -293,7 +291,7 @@ export const ProfilePage = () => {
                 <LabelInputWrapper>
                   <StyledLabel>Snails Killed</StyledLabel>
                   <InputWrapper>
-                  <ThinInput
+                    <ThinInput
                       placeholder="add number of dead snails here"
                       disabled={true}
                     />
