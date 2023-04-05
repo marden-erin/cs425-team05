@@ -143,6 +143,8 @@ export const ProfilePage = () => {
 
   const [accountShown, setAccountShown] = useState(true);
   const [snailShown, setSnailShown] = useState(false);
+  const [statsShown, setStatsShown] = useState(false);
+
 
   useEffect(() => {
     const loadData = async () => {
@@ -160,11 +162,22 @@ export const ProfilePage = () => {
   const handleAccountClick = () => {
     setAccountShown(true);
     setSnailShown(false);
+    setStatsShown(false);
+
   };
   const handleSnailClick = () => {
     setSnailShown(true);
     setAccountShown(false);
+    setStatsShown(false);
+
   };
+  const handleStatClick = () => {
+    setStatsShown(true);
+    setAccountShown(false);
+    setSnailShown(false);
+
+  };
+
 
   return (
     <PageWrapper pageTitle="Profile Page">
@@ -178,6 +191,9 @@ export const ProfilePage = () => {
             </SideBarHeaders>
             <SideBarHeaders onClick={() => handleSnailClick()}>
               Snails
+            </SideBarHeaders>
+            <SideBarHeaders onClick={() => handleStatClick()}>
+              Stats
             </SideBarHeaders>
           </SideBarWrapper>
           <AccountWrapper>
@@ -243,6 +259,43 @@ export const ProfilePage = () => {
                     <CurrentSnailState
                       src={snailImage}
                       alt="the users snail at their current health"
+                    />
+                  </InputWrapper>
+                </LabelInputWrapper>
+              </Wrapper>
+            )}
+
+{statsShown && (
+              <Wrapper>
+                <Img
+                  src={proSnailImage}
+                  alt="the users current snail at full heath"
+                />
+
+                <AccountHeader>User Stats</AccountHeader>
+                <LabelInputWrapper>
+                  <StyledLabel>Goals Completed</StyledLabel>
+                  <InputWrapper>
+                    <ThinInput placeholder="add number of goals completed here" disabled={true} />
+                  </InputWrapper>
+                </LabelInputWrapper>
+
+                <LabelInputWrapper>
+                  <StyledLabel>Goals Failed</StyledLabel>
+                  <InputWrapper>
+                    <ThinInput
+                      placeholder="add number of goals failed here"
+                      disabled={true}
+                    />
+                  </InputWrapper>
+                </LabelInputWrapper>
+
+                <LabelInputWrapper>
+                  <StyledLabel>Snails Killed</StyledLabel>
+                  <InputWrapper>
+                  <ThinInput
+                      placeholder="add number of dead snails here"
+                      disabled={true}
                     />
                   </InputWrapper>
                 </LabelInputWrapper>
