@@ -73,7 +73,6 @@ export const BookSearchCard = ({
         <P>{additionalText}</P>
       </TextWrapper>
       <SearchWrapper>
-        <Label htmlFor={searchId}>Search for Books</Label>
         <SearchBarWrapper>
           <Search overrideId={searchId} />
         </SearchBarWrapper>
