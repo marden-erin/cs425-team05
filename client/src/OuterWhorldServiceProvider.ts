@@ -251,6 +251,9 @@ class OuterWhorldServiceProvider {
   @param snailName - if keeping the same, pass in existing name
   @param snailColor - if keeping the same, pass in existing color
   @param snailHealth - snails new health (0 means dead, 3 means full health)
+  @param goalsCompleted
+  @param goalsFailed
+  @param accessories - currently equipped accessories for snail
   @param deathDate - snail death date
   @returns success or failure
   */
@@ -261,6 +264,7 @@ class OuterWhorldServiceProvider {
     snailHealth: number,
     goalsCompleted: number,
     goalsFailed: number,
+    accessories: Object,
     deathDate: string | null = null
   ) {
     const input = {
@@ -270,6 +274,7 @@ class OuterWhorldServiceProvider {
       snailHealth,
       goalsCompleted,
       goalsFailed,
+      accessories,
       deathDate,
     };
 
@@ -674,6 +679,8 @@ class OuterWhorldServiceProvider {
 
     return data;
   }
+
+  
 }
 
 const OWServiceProvider = new OuterWhorldServiceProvider();
