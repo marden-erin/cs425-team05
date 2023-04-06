@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
 import { FiSearch } from 'react-icons/fi';
 
-
-
 type SearchProps = {
   /**
    * What to override the id with
@@ -24,12 +22,6 @@ const SearchBarWrapper = styled.div`
   padding-bottom: 1rem;
 `;
 
-
-
-
-
-
-
 export const Search = ({ overrideId }: SearchProps) => {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
@@ -43,15 +35,21 @@ export const Search = ({ overrideId }: SearchProps) => {
   return (
     <>
       <form>
-        
         <SearchBarWrapper>
           <div>
-          <FiSearch style={{color: 'grey', fontSize:'25px', transform:'translate(130%, 25%)'}} />
-          <ThinInput
-            id={overrideId ? overrideId : 'book-search-input'}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          ></ThinInput></div>
+            <FiSearch
+              style={{
+                color: 'grey',
+                fontSize: '25px',
+                transform: 'translate(130%, 25%)',
+              }}
+            />
+            <ThinInput
+              id={overrideId ? overrideId : 'book-search-input'}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            ></ThinInput>
+          </div>
           <SmallHalfRoundedButton
             id="book-search-button"
             type="button"

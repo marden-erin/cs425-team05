@@ -71,8 +71,6 @@ flex-direction:row
   width: 55rem;
 `;
 
-
-
 const DropDownWrapper = styled.div`
   :hover .dropdown-content {
     display: block;

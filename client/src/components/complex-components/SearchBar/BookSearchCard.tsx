@@ -58,7 +58,7 @@ const Label = styled(BaseLabel)`
 `;
 
 const SearchBarWrapper = styled.div`
-  margin-bottom:2rem;
+  margin-bottom: 2rem;
 `;
 
 export const BookSearchCard = ({
@@ -74,8 +74,9 @@ export const BookSearchCard = ({
       </TextWrapper>
       <SearchWrapper>
         <Label htmlFor={searchId}>Search for Books</Label>
-        <SearchBarWrapper><Search overrideId={searchId} /></SearchBarWrapper>
-        
+        <SearchBarWrapper>
+          <Search overrideId={searchId} />
+        </SearchBarWrapper>
       </SearchWrapper>
     </CardWrapper>
   );

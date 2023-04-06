@@ -70,7 +70,7 @@ const GoalsCard = styled.div`
 const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
   background-color: ${COLORS.PURPLE_LIGHT};
   border: 3px solid ${COLORS.PURPLE_LIGHT};
-  
+
   margin-block-start: 2rem;
   display: flex;
   border-radius: 15px;
