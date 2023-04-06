@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
+import { SmallHalfRoundedButton, SearchInput } from '../../simple-components';
 import { FiSearch } from 'react-icons/fi';
 
 type SearchProps = {
@@ -50,11 +50,11 @@ export const Search = ({ overrideId }: SearchProps) => {
                 transform: 'translate(130%, 25%)',
               }}
             />
-            <ThinInput
+            <SearchInput
               id={overrideId ? overrideId : 'book-search-input'}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-            ></ThinInput>
+            ></SearchInput>
           </div>
           <SmallHalfRoundedButton
             id="book-search-button"
