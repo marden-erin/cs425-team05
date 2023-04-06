@@ -16,12 +16,12 @@ type BookSearchCardProps = {
 };
 
 const CardWrapper = styled.div`
-  margin: 2rem 0rem;
+  margin: 1rem 1rem;
   padding: 2rem;
   height: 100%;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
-  border-radius: 5px;
+  border-radius: 15px;
 
   display: flex;
   flex-direction: column;
@@ -38,14 +38,14 @@ const TextWrapper = styled.div`
 
 const SearchWrapper = styled.div`
   padding: 1.25rem;
+  margin: 1rem 1rem;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
-  border-radius: 5px;
+  border-radius: 15px;
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.4rem;
+  align-items: center;
 `;
 
 const Header = styled(SubTitle)`
@@ -55,6 +55,10 @@ const Header = styled(SubTitle)`
 
 const Label = styled(BaseLabel)`
   font-weight: bold;
+`;
+
+const SearchBarWrapper = styled.div`
+  margin-bottom:2rem;
 `;
 
 export const BookSearchCard = ({
@@ -70,7 +74,8 @@ export const BookSearchCard = ({
       </TextWrapper>
       <SearchWrapper>
         <Label htmlFor={searchId}>Search for Books</Label>
-        <Search overrideId={searchId} />
+        <SearchBarWrapper><Search overrideId={searchId} /></SearchBarWrapper>
+        
       </SearchWrapper>
     </CardWrapper>
   );

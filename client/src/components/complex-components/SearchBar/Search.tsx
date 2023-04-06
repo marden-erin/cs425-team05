@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
+import { FiSearch } from 'react-icons/fi';
+
+
 
 type SearchProps = {
   /**
@@ -12,9 +15,20 @@ type SearchProps = {
 
 const SearchBarWrapper = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: baseline;
   gap: 5px;
+  max-height: 3rem;
   width: 45rem;
+  padding-bottom: 1rem;
 `;
+
+
+
+
+
+
 
 export const Search = ({ overrideId }: SearchProps) => {
   const [input, setInput] = useState('');
@@ -29,12 +43,15 @@ export const Search = ({ overrideId }: SearchProps) => {
   return (
     <>
       <form>
+        
         <SearchBarWrapper>
+          <div>
+          <FiSearch style={{color: 'grey', fontSize:'25px', transform:'translate(130%, 25%)'}} />
           <ThinInput
             id={overrideId ? overrideId : 'book-search-input'}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-          ></ThinInput>
+          ></ThinInput></div>
           <SmallHalfRoundedButton
             id="book-search-button"
             type="button"

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { FiChevronDown } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
@@ -65,14 +66,12 @@ const NavLink = styled.a<{ noLink?: boolean }>`
 `;
 
 const SearchBarWrapper = styled.div`
+display: flex;
+flex-direction:row
   width: 55rem;
 `;
 
-const SearchLabel = styled(Label)`
-  color: ${COLORS.WHITE};
-  font-weight: bold;
-  font-size: 1.4rem;
-`;
+
 
 const DropDownWrapper = styled.div`
   :hover .dropdown-content {
@@ -147,7 +146,6 @@ export const NavBar = () => {
         <DropDownLink linkLabel="Goals" dropDownItems={GoalPages} />
       </LinkWrapper>
       <SearchBarWrapper>
-        <SearchLabel htmlFor="book-search-input">Book Search</SearchLabel>
         <Search />
       </SearchBarWrapper>
       <ProfilePic />
