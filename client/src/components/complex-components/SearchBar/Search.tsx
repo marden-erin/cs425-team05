@@ -37,6 +37,12 @@ export const Search = ({ overrideId }: SearchProps) => {
       <form>
         <SearchBarWrapper>
           <div>
+            <label
+              htmlFor={overrideId ? overrideId : 'book-search-input'}
+              hidden
+            >
+              Book Search
+            </label>
             <FiSearch
               style={{
                 color: 'grey',
