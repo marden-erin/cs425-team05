@@ -59,7 +59,8 @@ const updateSnailStatus = async (username: string) => {
         snail.color,
         snailHealth,
         snail.goals_completed,
-        snail.goals_failed
+        snail.goals_failed,
+        snailInfo.accessories,
       );
 
       if (snailHealth <= 0) {

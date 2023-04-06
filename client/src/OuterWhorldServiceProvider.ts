@@ -232,7 +232,7 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
-    /*
+  /*
   @param userName
   @returns Array of snail objects
   */
@@ -267,6 +267,8 @@ class OuterWhorldServiceProvider {
     accessories: Object,
     deathDate: string | null = null
   ) {
+
+    accessories = JSON.stringify(accessories);
     const input = {
       userName,
       snailName,
@@ -680,7 +682,90 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
-  
+  /*
+  @param username
+  @param id
+  @returns accessory object
+  */
+  async getAccessory(username: string, accessoryID: number) {
+    const res = await fetch(`/api/accessories/${username}/${accessoryID}`);
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param username
+  @returns array of accessory objects
+  */
+  async getAllAccessories(username: string) {
+    const res = await fetch(`/api/accessories/${username}`);
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param username
+  @param accessoryType: ex) hat, shirt, etc
+  @param accessoryName: ex) astronaut, cowboy, etc
+  @returns Success or failure
+  */
+  async addAccessory(
+    username: string,
+    accessoryType: string,
+    accessoryName: string
+  ) {
+    const input = {
+      username,
+      accessoryType,
+      accessoryName,
+    };
+
+    const res = await fetch(`/api/accessories/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+    return data;
+  }
+
+  /*
+  @param username
+  @param accessoryType: ex) hat, shirt, etc
+  @param accessoryName: ex) astronaut, cowboy, etc
+  @returns Success or failure
+  */
+  async deleteAccessory(
+    username: string,
+    accessoryType: string,
+    accessoryName: string
+  ) {
+    const input = {
+      username,
+      accessoryType,
+      accessoryName,
+    };
+
+    const res = await fetch(`/api/accessories/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+    return data;
+  }
 }
 
 const OWServiceProvider = new OuterWhorldServiceProvider();
