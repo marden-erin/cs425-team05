@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { SmallHalfRoundedButton, SearchInput } from '../../simple-components';
+import {
+  SmallHalfRoundedButton,
+  SearchInput,
+  VisuallyHiddenSpan,
+} from '../../simple-components';
 import { FiSearch } from 'react-icons/fi';
 
 type SearchProps = {
@@ -37,12 +41,12 @@ export const Search = ({ overrideId }: SearchProps) => {
       <form>
         <SearchBarWrapper>
           <div>
-            <label
-              htmlFor={overrideId ? overrideId : 'book-search-input'}
-              hidden
-            >
-              Book Search
-            </label>
+            <VisuallyHiddenSpan>
+              <label htmlFor={overrideId ? overrideId : 'book-search-input'}>
+                Book Search
+              </label>
+            </VisuallyHiddenSpan>
+
             <FiSearch
               style={{
                 color: 'grey',

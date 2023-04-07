@@ -17,7 +17,6 @@ const InputCss = css`
 
 const ThinInput = styled.input`
   ${InputCss};
-  
 `;
 const SearchInput = styled.input`
   ${InputCss};
