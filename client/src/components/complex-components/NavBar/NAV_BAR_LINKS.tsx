@@ -9,10 +9,14 @@ export const ClusterPages = [
   },
 ];
 
-export const GoalPages = [
+export const SnailPages = [
   {
-    linkLabel: 'View Goals',
-    linkURL: '/view-goals',
+    linkLabel: 'My Snail',
+    linkURL: '/view-goals', // TODO
+  },
+  {
+    linkLabel: 'Accessory Shop',
+    linkURL: '/shop',
   },
   {
     linkLabel: 'Graveyard',
