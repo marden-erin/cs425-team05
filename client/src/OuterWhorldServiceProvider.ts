@@ -47,12 +47,14 @@ class OuterWhorldServiceProvider {
   async createCluster(
     clusterName: string,
     userName: string,
-    visibility: boolean
+    visibility: boolean,
+    date: string
   ) {
     const input = {
       clusterName,
       userName,
       visibility,
+      date
     };
 
     const res = await fetch(`/api/clusters`, {
@@ -103,13 +105,15 @@ class OuterWhorldServiceProvider {
     clusterName: string,
     userName: string,
     newClusterName: string,
-    visibility: boolean
+    visibility: boolean,
+    date: string
   ) {
     const input = {
       clusterName,
       userName,
       newClusterName,
       visibility,
+      date
     };
 
     const res = await fetch(`/api/clusters`, {
@@ -155,9 +159,10 @@ class OuterWhorldServiceProvider {
   @param clusterName
   @param userName
   @param book - Book object
+  @param date - to set update time for cluster
   @returns success or failure
   */
-  async addBookToCluster(clusterName: string, userName: string, book: Book) {
+  async addBookToCluster(clusterName: string, userName: string, book: Book, date: string) {
     const { title, pageCount, cover } = book;
 
     const input = {
@@ -166,6 +171,7 @@ class OuterWhorldServiceProvider {
       bookTitle: title,
       pageCount,
       bookCover: cover,
+      date
     };
 
     const res = await fetch(`/api/booksInClusters`, {
