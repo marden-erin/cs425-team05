@@ -28,7 +28,7 @@ const FlexWrapper = styled.div`
 const SnailCard = styled.div`
   width: 40rem;
   min-height: 45rem;
-  padding: 20px 15px 25px;
+  padding: 20px 20px 25px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
   border-radius: 15px;
@@ -43,20 +43,21 @@ const SnailCard = styled.div`
 
 const SnailStatus = styled.div`
   margin-block-start: 10px;
-  margin-top: 20px;
+  margin-top: 4.5rem;
   background-color: ${COLORS.PURPLE_LIGHT};
   width: 90%;
   padding: 15px 10px;
-
+  border-radius: 15px;
   p {
     text-align: center;
   }
 `;
 
 const GoalsCard = styled.div`
-  width: 70rem;
-  height: 45rem;
-  padding: 20px 15px 25px;
+  width: 60rem;
+  height: 45.5rem;
+  padding: 20px 30px 20px;
+  margin: 1rem 1rem;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
   border-radius: 15px;
@@ -69,8 +70,10 @@ const GoalsCard = styled.div`
 const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
   background-color: ${COLORS.PURPLE_LIGHT};
   border: 3px solid ${COLORS.PURPLE_LIGHT};
+
   margin-block-start: 2rem;
   display: flex;
+  border-radius: 15px;
 
   ${(props) =>
     props.$hasGoals
@@ -81,7 +84,7 @@ const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
           ${ScrollBarStyle};
         ` // Only show scrollbar if there are goals
       : css`
-          padding: 1rem 2rem 2rem;
+          padding: 2rem 2rem 2rem;
           flex-direction: column;
           text-align: center;
           * + * {

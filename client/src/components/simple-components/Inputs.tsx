@@ -5,10 +5,8 @@ import { COLORS } from '../../constants';
 // NOTE: Inputs stretch to fill width of container.
 
 const InputCss = css`
-  width: auto;
   flex-grow: 1;
   font-size: 1.6rem;
-
   border: 1px solid ${COLORS.PURPLE_DARK};
 
   :focus {
@@ -20,10 +18,16 @@ const InputCss = css`
 const ThinInput = styled.input`
   ${InputCss};
 `;
+const SearchInput = styled.input`
+  ${InputCss};
+  text-indent: 30px;
+  width: 30rem;
+  padding: 0.6rem;
+`;
 
 const ThickInput = styled.input`
   ${InputCss};
   padding: 1rem 1.2rem;
 `;
 
-export { ThickInput, ThinInput };
+export { ThickInput, ThinInput, SearchInput };

@@ -232,7 +232,7 @@ class OuterWhorldServiceProvider {
     return data;
   }
 
-    /*
+  /*
   @param userName
   @returns Array of snail objects
   */
