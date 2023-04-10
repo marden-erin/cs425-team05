@@ -21,15 +21,14 @@ function GetFoodAffect(food: string) {
     food.charAt(0).toUpperCase() + food.slice(1).toLowerCase(); // Ensure consistent capitalization
   switch (capitalizedFood) {
     case 'Green':
-      return 'Mystery Effect';
+      return 'Double stars earned, no added health';
     case 'Purple':
-      return "Change another goal's due date";
+      return 'Half stars earned, heal two health points';
     default:
-      return 'Heal a health point';
+      return 'Normal stars earned, heal one health point';
   }
 }
 
-// TODO: Actually apply affect
 async function ApplyFoodAffect(
   food: string,
   goalId: number,
@@ -39,8 +38,7 @@ async function ApplyFoodAffect(
   snailHealth: number,
   goals_completed: number,
   goals_failed: number,
-  notes: any,
-  newPagesRead: number
+  newCurrency: number
 ) {
   await OWServiceProvider.deleteGoal(goalId); // TODO: Mark as completed, not delete
   // await OWServiceProvider.updateGoal(goalId, notes, newPagesRead, true);
@@ -48,37 +46,50 @@ async function ApplyFoodAffect(
     food.charAt(0).toUpperCase() + food.slice(1).toLowerCase(); // Ensure consistent capitalization
   switch (capitalizedFood) {
     case 'Green':
+      // Double stars earned, no added health
+      await OWServiceProvider.updateSnailInfo(
+        username,
+        snailName,
+        snailColor,
+        snailHealth,
+        goals_completed,
+        goals_failed
+      );
+      await OWServiceProvider.updateUserInformation(username, newCurrency);
       return;
     case 'Purple':
-      return;
-    default:
-      // Heal snail
-      if (snailHealth < 3) {
-        let newSnailHealth = snailHealth + 1;
-        await OWServiceProvider.updateSnailInfo(
-          username,
-          snailName,
-          snailColor,
-          newSnailHealth,
-          goals_completed,
-          goals_failed
-        );
+      // Half stars earned, heal two health points
+      let purpleHealth = snailHealth + 2;
+      if (snailHealth >= 3) {
+        purpleHealth = 3;
       }
+      await OWServiceProvider.updateSnailInfo(
+        username,
+        snailName,
+        snailColor,
+        purpleHealth,
+        goals_completed,
+        goals_failed
+      );
+      await OWServiceProvider.updateUserInformation(username, newCurrency);
+      return;
+    default:
+      // Normal stars earned, heal one health point
+      let newSnailHealth = snailHealth + 1;
+      if (snailHealth >= 3) {
+        newSnailHealth = 3;
+      }
+      await OWServiceProvider.updateSnailInfo(
+        username,
+        snailName,
+        snailColor,
+        newSnailHealth,
+        goals_completed,
+        goals_failed
+      );
+      await OWServiceProvider.updateUserInformation(username, newCurrency);
       return;
   }
 }
 
-function GetFoodAffectText(food: string) {
-  const capitalizedFood =
-    food.charAt(0).toUpperCase() + food.slice(1).toLowerCase(); // Ensure consistent capitalization
-  switch (capitalizedFood) {
-    case 'Green':
-      return ' starts to feel a little funny...';
-    case 'Purple':
-      return ' feels the need to restrategize!';
-    default:
-      return ' feels healed and energized!';
-  }
-}
-
-export { GetFoodImg, GetFoodAffect, GetFoodAffectText, ApplyFoodAffect };
+export { GetFoodImg, GetFoodAffect, ApplyFoodAffect };

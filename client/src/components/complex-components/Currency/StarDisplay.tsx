@@ -73,7 +73,7 @@ export const StarDisplay = ({ nav }: StarDisplayProps) => {
   useEffect(() => {
     const loadData = async () => {
       let userInfo = await OWServiceProvider.getUserInformation(username);
-      //setStarBalance(userInfo.currency);
+      setStarBalance(userInfo.currency);
     };
     loadData();
   }, []);

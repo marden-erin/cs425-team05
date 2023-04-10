@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ReactModal from 'react-modal';
 import { useAuthUser } from 'react-auth-kit';
 import { useLocation } from 'react-router-dom';
+import { BsStars } from 'react-icons/bs';
 import {
   FoodSelectCard,
   H2,
@@ -21,7 +22,6 @@ import {
   GetEatingSnailImg,
   NumberOfDaysUntilDate,
   ApplyFoodAffect,
-  GetFoodAffectText,
 } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
@@ -165,12 +165,14 @@ const FeedingModalContentWrapper = styled.div`
   text-align: center;
 `;
 
-const ProgressModalWrapper = styled.div``;
-
 function UpdateGoal() {
   const navigate = useNavigate();
   const auth = useAuthUser();
   const username = auth()?.username;
+  const [currency, setCurrency] = useState(9999);
+  const [earnedCurrency, setEarnedCurrency] = useState(0);
+  const [earnedHealth, setEarnedHealth] = useState(0);
+
   const [snailName, setSnailName] = useState('');
   const [snailColor, setSnailColor] = useState('');
   const [snailImage, setSnailImage] = useState('');
@@ -203,6 +205,9 @@ function UpdateGoal() {
       setEatingSnailImage(GetEatingSnailImg(snailColor, foodColor));
       setGoalsCompleted(snailInfo.goals_completed);
       setGoalsFailed(snailInfo.goals_failed);
+
+      const userInfo = await OWServiceProvider.getUserInformation(username);
+      setCurrency(userInfo.currency);
     };
     loadData();
   });
@@ -238,6 +243,26 @@ function UpdateGoal() {
     }
   };
 
+  function CalculateRewards() {
+    switch (foodColor) {
+      case 'Green':
+        // Double stars earned, no added health
+        setEarnedCurrency(numPagesTotal);
+        setEarnedHealth(0);
+        return;
+      case 'Purple':
+        // Half stars earned, heal two health points
+        setEarnedCurrency(numPagesTotal / 4);
+        setEarnedHealth(2);
+        return;
+      default:
+        // Normal stars earned, heal one health point
+        setEarnedCurrency(numPagesTotal / 2);
+        setEarnedHealth(1);
+        return;
+    }
+  }
+
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
@@ -272,6 +297,7 @@ function UpdateGoal() {
             <LargeRoundedButton
               onClick={() => {
                 toggleIsFoodChoiceModalOpen(false);
+                CalculateRewards();
                 toggleIsFeedingModalOpen(true);
                 ApplyFoodAffect(
                   foodColor,
@@ -280,10 +306,9 @@ function UpdateGoal() {
                   snailName,
                   snailColor,
                   snailHealth,
-                  notes,
-                  numPagesTotal,
                   goalsCompleted,
-                  goalsFailed
+                  goalsFailed,
+                  earnedCurrency
                 );
               }}
             >
@@ -309,7 +334,14 @@ function UpdateGoal() {
               You did it! You completed your goal for reading <b>{title}</b>.
             </P>
             <P>You fed your snail a bright {foodColor} mushroom. Yum!</P>
-            <P>{snailName + ' ' + GetFoodAffectText(foodColor)}</P>
+            <P>
+              {snailName} gained <b>{earnedHealth}</b> health point
+              {earnedHealth !== 1 && 's'}.
+            </P>
+            <P>
+              You earned <b>{earnedCurrency}</b>{' '}
+              <BsStars size="1.6rem" color={COLORS.PURPLE_MID} /> Stars!
+            </P>
             <SmallRoundedButton
               onClick={() => {
                 navigate('/view-goals');
