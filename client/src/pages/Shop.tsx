@@ -5,7 +5,6 @@ import { BsStars } from 'react-icons/bs';
 import styled, { css } from 'styled-components';
 import {
   ItemSelectCard,
-  LargeRoundedLink,
   LargeRoundedButton,
   P,
   PageWrapper,

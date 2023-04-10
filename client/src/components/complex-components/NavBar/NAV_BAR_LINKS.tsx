@@ -12,7 +12,7 @@ export const ClusterPages = [
 export const SnailPages = [
   {
     linkLabel: 'My Snail',
-    linkURL: '/view-goals', // TODO
+    linkURL: '/view-goals',
   },
   {
     linkLabel: 'Accessory Shop',

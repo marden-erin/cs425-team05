@@ -1,17 +1,16 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { FiChevronDown } from 'react-icons/fi';
-import { FiSearch } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
 import { ClusterPages, SnailPages } from './NAV_BAR_LINKS';
-import { Label } from '../../simple-components';
+import { StarDisplay } from '../Currency';
 import Logo from '../../../imgs/logo.png';
 import { ProfilePic } from '../ProfileNav';
 
 const LinkStyle = css`
-  width: 15rem;
+  width: 13.5rem;
   height: 5rem;
   border: none;
   background-color: ${COLORS.BLUE_MID};
@@ -43,7 +42,7 @@ const NavWrapper = styled.nav`
 
 const LinkWrapper = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 `;
 
 const LogoLinkWrapper = styled.a`
@@ -142,6 +141,7 @@ export const NavBar = () => {
       <SearchBarWrapper>
         <Search />
       </SearchBarWrapper>
+      <StarDisplay nav />
       <ProfilePic />
     </NavWrapper>
   );
