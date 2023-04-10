@@ -48,13 +48,27 @@ const DisplayWrapper = styled.a<{ nav?: boolean }>`
             color: ${COLORS.PURPLE_MID};
           }
         `
-      : css``}
+      : css`
+          pointer-events: none;
+          font-size: 2rem;
+          color: ${COLORS.BLACK};
+          b {
+            color: ${COLORS.PURPLE_MID};
+          }
+          svg {
+            min-width: 2rem;
+            min-height: 2rem;
+            width: 2rem;
+            height: 2rem;
+            color: ${COLORS.PURPLE_MID};
+          }
+        `}
 `;
 
 export const StarDisplay = ({ nav }: StarDisplayProps) => {
   const auth = useAuthUser();
   const username = auth()?.username;
-  const [starBalance, setStarBalance] = useState(9999);
+  const [starBalance, setStarBalance] = useState(1234);
 
   useEffect(() => {
     const loadData = async () => {

@@ -12,6 +12,7 @@ import {
   LargeRoundedButton,
   P,
   SmallRoundedButton,
+  StarDisplay,
 } from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
@@ -27,7 +28,7 @@ const FlexWrapper = styled.div`
 
 const SnailCard = styled.div`
   width: 40rem;
-  min-height: 45rem;
+  height: 45rem;
   padding: 20px 20px 25px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
@@ -43,13 +44,14 @@ const SnailCard = styled.div`
 
 const SnailStatus = styled.div`
   margin-block-start: 10px;
-  margin-top: 4.5rem;
+  margin-top: 2.5rem;
   background-color: ${COLORS.PURPLE_LIGHT};
   width: 90%;
   padding: 15px 10px;
   border-radius: 15px;
   p {
     text-align: center;
+    margin-block-end: 1rem;
   }
 `;
 
@@ -209,6 +211,7 @@ function ViewGoals(this: any) {
             <P>
               <b>{snailName}</b> {GetSnailStatusText(snailHealth)}
             </P>
+            <StarDisplay />
           </SnailStatus>
           {snailHealth === 0 && ( // Only show button if snail is dead
             <LargeRoundedButton

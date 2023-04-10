@@ -11,11 +11,7 @@ export const ClusterPages = [
 
 export const SnailPages = [
   {
-    linkLabel: 'My Snail',
-    linkURL: '/view-goals',
-  },
-  {
-    linkLabel: 'Accessory Shop',
+    linkLabel: 'Customize Snail',
     linkURL: '/shop',
   },
   {
