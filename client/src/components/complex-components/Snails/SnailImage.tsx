@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import OWServiceProvider from '../../../OuterWhorldServiceProvider';
-import { GetSnailImg } from '../../../utils';
-
-import CowboyHat from '../../../imgs/snails/accessories/cowboy-hat.png';
-import RoundGlasses from '../../../imgs/snails/accessories/round-glasses.png';
+import { GetSnailImg, GetHatImg, GetGlassesImg } from '../../../utils';
+import { VisuallyHiddenSpan } from '../../simple-components';
 
 type SnailImageProps = {
   /**
@@ -59,8 +57,8 @@ export const SnailImage = ({ username, width = 30 }: SnailImageProps) => {
   const [snailColor, setSnailColor] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
 
-  const [hatImage, setHatImage] = useState('');
-  const [glassesImage, setGlassesImage] = useState('');
+  const [hat, setHat] = useState('');
+  const [glasses, setGlasses] = useState('');
 
   useEffect(() => {
     const loadData = async () => {
@@ -71,16 +69,21 @@ export const SnailImage = ({ username, width = 30 }: SnailImageProps) => {
       setSnailBaseImage(GetSnailImg(snailColor, snailHealth));
 
       // TODO: Pull from Snail
-      setHatImage(CowboyHat);
-      setGlassesImage(RoundGlasses);
+      setHat('Astronaut');
+      setGlasses('Square');
     };
     loadData();
   }, []);
   return (
     <InnerWrapper width={width}>
+      <VisuallyHiddenSpan>Your snail, {snailName}</VisuallyHiddenSpan>
       <SnailImg src={snailBaseImage} role="presentation" width={width} />
-      <AccessoryImg src={glassesImage} role="presentation" width={width} />
-      <AccessoryImg src={hatImage} role="presentation" width={width} />
+      <AccessoryImg
+        src={GetGlassesImg(glasses)}
+        role="presentation"
+        width={width}
+      />
+      <AccessoryImg src={GetHatImg(hat)} role="presentation" width={width} />
     </InnerWrapper>
   );
 };
