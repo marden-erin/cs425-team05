@@ -24,7 +24,7 @@ const ScrollableDiv = styled.div`
   width: 50rem;
   background-color: ${COLORS.PURPLE_LIGHT};
   // Makes the div scrollable
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   .small-book-card {
     margin-inline-start: 5px;

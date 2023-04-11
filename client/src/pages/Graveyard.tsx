@@ -53,10 +53,9 @@ const YardWrapper = styled(Box)`
 `;
 
 const ScrollableDiv = styled.div`
-  // Makes the div scrollable
-  padding: 10px;
+  display: flex;
   overflow-y: hidden;
-  overflow-x: scroll;
+  overflow-x: auto;
   ${GraveScrollBarStyle}
 `;
 
@@ -68,9 +67,10 @@ const SignWrapper = styled.div`
 
 const AllGraveWrapper = styled.div`
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: row;
   gap: 3rem;
   margin-top: 2rem;
+  padding: 10px;
   justify-content: center;
   align-items: center;
 `;
