@@ -295,11 +295,11 @@ function UpdateGoal() {
               />
             </Radio>
             <LargeRoundedButton
-              onClick={() => {
+              onClick={async () => {
                 toggleIsFoodChoiceModalOpen(false);
                 CalculateRewards();
                 toggleIsFeedingModalOpen(true);
-                ApplyFoodAffect(
+                await ApplyFoodAffect(
                   foodColor,
                   tempGoalId,
                   username,

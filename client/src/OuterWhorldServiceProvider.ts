@@ -657,6 +657,7 @@ class OuterWhorldServiceProvider {
   @returns success or failure
   */
   async updateUserInformation(userName: string, currency: number) {
+    console.log(userName, currency);
     const input = {
       userName,
       currency,
