@@ -12,6 +12,7 @@ import {
   LargeRoundedButton,
   P,
   SmallRoundedButton,
+  SnailImage,
 } from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
@@ -198,12 +199,7 @@ function ViewGoals(this: any) {
     <PageWrapper pageTitle="Goals" header="Goals">
       <FlexWrapper>
         <SnailCard>
-          <img
-            src={snailImage}
-            width="300"
-            height="300"
-            alt={'An image of ' + snailName}
-          />
+          <SnailImage username={username} />
           <H2>{snailName}</H2>
           <SnailStatus>
             <P>
