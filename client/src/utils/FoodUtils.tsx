@@ -40,6 +40,7 @@ async function ApplyFoodAffect(
   goals_completed: number,
   goals_failed: number,
   accessories: Object,
+  isActive: boolean,
   notes: any,
   newPagesRead: number
 ) {
@@ -63,11 +64,13 @@ async function ApplyFoodAffect(
           newSnailHealth,
           goals_completed,
           goals_failed,
-          accessories
+          accessories,
+          isActive
         );
       }
       return;
   }
+
 }
 
 function GetFoodAffectText(food: string) {
