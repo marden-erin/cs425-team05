@@ -247,6 +247,12 @@ function ViewClusters() {
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         username
       );
+      clusterInfo.sort( (a: any, b: any) => {
+        const date1 = new Date(a.updated_at);
+        const date2 = new Date(b.updated_at);
+
+        return date2.getTime() - date1.getTime();
+      });
       setCluster(clusterInfo);
       const clusterArray: any[] = [];
       for (const temp of clusterInfo) {
@@ -267,11 +273,13 @@ function ViewClusters() {
   };
 
   const handleUpdate = async (e: any) => {
+    const date = new Date();
     const update = await OWServiceProvider.updateClusterInformation(
       e,
       username,
       newName,
-      visibility
+      visibility,
+      date.toString()
     );
     const temp = { toggleIsModalOpen };
   };

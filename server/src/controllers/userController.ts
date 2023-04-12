@@ -10,6 +10,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
 	if (name && email && password) {
 		try {
+			const filteredName = name.replace(/"/g, "''");
 			let query = `select * from Users where username="${name}"`;
 			let [user]: any[] = await db.promise().query(query);
 			if (user.length > 0) {
@@ -28,7 +29,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 			const salt = await bcrypt.genSalt(10);
 			const hashedPassword = await bcrypt.hash(password, salt);
 
-			query = `insert into Users(user_id, username, hashed_password, email, last_login) values (DEFAULT, '${name}', '${hashedPassword}', '${email}', ${null});`;
+			query = `insert into Users(user_id, username, hashed_password, email, last_login) values (DEFAULT, "${filteredName}", '${hashedPassword}', '${email}', ${null});`;
 			await db.promise().query(query);
 
 			res.status(HTTPStatus.OK).json("Account successfully created");

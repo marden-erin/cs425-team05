@@ -39,6 +39,7 @@ async function ApplyFoodAffect(
   snailHealth: number,
   goals_completed: number,
   goals_failed: number,
+  accessories: Object,
   notes: any,
   newPagesRead: number
 ) {
@@ -61,7 +62,8 @@ async function ApplyFoodAffect(
           snailColor,
           newSnailHealth,
           goals_completed,
-          goals_failed
+          goals_failed,
+          accessories
         );
       }
       return;

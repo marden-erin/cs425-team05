@@ -26,6 +26,7 @@ const getSnail = asyncHandler(async (req: Request, res: Response) => {
 					date_died,
 					goals_completed,
 					goals_failed,
+					accessories,
 				} = snail[0];
 				res.status(HTTPStatus.OK).json({
 					name,
@@ -35,6 +36,7 @@ const getSnail = asyncHandler(async (req: Request, res: Response) => {
 					date_died,
 					goals_completed,
 					goals_failed,
+					accessories,
 				});
 			} else {
 				const errMsg = "Error. User does not have a snail";
@@ -91,6 +93,7 @@ const updateSnail = asyncHandler(async (req: Request, res: Response) => {
 		deathDate,
 		goalsCompleted,
 		goalsFailed,
+		accessories,
 	} = req.body;
 
 	if (userName && snailName && snailColor) {
@@ -107,7 +110,7 @@ const updateSnail = asyncHandler(async (req: Request, res: Response) => {
 
 			if (snail.length > 0) {
 				const { snail_id } = snail[0];
-				query = `update Snails set name="${filteredSnailName}", color="${snailColor}", health="${snailHealth}", date_died="${deathDate}", goals_completed="${goalsCompleted}", goals_failed="${goalsFailed}" where snail_id="${snail_id}"`;
+				query = `update Snails set name="${filteredSnailName}", color="${snailColor}", health="${snailHealth}", date_died="${deathDate}", goals_completed="${goalsCompleted}", goals_failed="${goalsFailed}", accessories='${accessories}' where snail_id="${snail_id}"`;
 				await db.promise().query(query);
 
 				res.status(HTTPStatus.OK).json("Snail successfully updated");
@@ -129,6 +132,7 @@ const updateSnail = asyncHandler(async (req: Request, res: Response) => {
 const createSnail = asyncHandler(async (req: Request, res: Response) => {
 	const { userName, snailName, snailColor, date } = req.body;
 
+	console.log(userName, snailColor, snailName, date);
 	if (userName && snailName && snailColor && date) {
 		const filteredUserName = userName.replace(/"/g, "''");
 		const filteredSnailName = snailName.replace(/"/g, "''");
@@ -146,7 +150,7 @@ const createSnail = asyncHandler(async (req: Request, res: Response) => {
 				const [snail]: any[] = await db.promise().query(query);
 
 				if (snail.length === 0) {
-					query = `insert into Snails (snail_id, user_id, color, name, health, date_created, date_died, goals_completed, goals_failed) values(default, ${user_id}, "${snailColor}", "${filteredSnailName}", "${3}", "${date}", ${null}, "${0}", "${0}")`;
+					query = `insert into Snails (snail_id, user_id, color, name, health, date_created, date_died, goals_completed, goals_failed, accessories) values(default, ${user_id}, "${snailColor}", "${filteredSnailName}", "${3}", "${date}", ${null}, "${0}", "${0}", JSON_OBJECT())`;
 					await db.promise().query(query);
 
 					res.status(HTTPStatus.OK).json("Snail successfully created");

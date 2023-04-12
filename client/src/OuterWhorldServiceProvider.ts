@@ -45,12 +45,14 @@ class OuterWhorldServiceProvider {
   async createCluster(
     clusterName: string,
     userName: string,
-    visibility: boolean
+    visibility: boolean,
+    date: string
   ) {
     const input = {
       clusterName,
       userName,
       visibility,
+      date
     };
 
     const res = await fetch(`/api/clusters`, {
@@ -101,13 +103,15 @@ class OuterWhorldServiceProvider {
     clusterName: string,
     userName: string,
     newClusterName: string,
-    visibility: boolean
+    visibility: boolean,
+    date: string
   ) {
     const input = {
       clusterName,
       userName,
       newClusterName,
       visibility,
+      date
     };
 
     const res = await fetch(`/api/clusters`, {
@@ -153,9 +157,10 @@ class OuterWhorldServiceProvider {
   @param clusterName
   @param userName
   @param book - Book object
+  @param date - to set update time for cluster
   @returns success or failure
   */
-  async addBookToCluster(clusterName: string, userName: string, book: Book) {
+  async addBookToCluster(clusterName: string, userName: string, book: Book, date: string) {
     const { title, pageCount, cover } = book;
 
     const input = {
@@ -164,6 +169,7 @@ class OuterWhorldServiceProvider {
       bookTitle: title,
       pageCount,
       bookCover: cover,
+      date
     };
 
     const res = await fetch(`/api/booksInClusters`, {
@@ -249,6 +255,9 @@ class OuterWhorldServiceProvider {
   @param snailName - if keeping the same, pass in existing name
   @param snailColor - if keeping the same, pass in existing color
   @param snailHealth - snails new health (0 means dead, 3 means full health)
+  @param goalsCompleted
+  @param goalsFailed
+  @param accessories - currently equipped accessories for snail
   @param deathDate - snail death date
   @returns success or failure
   */
@@ -259,8 +268,11 @@ class OuterWhorldServiceProvider {
     snailHealth: number,
     goalsCompleted: number,
     goalsFailed: number,
+    accessories: Object,
     deathDate: string | null = null
   ) {
+
+    accessories = JSON.stringify(accessories);
     const input = {
       userName,
       snailName,
@@ -268,6 +280,7 @@ class OuterWhorldServiceProvider {
       snailHealth,
       goalsCompleted,
       goalsFailed,
+      accessories,
       deathDate,
     };
 
@@ -670,6 +683,91 @@ class OuterWhorldServiceProvider {
 
     const data = await res.json();
 
+    return data;
+  }
+
+  /*
+  @param username
+  @param id
+  @returns accessory object
+  */
+  async getAccessory(username: string, accessoryID: number) {
+    const res = await fetch(`/api/accessories/${username}/${accessoryID}`);
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param username
+  @returns array of accessory objects
+  */
+  async getAllAccessories(username: string) {
+    const res = await fetch(`/api/accessories/${username}`);
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  /*
+  @param username
+  @param accessoryType: ex) hat, shirt, etc
+  @param accessoryName: ex) astronaut, cowboy, etc
+  @returns Success or failure
+  */
+  async addAccessory(
+    username: string,
+    accessoryType: string,
+    accessoryName: string
+  ) {
+    const input = {
+      username,
+      accessoryType,
+      accessoryName,
+    };
+
+    const res = await fetch(`/api/accessories/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
+    return data;
+  }
+
+  /*
+  @param username
+  @param accessoryType: ex) hat, shirt, etc
+  @param accessoryName: ex) astronaut, cowboy, etc
+  @returns Success or failure
+  */
+  async deleteAccessory(
+    username: string,
+    accessoryType: string,
+    accessoryName: string
+  ) {
+    const input = {
+      username,
+      accessoryType,
+      accessoryName,
+    };
+
+    const res = await fetch(`/api/accessories/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    const data = await res.json();
     return data;
   }
 }

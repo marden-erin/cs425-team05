@@ -4,7 +4,7 @@ const updateSnailStatus = async (username: string) => {
   const snailInfo = await OWServiceProvider.getAllSnails(username);
 
   // Case 1 - User has no snails, first time login
-  if (snailInfo.length === 0) {
+  if (snailInfo === null) {
     return 'dne';
   }
 
@@ -59,7 +59,8 @@ const updateSnailStatus = async (username: string) => {
         snail.color,
         snailHealth,
         snail.goals_completed,
-        snail.goals_failed
+        snail.goals_failed,
+        snailInfo.accessories,
       );
 
       if (snailHealth <= 0) {

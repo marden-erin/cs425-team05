@@ -141,11 +141,7 @@ function Login() {
       setErrorMessage('Error: Invalid Credentials');
     }
   };
-
-  const handleRegister = async () => {
-    navigate('/register');
-  };
-
+  
   return (
     <Login_RegisterPageWrapper pageTitle="Login">
       <FlexBoxWrapper>
