@@ -104,6 +104,8 @@ function ViewGoals(this: any) {
   const [snailHealth, setSnailHealth] = useState(3);
   const [allGoals, setAllGoals] = useState([]);
   const [indGoals, setIndGoals] = useState<any>([]);
+  const [complete, setComplete] = useState(0);
+  const [failed, setFailed] = useState(0);
   let temp: any;
   const goalID: any = [];
   let noDuplicatesID: number[];
@@ -116,6 +118,9 @@ function ViewGoals(this: any) {
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+      setFailed(snailInfo.goals_failed);
+      setComplete(snailInfo.goals_completed);
+
       const goalArray: any[] = [];
       temp = await OWServiceProvider.getAllGoals(username);
       setAllGoals(temp);

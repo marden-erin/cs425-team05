@@ -24,7 +24,7 @@ import {
   LargeBookCard,
   BookSearchCard,
   LargeRoundedButton,
-  SmallCloseButton
+  SmallCloseButton,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
@@ -144,10 +144,9 @@ const Options = styled.div`
   display: flex;
   flex-direction: row;
   margin-left: 75rem;
-  margin-top:-50px;
+  margin-top: -50px;
   gap: 20px;
 `;
-
 
 const ModalContentWrapper = styled.div`
   display: flex;
@@ -158,11 +157,6 @@ const ModalContentWrapper = styled.div`
   background: ${COLORS.PURPLE_LIGHT};
   border-radius: 15px;
 `;
-
-
-
-
-
 
 const ImgButton = styled.button`
   background: ${COLORS.PURPLE_MID};
@@ -211,18 +205,17 @@ const CustomLabel = styled(Label)`
 `;
 
 const Modal3Title = styled(H2)`
-font-size: 3rem;
-`
+  font-size: 3rem;
+`;
 const Modal3Box = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-background-color: ${COLORS.PURPLE_XTRALIGHT};
-padding:  2rem 3rem;
-border-radius: 15px;
-`
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
+  padding: 2rem 3rem;
+  border-radius: 15px;
+`;
 
 function ViewClusters() {
   const auth = useAuthUser();
@@ -292,8 +285,6 @@ function ViewClusters() {
     console.log(deleteBook);
   };
   const HandleCreate = () => {
-    console.log('here');
-    console.log(isModalOpen3);
     const [input, setInput] = useState('');
 
     const loadData = async (e: any) => {
@@ -325,25 +316,28 @@ function ViewClusters() {
         >
           <SmallCloseButton handler={toggleIsModalOpen3} />
           <ModalContentWrapper>
-                <Modal3Title>Create a New Cluster</Modal3Title>
-                <QuestionWrapper>
+            <Modal3Title>Create a New Cluster</Modal3Title>
+            <QuestionWrapper>
               <form onSubmit={loadData}>
                 <Modal3Box>
-                <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
-                <InputBarWrapper>
-                  <ThinInput
-                    name="cluster-name"
-                    placeholder="Enter Cluster Name"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                  ></ThinInput>
-                  <SmallHalfRoundedButton type="submit" onSubmit={() =>loadData}>
-                    Create 
-                  </SmallHalfRoundedButton>
-                </InputBarWrapper></Modal3Box>
+                  <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
+                  <InputBarWrapper>
+                    <ThinInput
+                      name="cluster-name"
+                      placeholder="Enter Cluster Name"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                    ></ThinInput>
+                    <SmallHalfRoundedButton
+                      type="submit"
+                      onSubmit={() => loadData}
+                    >
+                      Create
+                    </SmallHalfRoundedButton>
+                  </InputBarWrapper>
+                </Modal3Box>
               </form>
             </QuestionWrapper>
-            
           </ModalContentWrapper>
         </ReactModal>
       </div>
@@ -410,9 +404,8 @@ function ViewClusters() {
               >
                 <SmallCloseButton handler={toggleIsModalOpen} />
                 <ModalContentWrapper>
-                <Modal3Title>Update Cluster Name</Modal3Title>
-                <QuestionWrapper>
-
+                  <Modal3Title>Update Cluster Name</Modal3Title>
+                  <QuestionWrapper>
                     <form
                       onSubmit={() => {
                         const confirmBox = window.confirm(
@@ -426,22 +419,25 @@ function ViewClusters() {
                         }
                       }}
                     >
-                <Modal3Box>
-                <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
-                <InputBarWrapper>
-                  <ThinInput
-                    name="cluster-name"
-                    placeholder="Enter New Cluster Name"
-                    value={newName}
-                    onChange={(e) => setNewName(e.target.value)}
-                  ></ThinInput>
-                  <SmallHalfRoundedButton type="submit" onSubmit={() =>handleUpdate(item.clusterName)}>
-                    Update 
-                  </SmallHalfRoundedButton>
-                </InputBarWrapper></Modal3Box>
-                     
-                    </form>            </QuestionWrapper>
-
+                      <Modal3Box>
+                        <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
+                        <InputBarWrapper>
+                          <ThinInput
+                            name="cluster-name"
+                            placeholder="Enter New Cluster Name"
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                          ></ThinInput>
+                          <SmallHalfRoundedButton
+                            type="submit"
+                            onSubmit={() => handleUpdate(item.clusterName)}
+                          >
+                            Update
+                          </SmallHalfRoundedButton>
+                        </InputBarWrapper>
+                      </Modal3Box>
+                    </form>{' '}
+                  </QuestionWrapper>
                 </ModalContentWrapper>
               </ReactModal>
             </Options>

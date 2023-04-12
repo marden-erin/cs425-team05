@@ -98,8 +98,8 @@ const TitleH2 = styled.h2`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis; 
-   `;
+  text-overflow: ellipsis;
+`;
 
 const AuthorH3 = styled.h3`
   ${FONTS_MAIN};
@@ -113,8 +113,7 @@ const AuthorH3 = styled.h3`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis; 
-
+  text-overflow: ellipsis;
 `;
 const ButtonWrapper = styled.div`
 display: flex;
@@ -146,11 +145,11 @@ const BotWrapper = styled.div`
   flex-flow: column wrap;
   justify-content: space-between;
   align-items: center;
-  border-radius:12px
+  border-radius: 12px;
 `;
 
 const TextWrapper = styled.div`
-  display:flex;
+  display: flex;
   ${ScrollBarStyle};
   background-color: ${COLORS.PURPLE_LIGHT};
 
@@ -159,8 +158,6 @@ const TextWrapper = styled.div`
   padding-right: 5px;
   overflow-y: auto;
 `;
-
-
 
 export const LargeBookCard = ({
   bookTitle,
@@ -179,7 +176,7 @@ export const LargeBookCard = ({
       <TopWrapper>
         <CoverWrapper>{bookCover}</CoverWrapper>
         <InfoWrapper>
-        <TitleH2>{bookTitle}</TitleH2>
+          <TitleH2>{bookTitle}</TitleH2>
           <AuthorH3>by {authorName}</AuthorH3>
           <StarRating rating={3} />
           <AllButtonWrapper>

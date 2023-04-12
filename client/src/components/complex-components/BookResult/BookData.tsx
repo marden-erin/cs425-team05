@@ -6,6 +6,7 @@ import { LargeBookCard, SmallBookCard } from '.';
 import { FilterDropdown } from '../SearchBar';
 import { ClusterDropDown } from '../Clusters';
 import { CreateGoalButton } from '../Goals';
+import { useLocation } from 'react-router-dom';
 
 const ResultsCard = styled.div`
   width: 50rem;
@@ -62,10 +63,13 @@ const Button = styled.button`
 `;
 
 function BookData(props: any) {
-  const { title, authors, description, pageCount, cover } = props.book;
+  const location = useLocation();
 
+  // userInput is what the user typed into search bar
+  var userInput = location.state.input;
+
+  const { title, authors, description, pageCount, cover } = props.book;
   const [selectedElement, setSelectedElement] = useState(0);
-  const shouldDisplay = title && authors && description && pageCount && cover;
   const [t, setT] = useState('');
   const [a, setA] = useState<any>();
   const [d, setD] = useState('');
@@ -89,11 +93,11 @@ function BookData(props: any) {
     description: string,
     index: any
   ) => {
-    setT(title);
-    setA(author);
+    setT(props.allBooks[index].title);
+    setA(props.allBooks[index].author);
     setD(props.allBooks[index].description);
-    setC(cover);
-    setP(pageCount);
+    setC(props.allBooks[index].cover);
+    setP(props.allBooks[index].pageCount);
     setDropBook(props.allBooks[index]);
     setSelectedElement(index);
   };
@@ -131,7 +135,7 @@ function BookData(props: any) {
                   index: any
                 ) => {
                   return (
-                    <>
+                    <div key={index}>
                       <Button
                         onClick={() =>
                           handleClick(
@@ -158,7 +162,7 @@ function BookData(props: any) {
                           key={index}
                         />
                       </Button>
-                    </>
+                    </div>
                   );
                 }
               )}
