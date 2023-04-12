@@ -179,6 +179,7 @@ function UpdateGoal() {
   const [foodColor, setFoodColor] = useState('');
   const [goalsCompleted, setGoalsCompleted] = useState(0);
   const [goalsFailed, setGoalsFailed] = useState(0);
+  const [snailAccessories, setSnailAccessories] = useState({});
 
   const location = useLocation();
 
@@ -203,6 +204,7 @@ function UpdateGoal() {
       setEatingSnailImage(GetEatingSnailImg(snailColor, foodColor));
       setGoalsCompleted(snailInfo.goals_completed);
       setGoalsFailed(snailInfo.goals_failed);
+      setSnailAccessories(snailInfo.accessories);
     };
     loadData();
   });
@@ -280,10 +282,11 @@ function UpdateGoal() {
                   snailName,
                   snailColor,
                   snailHealth,
+                  goalsCompleted,
+                  goalsFailed,
+                  snailAccessories,
                   notes,
                   numPagesTotal,
-                  goalsCompleted,
-                  goalsFailed
                 );
               }}
             >

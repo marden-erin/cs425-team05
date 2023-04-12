@@ -110,10 +110,13 @@ function CreateCluster() {
 
   const loadData = async (e: any) => {
     e.preventDefault();
+
+    const date = new Date();
     const create = await OWServiceProvider.createCluster(
       input,
       userName,
-      visibility
+      visibility,
+      date.toString()
     );
     navigate('/view-clusters');
   };

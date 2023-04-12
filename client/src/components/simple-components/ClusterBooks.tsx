@@ -79,10 +79,12 @@ function ClusterBooks(book: Book) {
 
   const loadData = async (e: any) => {
     e.preventDefault();
+    const date = new Date();
     const response = await OWServiceProvider.addBookToCluster(
       'test',
       username,
-      book
+      book,
+      date.toString(),
     );
     console.log(response);
     setAdd(response);
