@@ -122,7 +122,7 @@ const signOutUser = asyncHandler(async (req: Request, res: Response) => {
 const updateUserInformation = asyncHandler(async (req: Request, res: Response) => {
 	const { userName, currency } = req.body;
 
-	if (userName && currency) {
+	if (userName && currency !== undefined) {
 		const filteredUserName = (userName as string).replace(/"/g, "''");
 
 		const query = `update Users set currency="${currency}" where userName="${filteredUserName}"`;

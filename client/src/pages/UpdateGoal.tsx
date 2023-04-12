@@ -180,6 +180,7 @@ function UpdateGoal() {
   const [goalsCompleted, setGoalsCompleted] = useState(0);
   const [goalsFailed, setGoalsFailed] = useState(0);
   const [snailAccessories, setSnailAccessories] = useState({});
+  const [isSnailActive, setIsSnailActive] = useState(false);
 
   const location = useLocation();
 
@@ -205,6 +206,7 @@ function UpdateGoal() {
       setGoalsCompleted(snailInfo.goals_completed);
       setGoalsFailed(snailInfo.goals_failed);
       setSnailAccessories(snailInfo.accessories);
+      setIsSnailActive(snailInfo.is_active)
     };
     loadData();
   });
@@ -285,6 +287,7 @@ function UpdateGoal() {
                   goalsCompleted,
                   goalsFailed,
                   snailAccessories,
+                  isSnailActive,
                   notes,
                   numPagesTotal,
                 );

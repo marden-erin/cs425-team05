@@ -17,6 +17,7 @@ const getGoal = asyncHandler(async (req: Request, res: Response) => {
 				notes,
 				pageCount: goal_pageCount,
 				deadline,
+				completed
 			} = goal[0];
 
 			query = `select * from Books where book_id=${book_id}`;
@@ -40,6 +41,7 @@ const getGoal = asyncHandler(async (req: Request, res: Response) => {
 				notes,
 				goal_pageCount,
 				deadline,
+				completed,
 				foundBook,
 			};
 
@@ -79,6 +81,7 @@ const getAllGoals = asyncHandler(async (req: Request, res: Response) => {
 				notes,
 				pageCount: goal_pageCount,
 				deadline,
+				completed
 			} = goal;
 
 			query = `select * from Books where book_id=${book_id}`;
@@ -102,6 +105,7 @@ const getAllGoals = asyncHandler(async (req: Request, res: Response) => {
 				notes,
 				goal_pageCount,
 				deadline,
+				completed,
 				foundBook,
 			};
 
