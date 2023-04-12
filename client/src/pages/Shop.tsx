@@ -168,7 +168,7 @@ function Shop() {
             <H2>Snail Colors</H2>
             <RadioWrapper>
               <ItemSelectCard
-                item="unselected-color-1"
+                item="blue"
                 name="accessory"
                 itemResult={itemName}
                 itemType="color"
@@ -176,7 +176,7 @@ function Shop() {
                 changeItemType={setItemType}
               />
               <ItemSelectCard
-                item="unselected-color-2"
+                item="pink"
                 name="accessory"
                 itemResult={itemName}
                 itemType="color"
@@ -184,7 +184,7 @@ function Shop() {
                 changeItemType={setItemType}
               />
               <ItemSelectCard
-                item="rainbow"
+                item="yellow"
                 name="accessory"
                 itemResult={itemName}
                 itemType="color"
@@ -226,7 +226,7 @@ function Shop() {
             <H2>Glasses</H2>
             <RadioWrapper>
               <ItemSelectCard
-                item="Reading"
+                item="round"
                 name="accessory"
                 itemResult={itemName}
                 itemType="glasses"
@@ -234,7 +234,7 @@ function Shop() {
                 changeItemType={setItemType}
               />
               <ItemSelectCard
-                item="Radical"
+                item="square"
                 name="accessory"
                 itemResult={itemName}
                 itemType="glasses"
@@ -242,7 +242,7 @@ function Shop() {
                 changeItemType={setItemType}
               />
               <ItemSelectCard
-                item="Alien"
+                item="sun"
                 name="accessory"
                 itemResult={itemName}
                 itemType="glasses"

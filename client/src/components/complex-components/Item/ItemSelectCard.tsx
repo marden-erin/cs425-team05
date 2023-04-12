@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { BsStars } from 'react-icons/bs';
 import { COLORS, FONTS_SECONDARY } from '../../../constants';
 
-// import { GetItemImg } from '../../../utils';
+import {
+  GetSnailImg,
+  GetCroppedHatImg,
+  GetCroppedGlassesImg,
+} from '../../../utils';
 
 type ItemSelectCardTypes = {
   /**
@@ -34,7 +38,7 @@ type ItemSelectCardTypes = {
 
 const CardWrapper = styled.div``;
 
-const CardStyler = styled.div`
+const CardStyler = styled.div<{ itemType: string }>`
   width: 16rem;
   height: 18.5rem;
   padding: 30px 15px;
@@ -74,7 +78,7 @@ const Input = styled.input`
       color: ${COLORS.WHITE};
     }
     img {
-      filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
+      filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.8));
     }
     div > svg {
       color: ${COLORS.WHITE};
@@ -124,6 +128,22 @@ export const ItemSelectCard = ({
     item.charAt(0).toUpperCase() + item.slice(1).toLowerCase(); // Proper capitalization for header
   const cost = 134; // TODO: Get cost
 
+  function GetItemImg(capitalizedItem: string) {
+    if (item == '') {
+      return; // TODO: replace with placeholder
+    }
+    switch (itemType) {
+      case 'color':
+        return GetSnailImg(capitalizedItem);
+      case 'hat':
+        return GetCroppedHatImg(capitalizedItem);
+      case 'glasses':
+        return GetCroppedGlassesImg(capitalizedItem);
+      default:
+        return; // nothing
+    }
+  }
+
   return (
     <CardWrapper>
       <Input
@@ -136,13 +156,9 @@ export const ItemSelectCard = ({
           changeItemType(itemType);
         }}
       />
-      <CardStyler className="card">
+      <CardStyler className="card" itemType={itemType}>
         <span>{capitalizedItem}</span>
-        {/* <img src={GetItemImg(capitalizedItem)} width="275" /> */}
-        <img
-          src="https://clipartix.com/wp-content/uploads/2019/02/cowboy-hat-transparent-2019-2.png"
-          width="100"
-        />
+        <img src={GetItemImg(capitalizedItem)} width="100" />
         <CostWrapper>
           <span>{cost}</span>
           <BsStars size="2rem" />
