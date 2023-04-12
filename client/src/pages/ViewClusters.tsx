@@ -297,10 +297,12 @@ function ViewClusters() {
 
     const loadData = async (e: any) => {
       e.preventDefault();
+      const date = new Date();
       const create = await OWServiceProvider.createCluster(
         input,
         username,
-        visibility
+        visibility,
+        date.toString()
       );
       toggleIsModalOpen3(false);
       setInput('');
