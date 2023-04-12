@@ -91,6 +91,12 @@ export const ClusterDropDown = (props: any) => {
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         username
       );
+      clusterInfo.sort( (a: any, b: any) => {
+        const date1 = new Date(a.updated_at);
+        const date2 = new Date(b.updated_at);
+
+        return date2.getTime() - date1.getTime();
+      });
       setCluster(clusterInfo);
     };
     loadData();
@@ -106,10 +112,12 @@ export const ClusterDropDown = (props: any) => {
     setBookInfo(data[0]);
 
     const addBook = async () => {
+      const date = new Date();
       const clusterInfo = await OWServiceProvider.addBookToCluster(
         tempSelect,
         username,
-        data[0]
+        data[0],
+        date.toString()
       );
 
       setSelected('');

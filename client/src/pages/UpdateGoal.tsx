@@ -171,6 +171,7 @@ function UpdateGoal() {
   const username = auth()?.username;
   const [currency, setCurrency] = useState(9999);
   const [earnedCurrency, setEarnedCurrency] = useState(0);
+  const [newCurrency, setNewCurrency] = useState(0);
   const [earnedHealth, setEarnedHealth] = useState(0);
 
   const [snailName, setSnailName] = useState('');
@@ -181,6 +182,8 @@ function UpdateGoal() {
   const [foodColor, setFoodColor] = useState('');
   const [goalsCompleted, setGoalsCompleted] = useState(0);
   const [goalsFailed, setGoalsFailed] = useState(0);
+  const [snailAccessories, setSnailAccessories] = useState({});
+  const [isSnailActive, setIsSnailActive] = useState(false);
 
   const location = useLocation();
 
@@ -205,6 +208,8 @@ function UpdateGoal() {
       setEatingSnailImage(GetEatingSnailImg(snailColor, foodColor));
       setGoalsCompleted(snailInfo.goals_completed);
       setGoalsFailed(snailInfo.goals_failed);
+      setSnailAccessories(snailInfo.accessories);
+      setIsSnailActive(snailInfo.is_active)
 
       const userInfo = await OWServiceProvider.getUserInformation(username);
       setCurrency(userInfo.currency);
@@ -248,16 +253,19 @@ function UpdateGoal() {
       case 'Green':
         // Double stars earned, no added health
         setEarnedCurrency(numPagesTotal);
+        setNewCurrency(currency + earnedCurrency);
         setEarnedHealth(0);
         return;
       case 'Purple':
         // Half stars earned, heal two health points
         setEarnedCurrency(numPagesTotal / 4);
+        setNewCurrency(currency + earnedCurrency);
         setEarnedHealth(2);
         return;
       default:
         // Normal stars earned, heal one health point
         setEarnedCurrency(numPagesTotal / 2);
+        setNewCurrency(currency + earnedCurrency);
         setEarnedHealth(1);
         return;
     }
@@ -308,7 +316,9 @@ function UpdateGoal() {
                   snailHealth,
                   goalsCompleted,
                   goalsFailed,
-                  earnedCurrency
+                  snailAccessories,
+                  isSnailActive,
+                  newCurrency,
                 );
               }}
             >

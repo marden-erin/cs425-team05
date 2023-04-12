@@ -4,20 +4,25 @@ const updateSnailStatus = async (username: string) => {
   const snailInfo = await OWServiceProvider.getAllSnails(username);
 
   // Case 1 - User has no snails, first time login
-  if (snailInfo.length === 0) {
+  if (snailInfo === null) {
     return 'dne';
   }
 
   let needsnewSnail = true;
+  let hasActiveSnail = false;
 
   for (const snail of snailInfo) {
     // Case 2 - Snail exists, but is dead
 
     let snailHealth = snail.health;
-    const { date_died } = snail;
+    const { date_died, is_active } = snail;
 
     if (date_died === 'null') {
       needsnewSnail = false;
+    }
+
+    if (is_active) {
+      hasActiveSnail = true;
     }
 
     // Snail is dead but doesn't have gravestone yet, navigate to graveyard
@@ -59,21 +64,23 @@ const updateSnailStatus = async (username: string) => {
         snail.color,
         snailHealth,
         snail.goals_completed,
-        snail.goals_failed
+        snail.goals_failed,
+        snail.accessories,
+        snail.is_active
       );
 
       if (snailHealth <= 0) {
         return 'dead';
       }
-
-      // Case 3 - Snail is still alive
-      return 'alive';
     }
   }
 
-  if (needsnewSnail) {
+  if (needsnewSnail || hasActiveSnail === false) {
     return 'dne';
   }
+
+  // Case 3 - Snail is still alive
+  return 'alive';
 };
 
 export { updateSnailStatus };
