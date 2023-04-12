@@ -16,8 +16,10 @@ function GetHatImg(accessory: string) {
       return AstronautHat;
     case 'Cowboy':
       return CowboyHat;
-    default: // party
+    case 'Party':
       return PartyHat;
+    default: // no hat
+      return;
   }
 }
 
@@ -29,8 +31,10 @@ function GetGlassesImg(accessory: string) {
       return RoundGlasses;
     case 'Square':
       return SquareGlasses;
-    default: // sun
+    case 'Sun':
       return SunGlasses;
+    default: // no glasses
+      return;
   }
 }
 

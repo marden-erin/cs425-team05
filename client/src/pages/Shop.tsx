@@ -9,6 +9,7 @@ import {
   LargeRoundedButton,
   P,
   PageWrapper,
+  SnailImage,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { COLORS, FONTS_MAIN } from '../constants';
@@ -116,7 +117,6 @@ function Shop() {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
-      setSnailImage(GetSnailImg(snailColor, 3));
       const userInfo = await OWServiceProvider.getUserInformation(username);
       setStarBalance(userInfo.currency);
     };
@@ -127,7 +127,6 @@ function Shop() {
   const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
   const [snailColor, setSnailColor] = useState('');
-  const [snailImage, setSnailImage] = useState('');
 
   const [itemName, setItemName] = useState('');
   const [itemType, setItemType] = useState('hat'); // TODO: Get item type dynamically
@@ -137,11 +136,11 @@ function Shop() {
     <PageWrapper pageTitle="Shop">
       <SnailCard>
         <SnailTitle>{snailName}</SnailTitle>
-        <img
-          src={snailImage}
-          alt={snailName + ' checking out the cool things in the shop'}
-          width="300"
-          className="snail"
+        <SnailImage
+          username={username}
+          width={30}
+          overrideGlasses="Round"
+          overrideHat="Party"
         />
         <StarsStatus>
           <P>

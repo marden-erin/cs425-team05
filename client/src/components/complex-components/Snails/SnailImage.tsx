@@ -13,6 +13,14 @@ type SnailImageProps = {
    * Optional width of image in rem: default 30rem
    */
   width?: number;
+  /**
+   * Optional hat - Otherwise uses whatever hat the snail has
+   */
+  overrideHat?: string;
+  /**
+   * Optional glasses - Otherwise uses whatever glasses the snail has
+   */
+  overrideGlasses?: string;
 };
 
 const InnerWrapper = styled.span<{ width: number }>`
@@ -51,9 +59,13 @@ const AccessoryImg = styled.img<{ width: number }>`
     `}
 `;
 
-export const SnailImage = ({ username, width = 30 }: SnailImageProps) => {
+export const SnailImage = ({
+  username,
+  overrideHat,
+  overrideGlasses,
+  width = 30,
+}: SnailImageProps) => {
   const [snailName, setSnailName] = useState('');
-  const [snailBaseImage, setSnailBaseImage] = useState('');
   const [snailColor, setSnailColor] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
 
@@ -66,24 +78,35 @@ export const SnailImage = ({ username, width = 30 }: SnailImageProps) => {
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
-      setSnailBaseImage(GetSnailImg(snailColor, snailHealth));
 
       // TODO: Pull from Snail
-      setHat('Astronaut');
-      setGlasses('Square');
+      overrideHat ? setHat(overrideHat) : setHat('Astronaut');
+      overrideGlasses ? setGlasses(overrideGlasses) : setGlasses('Square');
     };
     loadData();
   }, []);
   return (
     <InnerWrapper width={width}>
       <VisuallyHiddenSpan>Your snail, {snailName}</VisuallyHiddenSpan>
-      <SnailImg src={snailBaseImage} role="presentation" width={width} />
-      <AccessoryImg
-        src={GetGlassesImg(glasses)}
+      <SnailImg
+        src={GetSnailImg(snailColor, snailHealth)}
         role="presentation"
         width={width}
       />
-      <AccessoryImg src={GetHatImg(hat)} role="presentation" width={width} />
+      {snailHealth > 1 && (
+        <>
+          <AccessoryImg
+            src={GetGlassesImg(glasses)}
+            role="presentation"
+            width={width}
+          />
+          <AccessoryImg
+            src={GetHatImg(hat)}
+            role="presentation"
+            width={width}
+          />
+        </>
+      )}
     </InnerWrapper>
   );
 };
