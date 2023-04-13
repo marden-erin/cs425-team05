@@ -18,7 +18,7 @@ type BookSearchCardProps = {
 const CardWrapper = styled.div`
   margin: 1rem 1rem;
   padding: 2rem;
-  height: 100%;
+  height: 68%;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
   border-radius: 15px;
@@ -58,7 +58,7 @@ const Label = styled(BaseLabel)`
 `;
 
 const SearchBarWrapper = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 `;
 
 export const BookSearchCard = ({

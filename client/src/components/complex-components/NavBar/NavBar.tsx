@@ -13,7 +13,7 @@ const LinkStyle = css`
   width: 13.5rem;
   height: 5rem;
   border: none;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
   transition: background-color 0.3s ease-out;
   cursor: pointer;
   text-decoration: none;
@@ -25,14 +25,14 @@ const LinkStyle = css`
   justify-content: center;
 
   :hover {
-    background-color: ${COLORS.BLUE_DARK};
+    background-color: ${COLORS.PURPLE_LIGHT};
   }
 `;
 
 const NavWrapper = styled.nav`
   height: 5rem;
   padding: 0.5rem 6rem 0.5rem 3rem;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
 
   display: flex;
   justify-content: space-between;
@@ -59,6 +59,7 @@ const NavLink = styled.a<{ noLink?: boolean }>`
     `}
   display: flex;
   gap: 4px;
+  color: ${COLORS.BLUE_DARK};
 `;
 
 const SearchBarWrapper = styled.div`

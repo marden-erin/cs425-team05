@@ -80,8 +80,9 @@ const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
   ${(props) =>
     props.$hasGoals
       ? css`
-          width: 65rem;
-          overflow-x: scroll;
+          width: 60rem;
+          padding: 5px;
+          overflow-x: auto;
           overflow-y: hidden;
           ${ScrollBarStyle};
         ` // Only show scrollbar if there are goals
@@ -105,6 +106,8 @@ function ViewGoals(this: any) {
   const [snailHealth, setSnailHealth] = useState(3);
   const [allGoals, setAllGoals] = useState([]);
   const [indGoals, setIndGoals] = useState<any>([]);
+  const [complete, setComplete] = useState(0);
+  const [failed, setFailed] = useState(0);
   let temp: any;
   const goalID: any = [];
   let noDuplicatesID: number[];
@@ -112,10 +115,13 @@ function ViewGoals(this: any) {
   useEffect(() => {
     const loadData = async () => {
       snailInfo = await OWServiceProvider.getSnailInfo(username);
+
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+      setFailed(snailInfo.goals_failed);
+      setComplete(snailInfo.goals_completed);
 
       const goalArray: any[] = [];
       temp = await OWServiceProvider.getAllGoals(username);
@@ -204,7 +210,7 @@ function ViewGoals(this: any) {
             src={snailImage}
             width="300"
             height="300"
-            alt={'An image of ' + snailName}
+            alt={'An image of users current snail' + snailName}
           />
           <H2>{snailName}</H2>
           <SnailStatus>
