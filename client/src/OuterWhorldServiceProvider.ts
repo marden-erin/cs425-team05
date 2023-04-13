@@ -269,6 +269,7 @@ class OuterWhorldServiceProvider {
     goalsCompleted: number,
     goalsFailed: number,
     accessories: Object,
+    isActive: Boolean,
     deathDate: string | null = null
   ) {
 
@@ -282,6 +283,7 @@ class OuterWhorldServiceProvider {
       goalsFailed,
       accessories,
       deathDate,
+      isActive
     };
 
     const res = await fetch(`/api/snails`, {
@@ -308,13 +310,15 @@ class OuterWhorldServiceProvider {
     userName: string,
     snailName: string,
     snailColor: string,
-    date: string
+    date: string,
+    isActive: boolean = true
   ) {
     const input = {
       userName,
       snailName,
       snailColor,
       date,
+      isActive
     };
 
     const res = await fetch(`/api/snails`, {
