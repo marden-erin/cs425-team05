@@ -1,9 +1,5 @@
 export const ClusterPages = [
   {
-    linkLabel: 'Create Cluster',
-    linkURL: '/create-cluster',
-  },
-  {
     linkLabel: 'View Clusters',
     linkURL: '/view-clusters',
   },

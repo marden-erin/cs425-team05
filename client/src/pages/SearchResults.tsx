@@ -25,7 +25,11 @@ function SearchResults() {
 
   // userInput is what the user typed into search bar
   var userInput = location.state.input;
-  console.log(userInput);
+  const [myState, setMystate] = useState(userInput);
+
+  if (userInput != myState) {
+    window.location.reload();
+  }
 
   useEffect(() => {
     const loadData = async (e: any) => {
@@ -44,7 +48,7 @@ function SearchResults() {
       setAllBooks([...temp]);
     };
     loadData(userInput);
-  }, []);
+  }, [myState]);
 
   let props = {
     book: bookInfo,
