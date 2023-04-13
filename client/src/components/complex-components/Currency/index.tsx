@@ -1,0 +1,1 @@
+export { StarDisplay } from './StarDisplay';
