@@ -21,7 +21,6 @@ import {
   GetSnailImg,
   GetEatingSnailImg,
   NumberOfDaysUntilDate,
-  ApplyFoodAffect,
 } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
@@ -171,7 +170,6 @@ function UpdateGoal() {
   const username = auth()?.username;
   const [currency, setCurrency] = useState(9999);
   const [earnedCurrency, setEarnedCurrency] = useState(0);
-  const [newCurrency, setNewCurrency] = useState(0);
   const [earnedHealth, setEarnedHealth] = useState(0);
 
   const [snailName, setSnailName] = useState('');
@@ -209,7 +207,7 @@ function UpdateGoal() {
       setGoalsCompleted(snailInfo.goals_completed);
       setGoalsFailed(snailInfo.goals_failed);
       setSnailAccessories(snailInfo.accessories);
-      setIsSnailActive(snailInfo.is_active)
+      setIsSnailActive(snailInfo.is_active);
 
       const userInfo = await OWServiceProvider.getUserInformation(username);
       setCurrency(userInfo.currency);
@@ -248,29 +246,6 @@ function UpdateGoal() {
     }
   };
 
-  function CalculateRewards() {
-    switch (foodColor) {
-      case 'Green':
-        // Double stars earned, no added health
-        setEarnedCurrency(numPagesTotal);
-        setNewCurrency(currency + earnedCurrency);
-        setEarnedHealth(0);
-        return;
-      case 'Purple':
-        // Half stars earned, heal two health points
-        setEarnedCurrency(numPagesTotal / 4);
-        setNewCurrency(currency + earnedCurrency);
-        setEarnedHealth(2);
-        return;
-      default:
-        // Normal stars earned, heal one health point
-        setEarnedCurrency(numPagesTotal / 2);
-        setNewCurrency(currency + earnedCurrency);
-        setEarnedHealth(1);
-        return;
-    }
-  }
-
   return (
     <PageWrapper pageTitle="Create a Goal">
       <GridWrapper>
@@ -305,20 +280,64 @@ function UpdateGoal() {
             <LargeRoundedButton
               onClick={async () => {
                 toggleIsFoodChoiceModalOpen(false);
-                CalculateRewards();
+                await OWServiceProvider.deleteGoal(goalID); // TODO: Mark as completed, not delete HI ERIN
+                // Calculate Rewards
+                let newCurrency = currency;
+                let newHealth = snailHealth;
+                console.log(
+                  'currency before',
+                  newCurrency,
+                  'health before',
+                  newHealth
+                );
+                switch (foodColor) {
+                  case 'green':
+                    // Double stars earned, no added health
+                    setEarnedCurrency(numPagesTotal);
+                    newCurrency += Number(numPagesTotal);
+                    // Don't change newHealth
+                    setEarnedHealth(0);
+                    break;
+                  case 'purple':
+                    // Half stars earned, heal two health points
+                    setEarnedCurrency(numPagesTotal / 4);
+                    newCurrency += Number(numPagesTotal / 4);
+                    setEarnedHealth(2);
+                    newHealth += 2;
+                    break;
+                  default:
+                    // Normal stars earned, heal one health point
+                    setEarnedCurrency(numPagesTotal / 2);
+                    newCurrency += Number(numPagesTotal / 2);
+                    setEarnedHealth(1);
+                    newHealth += 1;
+                    break;
+                }
+                newHealth = newHealth > 3 ? 3 : newHealth;
+                console.log(
+                  'currency after',
+                  newCurrency,
+                  'health after',
+                  newHealth
+                );
+                // End calc
                 toggleIsFeedingModalOpen(true);
-                await ApplyFoodAffect(
-                  foodColor,
-                  tempGoalId,
+
+                // Apply new affects
+                await OWServiceProvider.updateSnailInfo(
                   username,
                   snailName,
                   snailColor,
-                  snailHealth,
+                  newHealth,
                   goalsCompleted,
                   goalsFailed,
                   snailAccessories,
-                  isSnailActive,
-                  newCurrency,
+                  isSnailActive
+                );
+
+                await OWServiceProvider.updateUserInformation(
+                  username,
+                  newCurrency
                 );
               }}
             >

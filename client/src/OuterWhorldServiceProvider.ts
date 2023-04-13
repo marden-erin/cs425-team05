@@ -54,7 +54,7 @@ class OuterWhorldServiceProvider {
       clusterName,
       userName,
       visibility,
-      date
+      date,
     };
 
     const res = await fetch(`/api/clusters`, {
@@ -113,7 +113,7 @@ class OuterWhorldServiceProvider {
       userName,
       newClusterName,
       visibility,
-      date
+      date,
     };
 
     const res = await fetch(`/api/clusters`, {
@@ -162,7 +162,12 @@ class OuterWhorldServiceProvider {
   @param date - to set update time for cluster
   @returns success or failure
   */
-  async addBookToCluster(clusterName: string, userName: string, book: Book, date: string) {
+  async addBookToCluster(
+    clusterName: string,
+    userName: string,
+    book: Book,
+    date: string
+  ) {
     const { title, pageCount, cover } = book;
 
     const input = {
@@ -171,7 +176,7 @@ class OuterWhorldServiceProvider {
       bookTitle: title,
       pageCount,
       bookCover: cover,
-      date
+      date,
     };
 
     const res = await fetch(`/api/booksInClusters`, {
@@ -274,7 +279,6 @@ class OuterWhorldServiceProvider {
     isActive: Boolean,
     deathDate: string | null = null
   ) {
-
     accessories = JSON.stringify(accessories);
     const input = {
       userName,
@@ -285,7 +289,7 @@ class OuterWhorldServiceProvider {
       goalsFailed,
       accessories,
       deathDate,
-      isActive
+      isActive,
     };
 
     const res = await fetch(`/api/snails`, {
@@ -320,7 +324,7 @@ class OuterWhorldServiceProvider {
       snailName,
       snailColor,
       date,
-      isActive
+      isActive,
     };
 
     const res = await fetch(`/api/snails`, {

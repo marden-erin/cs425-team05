@@ -84,7 +84,7 @@ function ClusterBooks(book: Book) {
       'test',
       username,
       book,
-      date.toString(),
+      date.toString()
     );
     console.log(response);
     setAdd(response);

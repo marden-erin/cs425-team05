@@ -262,7 +262,7 @@ function ViewClusters() {
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         username
       );
-      clusterInfo.sort( (a: any, b: any) => {
+      clusterInfo.sort((a: any, b: any) => {
         const date1 = new Date(a.updated_at);
         const date2 = new Date(b.updated_at);
 
