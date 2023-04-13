@@ -22,15 +22,19 @@ const DisplayWrapper = styled.a<{ nav?: boolean }>`
   text-decoration: none;
   transition: background-color 0.25s ease-out;
 
+  color: ${COLORS.BLACK};
   b {
+    color: ${COLORS.PURPLE_MID};
     font-size: inherit;
+  }
+  svg {
+    color: ${COLORS.PURPLE_MID};
   }
 
   ${(props) =>
     props.nav
       ? css`
           background: none;
-          color: ${COLORS.WHITE};
           font-size: 1.6rem;
           min-width: 10.5rem;
           height: 4rem;
@@ -44,23 +48,17 @@ const DisplayWrapper = styled.a<{ nav?: boolean }>`
           }
 
           :hover {
-            background: ${COLORS.WHITE};
-            color: ${COLORS.PURPLE_MID};
+            background: ${COLORS.PURPLE_LIGHT};
           }
         `
       : css`
           pointer-events: none;
           font-size: 2rem;
-          color: ${COLORS.BLACK};
-          b {
-            color: ${COLORS.PURPLE_MID};
-          }
           svg {
             min-width: 2rem;
             min-height: 2rem;
             width: 2rem;
             height: 2rem;
-            color: ${COLORS.PURPLE_MID};
           }
         `}
 `;
