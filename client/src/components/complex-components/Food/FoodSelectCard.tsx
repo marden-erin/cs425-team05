@@ -91,6 +91,9 @@ const Input = styled.input`
     img {
       filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
     }
+    span {
+      color: ${COLORS.WHITE};
+    }
   }
 `;
 
