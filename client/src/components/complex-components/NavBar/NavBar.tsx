@@ -1,20 +1,19 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { FiChevronDown } from 'react-icons/fi';
-import { FiSearch } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
 import { ClusterPages, SnailPages } from './NAV_BAR_LINKS';
-import { Label } from '../../simple-components';
+import { StarDisplay } from '../Currency';
 import Logo from '../../../imgs/logo.png';
 import { ProfilePic } from '../ProfileNav';
 
 const LinkStyle = css`
-  width: 15rem;
+  width: 13.5rem;
   height: 5rem;
   border: none;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
   transition: background-color 0.3s ease-out;
   cursor: pointer;
   text-decoration: none;
@@ -26,14 +25,14 @@ const LinkStyle = css`
   justify-content: center;
 
   :hover {
-    background-color: ${COLORS.BLUE_DARK};
+    background-color: ${COLORS.PURPLE_LIGHT};
   }
 `;
 
 const NavWrapper = styled.nav`
   height: 5rem;
   padding: 0.5rem 6rem 0.5rem 3rem;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
 
   display: flex;
   justify-content: space-between;
@@ -43,7 +42,7 @@ const NavWrapper = styled.nav`
 
 const LinkWrapper = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 `;
 
 const LogoLinkWrapper = styled.a`
@@ -60,6 +59,7 @@ const NavLink = styled.a<{ noLink?: boolean }>`
     `}
   display: flex;
   gap: 4px;
+  color: ${COLORS.BLUE_DARK};
 `;
 
 const SearchBarWrapper = styled.div`
@@ -142,6 +142,7 @@ export const NavBar = () => {
       <SearchBarWrapper>
         <Search />
       </SearchBarWrapper>
+      <StarDisplay nav />
       <ProfilePic />
     </NavWrapper>
   );

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ReactModal from 'react-modal';
 import { useAuthUser } from 'react-auth-kit';
 import { useLocation } from 'react-router-dom';
+import { BsStars } from 'react-icons/bs';
 import {
   FoodSelectCard,
   H2,
@@ -20,8 +21,6 @@ import { COLORS, FONTS_SECONDARY } from '../constants';
 import {
   GetEatingSnailImg,
   NumberOfDaysUntilDate,
-  ApplyFoodAffect,
-  GetFoodAffectText,
 } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
@@ -165,12 +164,14 @@ const FeedingModalContentWrapper = styled.div`
   text-align: center;
 `;
 
-const ProgressModalWrapper = styled.div``;
-
 function UpdateGoal() {
   const navigate = useNavigate();
   const auth = useAuthUser();
   const username = auth()?.username;
+  const [currency, setCurrency] = useState(9999);
+  const [earnedCurrency, setEarnedCurrency] = useState(0);
+  const [earnedHealth, setEarnedHealth] = useState(0);
+
   const [snailName, setSnailName] = useState('');
   const [snailColor, setSnailColor] = useState('');
   const [eatingSnailImage, setEatingSnailImage] = useState('');
@@ -178,6 +179,8 @@ function UpdateGoal() {
   const [foodColor, setFoodColor] = useState('');
   const [goalsCompleted, setGoalsCompleted] = useState(0);
   const [goalsFailed, setGoalsFailed] = useState(0);
+  const [snailAccessories, setSnailAccessories] = useState({});
+  const [isSnailActive, setIsSnailActive] = useState(false);
 
   const location = useLocation();
 
@@ -201,6 +204,11 @@ function UpdateGoal() {
       setEatingSnailImage(GetEatingSnailImg(snailColor, foodColor));
       setGoalsCompleted(snailInfo.goals_completed);
       setGoalsFailed(snailInfo.goals_failed);
+      setSnailAccessories(snailInfo.accessories);
+      setIsSnailActive(snailInfo.is_active);
+
+      const userInfo = await OWServiceProvider.getUserInformation(username);
+      setCurrency(userInfo.currency);
     };
     loadData();
   });
@@ -268,20 +276,66 @@ function UpdateGoal() {
               />
             </Radio>
             <LargeRoundedButton
-              onClick={() => {
+              onClick={async () => {
                 toggleIsFoodChoiceModalOpen(false);
+                await OWServiceProvider.deleteGoal(goalID); // TODO: Mark as completed, not delete HI ERIN
+                // Calculate Rewards
+                let newCurrency = currency;
+                let newHealth = snailHealth;
+                console.log(
+                  'currency before',
+                  newCurrency,
+                  'health before',
+                  newHealth
+                );
+                switch (foodColor) {
+                  case 'green':
+                    // Double stars earned, no added health
+                    setEarnedCurrency(numPagesTotal);
+                    newCurrency += Number(numPagesTotal);
+                    // Don't change newHealth
+                    setEarnedHealth(0);
+                    break;
+                  case 'purple':
+                    // Half stars earned, heal two health points
+                    setEarnedCurrency(numPagesTotal / 4);
+                    newCurrency += Number(numPagesTotal / 4);
+                    setEarnedHealth(2);
+                    newHealth += 2;
+                    break;
+                  default:
+                    // Normal stars earned, heal one health point
+                    setEarnedCurrency(numPagesTotal / 2);
+                    newCurrency += Number(numPagesTotal / 2);
+                    setEarnedHealth(1);
+                    newHealth += 1;
+                    break;
+                }
+                newHealth = newHealth > 3 ? 3 : newHealth;
+                console.log(
+                  'currency after',
+                  newCurrency,
+                  'health after',
+                  newHealth
+                );
+                // End calc
                 toggleIsFeedingModalOpen(true);
-                ApplyFoodAffect(
-                  foodColor,
-                  tempGoalId,
+
+                // Apply new affects
+                await OWServiceProvider.updateSnailInfo(
                   username,
                   snailName,
                   snailColor,
-                  snailHealth,
-                  notes,
-                  numPagesTotal,
+                  newHealth,
                   goalsCompleted,
-                  goalsFailed
+                  goalsFailed,
+                  snailAccessories,
+                  isSnailActive
+                );
+
+                await OWServiceProvider.updateUserInformation(
+                  username,
+                  newCurrency
                 );
               }}
             >
@@ -307,7 +361,14 @@ function UpdateGoal() {
               You did it! You completed your goal for reading <b>{title}</b>.
             </P>
             <P>You fed your snail a bright {foodColor} mushroom. Yum!</P>
-            <P>{snailName + ' ' + GetFoodAffectText(foodColor)}</P>
+            <P>
+              {snailName} gained <b>{earnedHealth}</b> health point
+              {earnedHealth !== 1 && 's'}.
+            </P>
+            <P>
+              You earned <b>{earnedCurrency}</b>{' '}
+              <BsStars size="1.6rem" color={COLORS.PURPLE_MID} /> Stars!
+            </P>
             <SmallRoundedButton
               onClick={() => {
                 navigate('/view-goals');

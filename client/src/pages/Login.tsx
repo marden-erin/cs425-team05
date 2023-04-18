@@ -142,10 +142,6 @@ function Login() {
     }
   };
 
-  const handleRegister = async () => {
-    navigate('/register');
-  };
-
   return (
     <Login_RegisterPageWrapper pageTitle="Login">
       <FlexBoxWrapper>

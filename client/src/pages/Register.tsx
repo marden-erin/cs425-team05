@@ -7,6 +7,7 @@ import {
   ThickInput,
   H2,
   P,
+  Label,
 } from '../components';
 import { COLORS } from '../constants';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
@@ -60,10 +61,9 @@ const ErrorMessageSpan = styled.span`
   }
 `;
 
-const RegisterLabel = styled.label`
+const RegisterLabel = styled(Label)`
   align-self: start;
-  margin-left: 115px;
-  font-size: 14px;
+  margin-left: 130px;
   font-weight: bold;
   margin-bottom: -15px;
 `;

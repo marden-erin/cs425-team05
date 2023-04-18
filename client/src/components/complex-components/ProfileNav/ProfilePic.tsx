@@ -12,7 +12,7 @@ const Img = styled.img`
   height: 5rem;
   margin-left: 4rem;
   background-color: ${COLORS.PURPLE_LIGHTMID};
-  border: 1px solid ${COLORS.PURPLE_XTRALIGHT};
+  border: 1px solid ${COLORS.BLUE_DARK};
   border-radius: 50%;
 `;
 
@@ -27,19 +27,19 @@ const LinkStyle = css`
   width: 15rem;
   height: 5rem;
   border: none;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
   transition: background-color 0.3s ease-out;
   cursor: pointer;
   text-decoration: none;
   font-size: 1.6rem;
-  color: ${COLORS.WHITE};
+  color: ${COLORS.BLUE_DARK};
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   :hover {
-    background-color: ${COLORS.BLUE_DARK};
+    background-color: ${COLORS.PURPLE_LIGHT};
   }
 `;
 const DropDownItems = styled.button`
@@ -65,7 +65,11 @@ export const ProfilePic = () => {
   useEffect(() => {
     const loadData = async () => {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
-      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+      if (snailInfo != null) {
+        setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+      } else {
+        setSnailImage(GetSnailImg('yellow', 3));
+      }
     };
     loadData();
   });

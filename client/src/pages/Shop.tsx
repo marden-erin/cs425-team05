@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthUser } from 'react-auth-kit';
-import { BsStars } from 'react-icons/bs';
 
 import styled, { css } from 'styled-components';
 import {
   ItemSelectCard,
-  LargeRoundedLink,
   LargeRoundedButton,
   P,
   PageWrapper,
   SnailImage,
+  StarDisplay,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { COLORS, FONTS_MAIN } from '../constants';
@@ -89,17 +88,6 @@ const Status = styled.div`
   }
 `;
 
-const StarsStatus = styled(Status)`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 0.2rem;
-
-  p {
-    font-size: 2rem;
-  }
-`;
-
 const ItemsWrapper = styled.div`
   background-color: ${COLORS.PURPLE_LIGHT};
   border: 3px solid ${COLORS.PURPLE_LIGHT};
@@ -113,7 +101,7 @@ const ItemsWrapper = styled.div`
 function Shop() {
   useEffect(() => {
     const loadData = async () => {
-      // TODO: load items the user already has - don't display them
+      // TODO: load items the user already has
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
@@ -129,7 +117,7 @@ function Shop() {
   const [snailColor, setSnailColor] = useState('');
 
   const [itemName, setItemName] = useState('');
-  const [itemType, setItemType] = useState('hat'); // TODO: Get item type dynamically
+  const [itemType, setItemType] = useState('hat');
   const [starBalance, setStarBalance] = useState(0);
 
   return (
@@ -142,12 +130,9 @@ function Shop() {
           overrideGlasses="Round"
           overrideHat="Party"
         />
-        <StarsStatus>
-          <P>
-            <b>Stars:</b> {starBalance}
-          </P>
-          <BsStars size="2rem" color={COLORS.PURPLE_MID} />
-        </StarsStatus>
+        <Status>
+          <StarDisplay />
+        </Status>
         <Status>
           <P>
             <b>{snailName}</b> is checking out{' '}

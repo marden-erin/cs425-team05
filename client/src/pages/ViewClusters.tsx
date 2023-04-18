@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import ReactModal from 'react-modal';
+
 import {
   COLORS,
   FONTS_MAIN,
@@ -16,13 +17,14 @@ import {
   Box,
   Box_Wrapper,
   Label,
-  CloseButton,
   H2,
-  P,
-  ThickInput,
+  ThinInput,
+  SmallHalfRoundedButton,
   SmallRoundedButton,
   LargeBookCard,
   BookSearchCard,
+  LargeRoundedButton,
+  SmallCloseButton,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
@@ -32,6 +34,7 @@ import { CreateGoalButton } from './../components/complex-components/Goals';
 const FlexBoxWrapper = styled.div<{
   $isModalOpen: boolean;
   $isModalOpen2: boolean;
+  $isModalOpen3: boolean;
 }>`
   margin-block-start: 2rem;
   padding: 3vh;
@@ -52,6 +55,11 @@ const FlexBoxWrapper = styled.div<{
     css`
       pointer-events: none;
     `}
+    ${(props) =>
+    props.$isModalOpen3 &&
+    css`
+      pointer-events: none;
+    `}
 `;
 const HeadingWrapper = styled.div`
   display: flex;
@@ -69,6 +77,7 @@ const ClusterBox = styled(Box)`
   justify-content: center;
   align-items: center;
   background-color: ${COLORS.PURPLE_LIGHT};
+  width: 90rem;
 `;
 
 const ClusterName = styled.h2`
@@ -87,6 +96,7 @@ const NameWrapper = styled.div`
   padding: 10px 5px 15px 10px;
 `;
 const ScrollableDiv = styled.div`
+  display: flex;
   height: 27rem;
   width: 75rem;
   padding: 3rem;
@@ -133,82 +143,19 @@ const Title = styled.h2`
 const Options = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 80rem;
-  margin-top: -40px;
-  gap: 30px;
+  margin-left: 75rem;
+  margin-top: -50px;
+  gap: 20px;
 `;
+
 const ModalContentWrapper = styled.div`
   display: flex;
-  padding: 20px;
-  gap: 4rem;
-  align-items: center;
-  justify-content: center;
-`;
-const ModalContentWrapper2 = styled.div`
-  display: flex;
   flex-direction: column;
-  padding: 50px;
-  gap: 4rem;
+  padding: 35px;
   align-items: center;
   justify-content: center;
   background: ${COLORS.PURPLE_LIGHT};
-`;
-
-const RightModalContentWrapper = styled.div`
-  width: 30rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  h2 {
-    text-align: center;
-  }
-`;
-const InputWrapper = styled.div`
-  background-color: ${COLORS.PURPLE_LIGHT};
-  padding: 2rem 4rem 3rem;
-  align-items: center;
-`;
-
-const VisibilityButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 3px;
-  gap: 15px;
-`;
-const VisibilityWrapper = styled.div`
-  display: flex;
-  display: column;
-  justify-content: center;
-  margin-top: 30px;
-`;
-
-const FormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const Input = styled.input`
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  border: 2px solid ${COLORS.PURPLE_MID};
-  border-radius: 50%;
-  padding: 2px;
-  background-clip: content-box;
-  margin-bottom: -1px;
-  cursor: pointer;
-
-  :checked {
-    background-color: ${COLORS.PURPLE_MID};
-  }
-
-  :hover {
-    background-color: ${COLORS.PURPLE_MID};
-  }
+  border-radius: 15px;
 `;
 
 const ImgButton = styled.button`
@@ -234,6 +181,42 @@ const SmallBoxWords = styled.span`
   text-align: center;
 `;
 
+const CreateButtonWrapper = styled.div`
+  margin-left: 30%;
+`;
+
+const QuestionWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 4rem;
+`;
+const InputBarWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  padding: 10px 30px 30px;
+`;
+
+const CustomLabel = styled(Label)`
+  font-size: 2.4rem;
+  font-weight: bold;
+  text-align: left;
+  margin-right: 18rem;
+  color: ${COLORS.PURPLE_DARK};
+`;
+
+const Modal3Title = styled(H2)`
+  font-size: 3rem;
+`;
+const Modal3Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
+  padding: 2rem 3rem;
+  border-radius: 15px;
+`;
+
 function ViewClusters() {
   const auth = useAuthUser();
   const [cluster, setCluster] = useState([
@@ -242,6 +225,8 @@ function ViewClusters() {
   const [clusterBooks, setClusterBooks] = useState<any>([]);
   const [isModalOpen, toggleIsModalOpen] = useState(false);
   const [isModalOpen2, toggleIsModalOpen2] = useState(false);
+  const [isModalOpen3, toggleIsModalOpen3] = useState(false);
+
   const [modalBooks, setModalBooks] = useState('');
   const [modalAuthors, setModalAuthors] = useState('');
   const [modalDes, setModalDes] = useState('');
@@ -262,6 +247,12 @@ function ViewClusters() {
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         username
       );
+      clusterInfo.sort((a: any, b: any) => {
+        const date1 = new Date(a.updated_at);
+        const date2 = new Date(b.updated_at);
+
+        return date2.getTime() - date1.getTime();
+      });
       setCluster(clusterInfo);
       const clusterArray: any[] = [];
       for (const temp of clusterInfo) {
@@ -282,11 +273,13 @@ function ViewClusters() {
   };
 
   const handleUpdate = async (e: any) => {
+    const date = new Date();
     const update = await OWServiceProvider.updateClusterInformation(
       e,
       username,
       newName,
-      visibility
+      visibility,
+      date.toString()
     );
     const temp = { toggleIsModalOpen };
   };
@@ -299,6 +292,68 @@ function ViewClusters() {
     );
     console.log(deleteBook);
   };
+  const HandleCreate = () => {
+    const [input, setInput] = useState('');
+
+    const loadData = async (e: any) => {
+      const date = new Date();
+      e.preventDefault();
+      const create = await OWServiceProvider.createCluster(
+        input,
+        username,
+        visibility,
+        date.toString()
+      );
+      toggleIsModalOpen3(false);
+      setInput('');
+      window.location.reload();
+    };
+
+    return (
+      <div>
+        {' '}
+        <LargeRoundedButton
+          id="create-cluster-button"
+          onClick={() => toggleIsModalOpen3(true)}
+        >
+          {' '}
+          + Create a Cluster
+        </LargeRoundedButton>
+        <ReactModal
+          isOpen={isModalOpen3}
+          className="modal-body"
+          overlayClassName="modal-overlay"
+        >
+          <SmallCloseButton handler={toggleIsModalOpen3} />
+          <ModalContentWrapper>
+            <Modal3Title>Create a New Cluster</Modal3Title>
+            <QuestionWrapper>
+              <form onSubmit={loadData}>
+                <Modal3Box>
+                  <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
+                  <InputBarWrapper>
+                    <ThinInput
+                      name="cluster-name"
+                      placeholder="Enter Cluster Name"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                    ></ThinInput>
+                    <SmallHalfRoundedButton
+                      type="submit"
+                      onSubmit={() => loadData}
+                    >
+                      Create
+                    </SmallHalfRoundedButton>
+                  </InputBarWrapper>
+                </Modal3Box>
+              </form>
+            </QuestionWrapper>
+          </ModalContentWrapper>
+        </ReactModal>
+      </div>
+    );
+  };
+
   const bookCard = (a: string, b: [], c: number, d: string, e: string) => {
     const bookTemp: Book = {
       title: a,
@@ -357,9 +412,10 @@ function ViewClusters() {
                 className="modal-body"
                 overlayClassName="modal-overlay2"
               >
-                <CloseButton handler={toggleIsModalOpen} />
+                <SmallCloseButton handler={toggleIsModalOpen} />
                 <ModalContentWrapper>
-                  <RightModalContentWrapper>
+                  <Modal3Title>Update Cluster Name</Modal3Title>
+                  <QuestionWrapper>
                     <form
                       onSubmit={() => {
                         const confirmBox = window.confirm(
@@ -373,54 +429,25 @@ function ViewClusters() {
                         }
                       }}
                     >
-                      <H2>Edit Cluster</H2>
-                      <InputWrapper>
-                        <FormWrapper>
-                          <Label htmlFor="new-name">
-                            New Name For Your Cluster:
-                          </Label>
-                          <ThickInput
+                      <Modal3Box>
+                        <CustomLabel htmlFor="cluster-name">Name</CustomLabel>
+                        <InputBarWrapper>
+                          <ThinInput
                             name="cluster-name"
-                            placeholder="New cluster name...."
+                            placeholder="Enter New Cluster Name"
                             value={newName}
                             onChange={(e) => setNewName(e.target.value)}
-                          />
-                        </FormWrapper>
-                        <VisibilityWrapper>
-                          <Label htmlFor="new-visibility">
-                            New Cluster Visibility
-                          </Label>
-                        </VisibilityWrapper>
-                        <VisibilityButtonWrapper>
-                          <P>
-                            <Input
-                              type="radio"
-                              value="true"
-                              name="visibility"
-                              onClick={() => setVisibilty(true)}
-                            />
-                            Public
-                          </P>
-                          <P>
-                            <Input
-                              type="radio"
-                              value="false"
-                              name="visibility"
-                              onClick={() => setVisibilty(false)}
-                            />
-                            Private
-                          </P>
-                        </VisibilityButtonWrapper>
-                        <FormWrapper>
-                          <SmallRoundedButton
+                          ></ThinInput>
+                          <SmallHalfRoundedButton
+                            type="submit"
                             onSubmit={() => handleUpdate(item.clusterName)}
                           >
-                            Submit
-                          </SmallRoundedButton>
-                        </FormWrapper>
-                      </InputWrapper>
-                    </form>
-                  </RightModalContentWrapper>
+                            Update
+                          </SmallHalfRoundedButton>
+                        </InputBarWrapper>
+                      </Modal3Box>
+                    </form>{' '}
+                  </QuestionWrapper>
                 </ModalContentWrapper>
               </ReactModal>
             </Options>
@@ -467,8 +494,8 @@ function ViewClusters() {
                           className="modal-body"
                           overlayClassName="modal-overlay2"
                         >
-                          <CloseButton handler={toggleIsModalOpen2} />
-                          <ModalContentWrapper2>
+                          <SmallCloseButton handler={toggleIsModalOpen2} />
+                          <ModalContentWrapper>
                             <LargeBookCard
                               bookTitle={modalBooks}
                               authorName={[modalAuthors]}
@@ -508,7 +535,7 @@ function ViewClusters() {
                                 </DeleteWrapper>
                               }
                             />
-                          </ModalContentWrapper2>
+                          </ModalContentWrapper>
                         </ReactModal>
                       </div>
                     );
@@ -525,11 +552,16 @@ function ViewClusters() {
   return (
     <div>
       <PageWrapper pageTitle="View Clusters">
-        <FlexBoxWrapper $isModalOpen={isModalOpen} $isModalOpen2={isModalOpen2}>
+        <FlexBoxWrapper
+          $isModalOpen={isModalOpen}
+          $isModalOpen2={isModalOpen2}
+          $isModalOpen3={isModalOpen3}
+        >
           <HeadingWrapper>
             <PageTitle>View Your Clusters</PageTitle>
-            <div>{Books}</div>
+            <CreateButtonWrapper> {HandleCreate()}</CreateButtonWrapper>
           </HeadingWrapper>
+          <div>{Books}</div>
         </FlexBoxWrapper>
       </PageWrapper>
     </div>

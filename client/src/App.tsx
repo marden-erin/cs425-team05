@@ -6,7 +6,6 @@ import { RequireAuth } from 'react-auth-kit';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import About from './pages/About';
-import CreateCluster from './pages/CreateCluster';
 import CreateGoal from './pages/CreateGoal';
 import Register from './pages/Register';
 import GraveAdoption from './pages/GraveAdoption';
@@ -38,14 +37,6 @@ export default function App() {
           element={
             <RequireAuth loginPath="/">
               <About />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="create-cluster"
-          element={
-            <RequireAuth loginPath="/">
-              <CreateCluster />
             </RequireAuth>
           }
         />
