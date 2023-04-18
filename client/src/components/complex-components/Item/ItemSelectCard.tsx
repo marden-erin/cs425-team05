@@ -15,25 +15,17 @@ type ItemSelectCardTypes = {
    */
   item: string;
   /**
-   * Name of the radio group
-   */
-  name: string;
-  /**
-   * Result so far
-   */
-  itemResult: string;
-  /**
    * Type of this item
    */
   itemType: string;
   /**
-   * Changes result when this radio is clicked
+   * If the item has been purchased or not
    */
-  changeResult: React.Dispatch<React.SetStateAction<string>>;
+  isPurchased?: boolean;
   /**
-   * Changes itemType when this radio is clicked
+   * Function for changing active accessory
    */
-  changeItemType: React.Dispatch<React.SetStateAction<string>>;
+  changeAccessory: any;
 };
 
 const CardWrapper = styled.div``;
@@ -60,69 +52,39 @@ const CardStyler = styled.div<{ itemType: string }>`
   }
 `;
 
-const Input = styled.input`
-  position: absolute;
-  height: 20rem;
-  width: 22rem;
-  margin-left: 0.5rem;
-  z-index: 10;
-  opacity: 0;
-  :hover {
-    cursor: pointer;
-  }
-
-  :hover + .card {
-    background-color: ${COLORS.PURPLE_MID};
-    cursor: pointer;
-    span {
-      color: ${COLORS.WHITE};
-    }
-    img {
-      filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.8));
-    }
-    div > svg {
-      color: ${COLORS.WHITE};
-    }
-  }
-
-  :checked + .card {
-    background-color: ${COLORS.PURPLE_MID};
-    border: 5px solid ${COLORS.PURPLE_LIGHT};
-    span {
-      color: ${COLORS.WHITE};
-    }
-    img {
-      filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.5));
-    }
-
-    div > svg {
-      color: ${COLORS.WHITE};
-    }
-  }
-`;
-
-const CostWrapper = styled.div`
+const Button = styled.button`
+  margin-block-start: 0.5rem;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 0.2rem;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background-color 0.25s ease-out;
+  border: none;
+  color: ${COLORS.WHITE};
 
-  span {
-    font-size: 2rem;
+  background: ${COLORS.PURPLE_MID};
+  font-size: 2rem;
+  min-width: 10.5rem;
+  height: 4rem;
+  padding: 0.3rem;
+  border-radius: 5px;
+
+  :hover {
+    background: ${COLORS.PURPLE_DARK};
   }
 
   svg {
-    color: ${COLORS.PURPLE_MID};
+    color: ${COLORS.WHITE};
   }
 `;
 
 export const ItemSelectCard = ({
   item,
-  name,
-  itemResult,
   itemType,
-  changeResult,
-  changeItemType,
+  isPurchased,
+  changeAccessory,
 }: ItemSelectCardTypes) => {
   const capitalizedItem =
     item.charAt(0).toUpperCase() + item.slice(1).toLowerCase(); // Proper capitalization for header
@@ -146,23 +108,23 @@ export const ItemSelectCard = ({
 
   return (
     <CardWrapper>
-      <Input
-        type="radio"
-        name={`${name}-radio`}
-        value={item}
-        checked={itemResult === item}
-        onChange={() => {
-          changeResult(item);
-          changeItemType(itemType);
-        }}
-      />
       <CardStyler className="card" itemType={itemType}>
         <span>{capitalizedItem}</span>
         <img src={GetItemImg(capitalizedItem)} width="100" />
-        <CostWrapper>
-          <span>{cost}</span>
-          <BsStars size="2rem" />
-        </CostWrapper>
+        {isPurchased ? (
+          <Button
+            onClick={() => {
+              changeAccessory(item);
+            }}
+          >
+            Wear
+          </Button>
+        ) : (
+          <Button>
+            {cost}
+            <BsStars size="2rem" />
+          </Button>
+        )}
       </CardStyler>
     </CardWrapper>
   );

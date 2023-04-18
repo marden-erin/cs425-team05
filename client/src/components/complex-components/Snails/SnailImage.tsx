@@ -14,6 +14,10 @@ type SnailImageProps = {
    */
   width?: number;
   /**
+   * Optional color - Otherwise uses whatever color the snail has
+   */
+  overrideColor?: string;
+  /**
    * Optional hat - Otherwise uses whatever hat the snail has
    */
   overrideHat?: string;
@@ -61,6 +65,7 @@ const AccessoryImg = styled.img<{ width: number }>`
 
 export const SnailImage = ({
   username,
+  overrideColor,
   overrideHat,
   overrideGlasses,
   width = 30,
@@ -76,10 +81,12 @@ export const SnailImage = ({
     const loadData = async () => {
       let snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
-      setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
 
       // TODO: Pull from Snail
+      overrideColor
+        ? setSnailColor(overrideColor)
+        : setSnailColor(snailInfo.color);
       overrideHat ? setHat(overrideHat) : setHat('Astronaut');
       overrideGlasses ? setGlasses(overrideGlasses) : setGlasses('Square');
     };

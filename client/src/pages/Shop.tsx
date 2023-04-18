@@ -4,7 +4,6 @@ import { useAuthUser } from 'react-auth-kit';
 import styled, { css } from 'styled-components';
 import {
   ItemSelectCard,
-  LargeRoundedButton,
   P,
   PageWrapper,
   SnailImage,
@@ -12,7 +11,6 @@ import {
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { COLORS, FONTS_MAIN } from '../constants';
-import { GetSnailImg } from '../utils';
 
 const CardCss = css`
   background: ${COLORS.PURPLE_XTRALIGHT};
@@ -81,7 +79,7 @@ const SnailTitle = styled.span`
 const Status = styled.div`
   background-color: ${COLORS.PURPLE_LIGHT};
   width: 90%;
-  padding: 15px 10px;
+  padding: 20px 10px;
 
   p {
     text-align: center;
@@ -104,9 +102,6 @@ function Shop() {
       // TODO: load items the user already has
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
-      setSnailColor(snailInfo.color);
-      const userInfo = await OWServiceProvider.getUserInformation(username);
-      setStarBalance(userInfo.currency);
     };
     loadData();
   }, []);
@@ -114,37 +109,46 @@ function Shop() {
   const auth = useAuthUser();
   const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
-  const [snailColor, setSnailColor] = useState('');
 
-  const [itemName, setItemName] = useState('');
-  const [itemType, setItemType] = useState('hat');
-  const [starBalance, setStarBalance] = useState(0);
+  const setColor = async (color: string) => {
+    const snailInfo = await OWServiceProvider.getSnailInfo(username);
+    const updatedInfo = await OWServiceProvider.updateSnailInfo(
+      username,
+      snailInfo.name,
+      color,
+      snailInfo.health,
+      snailInfo.goals_completed,
+      snailInfo.goals_failed,
+      snailInfo.accessories,
+      snailInfo.is_active
+    );
+    window.location.reload();
+  };
+
+  const setHat = async (hat: string) => {
+    const snailInfo = await OWServiceProvider.getSnailInfo(username);
+    // await OWServiceProvider.updateSnailInfo(username, snailInfo.name, snailInfo.color, snailInfo.health, snailInfo.goals_completed, snailInfo.goals_failed, snailInfo.accessories, snailInfo.is_active);
+  };
+
+  const setGlasses = async (glasses: string) => {
+    const snailInfo = await OWServiceProvider.getSnailInfo(username);
+    // await OWServiceProvider.updateSnailInfo(username, snailInfo.name, snailInfo.color, snailInfo.health, snailInfo.goals_completed, snailInfo.goals_failed, snailInfo.accessories, snailInfo.is_active);
+  };
 
   return (
     <PageWrapper pageTitle="Shop">
       <SnailCard>
         <SnailTitle>{snailName}</SnailTitle>
-        <SnailImage
-          username={username}
-          width={30}
-          overrideGlasses="Round"
-          overrideHat="Party"
-        />
+        <SnailImage username={username} width={30} />
         <Status>
           <StarDisplay />
         </Status>
         <Status>
           <P>
-            <b>{snailName}</b> is checking out{' '}
-            {itemType === 'glasses' ? 'these' : 'this'} cool new {itemName}{' '}
-            {itemType}. They wish they could wear{' '}
-            {itemType === 'glasses' ? 'them' : 'it'} forever!
+            <b>{snailName}</b> is checking out all of the cool accessories they
+            could wear!
           </P>
         </Status>
-        {
-          // TODO: Buy item, then go to snail page
-        }
-        <LargeRoundedButton>Buy Item</LargeRoundedButton>
       </SnailCard>
       <ShopCard>
         <H1>Shop</H1>
@@ -154,27 +158,21 @@ function Shop() {
             <RadioWrapper>
               <ItemSelectCard
                 item="blue"
-                name="accessory"
-                itemResult={itemName}
                 itemType="color"
-                changeResult={setItemName}
-                changeItemType={setItemType}
+                isPurchased
+                changeAccessory={setColor}
               />
               <ItemSelectCard
                 item="pink"
-                name="accessory"
-                itemResult={itemName}
                 itemType="color"
-                changeResult={setItemName}
-                changeItemType={setItemType}
+                isPurchased
+                changeAccessory={setColor}
               />
               <ItemSelectCard
                 item="yellow"
-                name="accessory"
-                itemResult={itemName}
                 itemType="color"
-                changeResult={setItemName}
-                changeItemType={setItemType}
+                isPurchased
+                changeAccessory={setColor}
               />
             </RadioWrapper>
           </ItemSection>
@@ -183,27 +181,18 @@ function Shop() {
             <RadioWrapper>
               <ItemSelectCard
                 item="party"
-                name="accessory"
-                itemResult={itemName}
                 itemType="hat"
-                changeResult={setItemName}
-                changeItemType={setItemType}
+                changeAccessory={setHat}
               />
               <ItemSelectCard
                 item="cowboy"
-                name="accessory"
-                itemResult={itemName}
                 itemType="hat"
-                changeResult={setItemName}
-                changeItemType={setItemType}
+                changeAccessory={setHat}
               />
               <ItemSelectCard
                 item="astronaut"
-                name="accessory"
-                itemResult={itemName}
                 itemType="hat"
-                changeResult={setItemName}
-                changeItemType={setItemType}
+                changeAccessory={setHat}
               />
             </RadioWrapper>
           </ItemSection>
@@ -212,27 +201,18 @@ function Shop() {
             <RadioWrapper>
               <ItemSelectCard
                 item="round"
-                name="accessory"
-                itemResult={itemName}
                 itemType="glasses"
-                changeResult={setItemName}
-                changeItemType={setItemType}
+                changeAccessory={setGlasses}
               />
               <ItemSelectCard
                 item="square"
-                name="accessory"
-                itemResult={itemName}
                 itemType="glasses"
-                changeResult={setItemName}
-                changeItemType={setItemType}
+                changeAccessory={setGlasses}
               />
               <ItemSelectCard
                 item="sun"
-                name="accessory"
-                itemResult={itemName}
                 itemType="glasses"
-                changeResult={setItemName}
-                changeItemType={setItemType}
+                changeAccessory={setGlasses}
               />
             </RadioWrapper>
           </ItemSection>

@@ -18,10 +18,7 @@ import {
   SnailImage,
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
-import {
-  GetEatingSnailImg,
-  NumberOfDaysUntilDate,
-} from '../utils';
+import { GetEatingSnailImg, NumberOfDaysUntilDate } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const GridWrapper = styled.div`
