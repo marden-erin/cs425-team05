@@ -80,15 +80,18 @@ export const SnailImage = ({
   useEffect(() => {
     const loadData = async () => {
       let snailInfo = await OWServiceProvider.getSnailInfo(username);
+      let savedHat = snailInfo.accessories.hat;
+      savedHat = savedHat === undefined ? '' : savedHat; // Fix if undefined
+      let savedGlasses = snailInfo.accessories.glasses;
+      savedGlasses = savedGlasses === undefined ? '' : savedGlasses; // Fix if undefined
       setSnailName(snailInfo.name);
       setSnailHealth(snailInfo.health);
 
-      // TODO: Pull from Snail
       overrideColor
         ? setSnailColor(overrideColor)
         : setSnailColor(snailInfo.color);
-      overrideHat ? setHat(overrideHat) : setHat('Astronaut');
-      overrideGlasses ? setGlasses(overrideGlasses) : setGlasses('Square');
+      overrideHat ? setHat(overrideHat) : setHat(savedHat);
+      overrideGlasses ? setGlasses(overrideGlasses) : setGlasses(savedGlasses);
     };
     loadData();
   }, []);

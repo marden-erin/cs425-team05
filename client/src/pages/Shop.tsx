@@ -110,12 +110,12 @@ function Shop() {
   const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
 
-  const setColor = async (color: string) => {
+  const setColor = async (newColor: string) => {
     const snailInfo = await OWServiceProvider.getSnailInfo(username);
-    const updatedInfo = await OWServiceProvider.updateSnailInfo(
+    await OWServiceProvider.updateSnailInfo(
       username,
       snailInfo.name,
-      color,
+      newColor,
       snailInfo.health,
       snailInfo.goals_completed,
       snailInfo.goals_failed,
@@ -125,14 +125,46 @@ function Shop() {
     window.location.reload();
   };
 
-  const setHat = async (hat: string) => {
+  const setHat = async (newHat: string) => {
     const snailInfo = await OWServiceProvider.getSnailInfo(username);
-    // await OWServiceProvider.updateSnailInfo(username, snailInfo.name, snailInfo.color, snailInfo.health, snailInfo.goals_completed, snailInfo.goals_failed, snailInfo.accessories, snailInfo.is_active);
+    let savedGlasses = snailInfo.accessories.glasses;
+    savedGlasses = savedGlasses === undefined ? '' : savedGlasses; // Fix if undefined
+    let newAccessories = {
+      hat: newHat,
+      glasses: savedGlasses,
+    };
+    await OWServiceProvider.updateSnailInfo(
+      username,
+      snailInfo.name,
+      snailInfo.color,
+      snailInfo.health,
+      snailInfo.goals_completed,
+      snailInfo.goals_failed,
+      newAccessories,
+      snailInfo.is_active
+    );
+    window.location.reload();
   };
 
-  const setGlasses = async (glasses: string) => {
+  const setGlasses = async (newGlasses: string) => {
     const snailInfo = await OWServiceProvider.getSnailInfo(username);
-    // await OWServiceProvider.updateSnailInfo(username, snailInfo.name, snailInfo.color, snailInfo.health, snailInfo.goals_completed, snailInfo.goals_failed, snailInfo.accessories, snailInfo.is_active);
+    let savedHat = snailInfo.accessories.hat;
+    savedHat = savedHat === undefined ? '' : savedHat; // Fix if undefined
+    let newAccessories = {
+      hat: savedHat,
+      glasses: newGlasses,
+    };
+    await OWServiceProvider.updateSnailInfo(
+      username,
+      snailInfo.name,
+      snailInfo.color,
+      snailInfo.health,
+      snailInfo.goals_completed,
+      snailInfo.goals_failed,
+      newAccessories,
+      snailInfo.is_active
+    );
+    window.location.reload();
   };
 
   return (
@@ -178,40 +210,52 @@ function Shop() {
           </ItemSection>
           <ItemSection>
             <H2>Hats</H2>
+            {
+              // TODO: Add unequip button
+            }
             <RadioWrapper>
               <ItemSelectCard
                 item="party"
                 itemType="hat"
+                isPurchased
                 changeAccessory={setHat}
               />
               <ItemSelectCard
                 item="cowboy"
                 itemType="hat"
+                isPurchased
                 changeAccessory={setHat}
               />
               <ItemSelectCard
                 item="astronaut"
                 itemType="hat"
+                isPurchased
                 changeAccessory={setHat}
               />
             </RadioWrapper>
           </ItemSection>
           <ItemSection>
             <H2>Glasses</H2>
+            {
+              // TODO: Add unequip button
+            }
             <RadioWrapper>
               <ItemSelectCard
                 item="round"
                 itemType="glasses"
+                isPurchased
                 changeAccessory={setGlasses}
               />
               <ItemSelectCard
                 item="square"
                 itemType="glasses"
+                isPurchased
                 changeAccessory={setGlasses}
               />
               <ItemSelectCard
                 item="sun"
                 itemType="glasses"
+                isPurchased
                 changeAccessory={setGlasses}
               />
             </RadioWrapper>
