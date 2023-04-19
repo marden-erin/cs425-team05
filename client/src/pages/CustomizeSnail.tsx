@@ -33,7 +33,7 @@ const SnailCard = styled.div`
   top: 15%;
 `;
 
-const ShopCard = styled.div`
+const CustomizeSnailCard = styled.div`
   ${CardCss};
   width: 75rem;
   margin-inline-start: 60rem;
@@ -126,7 +126,7 @@ const HeaderWrapper = styled.div`
   margin-block-end: 1rem;
 `;
 
-function Shop() {
+function CustomizeSnail() {
   useEffect(() => {
     const loadData = async () => {
       // TODO: load items the user already has
@@ -198,7 +198,7 @@ function Shop() {
   };
 
   return (
-    <PageWrapper pageTitle="Shop">
+    <PageWrapper pageTitle="Customize Snail">
       <SnailCard>
         <SnailTitle>{snailName}</SnailTitle>
         <SnailImage username={username} width={30} />
@@ -212,8 +212,8 @@ function Shop() {
           </P>
         </Status>
       </SnailCard>
-      <ShopCard>
-        <H1>Shop</H1>
+      <CustomizeSnailCard>
+        <H1>{snailName}'s Closet</H1>
         <ItemsWrapper>
           <ItemSection>
             <H2>Snail Colors</H2>
@@ -295,9 +295,9 @@ function Shop() {
             </RadioWrapper>
           </ItemSection>
         </ItemsWrapper>
-      </ShopCard>
+      </CustomizeSnailCard>
     </PageWrapper>
   );
 }
 
-export default Shop;
+export default CustomizeSnail;

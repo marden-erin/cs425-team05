@@ -8,7 +8,7 @@ export const ClusterPages = [
 export const SnailPages = [
   {
     linkLabel: 'Customize Snail',
-    linkURL: '/shop',
+    linkURL: '/customize-snail',
   },
   {
     linkLabel: 'Graveyard',
