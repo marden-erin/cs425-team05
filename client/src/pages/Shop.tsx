@@ -8,6 +8,7 @@ import {
   PageWrapper,
   SnailImage,
   StarDisplay,
+  VisuallyHiddenSpan,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { COLORS, FONTS_MAIN } from '../constants';
@@ -57,7 +58,6 @@ const H2 = styled.h2`
   font-weight: 600;
   font-size: 2.6rem;
   color: ${COLORS.BLUE_DARK};
-  margin-block-end: 1rem;
 `;
 
 const ItemSection = styled.div`
@@ -94,6 +94,36 @@ const ItemsWrapper = styled.div`
   padding: 1.5rem;
 
   width: 68rem;
+`;
+
+const UnequipButton = styled.button`
+  margin-block-start: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background-color 0.25s ease-out;
+  border: none;
+  color: ${COLORS.WHITE};
+
+  background: ${COLORS.PURPLE_MID};
+  font-size: 1.6rem;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+
+  :hover {
+    background: ${COLORS.PURPLE_DARK};
+  }
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  gap: 2rem;
+  align-items: end;
+  margin-block-end: 1rem;
 `;
 
 function Shop() {
@@ -209,10 +239,12 @@ function Shop() {
             </RadioWrapper>
           </ItemSection>
           <ItemSection>
-            <H2>Hats</H2>
-            {
-              // TODO: Add unequip button
-            }
+            <HeaderWrapper>
+              <H2>Hats</H2>
+              <UnequipButton onClick={() => setHat('')}>
+                Remove<VisuallyHiddenSpan> Hat</VisuallyHiddenSpan>
+              </UnequipButton>
+            </HeaderWrapper>
             <RadioWrapper>
               <ItemSelectCard
                 item="party"
@@ -235,10 +267,12 @@ function Shop() {
             </RadioWrapper>
           </ItemSection>
           <ItemSection>
-            <H2>Glasses</H2>
-            {
-              // TODO: Add unequip button
-            }
+            <HeaderWrapper>
+              <H2>Glasses</H2>
+              <UnequipButton onClick={() => setGlasses('')}>
+                Remove<VisuallyHiddenSpan> Glasses</VisuallyHiddenSpan>
+              </UnequipButton>
+            </HeaderWrapper>
             <RadioWrapper>
               <ItemSelectCard
                 item="round"

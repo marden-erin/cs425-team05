@@ -4,10 +4,13 @@ import styled, { css } from 'styled-components';
 import { COLORS } from '../../../constants';
 import { useSignOut, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
-import { GetSnailImg } from '../../../utils';
+import { SnailImage } from '../Snails';
 
-const Img = styled.img`
+const Img = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
   align-items: center;
+  justify-content: center;
   width: 5rem;
   height: 5rem;
   margin-left: 4rem;
@@ -59,20 +62,6 @@ export const ProfilePic = () => {
   const navigate = useNavigate();
   const auth = useAuthUser();
   const username: string = auth()?.username;
-  const [snailImage, setSnailImage] = useState(GetSnailImg('yellow', 3));
-  const snailHealth = 3;
-
-  useEffect(() => {
-    const loadData = async () => {
-      const snailInfo = await OWServiceProvider.getSnailInfo(username);
-      if (snailInfo != null) {
-        setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-      } else {
-        setSnailImage(GetSnailImg('yellow', 3));
-      }
-    };
-    loadData();
-  });
 
   // andrei's signout code
   const handleSignOut = async () => {
@@ -90,8 +79,9 @@ export const ProfilePic = () => {
   return (
     <>
       <DropDownWrapper>
-        <Img src={snailImage} alt="Users Snail Profile Image" />
-
+        <Img>
+          <SnailImage username={username} width={4.8} />
+        </Img>
         <DropDownContentWrapper className="dropdown-content">
           <DropDownItems onClick={handleProfile}>My Account</DropDownItems>
           <DropDownItems onClick={handleSignOut}>Sign Out</DropDownItems>
