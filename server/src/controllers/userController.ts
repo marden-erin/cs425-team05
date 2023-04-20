@@ -42,7 +42,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 		res.status(HTTPStatus.BAD).json(errMsg);
 		throw new Error(errMsg);
 	}
-	res.status(HTTPStatus.OK).json("In register user");
 });
 
 const authenticateUser = asyncHandler(async (req: Request, res: Response) => {
@@ -136,4 +135,38 @@ const updateUserInformation = asyncHandler(async (req: Request, res: Response) =
 	}
 });
 
-export { registerUser, authenticateUser, getUserInformation, signOutUser, updateUserInformation };
+const checkIfAlreadyRegistered = asyncHandler(async (req: Request, res: Response) => {
+	const { email } = req.query;
+	const name = req.query.userName as string;
+
+	if (name && email) {
+		try {
+			const filteredName = name.replace(/"/g, "''");
+			let query = `select * from Users where username="${filteredName}"`;
+			let [user]: any[] = await db.promise().query(query);
+			if (user.length > 0) {
+				const errMsg = `Error: User with name ${name} already exists.`;
+				res.status(HTTPStatus.BAD).json(errMsg);
+				throw new Error(errMsg);
+			}
+			query = `select * from Users where email="${email}"`;
+			[user] = await db.promise().query(query);
+			if (user.length > 0) {
+				const errMsg = `Error: Account with email already exists.`;
+				res.status(HTTPStatus.BAD).json(errMsg);
+				throw new Error(errMsg);
+			}
+
+			res.status(HTTPStatus.OK).json("New user detected");
+		} catch (err: any) {
+			res.status(HTTPStatus.BAD).json(err.sqlMessage);
+			throw new Error(err);
+		}
+	} else {
+		const errMsg = "Error. Missing params (name, email)";
+		res.status(HTTPStatus.BAD).json(errMsg);
+		throw new Error(errMsg);
+	}
+});
+
+export { registerUser, authenticateUser, getUserInformation, signOutUser, updateUserInformation, checkIfAlreadyRegistered };
