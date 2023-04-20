@@ -135,10 +135,13 @@ export const ProfilePage = () => {
   const auth = useAuthUser();
   const username: string = auth()?.username;
   const [email, setEmail] = useState('');
-  const [proSnailImage, setProSnailImage] = useState('');
+  const [proSnailImage, setProSnailImage] = useState(GetSnailImg('yellow', 3));
   const [snailName, setSnailName] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
-  const [snailImage, setSnailImage] = useState('');
+  const [snailImage, setSnailImage] = useState(GetSnailImg('yellow', 3));
+  const [goalsComp, setGoalsComp] = useState(0);
+  const [goalsFail, setGoalsFail] = useState(0);
+
   const ProfileHealth = 3;
 
   const [accountShown, setAccountShown] = useState(true);
@@ -152,6 +155,9 @@ export const ProfilePage = () => {
       setSnailName(snailInfo.name);
       setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+      setGoalsComp(snailInfo.goals_completed);
+      
+      setGoalsFail(snailInfo.goals_failed);
       const userInfo = await OWServiceProvider.getUserInformation(username);
       setEmail(userInfo.email);
     };
@@ -272,7 +278,7 @@ export const ProfilePage = () => {
                   <StyledLabel>Goals Completed</StyledLabel>
                   <InputWrapper>
                     <ThinInput
-                      placeholder="add number of goals completed here"
+                      placeholder={String(goalsComp)}
                       disabled={true}
                     />
                   </InputWrapper>
@@ -282,7 +288,7 @@ export const ProfilePage = () => {
                   <StyledLabel>Goals Failed</StyledLabel>
                   <InputWrapper>
                     <ThinInput
-                      placeholder="add number of goals failed here"
+                      placeholder={String(goalsFail)}
                       disabled={true}
                     />
                   </InputWrapper>

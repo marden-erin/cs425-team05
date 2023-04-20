@@ -65,14 +65,14 @@ export const ProfilePic = () => {
   useEffect(() => {
     const loadData = async () => {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
-      if (snailInfo != null) {
+      if (snailInfo.is_active === true) {
         setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
       } else {
         setSnailImage(GetSnailImg('yellow', 3));
       }
     };
     loadData();
-  });
+  }, []);
 
   // andrei's signout code
   const handleSignOut = async () => {

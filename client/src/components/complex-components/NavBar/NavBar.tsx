@@ -35,7 +35,7 @@ const NavWrapper = styled.nav`
   background-color: ${COLORS.PURPLE_XTRALIGHT};
 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   z-index: 999999;
 `;

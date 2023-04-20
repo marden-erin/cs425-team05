@@ -3,14 +3,15 @@ import { Routes, Route, Outlet, Link } from 'react-router-dom';
 import { RequireAuth } from 'react-auth-kit';
 
 // After home, alphabetical order
-import Login from './pages/Login';
-import Home from './pages/Home';
 import About from './pages/About';
 import CreateGoal from './pages/CreateGoal';
-import Register from './pages/Register';
+import FailedGoal from './pages/FailedGoal';
 import GraveAdoption from './pages/GraveAdoption';
 import Graveyard from './pages/Graveyard';
+import Home from './pages/Home';
+import Login from './pages/Login';
 import ProfilePage from './pages/ProfilePage';
+import Register from './pages/Register';
 import SearchResults from './pages/SearchResults';
 import Shop from './pages/Shop';
 import SnailAdoption from './pages/SnailAdoption';
@@ -45,6 +46,14 @@ export default function App() {
           element={
             <RequireAuth loginPath="/">
               <CreateGoal />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="failed-goal"
+          element={
+            <RequireAuth loginPath="/">
+              <FailedGoal />
             </RequireAuth>
           }
         />

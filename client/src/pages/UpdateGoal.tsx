@@ -213,7 +213,7 @@ function UpdateGoal() {
       setCurrency(userInfo.currency);
     };
     loadData();
-  });
+  }, []);
   const dueDate = new Date(deadline);
   const numDays = NumberOfDaysUntilDate(dueDate);
   const [numPagesRead, setNumPagesRead] = useState<number>(pagesRead);
@@ -280,10 +280,13 @@ function UpdateGoal() {
             <LargeRoundedButton
               onClick={async () => {
                 toggleIsFoodChoiceModalOpen(false);
+
                 await OWServiceProvider.deleteGoal(goalID); // TODO: Mark as completed, not delete HI ERIN
                 // Calculate Rewards
                 let newCurrency = currency;
                 let newHealth = snailHealth;
+                let newGoals = goalsCompleted;
+                newGoals++;
                 console.log(
                   'currency before',
                   newCurrency,
@@ -329,7 +332,7 @@ function UpdateGoal() {
                   snailName,
                   snailColor,
                   newHealth,
-                  goalsCompleted,
+                  newGoals,
                   goalsFailed,
                   snailAccessories,
                   isSnailActive

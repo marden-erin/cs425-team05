@@ -298,7 +298,6 @@ function ViewClusters() {
     const loadData = async (e: any) => {
       const date = new Date();
       e.preventDefault();
-      const date = new Date();
       const create = await OWServiceProvider.createCluster(
         input,
         username,

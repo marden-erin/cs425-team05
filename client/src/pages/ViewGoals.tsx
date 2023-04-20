@@ -120,6 +120,7 @@ function ViewGoals(this: any) {
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+
       setFailed(snailInfo.goals_failed);
       setComplete(snailInfo.goals_completed);
 
@@ -139,6 +140,7 @@ function ViewGoals(this: any) {
       }
       setIndGoals(goalArray);
     };
+
     loadData();
   }, []);
 
@@ -207,7 +209,7 @@ function ViewGoals(this: any) {
       <FlexWrapper>
         <SnailCard>
           <img
-            src={snailImage}
+            src={GetSnailImg(snailColor, snailHealth)}
             width="300"
             height="300"
             alt={'An image of users current snail' + snailName}
