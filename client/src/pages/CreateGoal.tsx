@@ -208,14 +208,14 @@ function CreateGoal() {
                 onChange={(newDate) => {
                   if (newDate) {
                     const today = new Date();
-                    // if (newDate < today) {
-                    //   // If the new date is in the past, it's invalid
-                    //   console.log('This date is in the past!');
-                    // } else {
+                    if (newDate < today) {
+                      // If the new date is in the past, it's invalid
+                      console.log('This date is in the past!');
+                    } else {
                     setStartDate(newDate);
                     setNumDays(NumberOfDaysUntilDate(newDate));
                   }
-                  //}
+                  }
                 }}
               />
             </DeadlineWrapper>
