@@ -212,9 +212,9 @@ function CreateGoal() {
                     //   // If the new date is in the past, it's invalid
                     //   console.log('This date is in the past!');
                     // } else {
-                      setStartDate(newDate);
-                      setNumDays(NumberOfDaysUntilDate(newDate));
-                    }
+                    setStartDate(newDate);
+                    setNumDays(NumberOfDaysUntilDate(newDate));
+                  }
                   //}
                 }}
               />

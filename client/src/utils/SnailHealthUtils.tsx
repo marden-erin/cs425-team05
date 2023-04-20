@@ -48,15 +48,13 @@ const updateSnailStatus = async (username: string) => {
         for (const i of noDuplicatesID) {
           goalArray.push(await OWServiceProvider.getGoal(username, i));
         }
-        for(const goal of allGoals){
-        const dueDate = new Date(goal.deadline);
-        if (dueDate <= today) {
-          //snail health is now decremented in FailedGoal page
+        for (const goal of allGoals) {
+          const dueDate = new Date(goal.deadline);
+          if (dueDate <= today) {
+            //snail health is now decremented in FailedGoal page
             needgoalModal = true;
           }
-
-        };
-        
+        }
 
         await OWServiceProvider.updateSnailInfo(
           username,
@@ -71,7 +69,6 @@ const updateSnailStatus = async (username: string) => {
 
         if (needgoalModal) {
           return 'failed';
-
         } else if (snailHealth <= 0) {
           return 'dead';
         }

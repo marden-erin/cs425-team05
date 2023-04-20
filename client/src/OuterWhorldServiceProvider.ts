@@ -435,7 +435,7 @@ class OuterWhorldServiceProvider {
       pageCount,
       completed,
     };
-   
+
     const res = await fetch(`/api/goals`, {
       method: 'PUT',
       headers: {

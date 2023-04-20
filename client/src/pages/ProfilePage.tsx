@@ -156,7 +156,7 @@ export const ProfilePage = () => {
       setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
       setGoalsComp(snailInfo.goals_completed);
-      
+
       setGoalsFail(snailInfo.goals_failed);
       const userInfo = await OWServiceProvider.getUserInformation(username);
       setEmail(userInfo.email);

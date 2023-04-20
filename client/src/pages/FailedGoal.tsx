@@ -167,7 +167,7 @@ function FailedGoal() {
     const loadData = async () => {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
-      setSnailColor(snailInfo.color)
+      setSnailColor(snailInfo.color);
       setGoalsComp(snailInfo.goals_completed);
       setIsActive(snailInfo.is_active);
       setAccessories(snailInfo.accessories);
@@ -176,7 +176,7 @@ function FailedGoal() {
       const goalInfo = await OWServiceProvider.getAllGoals(username);
       const failedArray: any[] = [];
       const today = new Date();
-      for(const x of goalInfo){
+      for (const x of goalInfo) {
         const dueDate = new Date(x.deadline);
         if (dueDate < today) {
           setNumFail(numFail + 1);
@@ -185,38 +185,39 @@ function FailedGoal() {
         } else {
           console.log('notFailed');
         }
-      };
-        setFailed(failedArray);
-
-      
+      }
+      setFailed(failedArray);
     };
     loadData();
   }, []);
- 
-
-  
 
   const handleDelete = async (e: number) => {
-    let health = snailHealth-1;
-    let fail = goalsFail+1;
-    const updateHealth = await OWServiceProvider.updateSnailInfo(username, snailName, snailColor, health,  goalsComp, fail,accessories, isActive);
+    let health = snailHealth - 1;
+    let fail = goalsFail + 1;
+    const updateHealth = await OWServiceProvider.updateSnailInfo(
+      username,
+      snailName,
+      snailColor,
+      health,
+      goalsComp,
+      fail,
+      accessories,
+      isActive
+    );
     const confirmBox = window.confirm(
       'Do you really want to delete this goal? Or would you rather update and try again?'
     );
     if (confirmBox === true) {
       const deleteGoal = OWServiceProvider.deleteGoal(e);
-      if(failed.length-1 === 0){
-        navigate('/')
+      if (failed.length - 1 === 0) {
+        navigate('/');
+      } else {
+        window.location.reload();
       }
-      else{window.location.reload();}
-        
     }
-    
-   
   };
 
   const goals = failed.map((x: any, i: any) => {
-   
     const dueDate = new Date(x.deadline);
     let propsToFailPage = {
       cover: x.foundBook.cover,
