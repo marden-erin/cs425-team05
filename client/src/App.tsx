@@ -13,7 +13,7 @@ import Login from './pages/Login';
 import ProfilePage from './pages/ProfilePage';
 import Register from './pages/Register';
 import SearchResults from './pages/SearchResults';
-import Shop from './pages/Shop';
+import CustomizeSnail from './pages/CustomizeSnail';
 import SnailAdoption from './pages/SnailAdoption';
 import UpdateGoal from './pages/UpdateGoal';
 import ViewGoals from './pages/ViewGoals';
@@ -74,10 +74,10 @@ export default function App() {
           }
         />
         <Route
-          path="shop"
+          path="customize-snail"
           element={
             <RequireAuth loginPath="/">
-              <Shop />
+              <CustomizeSnail />
             </RequireAuth>
           }
         />

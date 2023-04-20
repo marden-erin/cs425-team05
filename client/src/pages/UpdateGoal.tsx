@@ -15,13 +15,10 @@ import {
   PageSlider,
   PageWrapper,
   SmallRoundedButton,
+  SnailImage,
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
-import {
-  GetSnailImg,
-  GetEatingSnailImg,
-  NumberOfDaysUntilDate,
-} from '../utils';
+import { GetEatingSnailImg, NumberOfDaysUntilDate } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const GridWrapper = styled.div`
@@ -174,7 +171,6 @@ function UpdateGoal() {
 
   const [snailName, setSnailName] = useState('');
   const [snailColor, setSnailColor] = useState('');
-  const [snailImage, setSnailImage] = useState('');
   const [eatingSnailImage, setEatingSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
   const [foodColor, setFoodColor] = useState('');
@@ -202,7 +198,6 @@ function UpdateGoal() {
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
-      setSnailImage(GetSnailImg(snailColor, snailHealth));
       setEatingSnailImage(GetEatingSnailImg(snailColor, foodColor));
       setGoalsCompleted(snailInfo.goals_completed);
       setGoalsFailed(snailInfo.goals_failed);
@@ -437,12 +432,7 @@ function UpdateGoal() {
             </div>
           </NotesWrapper>
           <SnailSection>
-            <img
-              src={snailImage}
-              alt={snailName + ' cheering for you to complete your goal'}
-              width="190"
-              className="snail"
-            />
+            <SnailImage username={username} width={20} />
             <SnailSectionRightWrapper>
               <P>
                 <b>{snailName}</b> is cheering for you. Don't let them down!

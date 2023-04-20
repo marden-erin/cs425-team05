@@ -12,6 +12,7 @@ import {
   LargeRoundedButton,
   P,
   SmallRoundedButton,
+  SnailImage,
   StarDisplay,
 } from '../components';
 import { useNavigate } from 'react-router-dom';
@@ -208,12 +209,7 @@ function ViewGoals(this: any) {
     <PageWrapper pageTitle="Goals" header="Goals">
       <FlexWrapper>
         <SnailCard>
-          <img
-            src={GetSnailImg(snailColor, snailHealth)}
-            width="300"
-            height="300"
-            alt={'An image of users current snail' + snailName}
-          />
+          <SnailImage username={username} />
           <H2>{snailName}</H2>
           <SnailStatus>
             <P>

@@ -38,4 +38,4 @@ const VisuallyHiddenSpan = styled.span`
   ${HiddenCss};
 `;
 
-export { SemiHiddenLink, VisuallyHiddenSpan };
+export { HiddenCss, SemiHiddenLink, VisuallyHiddenSpan };
