@@ -45,52 +45,8 @@ const BigCard = styled.div`
   align-items: center;
 `;
 
-const GoalInfoWrapper = styled.div`
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: space-around;
-  align-items: center;
-  height: 8.5rem;
-`;
 
-const DeadlineWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  label {
-    white-space: nowrap; // Prevents text wrapping
-    font-weight: bold;
-  }
-  .datepicker {
-    font-size: 1.6rem;
-  }
-  * + * {
-    margin-inline-start: 4px;
-  }
-`;
 
-const SnailSection = styled.div`
-  width: 100%;
-  height: 19rem;
-  border-radius: 15px;
-  padding: 5px;
-  background-color: ${COLORS.PURPLE_LIGHT};
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const SnailSectionRightWrapper = styled.div`
-  width: 50%;
-  height: 85%;
-  text-align: center;
-
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: space-around;
-  align-items: center;
-`;
 
 const H1 = styled.h1`
   font-style: italic;
@@ -100,38 +56,10 @@ const H1 = styled.h1`
   margin-bottom: 8px;
 `;
 
-const NotesWrapper = styled.div`
-  display: flex;
-  flex-flow: column wrap;
-  padding: 20px;
-  label {
-    white-space: nowrap; // Prevents text wrapping
-    font-weight: bold;
-    margin-bottom: 4px;
-  }
-  textarea {
-    ${FONTS_SECONDARY};
-    font-size: 1.6rem;
-    width: 27rem;
-    height: 15rem;
-    border: 2px solid ${COLORS.PURPLE_MID};
-    border-radius: 5px;
-    resize: none; // Prevents from resizing so notes aren't too long to save
-  }
-`;
 
 const SubHeader = styled(SubTitle)`
   color: ${COLORS.BLUE_MID};
   font-size: 2.3rem;
-`;
-const Card = styled.div`
- 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  overflow-y: hidden
-  overflow-x: auto
 `;
 
 const GoalsWrapper = styled.div`
