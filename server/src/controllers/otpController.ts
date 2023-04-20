@@ -22,6 +22,10 @@ const createOTP = asyncHandler(async (req: Request, res: Response) => {
 			query = `insert into OTP(otp_id, email, pin) values(DEFAULT, "${filteredEmail}", "${generatedPin}")`;
 			await db.promise().query(query);
 
+			query = `select * from Users where email='${filteredEmail}'`;
+			const [user]: any[] = await db.promise().query(query);
+			const {username} = user[0];
+
 			const options = {
 				from: "outerwhorld@outlook.com",
 				to: email,
@@ -38,7 +42,7 @@ const createOTP = asyncHandler(async (req: Request, res: Response) => {
 					console.log(info.response);
 					res
 						.status(HTTPStatus.OK)
-						.json("OTP successfully generated! Check your email");
+						.json({username});
 				}
 			});
 		} catch (err: any) {

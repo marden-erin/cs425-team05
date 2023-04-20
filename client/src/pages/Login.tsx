@@ -9,8 +9,8 @@ import {
   AnimationPauseButton,
   P,
   Label,
-  CloseButton,
   SmallRoundedButton,
+  LargeRoundedLink
 } from '../components';
 import { COLORS } from '../constants';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
@@ -18,6 +18,7 @@ import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useSignIn, useIsAuthenticated } from 'react-auth-kit';
 import ReactModal from 'react-modal';
 import { IoMdClose } from 'react-icons/io';
+import { SmallHalfRoundedButton } from '../components';
 
 const ColumnFlexCss = css`
   display: flex;
@@ -139,7 +140,7 @@ const OTPBox = styled.div`
 `;
 
 const OTPInput = styled.input`
-  width: .5em;
+  width: 0.5em;
   padding: 0.75em;
   margin: 0.175em;
   text-align: center;
@@ -160,6 +161,18 @@ const StyledSmallButton = styled(SmallRoundedButton)`
   top: 10px;
 `;
 
+const H2Clickable = styled(H2)`
+  text-decoration: underline;
+  color: ${COLORS.PURPLE_MID};
+
+  &:hover {
+    cursor: pointer;
+  }
+
+`
+
+
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -175,12 +188,32 @@ function Login() {
   const [otpPin, setOtpPin] = useState<string[]>(Array(5).fill(''));
   const [isOTPButtonDisabled, setIsOTPButtonDisabled] = useState(true);
   const [showResetPassword, setShowResetPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [errors, setErrors] = useState({
+    password: false,
+    confirmPassword: false,
+  });
+  const [isChangePasswordButtonDisabled, setIsChangePasswordButtonDisabled] =
+    useState(true);
+  const [isPasswordChanged, setIsPasswordChange] = useState(false);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     if (isAuthenticated()) {
       navigate('/home');
     }
   }, []);
+
+  useEffect(() => {
+    const hasAllFields = newPassword && confirmNewPassword;
+
+    if (hasAllFields && Object.values(errors).every((v) => v === false)) {
+      setIsChangePasswordButtonDisabled(false);
+    } else {
+      setIsChangePasswordButtonDisabled(true);
+    }
+  }, [newPassword, confirmNewPassword]);
 
   const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -216,6 +249,9 @@ function Login() {
 
   const handleModalSubmit = async () => {
     const res = await OWServiceProvider.createOTP(modalEmail);
+    const {username} = await res.json();
+
+    setUsername(username);
 
     setIsOTP(true);
   };
@@ -234,30 +270,62 @@ function Login() {
     setOtpPin(newPin);
   };
 
-  const handleOTPSubmit = async (e:any) => {
+  const handleOTPSubmit = async (e: any) => {
     e.preventDefault();
 
     const parsedOTP = otpPin.join('');
 
-    
     const res = await OWServiceProvider.validateOTP(modalEmail, parsedOTP);
 
     if (res.status === 200) {
-     setShowResetPassword(true)
+      setShowResetPassword(true);
     } else {
-      
-      setShowResetPassword(false)
+      setShowResetPassword(false);
     }
-  }
+  };
 
-  const handleModalClose = (e:any) => {
+  const handleModalClose = (e: any) => {
     e.preventDefault();
 
     toggleIsModalOpen(false);
     setIsOTP(false);
     setModalEmail('');
     setShowResetPassword(false);
-  }
+    setIsPasswordChange(false);
+  };
+
+  const updateNewPassword = (e: any) => {
+    const re = new RegExp(/^(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/);
+    const currVal = e.target.value;
+    setNewPassword(currVal);
+
+    if (re.test(currVal)) {
+      setErrors({ ...errors, password: false });
+    } else {
+      setErrors({ ...errors, password: true });
+    }
+  };
+
+  const updateConfirmNewPassword = (e: any) => {
+    const currVal = e.target.value;
+    setConfirmNewPassword(currVal);
+
+    if (currVal === newPassword) {
+      setErrors({ ...errors, confirmPassword: false });
+    } else {
+      setErrors({ ...errors, confirmPassword: true });
+    }
+  };
+
+  const handleChangePassword = async (e: any) => {
+    e.preventDefault();
+
+    const {currency} = await OWServiceProvider.getUserInformation(username);
+    const res = await OWServiceProvider.updateUserInformation(username, currency, newPassword);
+
+    setIsPasswordChange(true);
+
+  };
 
   return (
     <Login_RegisterPageWrapper pageTitle="Login">
@@ -315,28 +383,81 @@ function Login() {
         overlayClassName="modal-overlay"
       >
         <StyledSmallButton onClick={handleModalClose}>
-          <IoMdClose/>
+          <IoMdClose />
         </StyledSmallButton>
         <ModalContentWrapper>
           <RightModalContentWrapper>
             {isOTP ? (
               <>
-                <H2>Enter OTP</H2>
-                <OTPBox>
-                  {[...Array(5)].map((e, i) => (
-                    <OTPInput
-                      onChange={(e) => handleOTPChange(e, i)}
-                      type="text"
-                      maxLength={1}
-                    ></OTPInput>
-                  ))}
-                </OTPBox>
-                <LargeRoundedButton
-                  disabled={isOTPButtonDisabled}
-                  onClick={handleOTPSubmit}
-                >
-                  Submit
-                </LargeRoundedButton>
+                {showResetPassword ?  (
+                  <>
+                    {isPasswordChanged ? (
+                      <>
+                        <H2>Password Updated</H2>
+                        <H2Clickable onClick={handleModalClose}>Login Now!</H2Clickable>
+                       </>
+                    ) : (
+                      <>
+                        {' '}
+                        <H2> Enter New Password </H2>
+                        <InputWrapper>
+                          <Label htmlFor="new-password">New Password:</Label>
+                          <ThickInput
+                            name="new-password"
+                            value={newPassword}
+                            onChange={updateNewPassword}
+                            type="password"
+                          />
+                        </InputWrapper>
+                        {errors.password && (
+                          <ErrorMessageP>
+                            Password must have 6 to 16 characters and contain a
+                            special character
+                          </ErrorMessageP>
+                        )}
+                        <InputWrapper>
+                          <Label htmlFor="confirm-new-password">
+                            Confirm New Password:
+                          </Label>
+                          <ThickInput
+                            name="confirm-new-password"
+                            value={confirmNewPassword}
+                            onChange={updateConfirmNewPassword}
+                            type="password"
+                          />
+                        </InputWrapper>
+                        {errors.confirmPassword && (
+                          <ErrorMessageP>Passwords must match!</ErrorMessageP>
+                        )}
+                        <LargeRoundedButton
+                          disabled={isChangePasswordButtonDisabled}
+                          onClick={handleChangePassword}
+                        >
+                          Change Password
+                        </LargeRoundedButton>{' '}
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <H2>Enter OTP</H2>
+                    <OTPBox>
+                      {[...Array(5)].map((e, i) => (
+                        <OTPInput
+                          onChange={(e) => handleOTPChange(e, i)}
+                          type="text"
+                          maxLength={1}
+                        ></OTPInput>
+                      ))}
+                    </OTPBox>
+                    <LargeRoundedButton
+                      disabled={isOTPButtonDisabled}
+                      onClick={handleOTPSubmit}
+                    >
+                      Submit
+                    </LargeRoundedButton>{' '}
+                  </>
+                )}
               </>
             ) : (
               <>

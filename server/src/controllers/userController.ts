@@ -118,55 +118,74 @@ const signOutUser = asyncHandler(async (req: Request, res: Response) => {
 	}
 });
 
-const updateUserInformation = asyncHandler(async (req: Request, res: Response) => {
-	const { userName, currency } = req.body;
+const updateUserInformation = asyncHandler(
+	async (req: Request, res: Response) => {
+		const { userName, currency, newPassword } = req.body;
 
-	if (userName && currency !== undefined) {
-		const filteredUserName = (userName as string).replace(/"/g, "''");
+		if (userName && currency !== undefined) {
+			const filteredUserName = (userName as string).replace(/"/g, "''");
 
-		const query = `update Users set currency="${currency}" where userName="${filteredUserName}"`;
-		await db.promise().query(query);
+			if (newPassword) {
+			const salt = await bcrypt.genSalt(10);
+			const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-		res.status(HTTPStatus.OK).json("Successfully updated user information");
-	} else {
-		const errMsg = "Error. Missing params (userName, currency)";
-		res.status(HTTPStatus.BAD).json(errMsg);
-		throw new Error(errMsg);
-	}
-});
-
-const checkIfAlreadyRegistered = asyncHandler(async (req: Request, res: Response) => {
-	const { email } = req.query;
-	const name = req.query.userName as string;
-
-	if (name && email) {
-		try {
-			const filteredName = name.replace(/"/g, "''");
-			let query = `select * from Users where username="${filteredName}"`;
-			let [user]: any[] = await db.promise().query(query);
-			if (user.length > 0) {
-				const errMsg = `Error: User with name ${name} already exists.`;
-				res.status(HTTPStatus.BAD).json(errMsg);
-				throw new Error(errMsg);
-			}
-			query = `select * from Users where email="${email}"`;
-			[user] = await db.promise().query(query);
-			if (user.length > 0) {
-				const errMsg = `Error: Account with email already exists.`;
-				res.status(HTTPStatus.BAD).json(errMsg);
-				throw new Error(errMsg);
+			const query = `update Users set hashed_password='${hashedPassword}' where username="${filteredUserName}"`;
+			await db.promise().query(query);
+			} else {
+				const query = `update Users set currency="${currency}" where userName="${filteredUserName}"`;
+				await db.promise().query(query);
 			}
 
-			res.status(HTTPStatus.OK).json("New user detected");
-		} catch (err: any) {
-			res.status(HTTPStatus.BAD).json(err.sqlMessage);
-			throw new Error(err);
+			res.status(HTTPStatus.OK).json("Successfully updated user information");
+		} else {
+			const errMsg = "Error. Missing params (userName, currency)";
+			res.status(HTTPStatus.BAD).json(errMsg);
+			throw new Error(errMsg);
 		}
-	} else {
-		const errMsg = "Error. Missing params (name, email)";
-		res.status(HTTPStatus.BAD).json(errMsg);
-		throw new Error(errMsg);
 	}
-});
+);
 
-export { registerUser, authenticateUser, getUserInformation, signOutUser, updateUserInformation, checkIfAlreadyRegistered };
+const checkIfAlreadyRegistered = asyncHandler(
+	async (req: Request, res: Response) => {
+		const { email } = req.query;
+		const name = req.query.userName as string;
+
+		if (name && email) {
+			try {
+				const filteredName = name.replace(/"/g, "''");
+				let query = `select * from Users where username="${filteredName}"`;
+				let [user]: any[] = await db.promise().query(query);
+				if (user.length > 0) {
+					const errMsg = `Error: User with name ${name} already exists.`;
+					res.status(HTTPStatus.BAD).json(errMsg);
+					throw new Error(errMsg);
+				}
+				query = `select * from Users where email="${email}"`;
+				[user] = await db.promise().query(query);
+				if (user.length > 0) {
+					const errMsg = `Error: Account with email already exists.`;
+					res.status(HTTPStatus.BAD).json(errMsg);
+					throw new Error(errMsg);
+				}
+
+				res.status(HTTPStatus.OK).json("New user detected");
+			} catch (err: any) {
+				res.status(HTTPStatus.BAD).json(err.sqlMessage);
+				throw new Error(err);
+			}
+		} else {
+			const errMsg = "Error. Missing params (name, email)";
+			res.status(HTTPStatus.BAD).json(errMsg);
+			throw new Error(errMsg);
+		}
+	}
+);
+
+export {
+	registerUser,
+	authenticateUser,
+	getUserInformation,
+	signOutUser,
+	updateUserInformation,
+	checkIfAlreadyRegistered,
+};
