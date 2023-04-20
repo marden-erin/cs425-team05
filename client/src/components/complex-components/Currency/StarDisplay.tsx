@@ -76,7 +76,7 @@ export const StarDisplay = ({ nav }: StarDisplayProps) => {
     loadData();
   }, []);
   return (
-    <DisplayWrapper href="/shop" nav={nav}>
+    <DisplayWrapper href="/customize-snail" nav={nav}>
       <b>Stars:</b> {starBalance}
       <BsStars />
     </DisplayWrapper>

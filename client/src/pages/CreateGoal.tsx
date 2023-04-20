@@ -10,6 +10,7 @@ import {
   LargeRoundedButton, // TODO: Swap to link once other PR merged
   P,
   PageWrapper,
+  SnailImage,
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
 
@@ -126,7 +127,6 @@ function CreateGoal() {
   const [startDate, setStartDate] = useState(twoWeeksAhead); // Set start date to be two weeks ahead by default
   const [numDays, setNumDays] = useState(14); // Two weeks = 14 days
   const tempStart = startDate.toDateString();
-  const [cardBook, setCardBook] = useState({} as Book);
   const [notes, setNotes] = useState('');
 
   const location = useLocation();
@@ -143,7 +143,6 @@ function CreateGoal() {
   const d = description.toString();
   const a = author.toString();
   const [snailName, setSnailName] = useState('');
-  const [snailImage, setSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
 
   const bookTemp: Book = {
@@ -158,11 +157,6 @@ function CreateGoal() {
     const loadData = async () => {
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
-
-      // setSnailHealth(snailInfo.health); // TODO
-      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-
-      // TODO: Get goal info
     };
     loadData();
   });
@@ -241,12 +235,7 @@ function CreateGoal() {
             />
           </NotesWrapper>
           <SnailSection>
-            <img
-              src={snailImage}
-              alt={snailName + ' , a happy'}
-              width="190"
-              className="snail"
-            />
+            <SnailImage username={username} width={20} />
             <SnailSectionRightWrapper>
               <P>
                 <b>{snailName}</b> is ready to help you on your journey. Don't
