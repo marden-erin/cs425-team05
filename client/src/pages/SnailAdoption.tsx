@@ -85,7 +85,8 @@ function SnailAdoption() {
       userName,
       snailName,
       snailColor,
-      dateString
+      dateString,
+      true
     );
     console.log(create);
     navigate('/view-goals');

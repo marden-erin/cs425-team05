@@ -121,6 +121,7 @@ function ViewGoals(this: any) {
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+
       setFailed(snailInfo.goals_failed);
       setComplete(snailInfo.goals_completed);
 
@@ -140,6 +141,7 @@ function ViewGoals(this: any) {
       }
       setIndGoals(goalArray);
     };
+
     loadData();
   }, []);
 

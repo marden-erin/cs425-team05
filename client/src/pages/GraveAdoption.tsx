@@ -117,7 +117,7 @@ function GraveAdoption() {
           snail.goals_completed,
           snail.goals_failed,
           snail.accessories,
-          snail.is_active,
+          false,
           dateString
         );
         const graveSelection = await OWServiceProvider.createGrave(

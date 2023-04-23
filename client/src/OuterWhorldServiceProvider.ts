@@ -187,7 +187,6 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-    console.log(data);
 
     return data;
   }
@@ -358,7 +357,6 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-    // console.log(data)
     return data;
   }
 
@@ -417,8 +415,6 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-    console.log(userName);
-    console.log(book);
     return data;
   }
   /*
@@ -612,7 +608,6 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-    console.log(data);
     return data;
   }
 
@@ -676,7 +671,6 @@ class OuterWhorldServiceProvider {
   @returns success or failure
   */
   async updateUserInformation(userName: string, currency: number) {
-    // console.log(userName, currency);
     const input = {
       userName,
       currency,

@@ -153,7 +153,7 @@ const addGoal = asyncHandler(async (req: Request, res: Response) => {
 
 const updateGoal = asyncHandler(async (req: Request, res: Response) => {
 	const { goalID, notes, pageCount, completed } = req.body;
-
+	
 	if (goalID && notes && pageCount) {
 		const query = `update Goals set notes="${notes}", pageCount="${pageCount}", completed=${completed} where goal_id=${goalID}`;
 		await db.promise().query(query);

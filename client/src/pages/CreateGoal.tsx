@@ -130,7 +130,6 @@ function CreateGoal() {
   const [notes, setNotes] = useState('');
 
   const location = useLocation();
-
   //userInput is what the user typed into search bar
   const numPages = location.state.pageCount;
   const cover = location.state.cover;
@@ -159,7 +158,7 @@ function CreateGoal() {
       setSnailName(snailInfo.name);
     };
     loadData();
-  });
+  }, []);
 
   const handleSubmit = async () => {
     const goal = await OWServiceProvider.createGoal(
@@ -207,9 +206,9 @@ function CreateGoal() {
                       // If the new date is in the past, it's invalid
                       console.log('This date is in the past!');
                     } else {
-                      setStartDate(newDate);
-                      setNumDays(NumberOfDaysUntilDate(newDate));
-                    }
+                    setStartDate(newDate);
+                    setNumDays(NumberOfDaysUntilDate(newDate));
+                  }
                   }
                 }}
               />
