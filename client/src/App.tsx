@@ -4,6 +4,8 @@ import { RequireAuth } from 'react-auth-kit';
 
 // After home, alphabetical order
 import About from './pages/About';
+import AllSnails from './pages/AllSnails';
+import BurySnail from './pages/BurySnail';
 import CreateGoal from './pages/CreateGoal';
 import FailedGoal from './pages/FailedGoal';
 import GraveAdoption from './pages/GraveAdoption';
@@ -38,6 +40,22 @@ export default function App() {
           element={
             <RequireAuth loginPath="/">
               <About />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="all-snails"
+          element={
+            <RequireAuth loginPath="/">
+              <AllSnails />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="bury-snail"
+          element={
+            <RequireAuth loginPath="/">
+              <BurySnail />
             </RequireAuth>
           }
         />

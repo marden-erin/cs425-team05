@@ -107,7 +107,7 @@ function Home() {
           navigate('/snail-adoption');
           break;
         case 'dead':
-          navigate('/grave-adoption');
+          navigate('/bury-snail');
           break;
         case 'failed':
           navigate('/failed-goal');

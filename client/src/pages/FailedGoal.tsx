@@ -13,6 +13,7 @@ import {
   P,
   SmallRoundedButton,
   SubTitle,
+  H1,
 } from '../components/simple-components';
 import { ScrollBarStyle } from '../constants';
 import { COLORS, FONTS_SECONDARY } from '../constants';
@@ -45,21 +46,13 @@ const BigCard = styled.div`
   align-items: center;
 `;
 
-
-
-
-const H1 = styled.h1`
-  font-style: italic;
-  font-weight: 600;
-  font-size: 2.4rem;
-  line-height: 2.9rem;
-  margin-bottom: 8px;
+const Title = styled(H1)`
+  font-size: 3rem;
 `;
 
-
 const SubHeader = styled(SubTitle)`
-  color: ${COLORS.BLUE_MID};
-  font-size: 2.3rem;
+  color: ${COLORS.PURPLE_DARK};
+  font-size: 2.5rem;
 `;
 
 const GoalsWrapper = styled.div`
@@ -179,7 +172,7 @@ function FailedGoal() {
     <PageWrapper pageTitle="Failed Goal">
       <GridWrapper>
         <BigCard>
-          <H1>Uh Oh! It looks like you failed a goal.</H1>
+          <Title>Uh Oh! It looks like you failed a goal.</Title>
           <SubHeader>
             {' '}
             Would you like to extend the due date and try again, or delete this

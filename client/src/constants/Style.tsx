@@ -21,7 +21,7 @@ export const GraveScrollBarStyle = css`::-webkit-scrollbar {
   }
    
   ::-webkit-scrollbar-track {
-    background-color: ${COLORS.GRAY_DARK};
+    background-color: ${COLORS.GRAY_MIDARK};
     border-radius: 15px;
   }
    
