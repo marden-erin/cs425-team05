@@ -15,7 +15,7 @@ import {
   SubTitle,
 } from '../components';
 import { COLORS } from '../constants';
-import { GetSnailImg, GetSnailStatusText } from '../utils';
+import { GetSnailStatusText } from '../utils';
 import { useAuthUser } from 'react-auth-kit';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import ReactModal from 'react-modal';

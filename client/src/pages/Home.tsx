@@ -102,6 +102,7 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await updateSnailStatus(username);
+
       switch (res) {
         case 'dne':
           navigate('/snail-adoption');

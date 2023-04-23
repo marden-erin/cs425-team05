@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import DatePicker from 'react-datepicker';
-import { useLocation } from 'react-router-dom';
-import { Book } from '../../../server/src/utils/Types';
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { LargeBookCard } from '../components/complex-components/BookResult';
 import { PageWrapper } from '../components';
 import {
-  Label,
-  LargeRoundedButton,
-  P,
   SmallRoundedButton,
   SubTitle,
   H1,
 } from '../components/simple-components';
 import { ScrollBarStyle } from '../constants';
-import { COLORS, FONTS_SECONDARY } from '../constants';
+import { COLORS } from '../constants';
 import { GoalCard } from '../components';
-import { GetSnailImg } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useAuthUser } from 'react-auth-kit';

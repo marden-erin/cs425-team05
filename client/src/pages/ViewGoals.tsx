@@ -9,7 +9,6 @@ import {
   BookSearchCard,
   GoalCard,
   H2,
-  LargeRoundedButton,
   P,
   SmallRoundedButton,
   SnailImage,

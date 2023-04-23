@@ -14,7 +14,7 @@ import {
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
 
-import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
+import { NumberOfDaysUntilDate } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useAuthUser } from 'react-auth-kit';

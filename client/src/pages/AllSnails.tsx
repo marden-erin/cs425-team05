@@ -2,22 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { COLORS, ScrollBarStyle } from '../constants';
-import { GetSnailImg, GetSnailStatusText } from '../utils';
+import { GetSnailImg } from '../utils';
 import { useAuthUser } from 'react-auth-kit';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import ReactModal from 'react-modal';
 import {
   H1,
   H2,
-  H3,
   P,
   PageWrapper,
-  Box,
   LargeRoundedButton,
-  SnailImage,
-  StarDisplay,
-  SmallCloseButton,
-  SubTitle,
   CloseButton,
 } from '../components';
 import { FONTS_MAIN } from '../constants';
@@ -157,7 +151,6 @@ const ButtonWrapper = styled.div`
 `;
 
 function AllSnails() {
-  const navigate = useNavigate();
   const auth = useAuthUser();
   const username = auth()?.username;
   let snailInfo;
@@ -172,7 +165,6 @@ function AllSnails() {
   const [name, setName] = useState('');
   const [color, setColor] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
-  const [output, setOutput] = useState('');
   const [complete, setComplete] = useState(0);
   const [failed, setFailed] = useState(0);
   const [snailAccessories, setSnailAccessories] = useState({});
@@ -183,9 +175,8 @@ function AllSnails() {
       const allSnailArray: any[] = [];
       const activeSnail: any[] = [];
       for (const x of allSnails) {
-        if (x.health > 0 && x.date_died === 'null') {
+        if (x.health > 0 && (x.date_died === null || x.date_died === 'null')) {
           allSnailArray.push(x);
-          console.log(x.is_active);
           if (x.is_active === 1) {
             allSnailArray.pop();
             activeSnail.push(x);
