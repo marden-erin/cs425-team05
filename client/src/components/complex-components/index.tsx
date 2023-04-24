@@ -8,3 +8,5 @@ export * from './Food';
 export * from './Goals';
 export * from './Snails';
 export * from './ProfileNav';
+export * from './Item';
+export * from './Currency';

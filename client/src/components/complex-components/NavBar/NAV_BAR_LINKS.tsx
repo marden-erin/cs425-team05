@@ -1,18 +1,14 @@
 export const ClusterPages = [
   {
-    linkLabel: 'Create Cluster',
-    linkURL: '/create-cluster',
-  },
-  {
     linkLabel: 'View Clusters',
     linkURL: '/view-clusters',
   },
 ];
 
-export const GoalPages = [
+export const SnailPages = [
   {
-    linkLabel: 'View Goals',
-    linkURL: '/view-goals',
+    linkLabel: 'Customize Snail',
+    linkURL: '/customize-snail',
   },
   {
     linkLabel: 'Graveyard',

@@ -135,14 +135,18 @@ export const ProfilePage = () => {
   const auth = useAuthUser();
   const username: string = auth()?.username;
   const [email, setEmail] = useState('');
-  const [proSnailImage, setProSnailImage] = useState('');
+  const [proSnailImage, setProSnailImage] = useState(GetSnailImg('yellow', 3));
   const [snailName, setSnailName] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
-  const [snailImage, setSnailImage] = useState('');
+  const [snailImage, setSnailImage] = useState(GetSnailImg('yellow', 3));
+  const [goalsComp, setGoalsComp] = useState(0);
+  const [goalsFail, setGoalsFail] = useState(0);
+
   const ProfileHealth = 3;
 
   const [accountShown, setAccountShown] = useState(true);
   const [snailShown, setSnailShown] = useState(false);
+  const [statsShown, setStatsShown] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -151,6 +155,9 @@ export const ProfilePage = () => {
       setSnailName(snailInfo.name);
       setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+      setGoalsComp(snailInfo.goals_completed);
+
+      setGoalsFail(snailInfo.goals_failed);
       const userInfo = await OWServiceProvider.getUserInformation(username);
       setEmail(userInfo.email);
     };
@@ -160,10 +167,17 @@ export const ProfilePage = () => {
   const handleAccountClick = () => {
     setAccountShown(true);
     setSnailShown(false);
+    setStatsShown(false);
   };
   const handleSnailClick = () => {
     setSnailShown(true);
     setAccountShown(false);
+    setStatsShown(false);
+  };
+  const handleStatClick = () => {
+    setStatsShown(true);
+    setAccountShown(false);
+    setSnailShown(false);
   };
 
   return (
@@ -178,6 +192,9 @@ export const ProfilePage = () => {
             </SideBarHeaders>
             <SideBarHeaders onClick={() => handleSnailClick()}>
               Snails
+            </SideBarHeaders>
+            <SideBarHeaders onClick={() => handleStatClick()}>
+              Stats
             </SideBarHeaders>
           </SideBarWrapper>
           <AccountWrapper>
@@ -243,6 +260,46 @@ export const ProfilePage = () => {
                     <CurrentSnailState
                       src={snailImage}
                       alt="the users snail at their current health"
+                    />
+                  </InputWrapper>
+                </LabelInputWrapper>
+              </Wrapper>
+            )}
+
+            {statsShown && (
+              <Wrapper>
+                <Img
+                  src={proSnailImage}
+                  alt="the users current snail at full heath"
+                />
+
+                <AccountHeader>User Stats</AccountHeader>
+                <LabelInputWrapper>
+                  <StyledLabel>Goals Completed</StyledLabel>
+                  <InputWrapper>
+                    <ThinInput
+                      placeholder={String(goalsComp)}
+                      disabled={true}
+                    />
+                  </InputWrapper>
+                </LabelInputWrapper>
+
+                <LabelInputWrapper>
+                  <StyledLabel>Goals Failed</StyledLabel>
+                  <InputWrapper>
+                    <ThinInput
+                      placeholder={String(goalsFail)}
+                      disabled={true}
+                    />
+                  </InputWrapper>
+                </LabelInputWrapper>
+
+                <LabelInputWrapper>
+                  <StyledLabel>Snails Killed</StyledLabel>
+                  <InputWrapper>
+                    <ThinInput
+                      placeholder="add number of dead snails here"
+                      disabled={true}
                     />
                   </InputWrapper>
                 </LabelInputWrapper>

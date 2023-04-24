@@ -3,16 +3,17 @@ import { Routes, Route, Outlet, Link } from 'react-router-dom';
 import { RequireAuth } from 'react-auth-kit';
 
 // After home, alphabetical order
-import Login from './pages/Login';
-import Home from './pages/Home';
 import About from './pages/About';
-import CreateCluster from './pages/CreateCluster';
 import CreateGoal from './pages/CreateGoal';
-import Register from './pages/Register';
+import FailedGoal from './pages/FailedGoal';
 import GraveAdoption from './pages/GraveAdoption';
 import Graveyard from './pages/Graveyard';
+import Home from './pages/Home';
+import Login from './pages/Login';
 import ProfilePage from './pages/ProfilePage';
+import Register from './pages/Register';
 import SearchResults from './pages/SearchResults';
+import CustomizeSnail from './pages/CustomizeSnail';
 import SnailAdoption from './pages/SnailAdoption';
 import UpdateGoal from './pages/UpdateGoal';
 import ViewGoals from './pages/ViewGoals';
@@ -41,18 +42,18 @@ export default function App() {
           }
         />
         <Route
-          path="create-cluster"
-          element={
-            <RequireAuth loginPath="/">
-              <CreateCluster />
-            </RequireAuth>
-          }
-        />
-        <Route
           path="create-goal"
           element={
             <RequireAuth loginPath="/">
               <CreateGoal />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="failed-goal"
+          element={
+            <RequireAuth loginPath="/">
+              <FailedGoal />
             </RequireAuth>
           }
         />
@@ -65,18 +66,26 @@ export default function App() {
           }
         />
         <Route
-          path="snail-adoption"
-          element={
-            <RequireAuth loginPath="/">
-              <SnailAdoption />
-            </RequireAuth>
-          }
-        />
-        <Route
           path="search-results"
           element={
             <RequireAuth loginPath="/">
               <SearchResults />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="customize-snail"
+          element={
+            <RequireAuth loginPath="/">
+              <CustomizeSnail />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="snail-adoption"
+          element={
+            <RequireAuth loginPath="/">
+              <SnailAdoption />
             </RequireAuth>
           }
         />

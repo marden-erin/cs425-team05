@@ -4,15 +4,18 @@ import styled, { css } from 'styled-components';
 import { COLORS } from '../../../constants';
 import { useSignOut, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
-import { GetSnailImg } from '../../../utils';
+import { SnailImage } from '../Snails';
 
-const Img = styled.img`
+const Img = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
   align-items: center;
+  justify-content: center;
   width: 5rem;
   height: 5rem;
   margin-left: 4rem;
   background-color: ${COLORS.PURPLE_LIGHTMID};
-  border: 1px solid ${COLORS.PURPLE_XTRALIGHT};
+  border: 1px solid ${COLORS.BLUE_DARK};
   border-radius: 50%;
 `;
 
@@ -27,19 +30,19 @@ const LinkStyle = css`
   width: 15rem;
   height: 5rem;
   border: none;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
   transition: background-color 0.3s ease-out;
   cursor: pointer;
   text-decoration: none;
   font-size: 1.6rem;
-  color: ${COLORS.WHITE};
+  color: ${COLORS.BLUE_DARK};
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   :hover {
-    background-color: ${COLORS.BLUE_DARK};
+    background-color: ${COLORS.PURPLE_LIGHT};
   }
 `;
 const DropDownItems = styled.button`
@@ -59,16 +62,6 @@ export const ProfilePic = () => {
   const navigate = useNavigate();
   const auth = useAuthUser();
   const username: string = auth()?.username;
-  const [snailImage, setSnailImage] = useState(GetSnailImg('yellow', 3));
-  const snailHealth = 3;
-
-  useEffect(() => {
-    const loadData = async () => {
-      const snailInfo = await OWServiceProvider.getSnailInfo(username);
-      setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
-    };
-    loadData();
-  });
 
   // andrei's signout code
   const handleSignOut = async () => {
@@ -86,8 +79,9 @@ export const ProfilePic = () => {
   return (
     <>
       <DropDownWrapper>
-        <Img src={snailImage} alt="Users Snail Profile Image" />
-
+        <Img>
+          <SnailImage username={username} width={4.8} />
+        </Img>
         <DropDownContentWrapper className="dropdown-content">
           <DropDownItems onClick={handleProfile}>My Account</DropDownItems>
           <DropDownItems onClick={handleSignOut}>Sign Out</DropDownItems>

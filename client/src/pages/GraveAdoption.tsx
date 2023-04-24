@@ -107,6 +107,19 @@ function GraveAdoption() {
     const snails = await OWServiceProvider.getAllSnails(username);
     for (const snail of snails) {
       if (snail.health <= 0 && snail.date_died === 'null') {
+        const date = new Date();
+        const dateString = date.toDateString();
+        const updateSnail = await OWServiceProvider.updateSnailInfo(
+          username,
+          snail.name,
+          snail.color,
+          snail.health,
+          snail.goals_completed,
+          snail.goals_failed,
+          snail.accessories,
+          false,
+          dateString
+        );
         const graveSelection = await OWServiceProvider.createGrave(
           snail.name,
           username,

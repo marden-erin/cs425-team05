@@ -12,6 +12,8 @@ import {
   LargeRoundedButton,
   P,
   SmallRoundedButton,
+  SnailImage,
+  StarDisplay,
 } from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
@@ -27,8 +29,8 @@ const FlexWrapper = styled.div`
 
 const SnailCard = styled.div`
   width: 40rem;
-  min-height: 45rem;
-  padding: 20px 15px 25px;
+  height: 45rem;
+  padding: 20px 20px 25px;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
   border-radius: 15px;
@@ -43,20 +45,22 @@ const SnailCard = styled.div`
 
 const SnailStatus = styled.div`
   margin-block-start: 10px;
-  margin-top: 20px;
+  margin-top: 2.5rem;
   background-color: ${COLORS.PURPLE_LIGHT};
   width: 90%;
   padding: 15px 10px;
-
+  border-radius: 15px;
   p {
     text-align: center;
+    margin-block-end: 1rem;
   }
 `;
 
 const GoalsCard = styled.div`
-  width: 70rem;
-  height: 45rem;
-  padding: 20px 15px 25px;
+  width: 60rem;
+  height: 45.5rem;
+  padding: 20px 30px 20px;
+  margin: 1rem 1rem;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   box-shadow: 10px 10px 10px #220d50;
   border-radius: 15px;
@@ -69,19 +73,22 @@ const GoalsCard = styled.div`
 const GoalsWrapper = styled.div<{ $hasGoals: boolean }>`
   background-color: ${COLORS.PURPLE_LIGHT};
   border: 3px solid ${COLORS.PURPLE_LIGHT};
+
   margin-block-start: 2rem;
   display: flex;
+  border-radius: 15px;
 
   ${(props) =>
     props.$hasGoals
       ? css`
-          width: 65rem;
-          overflow-x: scroll;
+          width: 60rem;
+          padding: 5px;
+          overflow-x: auto;
           overflow-y: hidden;
           ${ScrollBarStyle};
         ` // Only show scrollbar if there are goals
       : css`
-          padding: 1rem 2rem 2rem;
+          padding: 2rem 2rem 2rem;
           flex-direction: column;
           text-align: center;
           * + * {
@@ -100,6 +107,8 @@ function ViewGoals(this: any) {
   const [snailHealth, setSnailHealth] = useState(3);
   const [allGoals, setAllGoals] = useState([]);
   const [indGoals, setIndGoals] = useState<any>([]);
+  const [complete, setComplete] = useState(0);
+  const [failed, setFailed] = useState(0);
   let temp: any;
   const goalID: any = [];
   let noDuplicatesID: number[];
@@ -107,10 +116,14 @@ function ViewGoals(this: any) {
   useEffect(() => {
     const loadData = async () => {
       snailInfo = await OWServiceProvider.getSnailInfo(username);
+
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
       setSnailImage(GetSnailImg(snailInfo.color, snailHealth));
+
+      setFailed(snailInfo.goals_failed);
+      setComplete(snailInfo.goals_completed);
 
       const goalArray: any[] = [];
       temp = await OWServiceProvider.getAllGoals(username);
@@ -128,6 +141,7 @@ function ViewGoals(this: any) {
       }
       setIndGoals(goalArray);
     };
+
     loadData();
   }, []);
 
@@ -195,17 +209,13 @@ function ViewGoals(this: any) {
     <PageWrapper pageTitle="Goals" header="Goals">
       <FlexWrapper>
         <SnailCard>
-          <img
-            src={snailImage}
-            width="300"
-            height="300"
-            alt={'An image of ' + snailName}
-          />
+          <SnailImage username={username} />
           <H2>{snailName}</H2>
           <SnailStatus>
             <P>
               <b>{snailName}</b> {GetSnailStatusText(snailHealth)}
             </P>
+            <StarDisplay />
           </SnailStatus>
           {snailHealth === 0 && ( // Only show button if snail is dead
             <LargeRoundedButton

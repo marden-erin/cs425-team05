@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ReactModal from 'react-modal';
 import { useAuthUser } from 'react-auth-kit';
 import { useLocation } from 'react-router-dom';
+import { BsStars } from 'react-icons/bs';
 import {
   FoodSelectCard,
   H2,
@@ -14,15 +15,10 @@ import {
   PageSlider,
   PageWrapper,
   SmallRoundedButton,
+  SnailImage,
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
-import {
-  GetSnailImg,
-  GetEatingSnailImg,
-  NumberOfDaysUntilDate,
-  ApplyFoodAffect,
-  GetFoodAffectText,
-} from '../utils';
+import { GetEatingSnailImg, NumberOfDaysUntilDate } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const GridWrapper = styled.div`
@@ -165,15 +161,16 @@ const FeedingModalContentWrapper = styled.div`
   text-align: center;
 `;
 
-const ProgressModalWrapper = styled.div``;
-
 function UpdateGoal() {
   const navigate = useNavigate();
   const auth = useAuthUser();
   const username = auth()?.username;
+  const [currency, setCurrency] = useState(9999);
+  const [earnedCurrency, setEarnedCurrency] = useState(0);
+  const [earnedHealth, setEarnedHealth] = useState(0);
+
   const [snailName, setSnailName] = useState('');
   const [snailColor, setSnailColor] = useState('');
-  const [snailImage, setSnailImage] = useState('');
   const [eatingSnailImage, setEatingSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
   const [foodColor, setFoodColor] = useState('');
@@ -201,15 +198,17 @@ function UpdateGoal() {
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
-      setSnailImage(GetSnailImg(snailColor, snailHealth));
       setEatingSnailImage(GetEatingSnailImg(snailColor, foodColor));
       setGoalsCompleted(snailInfo.goals_completed);
       setGoalsFailed(snailInfo.goals_failed);
       setSnailAccessories(snailInfo.accessories);
-      setIsSnailActive(snailInfo.is_active)
+      setIsSnailActive(snailInfo.is_active);
+
+      const userInfo = await OWServiceProvider.getUserInformation(username);
+      setCurrency(userInfo.currency);
     };
     loadData();
-  });
+  }, []);
   const dueDate = new Date(deadline);
   const numDays = NumberOfDaysUntilDate(dueDate);
   const [numPagesRead, setNumPagesRead] = useState<number>(pagesRead);
@@ -274,22 +273,69 @@ function UpdateGoal() {
               />
             </Radio>
             <LargeRoundedButton
-              onClick={() => {
+              onClick={async () => {
                 toggleIsFoodChoiceModalOpen(false);
+
+                await OWServiceProvider.deleteGoal(goalID); // TODO: Mark as completed, not delete HI ERIN
+                // Calculate Rewards
+                let newCurrency = currency;
+                let newHealth = snailHealth;
+                let newGoals = goalsCompleted;
+                newGoals++;
+                console.log(
+                  'currency before',
+                  newCurrency,
+                  'health before',
+                  newHealth
+                );
+                switch (foodColor) {
+                  case 'green':
+                    // Double stars earned, no added health
+                    setEarnedCurrency(numPagesTotal);
+                    newCurrency += Number(numPagesTotal);
+                    // Don't change newHealth
+                    setEarnedHealth(0);
+                    break;
+                  case 'purple':
+                    // Half stars earned, heal two health points
+                    setEarnedCurrency(numPagesTotal / 4);
+                    newCurrency += Number(numPagesTotal / 4);
+                    setEarnedHealth(2);
+                    newHealth += 2;
+                    break;
+                  default:
+                    // Normal stars earned, heal one health point
+                    setEarnedCurrency(numPagesTotal / 2);
+                    newCurrency += Number(numPagesTotal / 2);
+                    setEarnedHealth(1);
+                    newHealth += 1;
+                    break;
+                }
+                newHealth = newHealth > 3 ? 3 : newHealth;
+                console.log(
+                  'currency after',
+                  newCurrency,
+                  'health after',
+                  newHealth
+                );
+                // End calc
                 toggleIsFeedingModalOpen(true);
-                ApplyFoodAffect(
-                  foodColor,
-                  tempGoalId,
+
+                // Apply new affects
+                await OWServiceProvider.updateSnailInfo(
                   username,
                   snailName,
                   snailColor,
-                  snailHealth,
-                  goalsCompleted,
+                  newHealth,
+                  newGoals,
                   goalsFailed,
                   snailAccessories,
-                  isSnailActive,
-                  notes,
-                  numPagesTotal,
+                  isSnailActive
+                );
+
+                await OWServiceProvider.updateUserInformation(
+                  username,
+                  newCurrency
                 );
               }}
             >
@@ -315,7 +361,14 @@ function UpdateGoal() {
               You did it! You completed your goal for reading <b>{title}</b>.
             </P>
             <P>You fed your snail a bright {foodColor} mushroom. Yum!</P>
-            <P>{snailName + ' ' + GetFoodAffectText(foodColor)}</P>
+            <P>
+              {snailName} gained <b>{earnedHealth}</b> health point
+              {earnedHealth !== 1 && 's'}.
+            </P>
+            <P>
+              You earned <b>{earnedCurrency}</b>{' '}
+              <BsStars size="1.6rem" color={COLORS.PURPLE_MID} /> Stars!
+            </P>
             <SmallRoundedButton
               onClick={() => {
                 navigate('/view-goals');
@@ -379,12 +432,7 @@ function UpdateGoal() {
             </div>
           </NotesWrapper>
           <SnailSection>
-            <img
-              src={snailImage}
-              alt={snailName + ' cheering for you to complete your goal'}
-              width="190"
-              className="snail"
-            />
+            <SnailImage username={username} width={20} />
             <SnailSectionRightWrapper>
               <P>
                 <b>{snailName}</b> is cheering for you. Don't let them down!

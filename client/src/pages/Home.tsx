@@ -14,6 +14,7 @@ import Logo from '../imgs/logo.png';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
 import { updateSnailStatus } from '../utils/SnailHealthUtils';
 import { useAuthUser } from 'react-auth-kit';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const ColumnFlexCss = css`
   display: flex;
@@ -107,6 +108,9 @@ function Home() {
           break;
         case 'dead':
           navigate('/grave-adoption');
+          break;
+        case 'failed':
+          navigate('/failed-goal');
           break;
         default:
           break;

@@ -79,6 +79,7 @@ const TextWrapper = styled.div`
   // Setting maxes to handle overflow
   max-width: 30rem;
   max-height: 10rem;
+  text-align: start;
   display: flex;
   flex-direction: column;
   gap: 5px;

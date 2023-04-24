@@ -8,8 +8,6 @@ class OuterWhorldServiceProvider {
   async getBookInfo(bookTitle: string): Promise<Book[]> {
     const res = await fetch(`/api/book?bookTitle=${bookTitle}`);
     const data = await res.json();
-    console.log('FROM OWS');
-    console.log(data);
     return data;
   }
 
@@ -189,7 +187,6 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-    console.log(data);
 
     return data;
   }
@@ -360,7 +357,6 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-    // console.log(data)
     return data;
   }
 
@@ -419,8 +415,6 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-    console.log(userName);
-    console.log(book);
     return data;
   }
   /*
@@ -614,7 +608,6 @@ class OuterWhorldServiceProvider {
     });
 
     const data = await res.json();
-    console.log(data);
     return data;
   }
 

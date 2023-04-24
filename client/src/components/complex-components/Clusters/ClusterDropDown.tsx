@@ -76,7 +76,6 @@ export const ClusterDropDown = (props: any) => {
 
   const [bookInfo, setBookInfo] = useState({} as Book);
   const { title, authors, description, pageCount, cover } = props.children;
-  console.log(title);
   const [output, setOutput] = useState('');
 
   const [cluster, setCluster] = useState([
@@ -91,7 +90,7 @@ export const ClusterDropDown = (props: any) => {
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         username
       );
-      clusterInfo.sort( (a: any, b: any) => {
+      clusterInfo.sort((a: any, b: any) => {
         const date1 = new Date(a.updated_at);
         const date2 = new Date(b.updated_at);
 
@@ -145,8 +144,10 @@ export const ClusterDropDown = (props: any) => {
                 id="Add-to-Cluster"
               >
                 <option value={''}>Add to Cluster</option>
-                {cluster.map((item) => (
-                  <option value={item.clusterName}>{item.clusterName}</option>
+                {cluster.map((item, i) => (
+                  <option value={item.clusterName} key={i}>
+                    {item.clusterName}
+                  </option>
                 ))}
               </Select>
             </DropdownWrapper>

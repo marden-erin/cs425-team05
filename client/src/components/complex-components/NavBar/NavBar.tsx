@@ -4,19 +4,16 @@ import { FiChevronDown } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
-import { ClusterPages, GoalPages } from './NAV_BAR_LINKS';
-import { Label } from '../../simple-components';
+import { ClusterPages, SnailPages } from './NAV_BAR_LINKS';
+import { StarDisplay } from '../Currency';
 import Logo from '../../../imgs/logo.png';
-import { useSignOut, useAuthUser } from 'react-auth-kit';
-import { useNavigate } from 'react-router-dom';
-import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 import { ProfilePic } from '../ProfileNav';
 
 const LinkStyle = css`
-  width: 15rem;
+  width: 13.5rem;
   height: 5rem;
   border: none;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
   transition: background-color 0.3s ease-out;
   cursor: pointer;
   text-decoration: none;
@@ -28,24 +25,24 @@ const LinkStyle = css`
   justify-content: center;
 
   :hover {
-    background-color: ${COLORS.BLUE_DARK};
+    background-color: ${COLORS.PURPLE_LIGHT};
   }
 `;
 
 const NavWrapper = styled.nav`
   height: 5rem;
   padding: 0.5rem 6rem 0.5rem 3rem;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   z-index: 999999;
 `;
 
 const LinkWrapper = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 `;
 
 const LogoLinkWrapper = styled.a`
@@ -62,16 +59,13 @@ const NavLink = styled.a<{ noLink?: boolean }>`
     `}
   display: flex;
   gap: 4px;
+  color: ${COLORS.BLUE_DARK};
 `;
 
 const SearchBarWrapper = styled.div`
+display: flex;
+flex-direction:row
   width: 55rem;
-`;
-
-const SearchLabel = styled(Label)`
-  color: ${COLORS.WHITE};
-  font-weight: bold;
-  font-size: 1.4rem;
 `;
 
 const DropDownWrapper = styled.div`
@@ -133,7 +127,6 @@ const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
   );
 };
 
-// POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
 export const NavBar = () => {
   return (
     <NavWrapper>
@@ -142,14 +135,14 @@ export const NavBar = () => {
       </LogoLinkWrapper>
       <LinkWrapper>
         <NavLink href="/about">About</NavLink>
-        <DropDownLink linkLabel="Account" dropDownItems={ClusterPages} />
+        <DropDownLink linkLabel="Snail" dropDownItems={SnailPages} />
         <DropDownLink linkLabel="Clusters" dropDownItems={ClusterPages} />
-        <DropDownLink linkLabel="Goals" dropDownItems={GoalPages} />
+        <NavLink href="/view-goals">Goals</NavLink>
       </LinkWrapper>
       <SearchBarWrapper>
-        <SearchLabel htmlFor="book-search-input">Book Search</SearchLabel>
         <Search />
       </SearchBarWrapper>
+      <StarDisplay nav />
       <ProfilePic />
     </NavWrapper>
   );

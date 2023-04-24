@@ -74,7 +74,7 @@ const SliderWrapper = styled.div`
     grid-area: 1 / 2 / 2 / 3;
     white-space: nowrap; // Prevents text wrapping
     input {
-      width: 3ch;
+      width: 4ch;
       height: 2ch;
       padding: 0.2rem;
       border: 2px solid ${COLORS.PURPLE_MID};
