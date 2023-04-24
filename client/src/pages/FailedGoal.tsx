@@ -45,9 +45,6 @@ const BigCard = styled.div`
   align-items: center;
 `;
 
-
-
-
 const H1 = styled.h1`
   font-style: italic;
   font-weight: 600;
@@ -55,7 +52,6 @@ const H1 = styled.h1`
   line-height: 2.9rem;
   margin-bottom: 8px;
 `;
-
 
 const SubHeader = styled(SubTitle)`
   color: ${COLORS.BLUE_MID};
