@@ -221,19 +221,19 @@ function CustomizeSnail() {
               <ItemSelectCard
                 item="blue"
                 itemType="color"
-                isPurchased
+                isPurchased={false}
                 changeAccessory={setColor}
               />
               <ItemSelectCard
                 item="pink"
                 itemType="color"
-                isPurchased
+                isPurchased={false}
                 changeAccessory={setColor}
               />
               <ItemSelectCard
                 item="yellow"
                 itemType="color"
-                isPurchased
+                isPurchased={false}
                 changeAccessory={setColor}
               />
             </RadioWrapper>
@@ -249,19 +249,19 @@ function CustomizeSnail() {
               <ItemSelectCard
                 item="party"
                 itemType="hat"
-                isPurchased
+                isPurchased={false}
                 changeAccessory={setHat}
               />
               <ItemSelectCard
                 item="cowboy"
                 itemType="hat"
-                isPurchased
+                isPurchased={false}
                 changeAccessory={setHat}
               />
               <ItemSelectCard
                 item="astronaut"
                 itemType="hat"
-                isPurchased
+                isPurchased={false}
                 changeAccessory={setHat}
               />
             </RadioWrapper>
@@ -277,19 +277,19 @@ function CustomizeSnail() {
               <ItemSelectCard
                 item="round"
                 itemType="glasses"
-                isPurchased
+                isPurchased={false}
                 changeAccessory={setGlasses}
               />
               <ItemSelectCard
                 item="square"
                 itemType="glasses"
-                isPurchased
+                isPurchased={false}
                 changeAccessory={setGlasses}
               />
               <ItemSelectCard
                 item="sun"
                 itemType="glasses"
-                isPurchased
+                isPurchased={false}
                 changeAccessory={setGlasses}
               />
             </RadioWrapper>

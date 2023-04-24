@@ -7,7 +7,11 @@ import {
   GetSnailImg,
   GetCroppedHatImg,
   GetCroppedGlassesImg,
+  GetColorPrice,
+  GetHatPrice,
+  GetGlassesPrice,
 } from '../../../utils';
+import { VisuallyHiddenSpan } from '../../simple-components';
 
 type ItemSelectCardTypes = {
   /**
@@ -88,11 +92,10 @@ export const ItemSelectCard = ({
 }: ItemSelectCardTypes) => {
   const capitalizedItem =
     item.charAt(0).toUpperCase() + item.slice(1).toLowerCase(); // Proper capitalization for header
-  const cost = 134; // TODO: Get cost
 
   function GetItemImg(capitalizedItem: string) {
     if (item == '') {
-      return; // TODO: replace with placeholder
+      return;
     }
     switch (itemType) {
       case 'color':
@@ -101,6 +104,22 @@ export const ItemSelectCard = ({
         return GetCroppedHatImg(capitalizedItem);
       case 'glasses':
         return GetCroppedGlassesImg(capitalizedItem);
+      default:
+        return; // nothing
+    }
+  }
+
+  function GetItemPrice(capitalizedItem: string) {
+    if (item == '') {
+      return;
+    }
+    switch (itemType) {
+      case 'color':
+        return GetColorPrice(capitalizedItem);
+      case 'hat':
+        return GetHatPrice(capitalizedItem);
+      case 'glasses':
+        return GetGlassesPrice(capitalizedItem);
       default:
         return; // nothing
     }
@@ -121,7 +140,10 @@ export const ItemSelectCard = ({
           </Button>
         ) : (
           <Button>
-            {cost}
+            <VisuallyHiddenSpan>
+              Buy {item} {itemType} for{' '}
+            </VisuallyHiddenSpan>
+            {GetItemPrice(capitalizedItem)}
             <BsStars size="2rem" />
           </Button>
         )}
