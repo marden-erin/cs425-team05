@@ -23,9 +23,9 @@ type ItemSelectCardTypes = {
    */
   itemType: string;
   /**
-   * If the item has been purchased or not
+   * Array of purchased items
    */
-  isPurchased?: boolean;
+  ownedAccessories: any;
   /**
    * Function for changing active accessory
    */
@@ -87,11 +87,25 @@ const Button = styled.button`
 export const ItemSelectCard = ({
   item,
   itemType,
-  isPurchased,
+  ownedAccessories,
   changeAccessory,
 }: ItemSelectCardTypes) => {
   const capitalizedItem =
     item.charAt(0).toUpperCase() + item.slice(1).toLowerCase(); // Proper capitalization for header
+
+  let isPurchased = GetIsPurchased();
+
+  function GetIsPurchased() {
+    for (let i = 0; i < ownedAccessories.length; i++) {
+      if (
+        ownedAccessories[i].accessory_type === itemType &&
+        ownedAccessories[i].accessory_name === item
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   function GetItemImg(capitalizedItem: string) {
     if (item == '') {

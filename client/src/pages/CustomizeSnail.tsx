@@ -129,7 +129,10 @@ const HeaderWrapper = styled.div`
 function CustomizeSnail() {
   useEffect(() => {
     const loadData = async () => {
-      // TODO: load items the user already has
+      const foundAccessories = await OWServiceProvider.getAllAccessories(
+        username
+      );
+      setOwnedAccessories(foundAccessories);
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
     };
@@ -139,6 +142,7 @@ function CustomizeSnail() {
   const auth = useAuthUser();
   const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
+  const [ownedAccessories, setOwnedAccessories] = useState([]);
 
   const setColor = async (newColor: string) => {
     const snailInfo = await OWServiceProvider.getSnailInfo(username);
@@ -221,19 +225,19 @@ function CustomizeSnail() {
               <ItemSelectCard
                 item="blue"
                 itemType="color"
-                isPurchased={false}
+                ownedAccessories={ownedAccessories}
                 changeAccessory={setColor}
               />
               <ItemSelectCard
                 item="pink"
                 itemType="color"
-                isPurchased={false}
+                ownedAccessories={ownedAccessories}
                 changeAccessory={setColor}
               />
               <ItemSelectCard
                 item="yellow"
                 itemType="color"
-                isPurchased={false}
+                ownedAccessories={ownedAccessories}
                 changeAccessory={setColor}
               />
             </RadioWrapper>
@@ -249,19 +253,19 @@ function CustomizeSnail() {
               <ItemSelectCard
                 item="party"
                 itemType="hat"
-                isPurchased={false}
+                ownedAccessories={ownedAccessories}
                 changeAccessory={setHat}
               />
               <ItemSelectCard
                 item="cowboy"
                 itemType="hat"
-                isPurchased={false}
+                ownedAccessories={ownedAccessories}
                 changeAccessory={setHat}
               />
               <ItemSelectCard
                 item="astronaut"
                 itemType="hat"
-                isPurchased={false}
+                ownedAccessories={ownedAccessories}
                 changeAccessory={setHat}
               />
             </RadioWrapper>
@@ -277,19 +281,19 @@ function CustomizeSnail() {
               <ItemSelectCard
                 item="round"
                 itemType="glasses"
-                isPurchased={false}
+                ownedAccessories={ownedAccessories}
                 changeAccessory={setGlasses}
               />
               <ItemSelectCard
                 item="square"
                 itemType="glasses"
-                isPurchased={false}
+                ownedAccessories={ownedAccessories}
                 changeAccessory={setGlasses}
               />
               <ItemSelectCard
                 item="sun"
                 itemType="glasses"
-                isPurchased={false}
+                ownedAccessories={ownedAccessories}
                 changeAccessory={setGlasses}
               />
             </RadioWrapper>
