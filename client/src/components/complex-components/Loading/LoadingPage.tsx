@@ -64,19 +64,19 @@ export const LoadingPage = () => {
         </PauseButton>
         <img
           src={YellowDefaultSnail}
-          alt="A happy yellow snail"
+          role="decorative"
           width="100"
           className="loading animated one"
         />
         <img
           src={PinkDefaultSnail}
-          alt="A happy pink snail"
+          role="decorative"
           width="100"
           className="loading animated two"
         />
         <img
           src={BlueDefaultSnail}
-          alt="A happy blue snail"
+          role="decorative"
           width="100"
           className="loading animated three"
         />
