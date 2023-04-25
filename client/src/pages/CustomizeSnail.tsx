@@ -135,6 +135,8 @@ function CustomizeSnail() {
       setOwnedAccessories(foundAccessories);
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
+      const userInfo = await OWServiceProvider.getUserInformation(username);
+      setStarBalance(userInfo.currency);
     };
     loadData();
   }, []);
@@ -143,6 +145,38 @@ function CustomizeSnail() {
   const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
   const [ownedAccessories, setOwnedAccessories] = useState([]);
+  const [starBalance, setStarBalance] = useState(0);
+
+  const buyAccessory = async (
+    accessoryType: string,
+    accessoryName: string,
+    accessoryCost: number
+  ) => {
+    if (accessoryCost && starBalance < accessoryCost) {
+      // If user doesn't have enough stars, don't let them purchase
+      window.alert("You don't have enough stars for this item!");
+    } else {
+      const confirmBox = window.confirm(
+        'Purchase ' +
+          accessoryName +
+          ' ' +
+          accessoryType +
+          ' for ' +
+          accessoryCost +
+          ' stars?'
+      );
+      if (confirmBox === true) {
+        await OWServiceProvider.addAccessory(
+          username,
+          accessoryType,
+          accessoryName
+        );
+        const newCurrency = starBalance - accessoryCost;
+        await OWServiceProvider.updateUserInformation(username, newCurrency);
+        window.location.reload();
+      }
+    }
+  };
 
   const setColor = async (newColor: string) => {
     const snailInfo = await OWServiceProvider.getSnailInfo(username);
@@ -227,18 +261,21 @@ function CustomizeSnail() {
                 itemType="color"
                 ownedAccessories={ownedAccessories}
                 changeAccessory={setColor}
+                handlePurchase={buyAccessory}
               />
               <ItemSelectCard
                 item="pink"
                 itemType="color"
                 ownedAccessories={ownedAccessories}
                 changeAccessory={setColor}
+                handlePurchase={buyAccessory}
               />
               <ItemSelectCard
                 item="yellow"
                 itemType="color"
                 ownedAccessories={ownedAccessories}
                 changeAccessory={setColor}
+                handlePurchase={buyAccessory}
               />
             </RadioWrapper>
           </ItemSection>
@@ -255,18 +292,21 @@ function CustomizeSnail() {
                 itemType="hat"
                 ownedAccessories={ownedAccessories}
                 changeAccessory={setHat}
+                handlePurchase={buyAccessory}
               />
               <ItemSelectCard
                 item="cowboy"
                 itemType="hat"
                 ownedAccessories={ownedAccessories}
                 changeAccessory={setHat}
+                handlePurchase={buyAccessory}
               />
               <ItemSelectCard
                 item="astronaut"
                 itemType="hat"
                 ownedAccessories={ownedAccessories}
                 changeAccessory={setHat}
+                handlePurchase={buyAccessory}
               />
             </RadioWrapper>
           </ItemSection>
@@ -283,18 +323,21 @@ function CustomizeSnail() {
                 itemType="glasses"
                 ownedAccessories={ownedAccessories}
                 changeAccessory={setGlasses}
+                handlePurchase={buyAccessory}
               />
               <ItemSelectCard
                 item="square"
                 itemType="glasses"
                 ownedAccessories={ownedAccessories}
                 changeAccessory={setGlasses}
+                handlePurchase={buyAccessory}
               />
               <ItemSelectCard
                 item="sun"
                 itemType="glasses"
                 ownedAccessories={ownedAccessories}
                 changeAccessory={setGlasses}
+                handlePurchase={buyAccessory}
               />
             </RadioWrapper>
           </ItemSection>
