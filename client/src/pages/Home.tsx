@@ -102,12 +102,13 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await updateSnailStatus(username);
+
       switch (res) {
         case 'dne':
           navigate('/snail-adoption');
           break;
         case 'dead':
-          navigate('/grave-adoption');
+          navigate('/bury-snail');
           break;
         case 'failed':
           navigate('/failed-goal');

@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
-import { LargeRoundedButton, GraveAdoptionPageWrapper } from '../components';
+import {
+  LargeRoundedButton,
+  GraveAdoptionPageWrapper,
+  H2,
+  SubTitle,
+} from '../components';
 import { COLORS } from '../constants';
 import { useAuthUser } from 'react-auth-kit';
 
@@ -94,6 +99,10 @@ const GraveWrapper = styled.div`
   flex-direction: row;
   gap: 100px;
 `;
+const NewSubTitle = styled(SubTitle)`
+  margin-top: -10rem;
+  font-size: 2.5rem;
+`;
 
 function GraveAdoption() {
   const navigate = useNavigate(); // Used to redirect after grave is adopted
@@ -147,10 +156,14 @@ function GraveAdoption() {
 
   return (
     <GraveAdoptionPageWrapper
-      pageTitle="Adopt A Grave Stone"
-      header="Adopt A Grave Stone"
+      pageTitle="Arrangements"
+      header="Burial Arrangements"
     >
       <FlexBoxWrapper>
+        <NewSubTitle>
+          Unfortunately, your snail has passed away. It is time to make
+          arrangements for them by choosing their headstone.
+        </NewSubTitle>
         <Radio>
           <GraveWrapper>
             <CardWrapper>

@@ -12,7 +12,7 @@ const Box = styled.div`
   width: 100rem;
   height: 40rem;
   background-color: ${COLORS.PURPLE_LIGHT};
-  border-radius: 22px;
+  border-radius: 15px;
   margin-top: 30px;
   margin: 10px;
   padding: 15px;

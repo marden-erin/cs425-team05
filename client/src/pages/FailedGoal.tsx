@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import DatePicker from 'react-datepicker';
-import { useLocation } from 'react-router-dom';
-import { Book } from '../../../server/src/utils/Types';
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { LargeBookCard } from '../components/complex-components/BookResult';
 import { PageWrapper } from '../components';
 import {
-  Label,
-  LargeRoundedButton,
-  P,
   SmallRoundedButton,
   SubTitle,
+  H1,
 } from '../components/simple-components';
 import { ScrollBarStyle } from '../constants';
-import { COLORS, FONTS_SECONDARY } from '../constants';
+import { COLORS } from '../constants';
 import { GoalCard } from '../components';
-import { GetSnailImg } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useAuthUser } from 'react-auth-kit';
@@ -45,21 +38,13 @@ const BigCard = styled.div`
   align-items: center;
 `;
 
-
-
-
-const H1 = styled.h1`
-  font-style: italic;
-  font-weight: 600;
-  font-size: 2.4rem;
-  line-height: 2.9rem;
-  margin-bottom: 8px;
+const Title = styled(H1)`
+  font-size: 3rem;
 `;
 
-
 const SubHeader = styled(SubTitle)`
-  color: ${COLORS.BLUE_MID};
-  font-size: 2.3rem;
+  color: ${COLORS.PURPLE_DARK};
+  font-size: 2.5rem;
 `;
 
 const GoalsWrapper = styled.div`
@@ -179,7 +164,7 @@ function FailedGoal() {
     <PageWrapper pageTitle="Failed Goal">
       <GridWrapper>
         <BigCard>
-          <H1>Uh Oh! It looks like you failed a goal.</H1>
+          <Title>Uh Oh! It looks like you failed a goal.</Title>
           <SubHeader>
             {' '}
             Would you like to extend the due date and try again, or delete this
