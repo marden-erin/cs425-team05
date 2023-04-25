@@ -7,6 +7,7 @@ import ReactModal from 'react-modal';
 import { useAuthUser } from 'react-auth-kit';
 import { GetSnailImg } from '../utils';
 import DeadSnail from '../imgs/graveyard/deadSnail.png';
+import { LoadingPage } from '../components/complex-components/Loading';
 
 import {
   H1,
@@ -19,6 +20,7 @@ import {
   LargeRoundedButton,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
+import Grave2 from '../imgs/graveyard/Grave stone 2.png';
 
 const GridWrapper = styled.div<{
   $isModalOpen: boolean;
@@ -156,9 +158,11 @@ const ReviveSnail = styled(H3)`
 const ModalTitle = styled(H1)`
   font-size: 4rem;
 `;
+
 function Graveyard() {
   const [isModalOpen, toggleIsModalOpen] = useState(false);
   const [isModalOpen2, toggleIsModalOpen2] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   ReactModal.setAppElement('*');
   const auth = useAuthUser();
@@ -175,6 +179,8 @@ function Graveyard() {
   const [output, setOutput] = useState('');
 
   useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+
     const loadData = async () => {
       const getGraves = await OWServiceProvider.getAllGraves(username);
       const snailArray: any[] = [];
@@ -329,31 +335,38 @@ function Graveyard() {
     );
   });
   return (
-    <GraveyardPageWrapper pageTitle="Graveyard">
-      <GridWrapper $isModalOpen={isModalOpen} $isModalOpen2={isModalOpen2}>
-        <YardBoxWrapper>
-          <YardWrapper>
-            <SignWrapper>
-              <Img src={DeadSnail} alt="A dead snails shell" />
-              <Img src={DeadSnail} alt="A dead snails shell" />
+    <>
+      {' '}
+      {loading === false ? (
+        <GraveyardPageWrapper pageTitle="Graveyard">
+          <GridWrapper $isModalOpen={isModalOpen} $isModalOpen2={isModalOpen2}>
+            <YardBoxWrapper>
+              <YardWrapper>
+                <SignWrapper>
+                  <Img src={DeadSnail} alt="A dead snails shell" />
+                  <Img src={DeadSnail} alt="A dead snails shell" />
 
-              <Title>Snail Graveyard</Title>
-              <Img
-                src={DeadSnail}
-                alt="A dead snails shell"
-                style={{ transform: 'scaleX(-1)' }}
-              />
-              <Img
-                src={DeadSnail}
-                alt="A dead snails shell"
-                style={{ transform: 'scaleX(-1)' }}
-              />
-            </SignWrapper>
-            {temp}
-          </YardWrapper>
-        </YardBoxWrapper>
-      </GridWrapper>
-    </GraveyardPageWrapper>
+                  <Title>Snail Graveyard</Title>
+                  <Img
+                    src={DeadSnail}
+                    alt="A dead snails shell"
+                    style={{ transform: 'scaleX(-1)' }}
+                  />
+                  <Img
+                    src={DeadSnail}
+                    alt="A dead snails shell"
+                    style={{ transform: 'scaleX(-1)' }}
+                  />
+                </SignWrapper>
+                {temp}
+              </YardWrapper>
+            </YardBoxWrapper>
+          </GridWrapper>
+        </GraveyardPageWrapper>
+      ) : (
+        <LoadingPage />
+      )}
+    </>
   );
 }
 

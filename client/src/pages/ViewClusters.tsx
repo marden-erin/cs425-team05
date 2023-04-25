@@ -30,6 +30,7 @@ import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
 import { useAuthUser } from 'react-auth-kit';
 import { CreateGoalButton } from './../components/complex-components/Goals';
+import { LoadingPage } from '../components/complex-components/Loading';
 
 const FlexBoxWrapper = styled.div<{
   $isModalOpen: boolean;
@@ -37,7 +38,9 @@ const FlexBoxWrapper = styled.div<{
   $isModalOpen3: boolean;
 }>`
   margin-block-start: 2rem;
-  padding: 3vh;
+
+  height: 85vh;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -237,12 +240,15 @@ function ViewClusters() {
   const [visibility, setVisibilty] = useState(false);
   const [newName, setNewName] = useState('');
   const [tempCluster, setTempCluster] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [input, setInput] = useState('');
 
   ReactModal.setAppElement('*');
-
   const username = auth()?.username;
 
   useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+
     const loadData = async () => {
       const clusterInfo = await OWServiceProvider.getAllClustersFromUser(
         username
@@ -292,9 +298,7 @@ function ViewClusters() {
     );
     console.log(deleteBook);
   };
-  const HandleCreate = () => {
-    const [input, setInput] = useState('');
-
+  const handleCreate = () => {
     const loadData = async (e: any) => {
       const date = new Date();
       e.preventDefault();
@@ -550,21 +554,28 @@ function ViewClusters() {
   });
 
   return (
-    <div>
-      <PageWrapper pageTitle="View Clusters">
-        <FlexBoxWrapper
-          $isModalOpen={isModalOpen}
-          $isModalOpen2={isModalOpen2}
-          $isModalOpen3={isModalOpen3}
-        >
-          <HeadingWrapper>
-            <PageTitle>View Your Clusters</PageTitle>
-            <CreateButtonWrapper> {HandleCreate()}</CreateButtonWrapper>
-          </HeadingWrapper>
-          <div>{Books}</div>
-        </FlexBoxWrapper>
-      </PageWrapper>
-    </div>
+    <>
+      {' '}
+      {loading === false ? (
+        <div>
+          <PageWrapper pageTitle="View Clusters">
+            <FlexBoxWrapper
+              $isModalOpen={isModalOpen}
+              $isModalOpen2={isModalOpen2}
+              $isModalOpen3={isModalOpen3}
+            >
+              <HeadingWrapper>
+                <PageTitle>View Your Clusters</PageTitle>
+                <CreateButtonWrapper> {handleCreate()}</CreateButtonWrapper>
+              </HeadingWrapper>
+              <div>{Books}</div>
+            </FlexBoxWrapper>
+          </PageWrapper>
+        </div>
+      ) : (
+        <LoadingPage />
+      )}
+    </>
   );
 }
 export default ViewClusters;

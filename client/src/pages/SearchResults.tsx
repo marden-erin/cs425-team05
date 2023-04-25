@@ -6,6 +6,7 @@ import { PageWrapper } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { Book } from '../../../server/src/utils/Types';
 import BookData from '../components/complex-components/BookResult/BookData';
+import { LoadingPage } from '../components/complex-components/Loading';
 
 const GridWrapper = styled.div`
   height: 85vh;
@@ -20,6 +21,7 @@ const GridWrapper = styled.div`
 function SearchResults() {
   const [bookInfo, setBookInfo] = useState({} as Book);
   const [allBooks, setAllBooks] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
 
   const location = useLocation();
 
@@ -32,6 +34,8 @@ function SearchResults() {
   }
 
   useEffect(() => {
+    setTimeout(() => setLoading(false), 4000);
+
     const loadData = async (e: any) => {
       const data = await OWServiceProvider.getBookInfo(userInput);
       setBookInfo(data[0]);
@@ -56,11 +60,18 @@ function SearchResults() {
   };
 
   return (
-    <PageWrapper pageTitle="Search Results">
-      <GridWrapper>
-        <BookData {...props}></BookData>
-      </GridWrapper>
-    </PageWrapper>
+    <>
+      {' '}
+      {loading === false ? (
+        <PageWrapper pageTitle="Search Results">
+          <GridWrapper>
+            <BookData {...props}></BookData>
+          </GridWrapper>
+        </PageWrapper>
+      ) : (
+        <LoadingPage />
+      )}
+    </>
   );
 }
 

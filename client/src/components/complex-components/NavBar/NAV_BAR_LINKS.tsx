@@ -1,10 +1,3 @@
-export const ClusterPages = [
-  {
-    linkLabel: 'View Clusters',
-    linkURL: '/view-clusters',
-  },
-];
-
 export const SnailPages = [
   {
     linkLabel: 'All Snails',
