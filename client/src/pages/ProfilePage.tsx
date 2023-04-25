@@ -191,10 +191,10 @@ export const ProfilePage = () => {
               Account
             </SideBarHeaders>
             <SideBarHeaders onClick={() => handleSnailClick()}>
-              Snails
+              Snail
             </SideBarHeaders>
             <SideBarHeaders onClick={() => handleStatClick()}>
-              Stats
+              Snail Stats
             </SideBarHeaders>
           </SideBarWrapper>
           <AccountWrapper>
@@ -218,13 +218,6 @@ export const ProfilePage = () => {
                   <InputWrapper>
                     <ThinInput placeholder={email} disabled={true} />
                   </InputWrapper>
-                </LabelInputWrapper>
-
-                <LabelInputWrapper>
-                  <StyledLabel>Password</StyledLabel>
-                  <Temp>
-                    <ThinInput placeholder="********" disabled={true} />
-                  </Temp>
                 </LabelInputWrapper>
               </Wrapper>
             )}
@@ -273,7 +266,7 @@ export const ProfilePage = () => {
                   alt="the users current snail at full heath"
                 />
 
-                <AccountHeader>User Stats</AccountHeader>
+                <AccountHeader>{snailName}'s Stats</AccountHeader>
                 <LabelInputWrapper>
                   <StyledLabel>Goals Completed</StyledLabel>
                   <InputWrapper>
@@ -289,16 +282,6 @@ export const ProfilePage = () => {
                   <InputWrapper>
                     <ThinInput
                       placeholder={String(goalsFail)}
-                      disabled={true}
-                    />
-                  </InputWrapper>
-                </LabelInputWrapper>
-
-                <LabelInputWrapper>
-                  <StyledLabel>Snails Killed</StyledLabel>
-                  <InputWrapper>
-                    <ThinInput
-                      placeholder="add number of dead snails here"
                       disabled={true}
                     />
                   </InputWrapper>

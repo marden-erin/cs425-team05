@@ -14,7 +14,7 @@ import {
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
 
-import { GetSnailImg, NumberOfDaysUntilDate } from '../utils';
+import { NumberOfDaysUntilDate } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { useAuthUser } from 'react-auth-kit';
@@ -202,14 +202,14 @@ function CreateGoal() {
                 onChange={(newDate) => {
                   if (newDate) {
                     const today = new Date();
-                    if (newDate < today) {
-                      // If the new date is in the past, it's invalid
-                      console.log('This date is in the past!');
-                    } else {
-                      setStartDate(newDate);
-                      setNumDays(NumberOfDaysUntilDate(newDate));
-                    }
+                    // if (newDate < today) {
+                    //   // If the new date is in the past, it's invalid
+                    //   console.log('This date is in the past!');
+                    // } else {
+                    setStartDate(newDate);
+                    setNumDays(NumberOfDaysUntilDate(newDate));
                   }
+                  //}
                 }}
               />
             </DeadlineWrapper>

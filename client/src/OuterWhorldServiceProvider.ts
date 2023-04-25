@@ -670,10 +670,11 @@ class OuterWhorldServiceProvider {
   @param currency
   @returns success or failure
   */
-  async updateUserInformation(userName: string, currency: number) {
+  async updateUserInformation(userName: string, currency: number, newPassword?: string) {
     const input = {
       userName,
       currency,
+      newPassword
     };
     const res = await fetch(`/api/users/login`, {
       method: 'PUT',
@@ -772,6 +773,48 @@ class OuterWhorldServiceProvider {
 
     const data = await res.json();
     return data;
+  }
+
+  /*
+  @param email
+  @returns Success or failure
+  */
+  async createOTP(email: string) {
+    const input = {
+      email,
+    };
+
+    const res = await fetch(`/api/otp/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+
+    return res;
+  }
+
+  /*
+  @param email
+  @param string
+  @returns Success or failure
+  */
+  async validateOTP(email: string, pin: string) {
+    const res = await fetch(`/api/otp?email=${email}&enteredPin=${pin}`);
+
+    return res;
+  }
+
+  async checkIfUserAlreadyRegistered(email: string, username: string) {
+    const res = await fetch(`/api/users?email=${email}&userName=${username}`);
+
+    const data = await res.json();
+
+    const payload = { status: res.status, data };
+
+    return payload;
   }
 }
 

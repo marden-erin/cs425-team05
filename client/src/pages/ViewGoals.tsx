@@ -9,7 +9,6 @@ import {
   BookSearchCard,
   GoalCard,
   H2,
-  LargeRoundedButton,
   P,
   SmallRoundedButton,
   SnailImage,
@@ -217,30 +216,19 @@ function ViewGoals(this: any) {
             </P>
             <StarDisplay />
           </SnailStatus>
-          {snailHealth === 0 && ( // Only show button if snail is dead
-            <LargeRoundedButton
-              onClick={() => {
-                navigate('/grave-adoption');
-              }}
-            >
-              Bury Snail
-            </LargeRoundedButton>
-          )}
         </SnailCard>
-        {snailHealth !== 0 && ( // Don't show Goals if snail is dead
-          <GoalsCard>
-            <H2>Active Goals</H2>
-            <GoalsWrapper $hasGoals={indGoals.length !== 0}>
-              {goal}
-              {indGoals.length === 0 && (
-                <BookSearchCard
-                  cardKey={0}
-                  additionalText="To set a goal, you need to first find a book."
-                />
-              )}
-            </GoalsWrapper>
-          </GoalsCard>
-        )}
+        <GoalsCard>
+          <H2>Active Goals</H2>
+          <GoalsWrapper $hasGoals={indGoals.length !== 0}>
+            {goal}
+            {indGoals.length === 0 && (
+              <BookSearchCard
+                cardKey={0}
+                additionalText="To set a goal, you need to first find a book."
+              />
+            )}
+          </GoalsWrapper>
+        </GoalsCard>
       </FlexWrapper>
     </PageWrapper>
   );

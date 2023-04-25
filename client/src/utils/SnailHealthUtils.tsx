@@ -17,7 +17,7 @@ const updateSnailStatus = async (username: string) => {
     let snailHealth = snail.health;
     const { date_died, is_active } = snail;
 
-    if (date_died === 'null') {
+    if (date_died === 'null' || date_died === null) {
       needsnewSnail = false;
     }
 
