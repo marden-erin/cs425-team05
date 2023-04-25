@@ -19,6 +19,7 @@ import { GetSnailStatusText } from '../utils';
 import { useAuthUser } from 'react-auth-kit';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import ReactModal from 'react-modal';
+import { LoadingPage } from '../components/complex-components/Loading';
 
 const FlexWrapper = styled.div<{ $isModalOpen: boolean }>`
   display: flex;
@@ -122,9 +123,12 @@ function BurySnail() {
   const [snailAccessories, setSnailAccessories] = useState({});
   const [isSnailActive, setIsSnailActive] = useState(false);
   const [output, setOutput] = useState('');
+  const [loading, setLoading] = useState(true);
 
   let snailInfo: any;
   useEffect(() => {
+    setTimeout(() => setLoading(false), 2000);
+
     const loadData = async () => {
       snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
@@ -166,59 +170,68 @@ function BurySnail() {
   };
 
   return (
-    <PageWrapper pageTitle="Bury Snail">
-      <FlexWrapper $isModalOpen={isModalOpen}>
-        <SnailCard>
-          <SnailImage username={username} />
-          <H2>{snailName}</H2>
-          <SnailStatus>
-            <P>
-              <b>{snailName}</b> {GetSnailStatusText(snailHealth)}
-            </P>
-            <StarDisplay />
-          </SnailStatus>
-          {snailHealth === 0 && ( // Only show button if snail is dead
-            <ButtonWrapper>
-              <LargeRoundedButton
-                onClick={() => {
-                  navigate('/grave-adoption');
-                }}
+    <>
+      {' '}
+      {loading === false ? (
+        <PageWrapper pageTitle="Bury Snail">
+          <FlexWrapper $isModalOpen={isModalOpen}>
+            <SnailCard>
+              <SnailImage username={username} />
+              <H2>{snailName}</H2>
+              <SnailStatus>
+                <P>
+                  <b>{snailName}</b> {GetSnailStatusText(snailHealth)}
+                </P>
+                <StarDisplay />
+              </SnailStatus>
+              {snailHealth === 0 && ( // Only show button if snail is dead
+                <ButtonWrapper>
+                  <LargeRoundedButton
+                    onClick={() => {
+                      navigate('/grave-adoption');
+                    }}
+                  >
+                    Bury Snail
+                  </LargeRoundedButton>
+                  <LargeRoundedButton onClick={() => toggleIsModalOpen(true)}>
+                    Revive Snail
+                  </LargeRoundedButton>
+                </ButtonWrapper>
+              )}
+              <ReactModal
+                isOpen={isModalOpen}
+                className="modal-body"
+                overlayClassName="modal-overlay"
               >
-                Bury Snail
-              </LargeRoundedButton>
-              <LargeRoundedButton onClick={() => toggleIsModalOpen(true)}>
-                Revive Snail
-              </LargeRoundedButton>
-            </ButtonWrapper>
-          )}
-          <ReactModal
-            isOpen={isModalOpen}
-            className="modal-body"
-            overlayClassName="modal-overlay"
-          >
-            <SmallCloseButton handler={toggleIsModalOpen} />
-            <ModalContentWrapper>
-              <ModalContentBox>
-                <ModalTitle>Revive Snail?</ModalTitle>
-                <ReviveSnail>
-                  Reviving a snail will cost you 1000 stars.
-                </ReviveSnail>
-                <ReviveSnail>Do you still want to continue?</ReviveSnail>
-                <ModalButtonWrapper>
-                  <LargeRoundedButton onClick={() => handleRevive()}>
-                    Yes
-                  </LargeRoundedButton>
-                  <LargeRoundedButton onClick={() => toggleIsModalOpen(false)}>
-                    No
-                  </LargeRoundedButton>
-                </ModalButtonWrapper>
-              </ModalContentBox>
-            </ModalContentWrapper>
-          </ReactModal>
-          <SubHeader>{output}</SubHeader>
-        </SnailCard>
-      </FlexWrapper>
-    </PageWrapper>
+                <SmallCloseButton handler={toggleIsModalOpen} />
+                <ModalContentWrapper>
+                  <ModalContentBox>
+                    <ModalTitle>Revive Snail?</ModalTitle>
+                    <ReviveSnail>
+                      Reviving a snail will cost you 1000 stars.
+                    </ReviveSnail>
+                    <ReviveSnail>Do you still want to continue?</ReviveSnail>
+                    <ModalButtonWrapper>
+                      <LargeRoundedButton onClick={() => handleRevive()}>
+                        Yes
+                      </LargeRoundedButton>
+                      <LargeRoundedButton
+                        onClick={() => toggleIsModalOpen(false)}
+                      >
+                        No
+                      </LargeRoundedButton>
+                    </ModalButtonWrapper>
+                  </ModalContentBox>
+                </ModalContentWrapper>
+              </ReactModal>
+              <SubHeader>{output}</SubHeader>
+            </SnailCard>
+          </FlexWrapper>
+        </PageWrapper>
+      ) : (
+        <LoadingPage />
+      )}
+    </>
   );
 }
 

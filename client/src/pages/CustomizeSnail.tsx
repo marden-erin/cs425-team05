@@ -132,6 +132,7 @@ function CustomizeSnail() {
       // TODO: load items the user already has
       const snailInfo = await OWServiceProvider.getSnailInfo(username);
       setSnailName(snailInfo.name);
+      setSnailHealth(snailInfo.health);
     };
     loadData();
   }, []);
@@ -139,6 +140,7 @@ function CustomizeSnail() {
   const auth = useAuthUser();
   const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
+  const [snailHealth, setSnailHealth] = useState(3);
 
   const setColor = async (newColor: string) => {
     const snailInfo = await OWServiceProvider.getSnailInfo(username);
@@ -201,7 +203,7 @@ function CustomizeSnail() {
     <PageWrapper pageTitle="Customize Snail">
       <SnailCard>
         <SnailTitle>{snailName}</SnailTitle>
-        <SnailImage username={username} width={30} />
+        <SnailImage username={username} snailHealth={snailHealth} width={30} />
         <Status>
           <StarDisplay />
         </Status>

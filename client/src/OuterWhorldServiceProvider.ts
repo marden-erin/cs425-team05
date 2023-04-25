@@ -670,11 +670,15 @@ class OuterWhorldServiceProvider {
   @param currency
   @returns success or failure
   */
-  async updateUserInformation(userName: string, currency: number, newPassword?: string) {
+  async updateUserInformation(
+    userName: string,
+    currency: number,
+    newPassword?: string
+  ) {
     const input = {
       userName,
       currency,
-      newPassword
+      newPassword,
     };
     const res = await fetch(`/api/users/login`, {
       method: 'PUT',

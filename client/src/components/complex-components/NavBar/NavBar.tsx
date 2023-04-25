@@ -4,7 +4,7 @@ import { FiChevronDown } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
-import { ClusterPages, SnailPages } from './NAV_BAR_LINKS';
+import { SnailPages } from './NAV_BAR_LINKS';
 import { StarDisplay } from '../Currency';
 import Logo from '../../../imgs/logo.png';
 import { ProfilePic } from '../ProfileNav';
@@ -136,7 +136,7 @@ export const NavBar = () => {
       <LinkWrapper>
         <NavLink href="/about">About</NavLink>
         <DropDownLink linkLabel="Snail" dropDownItems={SnailPages} />
-        <DropDownLink linkLabel="Clusters" dropDownItems={ClusterPages} />
+        <NavLink href="/view-clusters">Clusters</NavLink>
         <NavLink href="/view-goals">Goals</NavLink>
       </LinkWrapper>
       <SearchBarWrapper>

@@ -11,9 +11,9 @@ import {
 import { COLORS } from '../constants';
 import { useAuthUser } from 'react-auth-kit';
 
-import Grave1 from './../imgs/graveyard/Grave stone.png';
-import Grave2 from './../imgs/graveyard/Grave stone 2.png';
-import Grave3 from './../imgs/graveyard/Grave stone 3.png';
+import Grave2 from '../imgs/graveyard/Grave stone 2.png';
+import Grave3 from '../imgs/graveyard/Grave stone 3.png';
+import Grave1 from '../imgs/graveyard/Grave stone.png';
 
 const FlexBoxWrapper = styled.div`
   height: 80vh;
