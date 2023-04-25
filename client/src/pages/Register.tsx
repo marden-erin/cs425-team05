@@ -7,6 +7,7 @@ import {
   ThickInput,
   H2,
   P,
+  SmallRoundedButton,
   Label,
 } from '../components';
 import { COLORS } from '../constants';
@@ -68,6 +69,26 @@ const RegisterLabel = styled(Label)`
   margin-bottom: -15px;
 `;
 
+const OTPBox = styled.div`
+  display: flex;
+`;
+
+const OTPInput = styled.input`
+  width: 1em;
+  padding: 0.75em;
+  margin: 0.175em;
+  text-align: center;
+  border-radius: 0.35em;
+  border: 0.175em solid ${COLORS.PURPLE_DARK};
+  font-size: 2.5em;
+
+  &:focus {
+    border: 0.175em solid ${COLORS.BLACK};
+    box-shadow: 0 0 0.1em 0.1em ${COLORS.PURPLE_MID};
+    outline: none;
+  }
+`;
+
 function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -84,6 +105,9 @@ function Register() {
   const [registrationErrorMsg, setRegistrationErrorMsg] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const isAuthenticated = useIsAuthenticated();
+  const [isOTP, setIsOTP] = useState(false);
+  const [otpPin, setOtpPin] = useState<string[]>(Array(5).fill(''));
+  const [isOTPButtonDisabled, setIsOTPButtonDisabled] = useState(true);
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -135,16 +159,61 @@ function Register() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const res = await OWServiceProvider.registerUser(username, email, password);
+    const res = await OWServiceProvider.checkIfUserAlreadyRegistered(
+      email,
+      username
+    );
 
-    console.log(res.data);
     if (res.status === 200) {
-      setIsRegistered(true);
+      setIsOTP(true);
+      setRegisterError(false);
     } else {
       setRegistrationErrorMsg(res.data);
       setRegisterError(true);
       setIsRegistered(false);
     }
+  };
+
+  const handleOTPSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const parsedOTP = otpPin.join('');
+
+    const res = await OWServiceProvider.validateOTP(email, parsedOTP);
+
+    if (res.status === 200) {
+      const res = await OWServiceProvider.registerUser(
+        username,
+        email,
+        password
+      );
+
+      if (res.status === 200) {
+        setIsRegistered(true);
+      } else {
+        setRegistrationErrorMsg(res.data);
+        setRegisterError(true);
+        setIsRegistered(false);
+      }
+    } else {
+      setRegistrationErrorMsg('Error. Incorrect PIN, please try again');
+      setRegisterError(true);
+      setIsRegistered(false);
+    }
+  };
+
+  const handleOTPChange = async (e: any, index: number) => {
+    const newPin: string[] = Array.from(otpPin);
+
+    newPin[index] = e.target.value;
+
+    if (!newPin.includes('')) {
+      setIsOTPButtonDisabled(false);
+    } else {
+      setIsOTPButtonDisabled(true);
+    }
+
+    setOtpPin(newPin);
   };
 
   useEffect(() => {
@@ -172,67 +241,94 @@ function Register() {
           </>
         ) : (
           <>
-            <RegisterPromptH2>Your Snail Awaits!</RegisterPromptH2>
-            <RegisterLabel htmlFor="register-email">Email</RegisterLabel>
-            <RegisterInput
-              id="register-email"
-              type="email"
-              aria-describedby="email-error"
-              value={email}
-              placeholder="Email"
-              onChange={updateEmail}
-            />
-            {errors.email && (
-              <ErrorMessageSpan id="email-error">
-                Please enter a valid email
-              </ErrorMessageSpan>
-            )}
-            <RegisterLabel htmlFor="register-username">Username</RegisterLabel>
-            <RegisterInput
-              id="register-username"
-              type="text"
-              value={username}
-              placeholder="Username"
-              onChange={updateUsername}
-            />
-            <RegisterLabel htmlFor="register-password">Password</RegisterLabel>
-            <RegisterInput
-              id="register-password"
-              type="password"
-              aria-describedby="password-error"
-              value={password}
-              placeholder="Password"
-              onChange={updatePassword}
-            />
-            {errors.password && (
-              <ErrorMessageSpan id="password-error">
-                Password must have 6 to 16 characters and contain a special
-                character
-              </ErrorMessageSpan>
-            )}
-            <RegisterLabel htmlFor="register-confirm-password">
-              Confirm Password
-            </RegisterLabel>
-            <RegisterInput
-              id="register-confirm-password"
-              type="password"
-              aria-describedby="confirm-password-error"
-              value={confirmPassword}
-              placeholder="Confirm Password"
-              onChange={updateConfirmPassword}
-            />
-            {errors.confirmPassword && (
-              <ErrorMessageSpan id="confirm-password-error">
-                Passwords must match
-              </ErrorMessageSpan>
-            )}
+            {isOTP ? (
+              <>
+                <RegisterPromptH2>Enter OTP</RegisterPromptH2>
+                <OTPBox>
+                  {[...Array(5)].map((e, i) => (
+                    <OTPInput
+                      onChange={(e) => handleOTPChange(e, i)}
+                      type="text"
+                      maxLength={1}
+                    ></OTPInput>
+                  ))}
+                </OTPBox>
+                <LargeRoundedButton
+                  disabled={isOTPButtonDisabled}
+                  onClick={handleOTPSubmit}
+                >
+                  Submit
+                </LargeRoundedButton>
+              </>
+            ) : (
+              <>
+                <RegisterPromptH2>Your Snail Awaits!</RegisterPromptH2>
+                <RegisterLabel htmlFor="register-email">Email</RegisterLabel>
+                <RegisterInput
+                  id="register-email"
+                  type="email"
+                  aria-describedby="email-error"
+                  value={email}
+                  placeholder="Email"
+                  onChange={updateEmail}
+                />
+                {errors.email && (
+                  <ErrorMessageSpan id="email-error">
+                    Please enter a valid email
+                  </ErrorMessageSpan>
+                )}
+                <RegisterLabel htmlFor="register-username">
+                  Username
+                </RegisterLabel>
+                <RegisterInput
+                  id="register-username"
+                  type="text"
+                  value={username}
+                  placeholder="Username"
+                  onChange={updateUsername}
+                />
+                <RegisterLabel htmlFor="register-password">
+                  Password
+                </RegisterLabel>
+                <RegisterInput
+                  id="register-password"
+                  type="password"
+                  aria-describedby="password-error"
+                  value={password}
+                  placeholder="Password"
+                  onChange={updatePassword}
+                />
+                {errors.password && (
+                  <ErrorMessageSpan id="password-error">
+                    Password must have 6 to 16 characters and contain a special
+                    character
+                  </ErrorMessageSpan>
+                )}
+                <RegisterLabel htmlFor="register-confirm-password">
+                  Confirm Password
+                </RegisterLabel>
+                <RegisterInput
+                  id="register-confirm-password"
+                  type="password"
+                  aria-describedby="confirm-password-error"
+                  value={confirmPassword}
+                  placeholder="Confirm Password"
+                  onChange={updateConfirmPassword}
+                />
+                {errors.confirmPassword && (
+                  <ErrorMessageSpan id="confirm-password-error">
+                    Passwords must match
+                  </ErrorMessageSpan>
+                )}
 
-            <LargeRoundedButton
-              id="register-submit"
-              disabled={isButtonDisabled}
-            >
-              Create Account
-            </LargeRoundedButton>
+                <LargeRoundedButton
+                  id="register-submit"
+                  disabled={isButtonDisabled}
+                >
+                  Create Account
+                </LargeRoundedButton>
+              </>
+            )}
             {registerError && (
               <ErrorMessageP>{registrationErrorMsg}</ErrorMessageP>
             )}
