@@ -7,7 +7,11 @@ import {
   GetSnailImg,
   GetCroppedHatImg,
   GetCroppedGlassesImg,
+  GetHatPrice,
+  GetGlassesPrice,
 } from '../../../utils';
+import { VisuallyHiddenSpan } from '../../simple-components';
+import OWServiceProvider from '../../../OuterWhorldServiceProvider';
 
 type ItemSelectCardTypes = {
   /**
@@ -19,13 +23,17 @@ type ItemSelectCardTypes = {
    */
   itemType: string;
   /**
-   * If the item has been purchased or not
+   * Array of purchased items
    */
-  isPurchased?: boolean;
+  ownedAccessories: any;
   /**
    * Function for changing active accessory
    */
   changeAccessory: any;
+  /**
+   * Function for buying accessory
+   */
+  handlePurchase: any;
 };
 
 const CardWrapper = styled.div``;
@@ -83,16 +91,36 @@ const Button = styled.button`
 export const ItemSelectCard = ({
   item,
   itemType,
-  isPurchased,
+  ownedAccessories,
   changeAccessory,
+  handlePurchase,
 }: ItemSelectCardTypes) => {
   const capitalizedItem =
     item.charAt(0).toUpperCase() + item.slice(1).toLowerCase(); // Proper capitalization for header
-  const cost = 134; // TODO: Get cost
+
+  let isPurchased = GetIsPurchased();
+  const itemPrice = GetItemPrice(capitalizedItem);
+
+  function GetIsPurchased() {
+    if (itemType === 'color') {
+      //  colors are free
+      return true;
+    } else {
+      for (let i = 0; i < ownedAccessories.length; i++) {
+        if (
+          ownedAccessories[i].accessory_type === itemType &&
+          ownedAccessories[i].accessory_name === item
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
 
   function GetItemImg(capitalizedItem: string) {
     if (item == '') {
-      return; // TODO: replace with placeholder
+      return;
     }
     switch (itemType) {
       case 'color':
@@ -103,6 +131,20 @@ export const ItemSelectCard = ({
         return GetCroppedGlassesImg(capitalizedItem);
       default:
         return; // nothing
+    }
+  }
+
+  function GetItemPrice(capitalizedItem: string) {
+    if (item == '') {
+      return;
+    }
+    switch (itemType) {
+      case 'hat':
+        return GetHatPrice(capitalizedItem);
+      case 'glasses':
+        return GetGlassesPrice(capitalizedItem);
+      default:
+        return; // nothing - colors don't have prices and are all owned
     }
   }
 
@@ -120,8 +162,11 @@ export const ItemSelectCard = ({
             Wear
           </Button>
         ) : (
-          <Button>
-            {cost}
+          <Button onClick={() => handlePurchase(itemType, item, itemPrice)}>
+            <VisuallyHiddenSpan>
+              Buy {item} {itemType} for{' '}
+            </VisuallyHiddenSpan>
+            {itemPrice}
             <BsStars size="2rem" />
           </Button>
         )}
