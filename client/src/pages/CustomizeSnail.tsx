@@ -137,6 +137,7 @@ function CustomizeSnail() {
       setSnailName(snailInfo.name);
       const userInfo = await OWServiceProvider.getUserInformation(username);
       setStarBalance(userInfo.currency);
+      setSnailHealth(snailInfo.health);
     };
     loadData();
   }, []);
@@ -144,6 +145,8 @@ function CustomizeSnail() {
   const auth = useAuthUser();
   const username = auth()?.username;
   const [snailName, setSnailName] = useState('');
+  const [snailHealth, setSnailHealth] = useState(3);
+
   const [ownedAccessories, setOwnedAccessories] = useState([]);
   const [starBalance, setStarBalance] = useState(0);
 
@@ -239,7 +242,7 @@ function CustomizeSnail() {
     <PageWrapper pageTitle="Customize Snail">
       <SnailCard>
         <SnailTitle>{snailName}</SnailTitle>
-        <SnailImage username={username} width={30} />
+        <SnailImage username={username} snailHealth={snailHealth} width={30} />
         <Status>
           <StarDisplay />
         </Status>

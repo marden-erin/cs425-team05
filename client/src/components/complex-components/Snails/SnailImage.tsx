@@ -25,6 +25,8 @@ type SnailImageProps = {
    * Optional glasses - Otherwise uses whatever glasses the snail has
    */
   overrideGlasses?: string;
+
+  snailHealth?: number;
 };
 
 const InnerWrapper = styled.span<{ width: number }>`
@@ -68,11 +70,12 @@ export const SnailImage = ({
   overrideColor,
   overrideHat,
   overrideGlasses,
+  snailHealth,
   width = 30,
 }: SnailImageProps) => {
   const [snailName, setSnailName] = useState('');
   const [snailColor, setSnailColor] = useState('');
-  const [snailHealth, setSnailHealth] = useState(3);
+  // const [snailHealth, setSnailHealth] = useState(3);
 
   const [hat, setHat] = useState('');
   const [glasses, setGlasses] = useState('');
@@ -85,7 +88,6 @@ export const SnailImage = ({
       let savedGlasses = snailInfo.accessories.glasses;
       savedGlasses = savedGlasses === undefined ? '' : savedGlasses; // Fix if undefined
       setSnailName(snailInfo.name);
-      setSnailHealth(snailInfo.health);
 
       overrideColor
         ? setSnailColor(overrideColor)
@@ -103,7 +105,7 @@ export const SnailImage = ({
         role="presentation"
         width={width}
       />
-      {snailHealth > 1 && (
+      {snailHealth! > 1 && (
         <>
           <AccessoryImg
             src={GetGlassesImg(glasses)}

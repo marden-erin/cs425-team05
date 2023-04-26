@@ -16,6 +16,7 @@ import {
 } from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
+import { LoadingPage } from '../components/complex-components/Loading';
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -108,11 +109,15 @@ function ViewGoals(this: any) {
   const [indGoals, setIndGoals] = useState<any>([]);
   const [complete, setComplete] = useState(0);
   const [failed, setFailed] = useState(0);
+  const [loading, setLoading] = useState(true);
+
   let temp: any;
   const goalID: any = [];
   let noDuplicatesID: number[];
   let snailInfo: any;
   useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+
     const loadData = async () => {
       snailInfo = await OWServiceProvider.getSnailInfo(username);
 
@@ -205,32 +210,39 @@ function ViewGoals(this: any) {
   });
 
   return (
-    <PageWrapper pageTitle="Goals" header="Goals">
-      <FlexWrapper>
-        <SnailCard>
-          <SnailImage username={username} />
-          <H2>{snailName}</H2>
-          <SnailStatus>
-            <P>
-              <b>{snailName}</b> {GetSnailStatusText(snailHealth)}
-            </P>
-            <StarDisplay />
-          </SnailStatus>
-        </SnailCard>
-        <GoalsCard>
-          <H2>Active Goals</H2>
-          <GoalsWrapper $hasGoals={indGoals.length !== 0}>
-            {goal}
-            {indGoals.length === 0 && (
-              <BookSearchCard
-                cardKey={0}
-                additionalText="To set a goal, you need to first find a book."
-              />
-            )}
-          </GoalsWrapper>
-        </GoalsCard>
-      </FlexWrapper>
-    </PageWrapper>
+    <>
+      {' '}
+      {loading === false ? (
+        <PageWrapper pageTitle="Goals" header="Goals">
+          <FlexWrapper>
+            <SnailCard>
+              <SnailImage username={username} snailHealth={snailHealth} />
+              <H2>{snailName}</H2>
+              <SnailStatus>
+                <P>
+                  <b>{snailName}</b> {GetSnailStatusText(snailHealth)}
+                </P>
+                <StarDisplay />
+              </SnailStatus>
+            </SnailCard>
+            <GoalsCard>
+              <H2>Active Goals</H2>
+              <GoalsWrapper $hasGoals={indGoals.length !== 0}>
+                {goal}
+                {indGoals.length === 0 && (
+                  <BookSearchCard
+                    cardKey={0}
+                    additionalText="To set a goal, you need to first find a book."
+                  />
+                )}
+              </GoalsWrapper>
+            </GoalsCard>
+          </FlexWrapper>
+        </PageWrapper>
+      ) : (
+        <LoadingPage />
+      )}
+    </>
   );
 }
 

@@ -432,7 +432,11 @@ function UpdateGoal() {
             </div>
           </NotesWrapper>
           <SnailSection>
-            <SnailImage username={username} width={20} />
+            <SnailImage
+              username={username}
+              snailHealth={snailHealth}
+              width={20}
+            />
             <SnailSectionRightWrapper>
               <P>
                 <b>{snailName}</b> is cheering for you. Don't let them down!

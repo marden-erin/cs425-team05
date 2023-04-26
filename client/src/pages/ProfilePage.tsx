@@ -1,5 +1,13 @@
 import styled, { css } from 'styled-components';
-import { PageWrapper, H1, Box, ThinInput, Label, H2 } from '../components';
+import {
+  PageWrapper,
+  H1,
+  Box,
+  ThinInput,
+  Label,
+  H2,
+  SnailImage,
+} from '../components';
 import { COLORS } from '../constants';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import { GetSnailImg } from '../utils';
@@ -19,7 +27,7 @@ const FlexBoxWrapper = styled.div`
 const PageTitle = styled(H1)`
   color: ${COLORS.WHITE};
   text-align: center;
-  padding-top: 3rem;
+  margin-top: 5rem;
 `;
 
 const AccountBox = styled(Box)`
@@ -27,7 +35,7 @@ const AccountBox = styled(Box)`
   height: 60rem;
   display: flex;
   flex-direction: row;
-  margin-top: -10px;
+  margin-top: -3rem;
 `;
 const AccountWrapper = styled.div`
   display: flex;
@@ -59,8 +67,11 @@ const InputWrapper = styled.div`
   width: 20rem;
 `;
 
-const Img = styled.img`
-  align-items: center;
+const Img = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  justify-content: center;
   width: 20rem;
   height: 20rem;
   background-color: ${COLORS.PURPLE_LIGHTMID};
@@ -69,7 +80,7 @@ const Img = styled.img`
   margin-bottom: 3rem;
 `;
 
-const CurrentSnailState = styled.img`
+const CurrentSnailState = styled.div`
   width: 10rem;
   height: 10rem;
   margin-left: 5rem;
@@ -114,9 +125,8 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 1rem;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 15px;
+  padding: 15px;
+
   border-radius: 10px;
 
   background-color: ${COLORS.PURPLE_XTRALIGHT};
@@ -200,10 +210,9 @@ export const ProfilePage = () => {
           <AccountWrapper>
             {accountShown && (
               <Wrapper>
-                <Img
-                  src={proSnailImage}
-                  alt="the users current snail at full heath"
-                />
+                <Img>
+                  <SnailImage username={username} snailHealth={3} width={19} />
+                </Img>
 
                 <AccountHeader>Account Information</AccountHeader>
                 <LabelInputWrapper>
@@ -224,10 +233,9 @@ export const ProfilePage = () => {
 
             {snailShown && (
               <Wrapper>
-                <Img
-                  src={proSnailImage}
-                  alt="the users current snail at full heath"
-                />
+                <Img>
+                  <SnailImage username={username} snailHealth={3} width={19} />
+                </Img>
 
                 <AccountHeader>Snail Information</AccountHeader>
                 <LabelInputWrapper>
@@ -250,10 +258,14 @@ export const ProfilePage = () => {
                 <LabelInputWrapper>
                   <StyledLabel>Your Snail's Current State</StyledLabel>
                   <InputWrapper>
-                    <CurrentSnailState
-                      src={snailImage}
-                      alt="the users snail at their current health"
-                    />
+                    <CurrentSnailState>
+                      {' '}
+                      <SnailImage
+                        username={username}
+                        snailHealth={snailHealth}
+                        width={12}
+                      />
+                    </CurrentSnailState>
                   </InputWrapper>
                 </LabelInputWrapper>
               </Wrapper>
@@ -261,10 +273,9 @@ export const ProfilePage = () => {
 
             {statsShown && (
               <Wrapper>
-                <Img
-                  src={proSnailImage}
-                  alt="the users current snail at full heath"
-                />
+                <Img>
+                  <SnailImage username={username} snailHealth={3} width={19} />
+                </Img>
 
                 <AccountHeader>{snailName}'s Stats</AccountHeader>
                 <LabelInputWrapper>

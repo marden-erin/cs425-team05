@@ -9,7 +9,7 @@ import { SnailImage } from '../Snails';
 const Img = styled.div`
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   width: 5rem;
   height: 5rem;
@@ -80,7 +80,7 @@ export const ProfilePic = () => {
     <>
       <DropDownWrapper>
         <Img>
-          <SnailImage username={username} width={4.8} />
+          <SnailImage username={username} snailHealth={3} width={4.8} />
         </Img>
         <DropDownContentWrapper className="dropdown-content">
           <DropDownItems onClick={handleProfile}>My Account</DropDownItems>

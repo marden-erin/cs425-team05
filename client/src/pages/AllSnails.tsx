@@ -13,8 +13,10 @@ import {
   PageWrapper,
   LargeRoundedButton,
   CloseButton,
+  SnailImage,
 } from '../components';
 import { FONTS_MAIN } from '../constants';
+import { LoadingPage } from '../components/complex-components/Loading';
 
 const FlexWrapper = styled.div<{
   $isModalOpen: boolean;
@@ -159,6 +161,7 @@ function AllSnails() {
 
   const [allAliveSnails, setAllAliveSnails] = useState<any>([]);
   const [current, setCurrent] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
 
   ReactModal.setAppElement('*');
   const [index, setIndex] = useState(0);
@@ -170,6 +173,8 @@ function AllSnails() {
   const [snailAccessories, setSnailAccessories] = useState({});
 
   useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+
     const loadData = async () => {
       const allSnails = await OWServiceProvider.getAllSnails(username);
       const allSnailArray: any[] = [];
@@ -240,7 +245,7 @@ function AllSnails() {
             alt="Your currently active snail"
             width={200}
           />
-
+          {/* <SnailImage username={username}/> */}
           <Status>
             <P>
               <b>{x.name}</b> is currently active!
@@ -348,22 +353,29 @@ function AllSnails() {
   });
 
   return (
-    <PageWrapper pageTitle="All Snails">
-      <FlexWrapper $isModalOpen={isModalOpen} $isModalOpen2={isModalOpen2}>
-        <ContentWrapper>
-          <H1>Your Snails</H1>
-          <H2>
-            Here you can decide which snail you would like to actively follow
-            you on your reading goals.
-          </H2>
-          <AllSnailCard>
-            {' '}
-            {active}
-            {snails}
-          </AllSnailCard>
-        </ContentWrapper>
-      </FlexWrapper>
-    </PageWrapper>
+    <>
+      {' '}
+      {loading === false ? (
+        <PageWrapper pageTitle="All Snails">
+          <FlexWrapper $isModalOpen={isModalOpen} $isModalOpen2={isModalOpen2}>
+            <ContentWrapper>
+              <H1>Your Snails</H1>
+              <H2>
+                Here you can decide which snail you would like to actively
+                follow you on your reading goals.
+              </H2>
+              <AllSnailCard>
+                {' '}
+                {active}
+                {snails}
+              </AllSnailCard>
+            </ContentWrapper>
+          </FlexWrapper>
+        </PageWrapper>
+      ) : (
+        <LoadingPage />
+      )}
+    </>
   );
 }
 export default AllSnails;

@@ -10,7 +10,7 @@ import {
   P,
   Label,
   SmallRoundedButton,
-  LargeRoundedLink
+  LargeRoundedLink,
 } from '../components';
 import { COLORS } from '../constants';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
@@ -168,10 +168,7 @@ const H2Clickable = styled(H2)`
   &:hover {
     cursor: pointer;
   }
-
-`
-
-
+`;
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -249,7 +246,7 @@ function Login() {
 
   const handleModalSubmit = async () => {
     const res = await OWServiceProvider.createOTP(modalEmail);
-    const {username} = await res.json();
+    const { username } = await res.json();
 
     setUsername(username);
 
@@ -320,11 +317,14 @@ function Login() {
   const handleChangePassword = async (e: any) => {
     e.preventDefault();
 
-    const {currency} = await OWServiceProvider.getUserInformation(username);
-    const res = await OWServiceProvider.updateUserInformation(username, currency, newPassword);
+    const { currency } = await OWServiceProvider.getUserInformation(username);
+    const res = await OWServiceProvider.updateUserInformation(
+      username,
+      currency,
+      newPassword
+    );
 
     setIsPasswordChange(true);
-
   };
 
   return (
@@ -389,13 +389,15 @@ function Login() {
           <RightModalContentWrapper>
             {isOTP ? (
               <>
-                {showResetPassword ?  (
+                {showResetPassword ? (
                   <>
                     {isPasswordChanged ? (
                       <>
                         <H2>Password Updated</H2>
-                        <H2Clickable onClick={handleModalClose}>Login Now!</H2Clickable>
-                       </>
+                        <H2Clickable onClick={handleModalClose}>
+                          Login Now!
+                        </H2Clickable>
+                      </>
                     ) : (
                       <>
                         {' '}
