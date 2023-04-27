@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { COLORS, FONTS_MAIN, ScrollBarStyle } from '../../../constants';
 import { LargeBookCard, SmallBookCard } from '.';
-import { FilterDropdown } from '../SearchBar';
 import { ClusterDropDown } from '../Clusters';
 import { CreateGoalButton } from '../Goals';
 import { useLocation } from 'react-router-dom';
@@ -21,7 +20,7 @@ const ResultsCard = styled.div`
 `;
 
 const ScrollableDiv = styled.div`
-  height: 52.5rem;
+  height: 54rem;
   width: 50rem;
   background-color: ${COLORS.PURPLE_LIGHT};
   // Makes the div scrollable
@@ -40,7 +39,7 @@ const H1 = styled.h1`
   font-weight: 600;
   font-size: 2.4rem;
   line-height: 2.9rem;
-  margin-bottom: 4px;
+  margin-bottom: 1.5rem;
 `;
 const GridWrapper = styled.div`
   height: 85vh;
@@ -115,7 +114,6 @@ function BookData(props: any) {
         <GridWrapper>
           <ResultsCard>
             <H1>Search Results</H1>
-            <FilterDropdown />
             <ScrollableDiv>
               {props.allBooks.map(
                 (
