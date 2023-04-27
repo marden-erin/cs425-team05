@@ -126,6 +126,7 @@ const Title = styled(H1)`
 const SnailH2 = styled(H2)`
   color: ${COLORS.BLACK};
   text-align: left;
+  max-width: 15rem;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
