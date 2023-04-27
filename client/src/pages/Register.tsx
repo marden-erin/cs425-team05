@@ -167,6 +167,8 @@ function Register() {
     if (res.status === 200) {
       setIsOTP(true);
       setRegisterError(false);
+      const res = await OWServiceProvider.createOTP(email);
+      console.log(res);
     } else {
       setRegistrationErrorMsg(res.data);
       setRegisterError(true);
