@@ -24,7 +24,12 @@ const createOTP = asyncHandler(async (req: Request, res: Response) => {
 
 			query = `select * from Users where email='${filteredEmail}'`;
 			const [user]: any[] = await db.promise().query(query);
-			const {username} = user[0];
+			
+			let username = "";
+
+			if (user.length > 0) {
+				username = user[0].username
+			}
 
 			const options = {
 				from: "outerwhorld@outlook.com",
