@@ -223,6 +223,10 @@ const Modal3Box = styled.div`
   border-radius: 15px;
 `;
 
+const CreateClusterButton = styled(LargeRoundedButton)`
+  margin-block-start: 1.5rem;
+`;
+
 function ViewClusters() {
   const auth = useAuthUser();
   const [cluster, setCluster] = useState([
@@ -318,14 +322,12 @@ function ViewClusters() {
 
     return (
       <div>
-        {' '}
-        <LargeRoundedButton
+        <CreateClusterButton
           id="create-cluster-button"
           onClick={() => toggleIsModalOpen3(true)}
         >
-          {' '}
           + Create a Cluster
-        </LargeRoundedButton>
+        </CreateClusterButton>
         <ReactModal
           isOpen={isModalOpen3}
           className="modal-body"

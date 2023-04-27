@@ -7,7 +7,6 @@ import {
   ThickInput,
   H2,
   P,
-  SmallRoundedButton,
   Label,
 } from '../components';
 import { COLORS } from '../constants';
@@ -19,12 +18,12 @@ const RegisterContainer = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 450px;
-  height: 600px;
+  width: 45rem;
   background-color: ${COLORS.PURPLE_LIGHT};
   border-radius: 25px;
-  gap: 20px;
+  gap: 1.5rem;
   margin: auto;
+  padding: 1.5rem 0;
   margin-top: 4rem;
   box-shadow: 0 0.188em 1.55em ${COLORS.BLACK};
 `;
@@ -43,19 +42,13 @@ const ErrorMessageP = styled(P)`
   color: red;
 `;
 
-const buttonStyle = {
-  backgroundColor: 'transparent',
-  border: 'none',
-  cursor: 'pointer',
-};
-
 const ErrorMessageSpan = styled.span`
-  font-size: 12px;
+  font-size: 1.2rem;
   color: red;
   font-weight: bold;
   align-self: start;
-  margin-left: 115px;
-  padding-right: 15px;
+  margin-left: 11.5rem;
+  padding-right: 1.5rem;
 
   &:invalid {
     display: none;
@@ -64,9 +57,9 @@ const ErrorMessageSpan = styled.span`
 
 const RegisterLabel = styled(Label)`
   align-self: start;
-  margin-left: 130px;
+  margin-left: 13rem;
   font-weight: bold;
-  margin-bottom: -15px;
+  margin-bottom: -0.5rem;
 `;
 
 const OTPBox = styled.div`

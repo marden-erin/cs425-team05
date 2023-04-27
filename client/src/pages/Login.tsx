@@ -328,7 +328,7 @@ function Login() {
   };
 
   return (
-    <Login_RegisterPageWrapper pageTitle="Login">
+    <Login_RegisterPageWrapper pageTitle="Login" showSubtitle>
       <FlexBoxWrapper>
         <LeftContentWrapper>
           <AnimationPauseButton />
