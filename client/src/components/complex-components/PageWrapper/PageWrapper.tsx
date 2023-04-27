@@ -33,6 +33,10 @@ type WrapperProps = {
    */
   titleColor?: string;
   /**
+   * Use to not show navbar
+   */
+  disableNav?: boolean;
+  /**
    * Other css
    */
   $css?: ThemedCssFunction<DefaultTheme>;
@@ -68,6 +72,7 @@ export const PageWrapper = ({
   header,
   backgroundColor,
   titleColor,
+  disableNav,
   $css,
 }: WrapperProps) => {
   return (
@@ -78,7 +83,7 @@ export const PageWrapper = ({
       <GlobalStyle backgroundColor={backgroundColor} />
       <Wrapper $css={$css}>
         <SemiHiddenLink href="#main">Skip to Content</SemiHiddenLink>
-        <NavBar />
+        {!disableNav && <NavBar />}
         {header && <Header fontColor={titleColor}>{header}</Header>}
         <div id="main">{children}</div>
       </Wrapper>

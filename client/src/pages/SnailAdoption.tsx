@@ -93,7 +93,7 @@ function SnailAdoption() {
   };
 
   return (
-    <PageWrapper pageTitle="Adopt A Snail" header="Adopt A Snail">
+    <PageWrapper pageTitle="Adopt A Snail" header="Adopt A Snail" disableNav>
       <FlexBoxWrapper $isModalOpen={isModalOpen}>
         <Radio>
           <SnailSelectCard
