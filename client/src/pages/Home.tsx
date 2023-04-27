@@ -68,8 +68,8 @@ const RightContentWrapper = styled.div`
 const WelcomeContainer = styled.div`
   ${ColumnFlexCss}
   justify-content: center;
-  width: 450px;
-  height: 225px;
+  width: 50rem;
+  height: 25rem;
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   border-radius: 25px;
   gap: 0.4rem;
@@ -80,6 +80,7 @@ const WelcomePromptH2 = styled(H2)`
   color: ${COLORS.BLACK};
   font-weight: 300;
   font-style: italic;
+  margin-block-end: 1.2rem;
 `;
 
 const Link = styled.a`
@@ -89,8 +90,13 @@ const Link = styled.a`
   font-weight: bold;
   padding: 1.2rem 2rem;
   transition: background-color 0.3s ease-out;
+  color: ${COLORS.BLACK};
   :hover {
     background-color: ${COLORS.PURPLE_LIGHT};
+  }
+  b {
+    font-size: inherit;
+    color: ${COLORS.PURPLE_MID};
   }
 `;
 
@@ -142,9 +148,15 @@ function Home() {
           </SubTitle>
           <WelcomeContainer>
             <WelcomePromptH2>Let's get Reading!</WelcomePromptH2>
-            <Link href="/">Account 🡪</Link>
-            <Link href="/view-clusters">View Clusters 🡪</Link>
-            <Link href="/view-goals">View Goals 🡪</Link>
+            <Link href="/view-clusters">
+              Save Books in <b>Clusters</b>! 🡪
+            </Link>
+            <Link href="/view-goals">
+              Set Goals to Earn <b>Stars</b> and feed your Snail! 🡪
+            </Link>
+            <Link href="/customize-snail">
+              Spend <b>Stars</b> to Accessorize your Snail! 🡪
+            </Link>
           </WelcomeContainer>
         </RightContentWrapper>
       </FlexBoxWrapper>
