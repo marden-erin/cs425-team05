@@ -12,9 +12,11 @@ const getBook = asyncHandler(async (req: Request, res: Response) => {
 		throw new Error(errMsg);
 	}
 
-	const bookTitle = req.query.bookTitle;
+	const bookTitle = req.query.bookTitle as string;
 
-	const query = `select * from Books where bookTitle like '%${bookTitle}%';`;
+	const filteredBookTitle = bookTitle.replace(/"/g, "''");
+
+	const query = `select * from Books where bookTitle like "%${filteredBookTitle}%";`;
 	const [books]: any[] = await db.promise().query(query);
 
 	const returnedBooks: Book[] = [];

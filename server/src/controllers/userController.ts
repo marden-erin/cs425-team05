@@ -29,7 +29,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 			const salt = await bcrypt.genSalt(10);
 			const hashedPassword = await bcrypt.hash(password, salt);
 
-			query = `insert into Users(user_id, username, hashed_password, email, last_login) values (DEFAULT, "${filteredName}", '${hashedPassword}', '${email}', ${null});`;
+			query = `insert into Users(user_id, username, hashed_password, email, last_login, currency) values (DEFAULT, "${filteredName}", '${hashedPassword}', '${email}', ${null}, ${0});`;
 			await db.promise().query(query);
 
 			res.status(HTTPStatus.OK).json("Account successfully created");

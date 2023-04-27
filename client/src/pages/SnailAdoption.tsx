@@ -81,12 +81,21 @@ function SnailAdoption() {
     const date = new Date();
     const dateString = date.toDateString();
     e.preventDefault();
+    let isActive = true;
+
+    const checkIfHasActiveSnail = await OWServiceProvider.getSnailInfo(userName);
+
+    if (checkIfHasActiveSnail !== null)
+    {
+      isActive = false;
+    }
+
     const create = await OWServiceProvider.createSnail(
       userName,
       snailName,
       snailColor,
       dateString,
-      true
+      isActive
     );
     console.log(create);
     navigate('/view-goals');

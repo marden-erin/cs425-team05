@@ -195,6 +195,8 @@ function Login() {
     useState(true);
   const [isPasswordChanged, setIsPasswordChange] = useState(false);
   const [username, setUsername] = useState('');
+  const [isOTPWrong, setIsOTPWrong] = useState(false);
+  const [OTPErrorMessage, setOTPErrorMessag] = useState('');
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -277,6 +279,8 @@ function Login() {
     if (res.status === 200) {
       setShowResetPassword(true);
     } else {
+      setIsOTPWrong(true);
+      setOTPErrorMessag('Error. Incorrect PIN, please try again');
       setShowResetPassword(false);
     }
   };
@@ -458,6 +462,9 @@ function Login() {
                     >
                       Submit
                     </LargeRoundedButton>{' '}
+                    {isOTPWrong && (
+                      <ErrorMessageP>{OTPErrorMessage}</ErrorMessageP>
+                    )}
                   </>
                 )}
               </>
