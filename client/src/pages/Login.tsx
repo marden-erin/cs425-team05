@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
@@ -197,6 +197,7 @@ function Login() {
   const [username, setUsername] = useState('');
   const [isOTPWrong, setIsOTPWrong] = useState(false);
   const [OTPErrorMessage, setOTPErrorMessag] = useState('');
+  const itemsRef = useRef<any[]>([]);
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -257,6 +258,10 @@ function Login() {
 
   const handleOTPChange = async (e: any, index: number) => {
     const newPin: string[] = Array.from(otpPin);
+
+    if (index < 4) {
+      itemsRef.current[index + 1].focus();
+    }
 
     newPin[index] = e.target.value;
 
@@ -450,9 +455,12 @@ function Login() {
                     <OTPBox>
                       {[...Array(5)].map((e, i) => (
                         <OTPInput
+                          key={i}
+                          ref={(ref) => itemsRef.current.push(ref)}
                           onChange={(e) => handleOTPChange(e, i)}
                           type="text"
                           maxLength={1}
+                          onFocus={(e: any) => e.target.select()}
                         ></OTPInput>
                       ))}
                     </OTPBox>
