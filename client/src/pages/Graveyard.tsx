@@ -8,6 +8,7 @@ import { useAuthUser } from 'react-auth-kit';
 import { GetSnailImg } from '../utils';
 import DeadSnail from '../imgs/graveyard/deadSnail.png';
 import { LoadingPage } from '../components/complex-components/Loading';
+import { useNavigate } from 'react-router-dom';
 
 import {
   H1,
@@ -18,6 +19,7 @@ import {
   SmallCloseButton,
   H2,
   LargeRoundedButton,
+  SubTitle,
 } from '../components';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
 import Grave2 from '../imgs/graveyard/Grave stone 2.png';
@@ -25,6 +27,7 @@ import Grave2 from '../imgs/graveyard/Grave stone 2.png';
 const GridWrapper = styled.div<{
   $isModalOpen: boolean;
   $isModalOpen2: boolean;
+  $isModalOpen3: boolean;
 }>`
   height: 85vh;
   padding: 3vh;
@@ -43,12 +46,17 @@ const GridWrapper = styled.div<{
     css`
       pointer-events: none;
     `}
+    ${(props) =>
+    props.$isModalOpen3 &&
+    css`
+      pointer-events: none;
+    `}
 `;
 const ModalContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  gap: 4rem;
+  padding: 1rem;
+  gap: 1rem;
   align-items: center;
   justify-content: center;
   background: ${COLORS.GRAY_MID};
@@ -62,6 +70,12 @@ const ModalContentBox = styled(Box)`
 `;
 const ModalContentBox2 = styled(Box)`
   height: 25rem;
+  width: 35rem;
+  background-color: ${COLORS.GRAY_LIGHT};
+  overflow: scroll;
+`;
+const ModalContentBox3 = styled(Box)`
+  height: 15rem;
   width: 35rem;
   background-color: ${COLORS.GRAY_LIGHT};
   overflow: scroll;
@@ -150,19 +164,24 @@ const ModalButtonWrapper = styled.div`
   margin-left: 8rem;
   margin-top: 2rem;
   gap: 5rem;
+  padding-bottom: 2rem;
 `;
 const ReviveSnail = styled(H3)`
   color: ${COLORS.BLACK};
   padding: 1rem;
+  padding-bottom: 1rem;
 `;
 const ModalTitle = styled(H1)`
-  font-size: 4rem;
+  font-size: 3rem;
 `;
 
 function Graveyard() {
   const [isModalOpen, toggleIsModalOpen] = useState(false);
   const [isModalOpen2, toggleIsModalOpen2] = useState(false);
+  const [isModalOpen3, toggleIsModalOpen3] = useState(false);
+
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   ReactModal.setAppElement('*');
   const auth = useAuthUser();
@@ -177,12 +196,18 @@ function Graveyard() {
 
   const [currency, setCurrency] = useState(9999);
   const [output, setOutput] = useState('');
+  const [noGraves, setNoGraves] = useState(false);
+  let getGraves;
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 3000);
 
     const loadData = async () => {
-      const getGraves = await OWServiceProvider.getAllGraves(username);
+      getGraves = await OWServiceProvider.getAllGraves(username);
+      if (getGraves.length === 0) {
+        setNoGraves(true);
+        toggleIsModalOpen3(true);
+      }
       const snailArray: any[] = [];
       const graveArray: any[] = [];
       for (const temp of getGraves) {
@@ -209,7 +234,6 @@ function Graveyard() {
     graveyard_id: number
   ) => {
     let newCurrency = currency;
-    console.log(snailName, snailColor, snailAccessories);
 
     if (currency >= 1000) {
       //not set as active yet but instead sent to all snails page
@@ -227,119 +251,158 @@ function Graveyard() {
       newCurrency = currency - 1000;
       await OWServiceProvider.deleteGrave(graveyard_id);
       await OWServiceProvider.updateUserInformation(username, newCurrency);
-      window.location.reload();
       toggleIsModalOpen(false);
+      navigate('/all-snails');
     } else {
       setOutput('You do not have enough stars to revive this snail.');
-      toggleIsModalOpen(false);
     }
   };
-  const temp = grave.map((x: any, i: any) => {
-    return (
-      <div key={i}>
-        <ScrollableDiv>
-          <AllGraveWrapper>
-            {x.graveInfo.map((a: any, b: any) => {
-              return (
-                <div key={b}>
-                  <GraveWrapper
-                    onClick={() => {
-                      toggleIsModalOpen(true);
-                      setIndex(b);
-                      setGraveID(a.graveyard_id);
-                    }}
-                  >
-                    <img src={a.gravestone} alt="Spooky grave" height="150px" />
-                    <SnailH2>{a.snail_name}</SnailH2>
-                  </GraveWrapper>
-                </div>
-              );
-            })}
-            <ReactModal
-              isOpen={isModalOpen}
-              className="modal-body"
-              overlayClassName="modal-overlay"
-            >
-              <SmallCloseButton handler={toggleIsModalOpen} />
-              <ModalContentWrapper>
-                <Title>Here lies {snail[index].name} </Title>
-                <ModalContentBox>
-                  <Snail>
-                    <img
-                      src={GetSnailImg(snail[index].color, 3)}
-                      alt="snail who passed away"
-                      width="200"
-                    />
-                  </Snail>
-                  <P>
-                    {snail[index].date_created} - {snail[index].date_died}
-                  </P>
-                  <br />
-                  <P>
-                    {snail[index].name} passed away when you failed your reading
-                    goal.
-                  </P>
+  const temp = () => {
+    if (noGraves) {
+      return (
+        <ReactModal
+          isOpen={isModalOpen3}
+          className="modal-body"
+          overlayClassName="modal-overlay"
+        >
+          <ModalContentWrapper>
+            {' '}
+            <ModalContentBox3>
+              <ModalTitle>The graveyard is empty!</ModalTitle>
+              <ReviveSnail>Keep up the good work!</ReviveSnail>
+              <LargeRoundedButton onClick={() => navigate('/')}>
+                Return Home
+              </LargeRoundedButton>
+            </ModalContentBox3>
+          </ModalContentWrapper>
+        </ReactModal>
+      );
+    } else {
+      return grave.map((x: any, i: any) => {
+        return (
+          <div key={i}>
+            <ScrollableDiv>
+              <AllGraveWrapper>
+                {x.graveInfo.map((a: any, b: any) => {
+                  return (
+                    <div key={b}>
+                      <GraveWrapper
+                        onClick={() => {
+                          toggleIsModalOpen(true);
+                          setIndex(b);
+                          setGraveID(a.graveyard_id);
+                        }}
+                      >
+                        <img
+                          src={a.gravestone}
+                          alt="Spooky grave"
+                          height="150px"
+                        />
+                        <SnailH2>{a.snail_name}</SnailH2>
+                      </GraveWrapper>
+                    </div>
+                  );
+                })}
+                <ReactModal
+                  isOpen={isModalOpen}
+                  className="modal-body"
+                  overlayClassName="modal-overlay"
+                >
+                  <SmallCloseButton handler={toggleIsModalOpen} />
+                  <ModalContentWrapper>
+                    <Title>Here lies {snail[index].name} </Title>
+                    <ModalContentBox>
+                      <Snail>
+                        <img
+                          src={GetSnailImg(snail[index].color, 3)}
+                          alt="snail who passed away"
+                          width="200"
+                        />
+                      </Snail>
+                      <P>
+                        {snail[index].date_created} - {snail[index].date_died}
+                      </P>
+                      <br />
+                      <P>
+                        {snail[index].name} passed away when you failed your
+                        reading goal.
+                      </P>
 
-                  <SnailH3>
-                    * Goals Completed: {snail[index].goals_completed}
-                  </SnailH3>
-                  <SnailH3>* Goals Failed: {snail[index].goals_failed}</SnailH3>
-                  <LargeRoundedButton onClick={() => toggleIsModalOpen2(true)}>
-                    Revive Snail
-                  </LargeRoundedButton>
-                  <ReactModal
-                    isOpen={isModalOpen2}
-                    className="modal-body"
-                    overlayClassName="modal-overlay"
-                  >
-                    <SmallCloseButton handler={toggleIsModalOpen2} />
-                    <ModalContentWrapper>
-                      <ModalContentBox2>
-                        <ModalTitle>Revive Snail?</ModalTitle>
-                        <ReviveSnail>
-                          Reviving a snail will cost you 1000 stars.
-                        </ReviveSnail>
-                        <ReviveSnail>
-                          Do you still want to continue?
-                        </ReviveSnail>
-                        <ModalButtonWrapper>
-                          <LargeRoundedButton
-                            onClick={() =>
-                              handleRevive(
-                                snail[index].name,
-                                snail[index].color,
-                                snail[index].goals_completed,
-                                snail[index].goals_failed,
-                                snail[index].accessories,
-                                graveID
-                              )
-                            }
-                          >
-                            Yes
-                          </LargeRoundedButton>
-                          <LargeRoundedButton
-                            onClick={() => toggleIsModalOpen2(false)}
-                          >
-                            No
-                          </LargeRoundedButton>
-                        </ModalButtonWrapper>
-                      </ModalContentBox2>
-                    </ModalContentWrapper>
-                  </ReactModal>
-                </ModalContentBox>
-              </ModalContentWrapper>
-            </ReactModal>
-          </AllGraveWrapper>
-        </ScrollableDiv>
-      </div>
-    );
-  });
+                      <SnailH3>
+                        * Goals Completed: {snail[index].goals_completed}
+                      </SnailH3>
+                      <SnailH3>
+                        * Goals Failed: {snail[index].goals_failed}
+                      </SnailH3>
+                      <LargeRoundedButton
+                        onClick={() => {
+                          toggleIsModalOpen2(true);
+                          setOutput('');
+                        }}
+                      >
+                        Revive Snail
+                      </LargeRoundedButton>
+                      <ReactModal
+                        isOpen={isModalOpen2}
+                        className="modal-body"
+                        overlayClassName="modal-overlay"
+                      >
+                        <SmallCloseButton handler={toggleIsModalOpen2} />
+                        <ModalContentWrapper>
+                          <ModalContentBox2>
+                            <ModalTitle>Revive Snail?</ModalTitle>
+                            <ReviveSnail>
+                              Reviving a snail will cost you 1000 stars.
+                            </ReviveSnail>
+                            <ReviveSnail>
+                              Do you still want to continue?
+                            </ReviveSnail>
+                            <ModalButtonWrapper>
+                              <LargeRoundedButton
+                                onClick={() =>
+                                  handleRevive(
+                                    snail[index].name,
+                                    snail[index].color,
+                                    snail[index].goals_completed,
+                                    snail[index].goals_failed,
+                                    snail[index].accessories,
+                                    graveID
+                                  )
+                                }
+                              >
+                                Yes
+                              </LargeRoundedButton>
+                              <LargeRoundedButton
+                                onClick={() => toggleIsModalOpen2(false)}
+                              >
+                                No
+                              </LargeRoundedButton>
+                            </ModalButtonWrapper>
+                            <P>{output}</P>
+                          </ModalContentBox2>
+                        </ModalContentWrapper>
+                      </ReactModal>
+                    </ModalContentBox>
+                  </ModalContentWrapper>
+                </ReactModal>
+              </AllGraveWrapper>
+            </ScrollableDiv>
+          </div>
+        );
+      });
+    }
+  };
+
   return (
     <>
       {' '}
       {loading === false ? (
         <GraveyardPageWrapper pageTitle="Graveyard">
-          <GridWrapper $isModalOpen={isModalOpen} $isModalOpen2={isModalOpen2}>
+          <GridWrapper
+            $isModalOpen={isModalOpen}
+            $isModalOpen2={isModalOpen2}
+            $isModalOpen3={isModalOpen3}
+          >
             <YardBoxWrapper>
               <YardWrapper>
                 <SignWrapper>
@@ -358,7 +421,8 @@ function Graveyard() {
                     style={{ transform: 'scaleX(-1)' }}
                   />
                 </SignWrapper>
-                {temp}
+
+                <>{temp()}</>
               </YardWrapper>
             </YardBoxWrapper>
           </GridWrapper>

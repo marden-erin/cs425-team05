@@ -34,7 +34,7 @@ function SearchResults() {
   }
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 4000);
+    setTimeout(() => setLoading(false), 5000);
 
     const loadData = async (e: any) => {
       const data = await OWServiceProvider.getBookInfo(userInput);

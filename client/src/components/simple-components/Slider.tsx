@@ -7,14 +7,13 @@ import { ThinInput } from './Inputs';
 // Referenced https://www.w3schools.com/howto/howto_js_rangeslider.asp
 const ThumbCss = css`
   -webkit-appearance: none; // Override default CSS styles
-  appearance: none;
   width: 20px;
   height: 20px;
   background: ${COLORS.PURPLE_MID};
   cursor: pointer;
   border-radius: 50%;
   border: 2px solid ${COLORS.PURPLE_DARK};
-  transition: background-color 0.3s ease-out;
+  transition: background-color 0.3s ease-in-out;
   :hover {
     background: ${COLORS.BLUE_DARK};
   }
@@ -22,7 +21,6 @@ const ThumbCss = css`
 
 const Slider = styled.input`
   -webkit-appearance: none; // Override default CSS styles
-  appearance: none;
   width: 100%;
   height: 10px;
   border: 2px solid ${COLORS.PURPLE_MID};
@@ -108,14 +106,7 @@ const PageSlider = ({
       }
     }
   };
-  const onSliderChange = (value: any) => {
-    if (value) {
-      // Update slider with new value only if it’s within the sliders domain
-      if (value >= min && value <= max) {
-        setSliderValue(value);
-      }
-    }
-  };
+ 
   return (
     <SliderWrapper>
       <div className="slider-div">
@@ -126,8 +117,8 @@ const PageSlider = ({
           name={labelWithDashes + '-slider'}
           min={min}
           max={max}
-          value={sliderValue}
           onChange={(e) => onInputChange(e.target.value)}
+          value={sliderValue}
         />
       </div>
       <div className="number-div">

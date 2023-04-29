@@ -83,10 +83,11 @@ function SnailAdoption() {
     e.preventDefault();
     let isActive = true;
 
-    const checkIfHasActiveSnail = await OWServiceProvider.getSnailInfo(userName);
+    const checkIfHasActiveSnail = await OWServiceProvider.getSnailInfo(
+      userName
+    );
 
-    if (checkIfHasActiveSnail !== null)
-    {
+    if (checkIfHasActiveSnail !== null) {
       isActive = false;
     }
 

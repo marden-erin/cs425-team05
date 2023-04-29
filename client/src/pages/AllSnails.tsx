@@ -14,6 +14,7 @@ import {
   LargeRoundedButton,
   CloseButton,
   SnailImage,
+  H3,
 } from '../components';
 import { FONTS_MAIN } from '../constants';
 import { LoadingPage } from '../components/complex-components/Loading';
@@ -149,7 +150,18 @@ const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 3rem;
+  padding-top: 2rem;
   margin-left: 5rem;
+`;
+const SingleButtonWrapper = styled.div`
+  display: flex;
+  padding-top: 2rem;
+  margin-left: 3rem;
+`;
+const InputWrapper = styled.div`
+  background-color: ${COLORS.PURPLE_LIGHT};
+  padding: 2rem;
+  border-radius: 5px;
 `;
 
 function AllSnails() {
@@ -241,11 +253,11 @@ function AllSnails() {
         >
           <SnailTitle className="snail-name">{x.name}</SnailTitle>
           <img
-            src={GetSnailImg(x.color, 3)}
+            src={GetSnailImg(x.color, x.health)}
             alt="Your currently active snail"
             width={200}
           />
-          {/* <SnailImage username={username}/> */}
+
           <Status>
             <P>
               <b>{x.name}</b> is currently active!
@@ -259,23 +271,22 @@ function AllSnails() {
         >
           <CloseButton handler={toggleIsModalOpen2} />
           <ModalContentWrapper>
-            <img
-              src={GetSnailImg(x.color, 3)}
-              alt="Your currently active snail"
-              width={200}
-            />
+            <SnailImage username={username} snailHealth={x.health} />
 
             <RightModalContentWrapper2>
-              <H2>{x.name} is already active!</H2>
-              <P>
-                If you still want to change snails, you'll have to pick another
-                one!
-              </P>
-              <ButtonWrapper>
-                <LargeRoundedButton onClick={() => toggleIsModalOpen2(false)}>
-                  Continue
-                </LargeRoundedButton>
-              </ButtonWrapper>
+              <InputWrapper>
+                <H2>{x.name} is already active!</H2>
+                <br />
+                <P>
+                  If you still want to change snails, you'll have to pick
+                  another one!
+                </P>
+                <SingleButtonWrapper>
+                  <LargeRoundedButton onClick={() => toggleIsModalOpen2(false)}>
+                    Continue
+                  </LargeRoundedButton>
+                </SingleButtonWrapper>
+              </InputWrapper>
             </RightModalContentWrapper2>
           </ModalContentWrapper>
         </ReactModal>
@@ -301,7 +312,7 @@ function AllSnails() {
         >
           <SnailTitle className="snail-name">{x.name}</SnailTitle>
           <img
-            src={GetSnailImg(x.color, 3)}
+            src={GetSnailImg(x.color, x.health)}
             alt="one of your alive snails"
             width={200}
           />
@@ -320,31 +331,33 @@ function AllSnails() {
           <CloseButton handler={toggleIsModalOpen} />
           <ModalContentWrapper>
             <img
-              src={GetSnailImg(color)}
+              src={GetSnailImg(x.color, x.health)}
               alt={{ name } + ' is ready to be an active snail again'}
               width="200"
             />
             <RightModalContentWrapper>
-              <H2>Do you want to set {name} as your active snail?</H2>
-              <ButtonWrapper>
-                <LargeRoundedButton
-                  onClick={() =>
-                    handleClick(
-                      name,
-                      color,
-                      failed,
-                      complete,
-                      snailAccessories,
-                      snailHealth
-                    )
-                  }
-                >
-                  Yes
-                </LargeRoundedButton>
-                <LargeRoundedButton onClick={() => toggleIsModalOpen(false)}>
-                  No
-                </LargeRoundedButton>
-              </ButtonWrapper>
+              <InputWrapper>
+                <H2>Do you want to set {name} as your active snail?</H2>
+                <ButtonWrapper>
+                  <LargeRoundedButton
+                    onClick={() =>
+                      handleClick(
+                        name,
+                        color,
+                        failed,
+                        complete,
+                        snailAccessories,
+                        snailHealth
+                      )
+                    }
+                  >
+                    Yes
+                  </LargeRoundedButton>
+                  <LargeRoundedButton onClick={() => toggleIsModalOpen(false)}>
+                    No
+                  </LargeRoundedButton>
+                </ButtonWrapper>
+              </InputWrapper>
             </RightModalContentWrapper>
           </ModalContentWrapper>
         </ReactModal>
@@ -364,6 +377,14 @@ function AllSnails() {
                 Here you can decide which snail you would like to actively
                 follow you on your reading goals.
               </H2>
+              <H3>
+                They have put their accessories back in the closet while they
+                are away and resting.
+              </H3>
+              <H3>
+                Don't worry though, they will put them back on when they are
+                active again.
+              </H3>
               <AllSnailCard>
                 {' '}
                 {active}
