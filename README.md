@@ -1,23 +1,14 @@
 # cs425-team05: OuterWhorld
 
-(*TODO: Insert abstract here)
+University of Nevada, Reno: College of Computer Science and Engineering - Senior Projects - Spring 2023
+
+Project Website with Video: https://outerwhorld.wixsite.com/outerwhorld
+
+OuterWhorld is a web-based application that allows users to create reading goals for themselves. Users can search and save books in reading lists called clusters. OuterWhorld gives users motivation to complete their reading goals by letting each user adopt their own virtual pet snail whose well being depends on their goals' completion.
 
 ## Meet the Brainyators
 
-(*TODO: Fill out what we all did!)
-
-### Andrei N Iorgulescu
-
-### Erin E Marden
-
-### Jodi A Hieronymus
-- Project setup, front-end package installation, repository organization
-
-- Created PageWrapper, NavBar, homepage, router
-
-- Created skip to content button, button to pause all animated content on a page
-
-- Installed Prettier
+Andrei N Iorgulescu, Erin E Marden, and Jodi A Hieronymus
 
 Node version: `v18.12.1`
 
@@ -40,6 +31,8 @@ Node version: `v18.12.1`
 3 - Run `npm run dev`
 
 4 - Terminal should say `Server running on port <Number>`
+
+NOTE: Server requires private access keys to run.
 
 ## It's recommended you have both UI and Server up and Running at the same time!  
 
