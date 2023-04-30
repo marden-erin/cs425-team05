@@ -7,8 +7,7 @@ import {
   FONTS_SECONDARY,
   ScrollBarStyle,
 } from '../../../constants';
-import { SmallRoundedButton, P } from '../../simple-components';
-import { StarRating } from '../Reviews';
+import { P } from '../../simple-components';
 
 type LargeBookCardType = {
   /**
@@ -76,7 +75,7 @@ const TopWrapper = styled.div`
 
 const InfoWrapper = styled.div`
   width: 225px;
-  min-height: 200px;
+  min-height: 100px;
   max-height: 360px;
   display: flex;
   flex-direction: column;
@@ -115,14 +114,7 @@ const AuthorH3 = styled.h3`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-const ButtonWrapper = styled.div`
-display: flex;
-flex-direction: row;
-flex-wrap: wrap
-justify-content: center;
-gap: 15px;
-width: 200px;
-`;
+
 const DropWrapper = styled.div`
   margin-left: 15%;
   display: flex;
@@ -178,16 +170,12 @@ export const LargeBookCard = ({
         <InfoWrapper>
           <TitleH2>{bookTitle}</TitleH2>
           <AuthorH3>by {authorName}</AuthorH3>
-          <StarRating rating={3} />
           <AllButtonWrapper>
-            <ButtonWrapper>
-              {showButtons && (
-                <>
-                  <>{CreateGoalFunction}</>
-                  <SmallRoundedButton>Add Review</SmallRoundedButton>
-                </>
-              )}
-            </ButtonWrapper>
+            {showButtons && (
+              <>
+                <>{CreateGoalFunction}</>
+              </>
+            )}
             <DropWrapper>
               {' '}
               {tempFunction}

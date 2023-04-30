@@ -161,8 +161,8 @@ function BurySnail() {
       );
       newCurrency = currency - 1000;
       await OWServiceProvider.updateUserInformation(username, newCurrency);
-      window.location.reload();
       toggleIsModalOpen(false);
+      navigate('/all-snails');
     } else {
       setOutput('You do not have enough stars to revive this snail.');
       toggleIsModalOpen(false);
@@ -173,7 +173,7 @@ function BurySnail() {
     <>
       {' '}
       {loading === false ? (
-        <PageWrapper pageTitle="Bury Snail">
+        <PageWrapper pageTitle="Bury Snail" disableNav>
           <FlexWrapper $isModalOpen={isModalOpen}>
             <SnailCard>
               <SnailImage username={username} />

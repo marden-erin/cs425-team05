@@ -16,11 +16,11 @@ import {
   PageWrapper,
   SmallRoundedButton,
   SnailImage,
+  Slider,
 } from '../components';
 import { COLORS, FONTS_SECONDARY } from '../constants';
 import { GetEatingSnailImg, NumberOfDaysUntilDate } from '../utils';
 import OWServiceProvider from '../OuterWhorldServiceProvider';
-
 const GridWrapper = styled.div`
   height: 85vh;
   padding: 3vh;

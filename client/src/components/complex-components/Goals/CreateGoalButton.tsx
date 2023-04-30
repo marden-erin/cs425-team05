@@ -20,7 +20,7 @@ export const CreateGoalButton = (props: any) => {
         });
       }}
     >
-      Set Goal
+      Set Goal For Book
     </SmallRoundedButton>
   );
 };
