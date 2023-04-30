@@ -161,7 +161,7 @@ function FailedGoal() {
   });
 
   return (
-    <PageWrapper pageTitle="Failed Goal">
+    <PageWrapper pageTitle="Failed Goal" disableNav>
       <GridWrapper>
         <BigCard>
           <Title>Uh Oh! It looks like you failed a goal.</Title>

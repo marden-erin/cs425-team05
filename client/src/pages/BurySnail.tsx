@@ -173,7 +173,7 @@ function BurySnail() {
     <>
       {' '}
       {loading === false ? (
-        <PageWrapper pageTitle="Bury Snail">
+        <PageWrapper pageTitle="Bury Snail" disableNav>
           <FlexWrapper $isModalOpen={isModalOpen}>
             <SnailCard>
               <SnailImage username={username} />
