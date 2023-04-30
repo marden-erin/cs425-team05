@@ -33,6 +33,10 @@ type WrapperProps = {
    */
   titleColor?: string;
   /**
+   * Whether to show Subtitle
+   */
+  showSubtitle?: boolean;
+  /**
    * Other css
    */
   $css?: ThemedCssFunction<DefaultTheme>;
@@ -51,7 +55,6 @@ const LogoStyle = {
   textAlign: 'center' as const,
 };
 
-// TODO: Allow custom css to be passed in
 const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
   background-image: url(${PlanetImg});
   background-size: 75%;
@@ -77,6 +80,7 @@ export const Login_RegisterPageWrapper = ({
   pageTitle,
   header,
   backgroundColor,
+  showSubtitle,
   titleColor,
   $css,
 }: WrapperProps) => {
@@ -95,9 +99,11 @@ export const Login_RegisterPageWrapper = ({
               <img src={Logo} alt="OuterWhorld" width="400" />
             </a>
           </h1>
-          <SubTitle className="subtitle">
-            Adopt and feed an astronaut snail by reading books you love!
-          </SubTitle>
+          {showSubtitle && (
+            <SubTitle className="subtitle">
+              Adopt and feed an astronaut snail by reading books you love!
+            </SubTitle>
+          )}
         </div>
         <div id="main">{children}</div>
       </Wrapper>

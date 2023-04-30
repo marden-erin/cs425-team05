@@ -87,7 +87,6 @@ const ClusterName = styled.h2`
   ${FONTS_MAIN};
   font-weight: 600;
   font-size: 4rem;
-  line-height: 2.5rem;
   text-align: center;
   color: ${COLORS.PURPLE_DARK};
   text-align: left;
@@ -98,6 +97,7 @@ const NameWrapper = styled.div`
   border-radius: 5px;
   padding: 10px 5px 15px 10px;
 `;
+
 const ScrollableDiv = styled.div`
   display: flex;
   height: 27rem;
@@ -110,20 +110,18 @@ const ScrollableDiv = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  padding: 10px;
   margin-top: -20px;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
   border-radius: 5px;
   display: inline-flex;
-  min-height: 100%;
   align-content: center;
   align-items: center;
   justify-content: center;
-  gap: 25px;
 `;
-const Img = styled.div`
-  width: 133.3px;
+const Img = styled.img`
+  max-width: 133.3px;
+  max-height: 195px;
   display: flex;
   flex-flow: wrap;
   align-items: center;
@@ -140,8 +138,13 @@ const Title = styled.h2`
   color: ${COLORS.PURPLE_DARK};
   overflow: hidden;
   white-space: normal;
-  width: 180px;
+  width: 18rem;
   text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const Options = styled.div`
   display: flex;
@@ -218,6 +221,10 @@ const Modal3Box = styled.div`
   background-color: ${COLORS.PURPLE_XTRALIGHT};
   padding: 2rem 3rem;
   border-radius: 15px;
+`;
+
+const CreateClusterButton = styled(LargeRoundedButton)`
+  margin-block-start: 1.5rem;
 `;
 
 function ViewClusters() {
@@ -315,14 +322,12 @@ function ViewClusters() {
 
     return (
       <div>
-        {' '}
-        <LargeRoundedButton
+        <CreateClusterButton
           id="create-cluster-button"
           onClick={() => toggleIsModalOpen3(true)}
         >
-          {' '}
           + Create a Cluster
-        </LargeRoundedButton>
+        </CreateClusterButton>
         <ReactModal
           isOpen={isModalOpen3}
           className="modal-body"
@@ -484,13 +489,11 @@ function ViewClusters() {
                             toggleIsModalOpen2(true);
                           }}
                         >
-                          <Img>
-                            <img
-                              src={t.cover}
-                              style={{ maxWidth: '100%', height: '100%' }}
-                              alt={t.title + ' book cover'}
-                            />
-                          </Img>
+                          <Img
+                            src={t.cover}
+                            style={{ maxWidth: '100%', height: '100%' }}
+                            alt={t.title + ' book cover'}
+                          />
                         </ImgButton>
                         <Title>{t.title}</Title>
                         <ReactModal

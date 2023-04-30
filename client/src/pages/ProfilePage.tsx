@@ -98,7 +98,7 @@ const StyledLabel = styled(Label)`
 `;
 const LinkStyle = css`
   width: 15rem;
-  height: 5rem;
+  padding 0.5rem 0;
   border: none;
   background-color: ${COLORS.BLUE_MID};
   transition: background-color 0.3s ease-out;

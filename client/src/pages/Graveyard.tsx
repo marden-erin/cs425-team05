@@ -66,7 +66,6 @@ const ModalContentBox = styled(Box)`
   height: 42rem;
   width: 38rem;
   background-color: ${COLORS.GRAY_LIGHT};
-  overflow: scroll;
 `;
 const ModalContentBox2 = styled(Box)`
   height: 25rem;
@@ -141,6 +140,12 @@ const Title = styled(H1)`
 const SnailH2 = styled(H2)`
   color: ${COLORS.BLACK};
   text-align: left;
+  max-width: 15rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const SnailH3 = styled(H3)`
   color: ${COLORS.BLACK};
@@ -406,18 +411,18 @@ function Graveyard() {
             <YardBoxWrapper>
               <YardWrapper>
                 <SignWrapper>
-                  <Img src={DeadSnail} alt="A dead snails shell" />
-                  <Img src={DeadSnail} alt="A dead snails shell" />
+                  <Img src={DeadSnail} role="presentation" />
+                  <Img src={DeadSnail} role="presentation" />
 
                   <Title>Snail Graveyard</Title>
                   <Img
                     src={DeadSnail}
-                    alt="A dead snails shell"
+                    role="presentation"
                     style={{ transform: 'scaleX(-1)' }}
                   />
                   <Img
                     src={DeadSnail}
-                    alt="A dead snails shell"
+                    role="presentation"
                     style={{ transform: 'scaleX(-1)' }}
                   />
                 </SignWrapper>
