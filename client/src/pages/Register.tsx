@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -101,6 +101,7 @@ function Register() {
   const [isOTP, setIsOTP] = useState(false);
   const [otpPin, setOtpPin] = useState<string[]>(Array(5).fill(''));
   const [isOTPButtonDisabled, setIsOTPButtonDisabled] = useState(true);
+  const itemsRef = useRef<any[]>([]);
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -200,6 +201,10 @@ function Register() {
   const handleOTPChange = async (e: any, index: number) => {
     const newPin: string[] = Array.from(otpPin);
 
+    if (index < 4) {
+      itemsRef.current[index + 1].focus();
+    }
+
     newPin[index] = e.target.value;
 
     if (!newPin.includes('')) {
@@ -224,6 +229,7 @@ function Register() {
   const redirectLogin = () => {
     navigate('/');
   };
+
   return (
     <Login_RegisterPageWrapper pageTitle="Register">
       <RegisterContainer onSubmit={handleSubmit}>
@@ -242,9 +248,12 @@ function Register() {
                 <OTPBox>
                   {[...Array(5)].map((e, i) => (
                     <OTPInput
+                      key={i}
+                      ref={(ref) => itemsRef.current.push(ref)}
                       onChange={(e) => handleOTPChange(e, i)}
                       type="text"
                       maxLength={1}
+                      onFocus={(e: any) => e.target.select()}
                     ></OTPInput>
                   ))}
                 </OTPBox>
