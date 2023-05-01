@@ -288,7 +288,7 @@ function Graveyard() {
           <div key={i}>
             <ScrollableDiv>
               <AllGraveWrapper>
-                {x.graveInfo.reverse().map((a: any, b: any) => {
+                {x.graveInfo.map((a: any, b: any) => {
                   return (
                     <div key={b}>
                       <GraveWrapper

@@ -39,7 +39,7 @@ const getAllGraves = asyncHandler(async (req: Request, res: Response) => {
 			query = `select * from Graveyard where user_id="${user_id}"`;
 			const [graves]: any[] = await db.promise().query(query);
 
-			res.status(HTTPStatus.OK).json(graves);
+			res.status(HTTPStatus.OK).json(graves.reverse());
 		} catch (err: any) {
 			res.status(HTTPStatus.BAD).json(err.sqlMessage);
 			throw new Error(err);
