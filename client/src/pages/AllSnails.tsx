@@ -219,16 +219,20 @@ function AllSnails() {
     snailHealth: number
   ) => {
     const currentSnail = await OWServiceProvider.getSnailInfo(username);
-    const updateCurrent = await OWServiceProvider.updateSnailInfo(
-      username,
-      currentSnail.name,
-      currentSnail.color,
-      currentSnail.health,
-      currentSnail.goals_completed,
-      currentSnail.goals_failed,
-      currentSnail.accessories,
-      false
-    );
+
+    if (currentSnail) {
+      const updateCurrent = await OWServiceProvider.updateSnailInfo(
+        username,
+        currentSnail.name,
+        currentSnail.color,
+        currentSnail.health,
+        currentSnail.goals_completed,
+        currentSnail.goals_failed,
+        currentSnail.accessories,
+        false
+      );
+    }
+
     const newCurrent = await OWServiceProvider.updateSnailInfo(
       username,
       name,
