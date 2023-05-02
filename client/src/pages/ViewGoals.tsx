@@ -120,6 +120,9 @@ function ViewGoals(this: any) {
 
     const loadData = async () => {
       snailInfo = await OWServiceProvider.getSnailInfo(username);
+      if (snailInfo.health === 0) {
+        navigate('/bury-snail');
+      }
 
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);

@@ -106,7 +106,7 @@ const PageSlider = ({
       }
     }
   };
- 
+
   return (
     <SliderWrapper>
       <div className="slider-div">
