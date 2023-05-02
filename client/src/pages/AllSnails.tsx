@@ -335,7 +335,7 @@ function AllSnails() {
           <CloseButton handler={toggleIsModalOpen} />
           <ModalContentWrapper>
             <img
-              src={GetSnailImg(x.color, x.health)}
+              src={GetSnailImg(color, snailHealth)}
               alt={{ name } + ' is ready to be an active snail again'}
               width="200"
             />

@@ -99,7 +99,7 @@ function SnailAdoption() {
       isActive
     );
     console.log(create);
-    navigate('/view-goals');
+    navigate('/');
   };
 
   return (

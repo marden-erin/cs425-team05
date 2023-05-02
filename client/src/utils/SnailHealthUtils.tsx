@@ -26,9 +26,12 @@ const updateSnailStatus = async (username: string) => {
 
       // Snail is dead but doesn't have gravestone yet, navigate to graveyard
       if (snailHealth <= 0 && (date_died == null || date_died == 'null')) {
-        console.log("in");
+        console.log('in');
         return 'dead';
-      } else if (snailHealth <= 0 && (date_died != null || date_died != 'null')) {
+      } else if (
+        snailHealth <= 0 &&
+        (date_died != null || date_died != 'null')
+      ) {
         continue;
       } else {
         //See if snail dies today
