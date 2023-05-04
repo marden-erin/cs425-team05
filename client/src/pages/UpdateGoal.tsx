@@ -171,7 +171,6 @@ function UpdateGoal() {
 
   const [snailName, setSnailName] = useState('');
   const [snailColor, setSnailColor] = useState('');
-  const [eatingSnailImage, setEatingSnailImage] = useState('');
   const [snailHealth, setSnailHealth] = useState(3);
   const [foodColor, setFoodColor] = useState('');
   const [goalsCompleted, setGoalsCompleted] = useState(0);
@@ -198,7 +197,6 @@ function UpdateGoal() {
       setSnailName(snailInfo.name);
       setSnailColor(snailInfo.color);
       setSnailHealth(snailInfo.health);
-      setEatingSnailImage(GetEatingSnailImg(snailColor, foodColor));
       setGoalsCompleted(snailInfo.goals_completed);
       setGoalsFailed(snailInfo.goals_failed);
       setSnailAccessories(snailInfo.accessories);
@@ -350,7 +348,7 @@ function UpdateGoal() {
         >
           <FeedingModalContentWrapper>
             <img
-              src={eatingSnailImage}
+              src={GetEatingSnailImg(snailColor, foodColor)}
               alt={
                 snailName + ' enjoying a yummy ' + { foodColor } + 'mushroom'
               }
