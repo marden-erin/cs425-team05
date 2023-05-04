@@ -75,8 +75,8 @@ export const ClusterDropDown = (props: any) => {
   const auth = useAuthUser();
 
   const [bookInfo, setBookInfo] = useState({} as Book);
-  const { title, authors, description, pageCount, cover } = props.children;
-  const [output, setOutput] = useState('');
+  const { title, authors, description, pageCount, cover } = props.book;
+\  const [output, setOutput] = useState('');
 
   const [cluster, setCluster] = useState([
     { cluster_id: ' ', clusterName: ' ', user_id: '', visibility: '' },
@@ -115,7 +115,7 @@ export const ClusterDropDown = (props: any) => {
       const clusterInfo = await OWServiceProvider.addBookToCluster(
         tempSelect,
         username,
-        data[0],
+        props.book,
         date.toString()
       );
 
