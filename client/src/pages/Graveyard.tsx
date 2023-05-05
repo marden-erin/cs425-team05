@@ -71,13 +71,11 @@ const ModalContentBox2 = styled(Box)`
   height: 25rem;
   width: 35rem;
   background-color: ${COLORS.GRAY_LIGHT};
-  overflow: scroll;
 `;
 const ModalContentBox3 = styled(Box)`
   height: 15rem;
   width: 35rem;
   background-color: ${COLORS.GRAY_LIGHT};
-  overflow: scroll;
 `;
 const YardWrapper = styled(Box)`
   background-color: ${COLORS.GRAY_DARK};
@@ -241,7 +239,7 @@ function Graveyard() {
     let newCurrency = currency;
 
     if (currency >= 1000) {
-      //not set as active yet but instead sent to all snails page
+      // not set as active yet but instead sent to all snails page
       await OWServiceProvider.updateSnailInfo(
         username,
         snailName,
