@@ -108,6 +108,10 @@ function BookData(props: any) {
     title: t,
   };
 
+  let drop = {
+    book: dropBook,
+  };
+
   return (
     <>
       <div>
@@ -178,7 +182,7 @@ function BookData(props: any) {
               />
             }
             description={d}
-            AddClusterFunction={<ClusterDropDown>{dropBook}</ClusterDropDown>}
+            AddClusterFunction={<ClusterDropDown {...drop}></ClusterDropDown>}
             CreateGoalFunction={
               <CreateGoalButton {...propsToGoalPage}></CreateGoalButton>
             }
