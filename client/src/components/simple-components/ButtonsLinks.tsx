@@ -4,13 +4,24 @@ import { COLORS, GRADIENTS } from '../../constants';
 import { ColorType } from '../../types';
 
 const ButtonCss = css`
-  transition: background-color 0.75s ease-out;
+  transition: background-color 0.3s ease-out;
+  cursor: pointer;
 `;
 
 const ColorCss = (color: ColorType) => {
   switch (color) {
     case 'green':
       return css``; // POST-PROTOTYPE TODO: Add green css
+    case 'gray':
+      return css`
+        color: ${COLORS.WHITE};
+        background: ${GRADIENTS.GRAY};
+        border: 2px solid ${COLORS.WHITE};
+
+        :hover {
+          background: ${COLORS.GRAY_MIDARK};
+        }
+      `;
     default: // Assuming purple for buttons
       return css`
         color: ${COLORS.WHITE};
@@ -42,29 +53,74 @@ const LargeCss = css`
   padding: 1.4rem 2rem;
 `;
 
+const DisabledCss = css`
+  border: 2px solid ${COLORS.GRAY_DARK};
+  background: none;
+  background-color: ${COLORS.GRAY_LIGHT};
+  color: ${COLORS.GRAY_MID};
+  pointer-events: none;
+  :hover {
+    background-color: ${COLORS.GRAY_LIGHT};
+  }
+`;
+
 // TODO: Parameterize sizes, roundness
-const SmallHalfRoundedButton = styled.button<{ color?: ColorType }>`
+const SmallHalfRoundedButton = styled.button<{
+  color?: ColorType;
+  disabled?: boolean;
+}>`
   ${ButtonCss}
   ${HalfRoundedCss}
-    ${SmallCss}
+  ${SmallCss}
 
     ${(props) => ColorCss(props.color)}
+
+  ${(props) => props.disabled && DisabledCss}
 `;
 
-const SmallRoundedButton = styled.button<{ color?: ColorType }>`
+const SmallRoundedButton = styled.button<{
+  color?: ColorType;
+  disabled?: boolean;
+}>`
   ${ButtonCss}
   ${RoundedCss}
-    ${SmallCss}
+  ${SmallCss}
 
     ${(props) => ColorCss(props.color)}
+
+  ${(props) => props.disabled && DisabledCss}
 `;
 
-const LargeRoundedButton = styled.button<{ color?: ColorType }>`
+const LargeRoundedButton = styled.button<{
+  color?: ColorType;
+  disabled?: boolean;
+}>`
   ${ButtonCss}
   ${RoundedCss}
-    ${LargeCss}
+  ${LargeCss}
 
     ${(props) => ColorCss(props.color)}
+
+  ${(props) => props.disabled && DisabledCss}
 `;
 
-export { LargeRoundedButton, SmallHalfRoundedButton, SmallRoundedButton };
+// Looks like a button, but is a link
+const LargeRoundedLink = styled.a<{ color?: ColorType; disabled?: boolean }>`
+  ${ButtonCss}
+  ${RoundedCss}
+  ${LargeCss}
+
+  text-align: center;
+  text-decoration: none;
+
+  ${(props) => ColorCss(props.color)}
+
+  ${(props) => props.disabled && DisabledCss}
+`;
+
+export {
+  LargeRoundedButton,
+  LargeRoundedLink,
+  SmallHalfRoundedButton,
+  SmallRoundedButton,
+};

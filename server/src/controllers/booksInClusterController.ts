@@ -60,9 +60,10 @@ const getBookFromCluster = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const addBookToCluster = asyncHandler(async (req: Request, res: Response) => {
-	const { clusterName, userName, bookTitle, pageCount, bookCover } = req.body;
+	const { clusterName, userName, bookTitle, pageCount, bookCover, date } =
+		req.body;
 
-	if (clusterName && userName && bookTitle) {
+	if (clusterName && userName && bookTitle && date) {
 		const filteredClusterName = clusterName.replace(/"/g, "''");
 		const filteredUserName = userName.replace(/"/g, "''");
 		const filteredBookTitle = bookTitle.replace(/"/g, "''");
@@ -90,6 +91,9 @@ const addBookToCluster = asyncHandler(async (req: Request, res: Response) => {
 				throw new Error(errMsg);
 			} else {
 				query = `insert into Cluster_Book (cluster_id, book_id, user_id) values("${cluster_id}", "${book_id}", "${user_id}");`;
+				await db.promise().query(query);
+
+				query = `update Clusters set updated_at='${date}' where cluster_id=${cluster_id}`;
 				await db.promise().query(query);
 
 				res.status(HTTPStatus.OK).json("Successfully added book to cluster");

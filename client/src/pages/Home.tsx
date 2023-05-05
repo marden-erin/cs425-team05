@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import {
@@ -11,6 +12,9 @@ import {
 import { COLORS } from '../constants';
 import Logo from '../imgs/logo.png';
 import YellowDefaultSnail from '../imgs/snails/yellow-default.png';
+import { updateSnailStatus } from '../utils/SnailHealthUtils';
+import { useAuthUser } from 'react-auth-kit';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
 
 const ColumnFlexCss = css`
   display: flex;
@@ -61,36 +65,68 @@ const RightContentWrapper = styled.div`
   }
 `;
 
-const LoginContainer = styled.div`
+const WelcomeContainer = styled.div`
   ${ColumnFlexCss}
   justify-content: center;
-  width: 450px;
-  height: 225px;
-  background-color: ${COLORS.PURPLE_LIGHT};
+  width: 50rem;
+  height: 25rem;
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
   border-radius: 25px;
-  gap: 20px;
+  gap: 0.4rem;
   margin-top: 25px;
 `;
 
-const LoginPromptH2 = styled(H2)`
+const WelcomePromptH2 = styled(H2)`
   color: ${COLORS.BLACK};
   font-weight: 300;
   font-style: italic;
+  margin-block-end: 1.2rem;
 `;
 
-// POST-PROTOTYPE TODO: Replace with Google login API
-const _TEMP_LoginButton = styled.div`
-  width: 250px;
-  height: 100px;
-  text-align: center;
-  background-color: ${COLORS.WHITE};
-
-  > p {
-    margin-top: 6px;
+const Link = styled.a`
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 1.2rem 2rem;
+  transition: background-color 0.3s ease-out;
+  color: ${COLORS.BLACK};
+  :hover {
+    background-color: ${COLORS.PURPLE_LIGHT};
+  }
+  b {
+    font-size: inherit;
+    color: ${COLORS.PURPLE_MID};
   }
 `;
 
 function Home() {
+  const auth = useAuthUser();
+  const username = auth()?.username;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await updateSnailStatus(username);
+
+      switch (res) {
+        case 'dne':
+          navigate('/snail-adoption');
+          break;
+        case 'dead':
+          navigate('/bury-snail');
+          break;
+        case 'failed':
+          navigate('/failed-goal');
+          break;
+        default:
+          break;
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <PageWrapper pageTitle="OuterWhorld">
       <FlexBoxWrapper>
@@ -110,14 +146,18 @@ function Home() {
           <SubTitle className="subtitle">
             Adopt and feed an astronaut snail by reading books you love!
           </SubTitle>
-          <LoginContainer>
-            <LoginPromptH2>Let's get Reading!</LoginPromptH2>
-            <_TEMP_LoginButton>
-              <P>TEMPORARY</P>
-              <P>Login with Google</P>
-              <P>Appearance of this button will be determined by API</P>
-            </_TEMP_LoginButton>
-          </LoginContainer>
+          <WelcomeContainer>
+            <WelcomePromptH2>Let's get Reading!</WelcomePromptH2>
+            <Link href="/view-clusters">
+              Save Books in <b>Clusters</b>! 🡪
+            </Link>
+            <Link href="/view-goals">
+              Set Goals to Earn <b>Stars</b> and feed your Snail! 🡪
+            </Link>
+            <Link href="/customize-snail">
+              Spend <b>Stars</b> to Accessorize your Snail! 🡪
+            </Link>
+          </WelcomeContainer>
         </RightContentWrapper>
       </FlexBoxWrapper>
     </PageWrapper>

@@ -1,8 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { COLORS, FONTS_MAIN, FONTS_SECONDARY } from '../../../constants';
-import { LargeRoundedButton, Pill, P } from '../../simple-components';
-import { StarRating } from '../Reviews';
+import {
+  COLORS,
+  FONTS_MAIN,
+  FONTS_SECONDARY,
+  ScrollBarStyle,
+} from '../../../constants';
+import { P } from '../../simple-components';
 
 type LargeBookCardType = {
   /**
@@ -12,7 +17,7 @@ type LargeBookCardType = {
   /**
    * Author of the book
    */
-  authorName: string;
+  authorName: string[];
   /**
    * Image of book cover
    */
@@ -20,7 +25,20 @@ type LargeBookCardType = {
   /**
    * The book's genres
    */
-  genres?: string[];
+
+  description: string;
+  /**
+   *
+   */
+  AddClusterFunction: any;
+  CreateGoalFunction: any;
+  tempFunction?: any;
+  /**
+   * Whether to display buttons like "Set Goal" or "Add Review"
+   */
+  pageCount?: number;
+
+  showButtons?: boolean;
 };
 
 const CardWrapper = styled.div`
@@ -37,10 +55,14 @@ const CardWrapper = styled.div`
 `;
 
 const CoverWrapper = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
   width: 133.3px;
-  height: 200px;
-  background-color: ${COLORS.PURPLE_DARK};
+  background-color: ${COLORS.PURPLE_MID};
   border: 3px solid ${COLORS.PURPLE_MID};
+  max-width-inline: 100%;
 `;
 
 const TopWrapper = styled.div`
@@ -53,19 +75,12 @@ const TopWrapper = styled.div`
 
 const InfoWrapper = styled.div`
   width: 225px;
-  min-height: 200px;
+  min-height: 100px;
   max-height: 360px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-`;
-
-const PillWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5px;
 `;
 
 // Using special headers because the styling on this page doesn't match other pages
@@ -77,6 +92,12 @@ const TitleH2 = styled.h2`
   line-height: 2.2rem;
   text-align: center;
   color: ${COLORS.PURPLE_DARK};
+  display: -webkit-box;
+  max-width: 400px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const AuthorH3 = styled.h3`
@@ -84,59 +105,89 @@ const AuthorH3 = styled.h3`
   font-weight: 200;
   font-size: 1.4rem;
   line-height: 1.6rem;
+  text-align: center;
   color: ${COLORS.BLACK};
+  display: -webkit-box;
+  max-width: 400px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const DropWrapper = styled.div`
+  margin-left: 15%;
+  display: flex;
+  justify-content: center;
+`;
+const AllButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15%;
 `;
 
 const BotWrapper = styled.div`
   width: 290px;
   height: 170px;
   padding: 30px;
+  margin-top: 5%;
   background-color: ${COLORS.PURPLE_LIGHT};
-
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
   align-items: center;
+  border-radius: 12px;
 `;
 
-const GoalH3 = styled.h3`
-  ${FONTS_SECONDARY};
-  font-weight: 400;
-  font-size: 2.2rem;
-  line-height: 2.4rem;
-  text-align: center;
-  color: ${COLORS.BLUE_MID};
+const TextWrapper = styled.div`
+  display: flex;
+  ${ScrollBarStyle};
+  background-color: ${COLORS.PURPLE_LIGHT};
+
+  width: 290px;
+  height: 170px;
+  padding-right: 5px;
+  overflow-y: auto;
 `;
 
 export const LargeBookCard = ({
   bookTitle,
   authorName,
   bookCover,
-  genres,
+  description,
+  AddClusterFunction,
+  CreateGoalFunction,
+  tempFunction,
+  pageCount,
+  showButtons = true,
 }: LargeBookCardType) => {
+  const navigate = useNavigate();
   return (
     <CardWrapper>
       <TopWrapper>
-        <CoverWrapper></CoverWrapper>
+        <CoverWrapper>{bookCover}</CoverWrapper>
         <InfoWrapper>
           <TitleH2>{bookTitle}</TitleH2>
           <AuthorH3>by {authorName}</AuthorH3>
-          {genres && (
-            <PillWrapper>
-              {genres.map((genre, index) => (
-                <Pill key={index}>{genre}</Pill>
-              ))}
-            </PillWrapper>
-          )}
-          <StarRating rating={3} />
+          <AllButtonWrapper>
+            {showButtons && (
+              <>
+                <>{CreateGoalFunction}</>
+              </>
+            )}
+            <DropWrapper>
+              {' '}
+              {tempFunction}
+              {AddClusterFunction}
+            </DropWrapper>
+          </AllButtonWrapper>
         </InfoWrapper>
       </TopWrapper>
       <BotWrapper>
-        <GoalH3>No Goal Set!</GoalH3>
-        <P centered>
-          Join <b>Erin Keith</b> and 3 other friends by setting a reading goal
-        </P>
-        <LargeRoundedButton>Set Goal</LargeRoundedButton>
+        <TextWrapper>
+          <P> {description}</P>
+        </TextWrapper>
       </BotWrapper>
     </CardWrapper>
   );

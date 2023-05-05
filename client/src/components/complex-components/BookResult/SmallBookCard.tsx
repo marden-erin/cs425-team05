@@ -10,7 +10,7 @@ type SmallBookCardType = {
   /**
    * Author of the book
    */
-  authorName: string;
+  authorName: string[];
   /**
    * Image of book cover
    */
@@ -21,8 +21,8 @@ type SmallBookCardType = {
   selected?: boolean;
 };
 
-const ResultWrapper = styled.div<{ selected?: boolean }>`
-  width: 44rem;
+const ResultWrapper = styled.div<{ $selected?: boolean }>`
+  width: 43rem;
   height: 10rem;
   background-color: ${COLORS.WHITE};
   box-shadow: 0px 2px 2px 2px rgba(67, 35, 157, 0.3);
@@ -32,25 +32,54 @@ const ResultWrapper = styled.div<{ selected?: boolean }>`
   align-items: center;
   gap: 22px;
 
+  :hover {
+    background-color: ${COLORS.PURPLE_LIGHT};
+    border: 4px solid ${COLORS.PURPLE_MID};
+  }
   ${(props) =>
-    props.selected &&
+    props.$selected &&
     css`
       background-color: ${COLORS.PURPLE_LIGHT};
       border: 4px solid ${COLORS.PURPLE_MID};
     `}
+
+  cursor: pointer;
+`;
+
+const Input = styled.input`
+  position: absolute;
+  width: 20rem;
+  height: 10rem;
+  opacity: 0;
+
+  :hover {
+    cursor: pointer;
+  }
+
+  :hover + .book-card {
+    background-color: ${COLORS.PURPLE_LIGHT};
+    border: 4px solid ${COLORS.PURPLE_MID};
+  }
 `;
 
 const CoverWrapper = styled.div`
   width: 60px;
-  height: 90px;
-  background-color: ${COLORS.PURPLE_DARK};
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: ${COLORS.PURPLE_MID};
   border: 3px solid ${COLORS.PURPLE_MID};
+  overflow-y: hidden;
+  max-width-inline: 100%;
+  object-fit: scale-down;
 `;
 
 const TextWrapper = styled.div`
   // Setting maxes to handle overflow
   max-width: 30rem;
   max-height: 10rem;
+  text-align: start;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -81,13 +110,15 @@ export const SmallBookCard = ({
   selected,
 }: SmallBookCardType) => {
   return (
-    <ResultWrapper selected={selected} className="small-book-card">
-      <CoverWrapper></CoverWrapper>
-      <TextWrapper>
-        <TitleH2>{bookTitle}</TitleH2>
-        <AuthorH3>{authorName}</AuthorH3>
-      </TextWrapper>
-    </ResultWrapper>
+    <>
+      <ResultWrapper className="book-card" $selected={selected}>
+        <CoverWrapper>{bookCover}</CoverWrapper>
+        <TextWrapper>
+          <TitleH2>{bookTitle}</TitleH2>
+          <AuthorH3>{authorName}</AuthorH3>
+        </TextWrapper>
+      </ResultWrapper>
+    </>
   );
 };
 

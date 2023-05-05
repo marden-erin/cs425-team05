@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components';
 import { COLORS } from '../../constants';
 import { P } from './TextComponents';
 import OWServiceProvider from '../../OuterWhorldServiceProvider';
+import { useAuthUser } from 'react-auth-kit';
 
 const ColumnFlexCss = css`
   display: flex;
@@ -62,6 +63,7 @@ const OutPut = styled.div`
 `;
 
 function ClusterBooks(book: Book) {
+  const auth = useAuthUser();
   const { title, authors, description, pageCount, cover } = book;
 
   console.log(title);
@@ -73,12 +75,16 @@ function ClusterBooks(book: Book) {
 
   const [add, setAdd] = useState('');
 
+  const username = auth()?.username;
+
   const loadData = async (e: any) => {
     e.preventDefault();
+    const date = new Date();
     const response = await OWServiceProvider.addBookToCluster(
       'test',
-      'andrei',
-      book
+      username,
+      book,
+      date.toString()
     );
     console.log(response);
     setAdd(response);

@@ -33,6 +33,10 @@ type WrapperProps = {
    */
   titleColor?: string;
   /**
+   * Use to not show navbar
+   */
+  disableNav?: boolean;
+  /**
    * Other css
    */
   $css?: ThemedCssFunction<DefaultTheme>;
@@ -53,11 +57,13 @@ const Wrapper = styled.div<{ $css?: ThemedCssFunction<DefaultTheme> }>`
   background-size: 75%;
   background-position: right center;
   background-repeat: no-repeat;
+  min-height: 100vh;
 `;
 
 const Header = styled(H1)<{ fontColor?: string }>`
   text-align: center;
   color: ${(props) => (props.fontColor ? props.fontColor : COLORS.WHITE)};
+  margin-block-start: 4rem;
 `;
 
 export const PageWrapper = ({
@@ -66,6 +72,7 @@ export const PageWrapper = ({
   header,
   backgroundColor,
   titleColor,
+  disableNav,
   $css,
 }: WrapperProps) => {
   return (
@@ -76,7 +83,7 @@ export const PageWrapper = ({
       <GlobalStyle backgroundColor={backgroundColor} />
       <Wrapper $css={$css}>
         <SemiHiddenLink href="#main">Skip to Content</SemiHiddenLink>
-        <NavBar />
+        {!disableNav && <NavBar />}
         {header && <Header fontColor={titleColor}>{header}</Header>}
         <div id="main">{children}</div>
       </Wrapper>

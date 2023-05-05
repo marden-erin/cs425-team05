@@ -4,15 +4,17 @@ import { FiChevronDown } from 'react-icons/fi';
 
 import { COLORS } from '../../../constants';
 import Search from '../SearchBar/Search';
-import { PrototypePages, SampleItems, SnailImageURL } from './NAV_BAR_LINKS';
+import { SnailPages } from './NAV_BAR_LINKS';
+import { StarDisplay } from '../Currency';
 import Logo from '../../../imgs/logo.png';
+import { ProfilePic } from '../ProfileNav';
 
 const LinkStyle = css`
-  width: 15rem;
+  width: 13.5rem;
   height: 5rem;
   border: none;
-  background-color: ${COLORS.BLUE_MID};
-  transition: background-color 0.75s ease-out;
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
+  transition: background-color 0.3s ease-out;
   cursor: pointer;
   text-decoration: none;
   font-size: 1.6rem;
@@ -23,24 +25,24 @@ const LinkStyle = css`
   justify-content: center;
 
   :hover {
-    background-color: ${COLORS.BLUE_DARK};
+    background-color: ${COLORS.PURPLE_LIGHT};
   }
 `;
 
 const NavWrapper = styled.nav`
   height: 5rem;
   padding: 0.5rem 6rem 0.5rem 3rem;
-  background-color: ${COLORS.BLUE_MID};
+  background-color: ${COLORS.PURPLE_XTRALIGHT};
 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   z-index: 999999;
 `;
 
 const LinkWrapper = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 `;
 
 const LogoLinkWrapper = styled.a`
@@ -48,13 +50,21 @@ const LogoLinkWrapper = styled.a`
   height: 5rem;
 `;
 
-const NavLink = styled.a`
+const NavLink = styled.a<{ noLink?: boolean }>`
   ${LinkStyle}
+  ${(props) =>
+    props.noLink &&
+    css`
+      pointer-events: none;
+    `}
   display: flex;
   gap: 4px;
+  color: ${COLORS.BLUE_DARK};
 `;
 
 const SearchBarWrapper = styled.div`
+display: flex;
+flex-direction:row
   width: 55rem;
 `;
 
@@ -90,7 +100,7 @@ type DropDownProps = {
   /**
    * The url the link on the NavBar should go to
    */
-  linkURL: string;
+  linkURL?: string;
   /**
    * An array of elements to be rendered under the dropdown
    */
@@ -100,7 +110,7 @@ type DropDownProps = {
 const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
   return (
     <DropDownWrapper>
-      <NavLink href={linkURL}>
+      <NavLink noLink>
         {linkLabel}
         <FiChevronDown role="presentation" size="2rem" />
       </NavLink>
@@ -117,34 +127,25 @@ const DropDownLink = ({ linkLabel, linkURL, dropDownItems }: DropDownProps) => {
   );
 };
 
-// POST-PROTOTYPE TODO: Change 'Prototype' back to 'Profile'
-export const NavBar = () => (
-  <NavWrapper>
-    <LogoLinkWrapper href="/">
-      <img src={Logo} alt="" role="presentation" width="150px" />
-    </LogoLinkWrapper>
-    <LinkWrapper>
-      <NavLink href="/about">About</NavLink>
-      <DropDownLink
-        linkLabel="Prototype"
-        linkURL={SnailImageURL}
-        dropDownItems={PrototypePages}
-      />
-      <DropDownLink
-        linkLabel="Cluster"
-        linkURL={SnailImageURL}
-        dropDownItems={SampleItems}
-      />
-      <DropDownLink
-        linkLabel="Books"
-        linkURL={SnailImageURL}
-        dropDownItems={SampleItems}
-      />
-    </LinkWrapper>
-    <SearchBarWrapper>
-      <Search />
-    </SearchBarWrapper>
-  </NavWrapper>
-);
+export const NavBar = () => {
+  return (
+    <NavWrapper>
+      <LogoLinkWrapper href="/">
+        <img src={Logo} alt="" role="presentation" width="150px" />
+      </LogoLinkWrapper>
+      <LinkWrapper>
+        <NavLink href="/about">About</NavLink>
+        <DropDownLink linkLabel="Snail" dropDownItems={SnailPages} />
+        <NavLink href="/view-clusters">Clusters</NavLink>
+        <NavLink href="/view-goals">Goals</NavLink>
+      </LinkWrapper>
+      <SearchBarWrapper>
+        <Search />
+      </SearchBarWrapper>
+      <StarDisplay nav />
+      <ProfilePic />
+    </NavWrapper>
+  );
+};
 
 export default NavBar;

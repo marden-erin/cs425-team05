@@ -10,7 +10,7 @@ const TextCss = css`
 const H1 = styled.h1`
   ${TextCss}
   ${FONTS_MAIN}
-    font-size: 10rem;
+    font-size: 6rem;
 `;
 
 const SubTitle = styled.span`
@@ -28,13 +28,21 @@ const H2 = styled.h2`
     font-size: 2.4rem;
 `;
 
+const H3 = styled.h3`
+  ${FONTS_MAIN}
+  font-size: 2rem;
+  color: ${COLORS.PURPLE_MID};
+`;
 const P = styled.p<{ centered?: boolean }>`
   ${TextCss}
   ${FONTS_SECONDARY}
     font-size: 1.6rem;
   b {
-    font-size: 1.6rem;
+    font-size: inherit;
     color: ${COLORS.BLUE_MID};
+  }
+  a {
+    font-size: inherit;
   }
 
   ${(props) =>
@@ -45,7 +53,7 @@ const P = styled.p<{ centered?: boolean }>`
 `;
 
 const Label = styled.label`
-  font-family: ${FONTS_MAIN};
+  ${FONTS_MAIN};
   color: ${COLORS.PURPLE_MID};
   font-size: 1.6rem;
   letter-spacing: 0.02em;
@@ -75,4 +83,4 @@ const BookTitle = styled.span`
   text-align: center;
 `;
 
-export { H1, H2, P, SubTitle, Author, PageCount, BookTitle, Label };
+export { H1, H2, H3, P, SubTitle, Author, PageCount, BookTitle, Label };

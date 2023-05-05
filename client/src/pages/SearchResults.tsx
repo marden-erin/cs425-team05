@@ -1,63 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import {
-  FilterDropdown,
-  LargeBookCard,
-  SmallBookCard,
-  PageWrapper,
-} from '../components';
-import { COLORS, FONTS_MAIN, ScrollBarStyle } from '../constants';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-// TODO: DELETE THIS - Just used to show how a map function works
-const TEMPBOOKEXAMPLES = [
-  {
-    title: 'The Memoirs of a Slug with a Shell: An Extended Discussion',
-    author: 'Barack Obama',
-    cover: '',
-  },
-  {
-    title: 'Wow! Cool snail!',
-    author: 'Tony Hawk',
-    cover: '',
-  },
-  {
-    title: 'The Time A Snail Killed My Cousin',
-    author: 'Murder Snail',
-    cover: '',
-  },
-  {
-    title: 'The Memoirs of a Slug with a Shell: An Extended Discussion',
-    author: 'Barack Obama',
-    cover: '',
-    selected: true,
-  },
-  {
-    title: 'Wow! Cool snail!',
-    author: 'Tony Hawk',
-    cover: '',
-  },
-  {
-    title: 'The Time A Snail Killed My Cousin',
-    author: 'Murder Snail',
-    cover: '',
-  },
-  {
-    title: 'The Memoirs of a Slug with a Shell: An Extended Discussion',
-    author: 'Barack Obama',
-    cover: '',
-    selected: true,
-  },
-  {
-    title: 'Wow! Cool snail!',
-    author: 'Tony Hawk',
-    cover: '',
-  },
-  {
-    title: 'The Time A Snail Killed My Cousin',
-    author: 'Murder Snail',
-    cover: '',
-  },
-];
+import styled from 'styled-components';
+import { PageWrapper } from '../components';
+import OWServiceProvider from '../OuterWhorldServiceProvider';
+import { Book } from '../../../server/src/utils/Types';
+import BookData from '../components/complex-components/BookResult/BookData';
+import { LoadingPage } from '../components/complex-components/Loading';
 
 const GridWrapper = styled.div`
   height: 85vh;
@@ -69,81 +18,60 @@ const GridWrapper = styled.div`
   gap: 35px;
 `;
 
-const ResultsCard = styled.div`
-  width: 50rem;
-  height: 60rem;
-  padding: 20px 15px;
-  background-color: ${COLORS.PURPLE_XTRALIGHT};
-  box-shadow: 10px 10px 10px #220d50;
-  border-radius: 15px;
+function SearchResults() {
+  const [bookInfo, setBookInfo] = useState({} as Book);
+  const [allBooks, setAllBooks] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+  const location = useLocation();
 
-const ScrollableDiv = styled.div`
-  height: 52.5rem;
-  width: 50rem;
-  background-color: ${COLORS.PURPLE_LIGHT};
+  // userInput is what the user typed into search bar
+  var userInput = location.state.input;
+  const [myState, setMystate] = useState(userInput);
 
-  // Makes the div scrollable
-  overflow-y: scroll;
-  overflow-x: hidden;
-
-  .small-book-card {
-    margin-inline-start: 5px;
-    margin-block-start: 10px;
+  if (userInput != myState) {
+    window.location.reload();
   }
 
-  ${ScrollBarStyle}
-`;
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 5000);
 
-const H1 = styled.h1`
-  font-family: ${FONTS_MAIN};
-  font-style: italic;
-  font-weight: 600;
-  font-size: 2.4rem;
-  line-height: 2.9rem;
-  margin-bottom: 4px;
-`;
+    const loadData = async (e: any) => {
+      const data = await OWServiceProvider.getBookInfo(userInput);
+      setBookInfo(data[0]);
+      const temp = data.map((x, index) => {
+        return {
+          key: index,
+          title: x.title,
+          author: x.authors + ' ',
+          cover: x.cover,
+          description: x.description,
+          pageCount: x.pageCount,
+        };
+      });
+      setAllBooks([...temp]);
+    };
+    loadData(userInput);
+  }, [myState]);
 
-function SearchResults() {
+  let props = {
+    book: bookInfo,
+    allBooks: allBooks,
+  };
+
   return (
-    <PageWrapper pageTitle="Search Results">
-      <GridWrapper>
-        <ResultsCard>
-          <H1>Search Results</H1>
-          <FilterDropdown />
-          <ScrollableDiv>
-            {TEMPBOOKEXAMPLES.map(
-              ({ title, author, cover, selected }, index) => {
-                return (
-                  <SmallBookCard
-                    bookTitle={title}
-                    authorName={author}
-                    bookCover={cover}
-                    selected={selected}
-                    key={index}
-                  />
-                );
-              }
-            )}
-          </ScrollableDiv>
-        </ResultsCard>
-        <LargeBookCard
-          bookTitle="This is the Title of a Book I could Write"
-          authorName="Joe Jonas"
-          bookCover=""
-          genres={[
-            'Horror',
-            'Mystery',
-            'Historical Fiction',
-            "Children's Literature",
-          ]}
-        />
-      </GridWrapper>
-    </PageWrapper>
+    <>
+      {' '}
+      {loading === false ? (
+        <PageWrapper pageTitle="Search Results">
+          <GridWrapper>
+            <BookData {...props}></BookData>
+          </GridWrapper>
+        </PageWrapper>
+      ) : (
+        <LoadingPage />
+      )}
+    </>
   );
 }
 

@@ -1,55 +1,76 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import {
+  SmallHalfRoundedButton,
+  SearchInput,
+  VisuallyHiddenSpan,
+} from '../../simple-components';
+import { FiSearch } from 'react-icons/fi';
 
-import { COLORS } from '../../../constants';
-import BookData from '../BookData';
-import { SmallHalfRoundedButton, ThinInput } from '../../simple-components';
-import { Book } from '../../../../../server/src/utils/Types';
-import OWServiceProvider from '../../../OuterWhorldServiceProvider';
+type SearchProps = {
+  /**
+   * What to override the id with
+   */
+  overrideId?: string;
+};
 
 const SearchBarWrapper = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: baseline;
   gap: 5px;
-  width: 55rem;
-`;
-//
-
-const TEMP_DIV = styled.div`
-  width: 600px;
-  height: 600px;
-
-  background-color: ${COLORS.WHITE};
+  max-height: 3rem;
+  width: 45rem;
+  padding-bottom: 1rem;
 `;
 
-export const Search = () => {
-  const [bookInfo, setBookInfo] = useState({} as Book);
+export const Search = ({ overrideId }: SearchProps) => {
   const [input, setInput] = useState('');
+  const navigate = useNavigate();
 
-  // just an example of how to use the API. If you don't include the bookTitle param you will be given an error
-  const loadData = async (e: any) => {
-    e.preventDefault();
-    const data = await OWServiceProvider.getBookInfo(input);
-    setBookInfo(data[0]);
+  const handleChange = () => {
+    // Only search if the user actually entered something
+    if (input !== '') {
+      navigate('/search-results', { state: { input } });
+    }
   };
-
   return (
-    //<PageWrapper pageTitle="Search Results" header="Search Results">
     <>
-      <form onSubmit={loadData}>
+      <form>
         <SearchBarWrapper>
-          <ThinInput
-            placeholder="Search for authors, books, clusters, or users"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          ></ThinInput>
-          <SmallHalfRoundedButton>Search</SmallHalfRoundedButton>
+          <div>
+            <VisuallyHiddenSpan>
+              <label htmlFor={overrideId ? overrideId : 'book-search-input'}>
+                Book Search
+              </label>
+            </VisuallyHiddenSpan>
+
+            <FiSearch
+              style={{
+                color: 'grey',
+                fontSize: '25px',
+                transform: 'translate(130%, 25%)',
+              }}
+            />
+            <SearchInput
+              id={overrideId ? overrideId : 'book-search-input'}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            ></SearchInput>
+          </div>
+          <SmallHalfRoundedButton
+            id="book-search-button"
+            type="button"
+            onClick={handleChange}
+          >
+            Search
+          </SmallHalfRoundedButton>
         </SearchBarWrapper>
       </form>
-      <div>
-        <BookData {...bookInfo}></BookData>
-      </div>
+      <div></div>
     </>
-    // </PageWrapper>
   );
 };
 

@@ -67,11 +67,10 @@ const getAllClusters = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const addCluster = asyncHandler(async (req: Request, res: Response) => {
-	const { clusterName, userName, visibility } = req.body;
-
+	const { clusterName, userName, visibility , date} = req.body;
 	if (
-		(clusterName && userName && visibility) ||
-		(clusterName && userName && visibility === false)
+		(clusterName && userName && visibility && date) ||
+		(clusterName && userName && visibility === false && date)
 	) {
 		const filteredClusterName = clusterName.replace(/"/g, "''");
 		const filteredUserName = userName.replace(/"/g, "''");
@@ -95,7 +94,7 @@ const addCluster = asyncHandler(async (req: Request, res: Response) => {
 				);
 			}
 
-			query = `insert into Clusters (cluster_id, clusterName, user_id, visibility) values(DEFAULT,'${filteredClusterName}', '${user_id}', ${visibility});`;
+			query = `insert into Clusters (cluster_id, clusterName, user_id, visibility, updated_at) values(DEFAULT,'${filteredClusterName}', '${user_id}', ${visibility}, '${date}');`;
 			await db.promise().query(query);
 			res.status(HTTPStatus.OK).json("Cluster successfully created");
 		} catch (err: any) {
@@ -107,14 +106,15 @@ const addCluster = asyncHandler(async (req: Request, res: Response) => {
 		res.status(HTTPStatus.BAD).json(errMsg);
 		throw new Error(errMsg);
 	}
+
 });
 
 const updateCluster = asyncHandler(async (req: Request, res: Response) => {
-	const { clusterName, newClusterName, userName, visibility } = req.body;
+	const { clusterName, newClusterName, userName, visibility, date } = req.body;
 
 	if (
-		(clusterName && newClusterName && userName && visibility) ||
-		(clusterName && newClusterName && userName && visibility === false)
+		(clusterName && newClusterName && userName && visibility && date) ||
+		(clusterName && newClusterName && userName && visibility === false && date)
 	) {
 		const filteredClusterName = clusterName.replace(/"/g, "''");
 		const filteredNewClusterName = newClusterName.replace(/"/g, "''");
@@ -124,10 +124,11 @@ const updateCluster = asyncHandler(async (req: Request, res: Response) => {
 			const [user]: any[] = await db.promise().query(query);
 			const { user_id } = user[0];
 
-			query = `select * from Clusters where clusterName='${filteredClusterName}' and user_id='${user_id}';`;
+			query = `select * from Clusters where clusterName="${filteredClusterName}" and user_id='${user_id}';`;
 			const [cluster]: any[] = await db.promise().query(query);
 
-			query = `select * from Clusters where clusterName='${filteredNewClusterName}' and user_id='${user_id}'`;
+
+			query = `select * from Clusters where clusterName="${filteredNewClusterName}" and user_id='${user_id}'`;
 			const [duplicateClusterNames]: any[] = await db.promise().query(query);
 
 			if (cluster.length > 0) {
@@ -142,7 +143,7 @@ const updateCluster = asyncHandler(async (req: Request, res: Response) => {
 					);
 				} else {
 					const { cluster_id } = cluster[0];
-					query = `update Clusters set clusterName='${filteredNewClusterName}', visibility='${visibility}' where cluster_id='${cluster_id}'`;
+					query = `update Clusters set clusterName="${filteredNewClusterName}", visibility='${visibility}', updated_at='${date}' where cluster_id='${cluster_id}'`;
 					await db.promise().query(query);
 				}
 			} else {
