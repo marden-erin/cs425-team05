@@ -76,7 +76,7 @@ export const ClusterDropDown = (props: any) => {
 
   const [bookInfo, setBookInfo] = useState({} as Book);
   const { title, authors, description, pageCount, cover } = props.book;
-\  const [output, setOutput] = useState('');
+  const [output, setOutput] = useState('');
 
   const [cluster, setCluster] = useState([
     { cluster_id: ' ', clusterName: ' ', user_id: '', visibility: '' },
